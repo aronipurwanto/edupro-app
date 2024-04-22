@@ -1,0 +1,33 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-level" th:action="@{~/master/sesi/save}" th:method="post">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Tambah Sesi</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group row">
+                <div class="col mb-3">
+                    <label for="kodeSesi" class="form-label">Kode Sesi</label>
+                    <input type="text" id="kodeSesi" name="kodeSesi" class="form-control" placeholder="Kode Sesi" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col mb-3">
+                    <label for="namaSesi" class="form-label">Nama Sesi</label>
+                    <input type="text" id="namaSesi" name="namaSesi" class="form-control" placeholder="Nama Sesi" />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="fa-pull-right">
+                <button type="submit" class="btn btn-success">
+                    <i class="ti ti-check"></i>
+                    Simpan
+                </button>
+                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,62 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-level"  th:action="@{~/master/mapel/remove}" th:method="post">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Delete Mata Pelajaran</h5>
+            <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-3 mb-3">
+                    <label for="kodeMapel" class="form-label">Kode Mapel</label>
+                    <input type="text" id="kodeMapel" name="kodeMapel" class="form-control" placeholder="Kode Mapel" />
+                </div>
+                <div class="col-lg-6 mb-6">
+                    <label for="namaMapel" class="form-label">Nama Mapel</label>
+                    <input type="text" id="namaMapel" name="namaMapel" class="form-control" placeholder="Nama Mapel" />
+                </div>
+                <div class="col-lg-3 mb-3">
+                    <label for="agama" class="form-label">Mapel Agama</label>
+                    <input type="text" id="agama" name="agama" class="form-control" placeholder="Agama">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                    <label for="level" class="form-label">Level</label>
+                    <input type="text" id="level" name="level" class="form-control" placeholder="Level">
+                </div>
+                <div class="col-lg-3 mb-3">
+                    <label for="jadwal" class="form-label">Jadwal Pelajaran</label>
+                    <input type="text" id="jadwal" name="jadwal" class="form-control" placeholder="Jadwal">
+                </div>
+                <div class="col-lg-3 mb-3">
+                    <label for="status" class="form-label">Status Mapel</label>
+                    <input type="text" id="status" name="status" class="form-control" placeholder="Status">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 mb-2">
+                    <label for="kurikulum" class="form-label">Kurikulum</label>
+                    <input type="text" id="kurikulum" name="kurikulum" class="form-control" placeholder="Kurikulum">
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <label for="kelompok" class="form-label">Kelompok Mapel</label>
+                    <input type="text" id="kelompok" name="kelompok" class="form-control" placeholder="kelompok">
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <label for="urutan" class="form-label">Urutan</label>
+                    <input type="text" id="urutan" name="urutan" class="form-control" placeholder="Urutan" />
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <label for="kkm" class="form-label">KKM</label>
+                    <input type="text" id="kkm" name="kkm" class="form-control" placeholder="KKM" />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</form>
