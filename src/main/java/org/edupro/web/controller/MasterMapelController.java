@@ -20,7 +20,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/master/mapel")
 @RequiredArgsConstructor
-public class MasterMapelController {
+public class MasterMapelController extends BaseController<MapelResponse> {
     private final MasterMapelService service;
 
     @GetMapping
@@ -77,23 +77,5 @@ public class MasterMapelController {
         var result = service.delete(id);
 
         return getResponse(result);
-    }
-
-    private ResponseEntity<Response> getResponse(Optional<MapelResponse> result){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BAD_REQUEST.value())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(1)
-                        .build()
-        );
     }
 }
