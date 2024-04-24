@@ -60,7 +60,7 @@ public class MasterRuanganController {
     }
 
     @GetMapping("/edit/{kode}")
-    public ModelAndView edit(@PathVariable("kode") String kode){
+    public ModelAndView edit(@PathVariable("kode") String id){
         return new ModelAndView("pages/master/ruangan/edit");
     }
 
@@ -72,13 +72,20 @@ public class MasterRuanganController {
     }
 
     @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") Integer id){
-        return new ModelAndView("pages/master/ruangan/delete");
+    public ModelAndView delete(@PathVariable("id") String id){
+        ModelAndView view = new ModelAndView("pages/master/ruangan/delete");
+        var result = this.service.getById(id).orElse(null);
+        if (result == null){
+            return new ModelAndView("pages/master/error/not-found");
+        }
+
+        view.addObject("ruangan", result);
+        return view;
     }
 
     @PostMapping("/remove/{kode}")
-    public ResponseEntity<Response> remove(@PathVariable("kode") String kode){
-        var result = service.delete(kode);
+    public ResponseEntity<Response> remove(@ModelAttribute("ruangan") String id){
+        var result = service.delete(id);
 
         return getResponse(result);
     }
