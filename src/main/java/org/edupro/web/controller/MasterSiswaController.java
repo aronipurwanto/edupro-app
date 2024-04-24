@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.model.request.SiswaRequest;
 import org.edupro.web.model.response.Response;
-import org.edupro.web.model.response.SesiResponse;
 import org.edupro.web.model.response.SiswaResponse;
 import org.edupro.web.service.MasterSiswaService;
 import org.springframework.http.HttpStatus;
