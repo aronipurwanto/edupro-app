@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GedungRequest {
-    private Integer id;
+    private String id;
     @NotEmpty(message = "kode wajib di isi")
     @Size(min = 1, max = 10, message = "minimal 1 dan maximal 10")
     private String kode;
