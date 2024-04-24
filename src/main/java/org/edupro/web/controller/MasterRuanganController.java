@@ -22,7 +22,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/master/ruangan")
 @RequiredArgsConstructor
-public class MasterRuanganController {
+public class MasterRuanganController extends BaseController<RuanganResponse> {
 
     private final MasterRuanganService service;
     private final MasterGedungService gedungService;
@@ -93,31 +93,6 @@ public class MasterRuanganController {
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<RuanganResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
-    }
-
-    private ResponseEntity<Response> getResponse(Optional<RuanganResponse> result){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED.ordinal())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(1)
-                        .build()
-        );
+        return getResponse(result);
     }
 }

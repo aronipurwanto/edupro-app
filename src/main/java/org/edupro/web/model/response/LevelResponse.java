@@ -8,9 +8,9 @@ import lombok.*;
 @Setter
 @Builder
 public class LevelResponse {
-    private Integer id;
+    private String id;
+    private Integer idLembaga;
     private String kode;
     private String nama;
     private String status;
-    private String riwayat;
 }
