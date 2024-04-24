@@ -20,8 +20,9 @@ import java.util.Optional;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/master/kelas")
-public class MasterKelasController {
+public class MasterKelasController extends BaseController<KelasResponse> {
     private final MasterKelasService service;
+
     @GetMapping
     public ModelAndView index(){
         var view = new ModelAndView("pages/master/kelas/index");
@@ -47,14 +48,7 @@ public class MasterKelasController {
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<KelasResponse> result = service.getAll();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
+        return getResponse(result);
     }
 
     @PostMapping("/save")
@@ -74,24 +68,6 @@ public class MasterKelasController {
     public ResponseEntity<Response> remove(@PathVariable("id") Integer id){
         var result = service.delete(id);
 
-        return getResponse(result);
-    }
-
-    private ResponseEntity<Response> getResponse(Optional<KelasResponse> result){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BAD_REQUEST.value())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(1)
-                        .build()
-        );
+        return this.getResponse(result);
     }
 }

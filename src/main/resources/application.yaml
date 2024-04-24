@@ -1,6 +1,11 @@
 server:
   port: 8082
 spring:
+  mvc:
+    format:
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
   application:
     back-end-url: http://localhost:8081/api/v1
   security:
@@ -13,7 +18,7 @@ spring:
             client-id: edupro-login
             authorization-grant-type: authorization_code
             scope: openid, profile, roles
-            client-secret: 1VMf1MSCIG11ZJwwZm04iOXDcPzs3mME
+            client-secret: 83HvdgvyFh3F0EVSlqPO6CuKEFn3rC98
             redirect-uri: http://localhost:8082/login/oauth2/code/edupro-login
         provider:
           keycloak:

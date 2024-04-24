@@ -18,7 +18,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/master/sesi")
 @RequiredArgsConstructor
-public class MasterSesiController {
+public class MasterSesiController extends BaseController<SesiResponse>{
     private final MasterSesiService service;
     @GetMapping
     public ModelAndView index(){
@@ -35,14 +35,7 @@ public class MasterSesiController {
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<SesiResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
+        return getResponse(result);
     }
 
     @PostMapping("/save")
@@ -71,24 +64,5 @@ public class MasterSesiController {
     public ResponseEntity<Response> remove(@PathVariable("id") Integer id){
         var result = service.delete(id);
         return getResponse(result);
-    }
-
-    private ResponseEntity<Response> getResponse(Optional<SesiResponse> result){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BAD_REQUEST.value())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(1)
-                        .build()
-        );
     }
 }

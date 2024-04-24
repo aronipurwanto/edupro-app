@@ -44,4 +44,8 @@ public class BackEndUrl {
     public String kelompokUrl(){
         return Strings.concat(baseUrl, "/kelompok/mapel");
     }
+
+    public String siswaUrl(){
+        return Strings.concat(baseUrl, "/siswa");
+    }
 }

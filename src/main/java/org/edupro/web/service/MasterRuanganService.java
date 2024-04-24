@@ -9,8 +9,8 @@ import java.util.Optional;
 
 public interface MasterRuanganService {
     List<RuanganResponse> get();
-    Optional<RuanganResponse> getById(String kode);
+    Optional<RuanganResponse> getById(String id);
     Optional<RuanganResponse> save(RuanganRequest request);
-    Optional<RuanganResponse> update(RuanganRequest request, String kode);
-    Optional<RuanganResponse> delete(String kode);
+    Optional<RuanganResponse> update(RuanganRequest request, String id);
+    Optional<RuanganResponse> delete(String id);
 }

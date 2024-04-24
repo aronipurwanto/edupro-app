@@ -19,7 +19,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/master/kelompok")
 @RequiredArgsConstructor
-public class MasterKelompokController {
+public class MasterKelompokController extends BaseController<KelompokResponse> {
     private final MasterKelompokService service;
 
     @GetMapping
@@ -78,14 +78,7 @@ public class MasterKelompokController {
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<KelompokResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
+        return getResponse(result);
     }
 
     @GetMapping("/delete/{id}/{kode}")
@@ -110,23 +103,5 @@ public class MasterKelompokController {
 
         var response = service.delete(request).orElse(null);
         return new ModelAndView("redirect:/master/kelompok");
-    }
-
-    private ResponseEntity<Response> getResponse(Optional<KelompokResponse> response){
-        return response.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BAD_REQUEST.value())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(response)
-                        .total(1)
-                        .build()
-        );
     }
 }
