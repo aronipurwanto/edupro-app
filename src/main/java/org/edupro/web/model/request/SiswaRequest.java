@@ -29,6 +29,6 @@ public class SiswaRequest {
     @Size(max = 20)
     private String kotaTempatLahir;
 
-    @NotNull(message = "tanggal lahir tidak boleh kosong")
+    @NotEmpty(message = "tanggal lahir tidak boleh kosong")
     private String tanggalLahir;
 }
