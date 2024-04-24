@@ -9,8 +9,8 @@ import java.util.Optional;
 public interface MasterMapelService {
 
     List<MapelResponse> get();
-    Optional<MapelResponse> getById(Integer id);
+    Optional<MapelResponse> getById(String id);
     Optional<MapelResponse> save(MapelRequest request);
-    Optional<MapelResponse> update(MapelRequest request, Integer id);
-    Optional<MapelResponse> delete(Integer id);
+    Optional<MapelResponse> update(MapelRequest request);
+    Optional<MapelResponse> delete(MapelRequest request);
 }

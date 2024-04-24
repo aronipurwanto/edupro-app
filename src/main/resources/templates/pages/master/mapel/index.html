@@ -14,7 +14,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex align-items-md-end justify-content-md-between">
-                    <h5 class="card-title mb-0" id="level-title" th:href="@{~/master/mapel/data}">Daftar Mata Pelajaran</h5>
+                    <h5 class="card-title mb-0" id="mapel-title" th:href="@{~/master/mapel/data}">Daftar Mata Pelajaran</h5>
                     <div class="fa-pull-right">
                         <div class="input-group rounded-pill">
                             <button type="button" class="btn btn-sm btn-info" id="btn-add" th:href="@{~/master/mapel/add}">
@@ -36,19 +36,12 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
-                    <table id="table-level" class="table table-striped">
+                    <table id="table-mapel" class="table table-striped">
                         <thead class="table-light">
                         <tr>
                             <th>No</th>
-                            <th>Kelompok</th>
-                            <th>Kurikulum</th>
-                            <th>Kode Mapel</th>
-                            <th>Mata Pelajaran</th>
-                            <th>Level</th>
-                            <th>urutan</th>
-                            <th>KKM</th>
-                            <th>Agama</th>
-                            <th>Jadwal Pelajaran</th>
+                            <th>Kode</th>
+                            <th>Nama</th>
                             <th>Status</th>
                             <th class="cell-fit">Actions</th>
                         </tr>
