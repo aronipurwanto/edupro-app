@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -17,6 +15,6 @@ public class SiswaResponse {
     private String nisn;
     private String nama;
     private String kotaTempatLahir;
-    private LocalDate tanggalLahir;
+    private String tanggalLahir;
     private String status;
 }

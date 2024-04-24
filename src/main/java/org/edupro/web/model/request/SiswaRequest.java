@@ -9,8 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -32,5 +30,5 @@ public class SiswaRequest {
     private String kotaTempatLahir;
 
     @NotNull(message = "tanggal lahir tidak boleh kosong")
-    private LocalDate tanggalLahir;
+    private String tanggalLahir;
 }
