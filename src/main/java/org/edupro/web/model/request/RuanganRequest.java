@@ -14,6 +14,8 @@ import lombok.Setter;
 @Setter
 public class RuanganRequest {
 
+    private String id;
+
     @NotEmpty(message = "kode wajib diisi")
     @Size(min = 4, max = 10, message = "minimal 1 dan maximal 10")
     private String kode;
@@ -23,9 +25,6 @@ public class RuanganRequest {
 
     @NotNull(message = "kapasitas tidak boleh kosong")
     private Integer kapasitas;
-
-    @NotEmpty(message = "kode gedung tidak boleh kosong")
-    @Size(min = 4, max = 32)
-    private String kodeGedung;
+    private String gedungId;
 
 }
