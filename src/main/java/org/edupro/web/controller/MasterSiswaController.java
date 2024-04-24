@@ -19,7 +19,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/master/siswa")
 @RequiredArgsConstructor
-public class MasterSiswaController extends BaseController<SiswaResponse{
+public class MasterSiswaController extends BaseController<SiswaResponse>{
 
     private final MasterSiswaService service;
 
