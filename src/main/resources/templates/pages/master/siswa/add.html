@@ -39,7 +39,7 @@
                 </div>
                 <div class="col mb-3">
                     <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
-                    <input type="text" id="tanggalLahir" name="tanggalLahir"
+                    <input type="date" id="tanggalLahir" name="tanggalLahir"
                            th:value="${siswa.tanggalLahir}" th:class="${#fields.hasErrors('tanggalLahir')}? 'form-control is-invalid': 'form-control'" placeholder="Kota Tempate Lahir" />
                     <div th:if="${#fields.hasErrors('tanggalLahir')}" class="invalid-feedback">
                         <span th:errors="*{tanggalLahir}"></span>
