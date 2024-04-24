@@ -73,7 +73,7 @@ $(function () {
                     searchable: false,
                     orderable: false,
                     render: function (data, type, full, meta) {
-                        var id = full['kode'];
+                        var id = full['id'];
                         var editUrl = ajaxUrl.replace('data','edit') + '/' + id;
                         var deleteUrl = ajaxUrl.replace('data','delete') + '/' + id;
                         return(
@@ -96,7 +96,6 @@ $(function () {
                     this.data(i++);
                 });
         }).draw();
-
     }
 
         $('.dataTables_length').addClass('mt-2 mt-sm-0 mt-md-3 me-2');

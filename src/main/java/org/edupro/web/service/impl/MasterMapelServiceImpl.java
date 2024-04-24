@@ -1,74 +1,119 @@
 package org.edupro.web.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.util.Strings;
+import org.edupro.web.constant.BackEndUrl;
 import org.edupro.web.model.request.MapelRequest;
 import org.edupro.web.model.response.MapelResponse;
+import org.edupro.web.model.response.Response;
 import org.edupro.web.service.MasterMapelService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class MasterMapelServiceImpl implements MasterMapelService {
-
+    private final BackEndUrl backEndUrl;
     private final RestTemplate restTemplate;
-    private static List<MapelResponse> DATA = Arrays.asList(
-            new MapelResponse(1,"-","Semua", "IX-AL-QURAN","AL-QURAN","IX",0,0.0,"Umum","Semua","Aktif"),
-            new MapelResponse(2," ","Semua", "IX-B.Arab","Bahasa Arab","IX",0,0.0,"Islam","Semua","Aktif"),
-            new MapelResponse(3,"-","Semua", "IX-B.Indonesia","Bahasa Indonesia","IX",0,0.0,"Umum","Semua","Aktif"),
-            new MapelResponse(4," ","Semua", "IX-B.Inggris","Bahasa Inggris","IX",0,0.0,"Umum","Semua","Aktif"),
-            new MapelResponse(5," ","Semua", "IX-IPA","IPA","IX",0,0.0,"Umum","Semua","Aktif"),
-            new MapelResponse(6,"-","Semua", "IX-IPS","IPS","IX",0,0.0,"Umum","Semua","Aktif"),
-            new MapelResponse(7," ","Semua", "IX-Mentoring","Mentoring","IX",0,0.0,"Umum","Semua","Aktif"),
-            new MapelResponse(8," ","Semua", "IX-MTK","Matematika","IX",0,0.0,"Umum","Semua","Aktif"),
-            new MapelResponse(9," ","Semua", "IX-MTK","Matematika","IX",0,0.0,"Umum","Semua","Aktif"),
-            new MapelResponse(10," ","Semua", "IX-MTK","Matematika","IX",0,0.0,"Umum","Semua","Aktif")
-    );
+    private final ObjectMapper objectMapper;
 
-    public List<MapelResponse> get(){
-        return DATA;
+    @Override
+    public List<MapelResponse> get() {
+        try {
+            var url = backEndUrl.mapelUrl();
+            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                return (List<MapelResponse>) response.getBody().getData();
+            }
+        }catch (RestClientException e){
+            return Collections.emptyList();
+        }
+
+        return List.of();
     }
 
     @Override
-    public Optional<MapelResponse> getById(Integer id) {
-        return Optional.empty();
-    }
+    public Optional<MapelResponse> getById(String id) {
+        try {
+            var url = Strings.concat(backEndUrl.mapelUrl(), "/"+ id);
+            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                MapelResponse result = objectMapper.readValue(json, MapelResponse.class);
 
-    @Override
-    public Optional<MapelResponse> update(MapelRequest request, Integer id) {
-        return Optional.empty();
-    }
+                return Optional.of(result);
+            }
+        }catch (RestClientException e){
+            return Optional.empty();
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
 
-    @Override
-    public Optional<MapelResponse> delete(Integer id) {
         return Optional.empty();
     }
 
     @Override
     public Optional<MapelResponse> save(MapelRequest request) {
-        if (request == null){
+        try {
+            var url = backEndUrl.mapelUrl();
+            HttpEntity<MapelRequest> httpEntity = new HttpEntity<>(request);
+            ResponseEntity<Response> response = restTemplate.postForEntity( url, httpEntity, Response.class);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                MapelResponse result = objectMapper.readValue(json, MapelResponse.class);
+                return Optional.of(result);
+            }
+        }catch (RestClientException e){
             return Optional.empty();
+        }catch (IOException e){
+            throw new RuntimeException(e);
         }
-
-        var data = convertResponse(request);
-        DATA.add(data);
-        return Optional.of(data);
+        return Optional.empty();
     }
 
-    private MapelResponse convertResponse (MapelRequest request){
-        MapelResponse result = new MapelResponse();
-        BeanUtils.copyProperties(request, result);
-        return result;
+    @Override
+    public Optional<MapelResponse> update(MapelRequest request) {
+        try {
+            var url = Strings.concat(backEndUrl.mapelUrl(), "/"+ request.getId());
+            HttpEntity<MapelRequest> httpEntity = new HttpEntity<>(request);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                MapelResponse result = objectMapper.readValue(json, MapelResponse.class);
+            }
+        }catch (RestClientException e){
+            return Optional.empty();
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return Optional.empty();
     }
 
-    private MapelRequest convertRequest(MapelResponse response){
-        MapelRequest result = new MapelRequest();
-        BeanUtils.copyProperties(response, result);
-        return result;
+    @Override
+    public Optional<MapelResponse> delete(MapelRequest request) {
+        try {
+            var url = Strings.concat(backEndUrl.mapelUrl(), "/"+ request.getId());
+            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.DELETE, null, Response.class);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                MapelResponse result = objectMapper.readValue(json, MapelResponse.class);
+                return Optional.of(result);
+            }
+        }catch (RestClientException e){
+            return Optional.empty();
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return Optional.empty();
     }
 }

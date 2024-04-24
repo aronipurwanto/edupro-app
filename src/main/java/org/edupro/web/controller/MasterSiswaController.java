@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/siswa")
 @RequiredArgsConstructor
-public class MasterSiswaController {
+public class MasterSiswaController extends BaseController<SiswaResponse>{
 
     private final MasterSiswaService service;
 
@@ -80,7 +81,7 @@ public class MasterSiswaController {
             return new ModelAndView("pages/master/error/not-found");
         }
 
-        view.addObject("siswa", result);
+        view.addObject("ruangan", result);
         return view;
     }
 
@@ -99,14 +100,7 @@ public class MasterSiswaController {
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<SiswaResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
+        return getResponse(result);
     }
 
 }

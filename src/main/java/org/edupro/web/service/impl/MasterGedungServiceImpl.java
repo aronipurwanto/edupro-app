@@ -83,7 +83,7 @@ public class MasterGedungServiceImpl implements MasterGedungService {
     @Override
     public Optional<GedungResponse> update(GedungRequest request) {
         try {
-            var url = Strings.concat(backEndUrl.gedungUrl(),"/"+ request.getKode());
+            var url = Strings.concat(backEndUrl.gedungUrl(),"/"+ request.getId());
             HttpEntity<GedungRequest> httpEntity = new HttpEntity<>(request);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
@@ -102,7 +102,7 @@ public class MasterGedungServiceImpl implements MasterGedungService {
     @Override
     public Optional<GedungResponse> delete(GedungRequest request) {
         try {
-            var url = Strings.concat(backEndUrl.gedungUrl(),"/"+ request);
+            var url = Strings.concat(backEndUrl.gedungUrl(),"/"+ request.getId());
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
