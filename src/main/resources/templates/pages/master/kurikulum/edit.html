@@ -1,0 +1,37 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-kurikulum" th:action="@{~/master/kurikulum/update}"
+      th:method="post" th:object="${kurikulum}">
+    <input type="hidden" name="id" th:value="${kurikulum.id}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Edit Kurikulum</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">
+                <ul>
+                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="kode" class="form-label">Kode</label>
+                    <input type="text" id="kode" name="kode" th:value="${kurikulum.kode}"
+                           th:class="${#fields.hasErrors('kode')}? 'form-control is-invalid': 'form-control'" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" id="nama" name="nama" th:value="${kurikulum.nama}"
+                           th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer input-group">
+            <button type="submit" class="btn btn-warning">Save Changes</button>
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+        </div>
+    </div>
+</form>
