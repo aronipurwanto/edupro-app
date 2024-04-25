@@ -19,7 +19,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/master/siswa")
 @RequiredArgsConstructor
-public class MasterSiswaController {
+public class MasterSiswaController extends BaseController<SiswaResponse>{
 
     private final MasterSiswaService service;
 
@@ -95,32 +95,7 @@ public class MasterSiswaController {
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<SiswaResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
-    }
-
-    private ResponseEntity<Response> getResponse(Optional<SiswaResponse> result ){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED.ordinal())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(1)
-                        .build()
-        );
+        return getResponse(result);
     }
 
 }

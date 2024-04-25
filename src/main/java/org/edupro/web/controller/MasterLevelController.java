@@ -9,6 +9,7 @@ import org.edupro.web.service.MasterLevelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,81 +19,69 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/master/level")
 @RequiredArgsConstructor
-public class MasterLevelController {
+public class MasterLevelController extends BaseController<LevelResponse> {
 
     private final MasterLevelService service;
 
     @GetMapping
     public ModelAndView index(){
         var view = new ModelAndView("pages/master/level/index");
-        view.addObject("data",service.get());
+        view.addObject("level",service.get());
 
         return view;
     }
     @GetMapping("/add")
     public ModelAndView add(){
-        return new ModelAndView("pages/master/level/add");
+        ModelAndView view = new ModelAndView("pages/master/level/add");
+        view.addObject("level", new LevelRequest());
+        return view;
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView edit(@PathVariable("id") Integer id){
-        return new ModelAndView("pages/master/level/edit");
+    public ModelAndView edit(@PathVariable("id") String id){
+        ModelAndView view = new ModelAndView("pages/master/level/edit");
+        var result = this.service.getById(id).orElse(null);
+        if (result == null){
+            return new ModelAndView("pages/master/error/not-found");
+        }
+        view.addObject("level", result);
+        return view;
     }
 
     @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") Integer id){
+    public ModelAndView delete(@PathVariable("id") String id){
         return new ModelAndView("pages/master/level/delete");
     }
 
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<LevelResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
+        return getResponse(result);
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Response> save(@RequestBody @Valid LevelRequest request){
-        var result = service.save(request);
-        return getResponse(result);
+    public ModelAndView save(@ModelAttribute("level") @Valid LevelRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/level/add");
+        if (result.hasErrors()){
+            view.addObject("level", request);
+            return view;
+        }
+        var response = service.save(request);
+        return new ModelAndView("redirect:/master/level");
 
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<Response> update(@RequestBody @Valid LevelRequest request,@PathVariable("id") Integer id){
+    public ResponseEntity<Response> update(@ModelAttribute("level") @Valid LevelRequest request,@PathVariable("id") String id){
         var result = service.update(request, id);
 
         return getResponse(result);
     }
 
     @PostMapping("/remove/{id}")
-    public ResponseEntity<Response> remove(@PathVariable("id") Integer id){
+    public ResponseEntity<Response> remove(@PathVariable("id") String id){
         var result = service.delete(id);
 
         return getResponse(result);
-    }
-
-    private ResponseEntity<Response> getResponse(Optional<LevelResponse> result){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BAD_REQUEST.value())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(1)
-                        .build()
-        );
     }
 }
