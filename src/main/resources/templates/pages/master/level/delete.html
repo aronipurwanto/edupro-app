@@ -7,15 +7,11 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-<!--            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">-->
-<!--                <ul>-->
-<!--                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
-<!--                </ul>-->
-<!--            </div>-->
             <div class="row">
                 <div class="col mb-3">
                     <label for="nama" class="form-label">Id Lembaga</label>
                     <input type="number" id="idLembaga" name="idLembaga" th:value="${level.idLembaga}" class="form-control" placeholder="Id Lembaga" readonly />
+
                 </div>
             </div>
             <div class="row">

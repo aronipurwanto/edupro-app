@@ -48,10 +48,10 @@ public class MasterGedungController {
         return new ModelAndView("redirect:/master/gedung");
     }
 
-    @GetMapping("/edit/{kode}")
-    public ModelAndView edit(@PathVariable("kode") String kode) {
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/master/gedung/edit");
-        var result = this.service.getById(kode).orElse(null);
+        var result = this.service.getById(id).orElse(null);
         if (result == null) {
             return new ModelAndView("pages/master/error/not-found");
         }
@@ -70,8 +70,8 @@ public class MasterGedungController {
         return new ModelAndView("redirect:/master/gedung");
     }
 
-    @GetMapping("/delete/{kode}")
-    public ModelAndView delete(@PathVariable("kode") String kode) {
+    @GetMapping("/delete/{id}")
+    public ModelAndView delete(@PathVariable("id") String kode) {
         ModelAndView view = new ModelAndView("pages/master/gedung/delete");
         var result = this.service.getById(kode).orElse(null);
         if (result == null) {

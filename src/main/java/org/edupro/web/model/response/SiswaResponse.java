@@ -5,13 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-public class GedungResponse {
+public class SiswaResponse {
+
     private String id;
-    private String kode;
+    private String nisn;
     private String nama;
+    private String kotaTempatLahir;
+    private String tanggalLahir;
     private String status;
 }

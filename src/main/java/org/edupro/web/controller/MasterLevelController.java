@@ -19,7 +19,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/master/level")
 @RequiredArgsConstructor
-public class MasterLevelController {
+public class MasterLevelController extends BaseController<LevelResponse> {
 
     private final MasterLevelService service;
 
@@ -84,10 +84,10 @@ public class MasterLevelController {
     @PostMapping("/remove")
     public ModelAndView delete(@ModelAttribute("level") @Valid LevelRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/level/delete");
-//        if (result.hasErrors()){
-//            view.addObject("level", request);
-//            return view;
-//        }
+        if (result.hasErrors()){
+            view.addObject("level", request);
+            return view;
+        }
         var response = service.delete(request).orElse(null);
         return new ModelAndView("redirect:/master/level");
     }
@@ -95,32 +95,6 @@ public class MasterLevelController {
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<LevelResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
-    }
-
-
-    private ResponseEntity<Response> getResponse(Optional<LevelResponse> result){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BAD_REQUEST.value())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(1)
-                        .build()
-        );
+        return getResponse(result);
     }
 }

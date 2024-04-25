@@ -1,76 +1,44 @@
-<form xmlns:th="http://www.thymeleaf.org" th:id="form-level" th:action="@{~/master/mapel/save}" th:method="post">
-<div class="modal-content">
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-mapel" th:action="@{~/master/mapel/save}"
+      th:method="post" th:object="${mapel}">
+    <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel4">Buat Mapel</h5>
+            <h5 class="modal-title" id="exampleModalLabel4">Tambah Mapel</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">
+                <ul>
+                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                </ul>
+            </div>
             <div class="row">
-                <div class="col-lg-3 mb-3">
-                    <label for="kodeMapel" class="form-label">Kode Mapel</label>
-                    <input type="text" id="kodeMapel" name="kodeMapel" class="form-control" placeholder="Kode Mapel" />
-                </div>
-                <div class="col-lg-6 mb-6">
-                    <label for="namaMapel" class="form-label">Nama Mapel</label>
-                    <input type="text" id="namaMapel" name="namaMapel" class="form-control" placeholder="Nama Mapel" />
-                </div>
-                <div class="col-lg-3 mb-3">
-                    <label for="agama" class="form-label">Mapel Agama</label>
-                    <select id="agama" name="agama" class="form-select">
-                        <option value="">Pilih Mapel Agama</option>
-                    </select>
+                <div class="col mb-3">
+                    <label for="kode" class="form-label">Kode</label>
+                    <input type="text" id="kode" name="kode" th:value="${mapel.kode}" th:class="${#fields.hasErrors('kode')}? 'form-control is-invalid': 'form-control'" placeholder="Kode" />
+                    <div th:if="${#fields.hasErrors('kode')}" class="invalid-feedback">
+                        <span th:errors="*{kode}"></span>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 mb-3">
-                    <label for="level" class="form-label">Level</label>
-                    <select id="level" name="level" class="form-select">
-                        <option value="">Pilih Level</option>
-                    </select>
-                </div>
-                <div class="col-lg-3 mb-3">
-                    <label for="jadwal" class="form-label">Jadwal Pelajaran</label>
-                    <select id="jadwal" name="jadwal" class="form-select">
-                        <option value="">Pilih Jadwal</option>
-                    </select>
-                </div>
-                <div class="col-lg-3 mb-3">
-                    <label for="status" class="form-label">Status Mapel</label>
-                    <select id="status" name="status" class="form-select">
-                        <option value="">Pilih Status Mapel</option>
-                        <option value="1">AKtif</option>
-                        <option value="0">Non Aktif</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 mb-2">
-                    <label for="kurikulum" class="form-label">Kurikulum</label>
-                    <select id="kurikulum" name="agama" class="form-select">
-                        <option value="">Pilih Kurikulum</option>
-                    </select>
-                </div>
-                <div class="col-lg-3 mb-2">
-                    <label for="kelompok" class="form-label">Kelompok Mapel</label>
-                    <select id="kelompok" name="kelompok" class="form-select">
-                        <option value="">Pilih kelompok</option>
-                    </select>
-                </div>
-                <div class="col-lg-3 mb-2">
-                    <label for="urutan" class="form-label">Urutan</label>
-                    <input type="text" id="urutan" name="urutan" class="form-control" placeholder="Urutan" />
-                </div>
-                <div class="col-lg-3 mb-2">
-                    <label for="kkm" class="form-label">KKM</label>
-                    <input type="text" id="kkm" name="kkm" class="form-control" placeholder="KKM" />
+                <div class="col mb-3">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" id="nama" name="nama" th:value="${mapel.nama}" th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="Nama" />
+                    <div th:if="${#fields.hasErrors('nama')}" class="invalid-feedback">
+                        <span th:errors="*{nama}"></span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
+        <!-- footer -->
+        <div class="modal-footer input-group">
+            <button type="submit" class="btn btn-success">
+                <i class="ti ti-check"></i>
+                Save
+            </button>
             <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
                 Close
             </button>
-            <button type="submit" class="btn btn-primary">Save</button>
         </div>
     </div>
 </form>

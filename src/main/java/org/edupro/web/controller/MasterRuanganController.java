@@ -22,7 +22,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/master/ruangan")
 @RequiredArgsConstructor
-public class MasterRuanganController {
+public class MasterRuanganController extends BaseController<RuanganResponse> {
 
     private final MasterRuanganService service;
     private final MasterGedungService gedungService;
@@ -60,7 +60,7 @@ public class MasterRuanganController {
     }
 
     @GetMapping("/edit/{kode}")
-    public ModelAndView edit(@PathVariable("kode") String kode){
+    public ModelAndView edit(@PathVariable("kode") String id){
         return new ModelAndView("pages/master/ruangan/edit");
     }
 
@@ -72,13 +72,20 @@ public class MasterRuanganController {
     }
 
     @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") Integer id){
-        return new ModelAndView("pages/master/ruangan/delete");
+    public ModelAndView delete(@PathVariable("id") String id){
+        ModelAndView view = new ModelAndView("pages/master/ruangan/delete");
+        var result = this.service.getById(id).orElse(null);
+        if (result == null){
+            return new ModelAndView("pages/master/error/not-found");
+        }
+
+        view.addObject("ruangan", result);
+        return view;
     }
 
     @PostMapping("/remove/{kode}")
-    public ResponseEntity<Response> remove(@PathVariable("kode") String kode){
-        var result = service.delete(kode);
+    public ResponseEntity<Response> remove(@ModelAttribute("ruangan") String id){
+        var result = service.delete(id);
 
         return getResponse(result);
     }
@@ -86,31 +93,6 @@ public class MasterRuanganController {
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<RuanganResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
-    }
-
-    private ResponseEntity<Response> getResponse(Optional<RuanganResponse> result){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED.ordinal())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(1)
-                        .build()
-        );
+        return getResponse(result);
     }
 }

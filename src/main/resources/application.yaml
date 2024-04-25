@@ -1,6 +1,11 @@
 server:
   port: 8082
 spring:
+  mvc:
+    format:
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
   application:
     back-end-url: http://localhost:8081/api/v1
   security:
