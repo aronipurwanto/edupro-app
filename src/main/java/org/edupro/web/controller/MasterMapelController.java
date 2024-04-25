@@ -107,24 +107,4 @@ public class MasterMapelController extends BaseController<MapelResponse> {
                         .build()
         );
     }
-  
-    @PostMapping("/save")
-    public ResponseEntity<Response> save(@RequestBody @Valid MapelRequest request){
-        var result = service.save(request);
-        return getResponse(result);
-    }
-
-    @PostMapping("/update/{id}")
-    public ResponseEntity<Response> update(@RequestBody @Valid MapelRequest request, @PathVariable("id")Integer id){
-        var result = service.update(request, id);
-
-        return getResponse(result);
-    }
-
-    @PostMapping("/remove/{id}")
-    public ResponseEntity<Response> remove(@PathVariable("id") Integer id){
-        var result = service.delete(id);
-
-        return getResponse(result);
-    }
 }
