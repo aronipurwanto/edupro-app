@@ -39,10 +39,6 @@ $(function () {
                     orderable: false,
                     responsivePriority: 2,
                     targets: 0,
-                    // render: function (data, type, full, meta) {
-                    //     var $item = full['id'];
-                    //     return '<span>'+$item +'</span>';
-                    // }
                 },
                 {
                     targets: 1,
@@ -87,8 +83,9 @@ $(function () {
                     orderable: false,
                     render: function (data, type, full, meta) {
                         var id = full['id'];
-                        var editUrl = ajaxUrl.replace('data', 'edit') + '/' + id;
-                        var deleteUrl = ajaxUrl.replace('data', 'delete') + '/' + id;
+                        var kode = full['kode']
+                        var editUrl = ajaxUrl.replace('data', 'edit') + '/' + id + '/' + kode;
+                        var deleteUrl = ajaxUrl.replace('data', 'delete') + '/' + id + '/' + kode;
                         return (
                             '<div class="d-inline-block text-nowrap">' +
                             '<button class="btn btn-xs btn-primary btn-edit" href="' + editUrl + '"><i class="ti ti-edit"></i> Edit</button> &nbsp;' +
@@ -112,7 +109,6 @@ $(function () {
 
     }
 
-
     $('.dataTables_length').addClass('mt-2 mt-sm-0 mt-md-3 me-2');
     $('.dt-buttons').addClass('d-flex flex-wrap');
 
@@ -131,10 +127,10 @@ $(function () {
     });
 
     // edit data
-    $("#table-level").on('click', '.btn-edit', function () {
+    $("#table-level").on('click', '.btn-edit', function (){
         var url = $(this).attr('href');
-        showModal(url, ' ');
-    });
+        showModal(url, '')
+    })
 
     // delete data
     $("#table-level").on('click', '.btn-delete', function () {

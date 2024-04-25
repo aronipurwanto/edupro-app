@@ -1,37 +1,33 @@
-<form xmlns:th="http://www.thymeleaf.org" th:id="form-level" th:action="@{~/master/level/remove}" th:method="post">
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-level" th:action="@{~/master/level/remove}"
+      th:method="post" th:object="${level}">
+    <input type="hidden" name="id" th:value="${level.id}">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Delete Level</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+<!--            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">-->
+<!--                <ul>-->
+<!--                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
+<!--                </ul>-->
+<!--            </div>-->
             <div class="row">
                 <div class="col mb-3">
                     <label for="nama" class="form-label">Id Lembaga</label>
-                    <input type="number" id="idLembaga" name="kode" class="form-control" placeholder="Id Lembaga" />
+                    <input type="number" id="idLembaga" name="idLembaga" th:value="${level.idLembaga}" class="form-control" placeholder="Id Lembaga" readonly />
                 </div>
             </div>
             <div class="row">
                 <div class="col mb-3">
                     <label for="kode" class="form-label">Kode Level</label>
-                    <input type="hidden" id="id" name="id" />
-                    <input type="text" id="kode" name="kode" class="form-control" placeholder="Kode Level" />
+                    <input type="text" id="kode" name="kode" th:value="${level.kode}" class="form-control" placeholder="Kode Level" readonly />
                 </div>
             </div>
             <div class="row">
                 <div class="col mb-3">
                     <label for="nama" class="form-label">Nama Level</label>
-                    <input type="text" id="nama" name="kode" class="form-control" placeholder="Nama Level" th:value=""/>
-                </div>
-            </div>
-            <div class="row g-2">
-                <div class="col mb-0">
-                    <label for="status" class="form-label">Status</label>
-                    <select id="status" name="status" class="form-select">
-                        <option value="">Pilih Status</option>
-                        <option value="1">Aktif</option>
-                        <option value="0">Non Aktif</option>
-                    </select>
+                    <input type="text" id="nama" name="nama" th:value="${level.nama}" class="form-control" placeholder="Nama Level" readonly />
                 </div>
             </div>
         </div>
