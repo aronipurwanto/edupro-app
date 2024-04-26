@@ -3,6 +3,7 @@ package org.edupro.web.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.model.request.GedungRequest;
+import org.edupro.web.model.request.MapelRequest;
 import org.edupro.web.model.response.GedungResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.service.MasterGedungService;
@@ -59,14 +60,14 @@ public class MasterGedungController {
         return view;
     }
 
-    @PostMapping("/update")
-    public ModelAndView update(@ModelAttribute("gedung") @Valid GedungRequest request, BindingResult result) {
+    @PostMapping("/update/{id}")
+    public ModelAndView update(@ModelAttribute("gedung") @Valid GedungRequest request,@PathVariable("id") String id, BindingResult result) {
         ModelAndView view = new ModelAndView("pages/master/gedung/edit");
         if (result.hasErrors()) {
             view.addObject("gedung", request);
             return view;
         }
-        var response = service.update(request).orElse(null);
+        var response = service.update(request, id).orElse(null);
         return new ModelAndView("redirect:/master/gedung");
     }
 
@@ -81,15 +82,11 @@ public class MasterGedungController {
         return view;
     }
 
-    @PostMapping("/remove")
-    public ModelAndView remove(@ModelAttribute("gedung") @Valid GedungRequest request, BindingResult result) {
-        ModelAndView view = new ModelAndView("pages/master/gedung/delete");
-        if (result.hasErrors()) {
-            view.addObject("gedung", request);
-            return view;
-        }
-        var response = service.delete(request).orElse(null);
-        return new ModelAndView("redirect:/master/gedung");
+    @GetMapping("/remove/{id}")
+    public ResponseEntity<Response> remove(@PathVariable("id") String id) {
+        var result = service.delete(id);
+
+        return getResponse(result);
     }
 
 
