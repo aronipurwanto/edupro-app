@@ -1,4 +1,4 @@
-<form xmlns:th="http://www.thymeleaf.org" th:id="form-level" th:action="@{~/master/gedung/remove}"
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-gedung" th:action="@{~/master/gedung/remove}"
       th:method="post" th:object="${gedung}">
     <input type="hidden" name="id" th:value="${gedung.id}">
     <div class="modal-content">
