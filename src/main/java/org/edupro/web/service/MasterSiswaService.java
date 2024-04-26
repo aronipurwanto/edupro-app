@@ -11,5 +11,5 @@ public interface MasterSiswaService {
     Optional<SiswaResponse> getById(String id);
     Optional<SiswaResponse> save(SiswaRequest request);
     Optional<SiswaResponse> update(SiswaRequest request);
-    Optional<SiswaResponse> delete(String id);
+    Optional<SiswaResponse> delete(SiswaRequest request);
 }

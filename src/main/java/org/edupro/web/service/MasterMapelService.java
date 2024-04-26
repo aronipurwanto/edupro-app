@@ -11,6 +11,6 @@ public interface MasterMapelService {
     List<MapelResponse> get();
     Optional<MapelResponse> getById(String id);
     Optional<MapelResponse> save(MapelRequest request);
-    Optional<MapelResponse> update(MapelRequest request);
-    Optional<MapelResponse> delete(MapelRequest request);
+    Optional<MapelResponse> update(MapelRequest request, String id);
+    Optional<MapelResponse> delete(String id);
 }

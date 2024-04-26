@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,6 +22,7 @@ import java.util.Optional;
 @RequestMapping("/master/mapel")
 @RequiredArgsConstructor
 public class MasterMapelController extends BaseController<MapelResponse> {
+
     private final MasterMapelService service;
 
     @GetMapping
@@ -68,7 +70,7 @@ public class MasterMapelController extends BaseController<MapelResponse> {
             view.addObject("mapel", request);
             return view;
         }
-        var response = service.update(request).orElse(null);
+        var response = service.update(request, request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/mapel");
     }
 
@@ -91,7 +93,7 @@ public class MasterMapelController extends BaseController<MapelResponse> {
             view.addObject("mapel", request);
             return view;
         }
-        var response = service.delete(request).orElse(null);
+        var response = service.delete(request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/mapel");
     }
 
@@ -107,7 +109,7 @@ public class MasterMapelController extends BaseController<MapelResponse> {
                         .build()
         );
     }
-
+  
     @PostMapping("/save")
     public ResponseEntity<Response> save(@RequestBody @Valid MapelRequest request){
         var result = service.save(request);
@@ -115,14 +117,14 @@ public class MasterMapelController extends BaseController<MapelResponse> {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<Response> update(@RequestBody @Valid MapelRequest request, @PathVariable("id")Integer id){
+    public ResponseEntity<Response> update(@RequestBody @Valid MapelRequest request, @PathVariable("id")String id){
         var result = service.update(request, id);
 
         return getResponse(result);
     }
 
     @PostMapping("/remove/{id}")
-    public ResponseEntity<Response> remove(@PathVariable("id") Integer id){
+    public ResponseEntity<Response> remove(@PathVariable("id") String id){
         var result = service.delete(id);
 
         return getResponse(result);
