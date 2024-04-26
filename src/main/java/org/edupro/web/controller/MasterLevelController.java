@@ -66,7 +66,7 @@ public class MasterLevelController extends BaseController<LevelResponse> {
             view.addObject("level", request);
             return view;
         }
-        var response = service.update(request).orElse(null);
+        var response = service.update(request, request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/level");
     }
 
@@ -88,7 +88,7 @@ public class MasterLevelController extends BaseController<LevelResponse> {
             view.addObject("level", request);
             return view;
         }
-        var response = service.delete(request).orElse(null);
+        var response = service.delete(request.getId(), request).orElse(null);
         return new ModelAndView("redirect:/master/level");
     }
 

@@ -83,9 +83,9 @@ public class MasterLevelServiceImpl implements MasterLevelService {
     }
 
     @Override
-    public Optional<LevelResponse> update(LevelRequest request) {
+    public Optional<LevelResponse> update(LevelRequest request, String id) {
         try{
-            var url = Strings.concat(backEndUrl.levelUrl(), "/" + request.getId() + "/" + request.getKode());
+            var url = Strings.concat(backEndUrl.levelUrl(), "/" + id + "/" + request.getKode());
             HttpEntity<LevelRequest> httpEntity = new HttpEntity<>(request);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
@@ -102,9 +102,9 @@ public class MasterLevelServiceImpl implements MasterLevelService {
     }
 
     @Override
-    public Optional<LevelResponse> delete(LevelRequest request) {
+    public Optional<LevelResponse> delete(String id, LevelRequest request) {
         try{
-            var url = Strings.concat(backEndUrl.levelUrl(),"/"+ request.getId() + "/" + request.getKode());
+            var url = Strings.concat(backEndUrl.levelUrl(),"/"+ id + "/" + request.getKode());
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());

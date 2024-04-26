@@ -31,16 +31,17 @@ $(function (){
             1: {title: "Aktif"},
         };
 
+if (dt_lookup_table.length > 0) {
     var ajaxUrl = $('#lookup-title').attr('href');
     var dt_lookup = dt_lookup_table.DataTable({
         ajax: ajaxUrl,
         columns: [
-            { data: 'id' },
-            { data: 'group' },
-            { data: 'kode' },
-            { data: 'nama' },
-            { data: 'urutan' },
-            { data: '' }
+            {data: 'id'},
+            {data: 'group'},
+            {data: 'kode'},
+            {data: 'nama'},
+            {data: 'urutan'},
+            {data: ''}
         ],
         columnDefs: [
             {
@@ -48,12 +49,7 @@ $(function (){
                 searchable: false,
                 orderable: false,
                 responsivePriority: 2,
-                targets: 0
-                /*
-                render: function (data, type, full, meta) {
-                    var $item = full['id'];
-                    return '<span>'+$item +'</span>';
-                }*/
+                targets: 0,
             },
             {
                 targets: 1,
@@ -61,7 +57,7 @@ $(function (){
                 orderable: true,
                 render: (data, type, full, meta) => {
                     var $item = full['group'];
-                    return '<span>'+$item +'</span>';
+                    return '<span>' + $item + '</span>';
                 }
             },
             {
@@ -70,7 +66,7 @@ $(function (){
                 orderable: true,
                 render: (data, type, full, meta) => {
                     var $item = full['kode'];
-                    return '<span>'+$item +'</span>';
+                    return '<span>' + $item + '</span>';
                 }
             },
             {
@@ -79,7 +75,7 @@ $(function (){
                 orderable: true,
                 render: (data, type, full, meta) => {
                     var $item = full['nama'];
-                    return '<span>'+$item +'</span>';
+                    return '<span>' + $item + '</span>';
                 }
             },
             {
@@ -88,7 +84,7 @@ $(function (){
                 orderable: true,
                 render: (data, type, full, meta) => {
                     var $item = full['urutan'];
-                    return '<span>'+$item +'</span>';
+                    return '<span>' + $item + '</span>';
                 }
             },
             {
@@ -98,12 +94,12 @@ $(function (){
                 orderable: false,
                 render: function (data, type, full, meta) {
                     var id = full['id'];
-                    var editUrl = ajaxUrl.replace('data','edit') +'/'+ id;
-                    var deleteUrl = ajaxUrl.replace('data','delete')+'/'+ id;
+                    var editUrl = ajaxUrl.replace('data', 'edit') + '/' + id;
+                    var deleteUrl = ajaxUrl.replace('data', 'delete') + '/' + id;
                     return (
                         '<div class="d-inline-block text-nowrap">' +
-                        '<button class="btn btn-xs btn-primary btn-edit" href="'+ editUrl +'"><i class="ti ti-edit"></i> Edit</button> &nbsp;' +
-                        '<button class="btn btn-xs btn-danger btn-delete" href="'+ deleteUrl +'"><i class="ti ti-trash"></i></button>' +
+                        '<button class="btn btn-xs btn-primary btn-edit" href="' + editUrl + '"><i class="ti ti-edit"></i> Edit</button> &nbsp;' +
+                        '<button class="btn btn-xs btn-danger btn-delete" href="' + deleteUrl + '"><i class="ti ti-trash"></i></button>' +
                         '</div>'
                     );
                 }
@@ -115,11 +111,13 @@ $(function (){
     dt_lookup.on('order.dt search.dt', function () {
         let i = 1;
 
-        dt_lookup.cells(null, 0, { search: 'applied', order: 'applied' })
+        dt_lookup.cells(null, 0, {search: 'applied', order: 'applied'})
             .every(function (cell) {
                 this.data(i++);
             });
     }).draw();
+
+}
 
     $('.dataTables_length').addClass('mt-2 mt-sm-0 mt-md-3 me-2');
     $('.dt-buttons').addClass('d-flex flex-wrap');
