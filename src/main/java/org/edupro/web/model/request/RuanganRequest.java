@@ -25,6 +25,9 @@ public class RuanganRequest {
 
     @NotNull(message = "kapasitas tidak boleh kosong")
     private Integer kapasitas;
+
+    @NotEmpty
+    @Size(min = 36, max = 36, message = "kode gedung tidak boleh kosong")
     private String gedungId;
 
 }

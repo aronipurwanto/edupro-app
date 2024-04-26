@@ -22,6 +22,4 @@ public class LevelRequest {
     private String kode;
     @Size(min = 2, max = 100, message = "minimal 2 dan maksimal 100")
     private String nama;
-//    @NotEmpty(message = "status wajib diisi")
-//    private String status;
 }

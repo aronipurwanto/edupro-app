@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LookupResponse {
-    private Integer id;
+    private String id;
     private String group;
     private String kode;
     private String nama;

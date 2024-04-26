@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.model.request.SiswaRequest;
 import org.edupro.web.model.response.Response;
+import org.edupro.web.model.response.SesiResponse;
 import org.edupro.web.model.response.SiswaResponse;
 import org.edupro.web.service.MasterSiswaService;
 import org.springframework.http.HttpStatus;
@@ -68,7 +69,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
             return view;
         }
 
-        var response = service.update(request).orElse(null);
+        var response = service.update(request, request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/siswa");
     }
 
@@ -85,11 +86,16 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
         return view;
     }
 
-    @PostMapping("/remove/{id}")
-    public ResponseEntity<Response> remove(@ModelAttribute("siswa") String id){
-        var result = service.delete(id);
+    @PostMapping("/remove")
+    public ModelAndView remove(@ModelAttribute("siswa") @Valid SiswaRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/siswa/delete");
+        if (result.hasErrors()) {
+            view.addObject("siswa", request);
+            return view;
+        }
 
-        return getResponse(result);
+        var response = service.delete(request.getId()).orElse(null);
+        return new ModelAndView("redirect:/master/siswa");
     }
 
     @GetMapping("/data")

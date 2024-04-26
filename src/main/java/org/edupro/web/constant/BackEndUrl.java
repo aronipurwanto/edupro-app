@@ -48,4 +48,8 @@ public class BackEndUrl {
     public String siswaUrl(){
         return Strings.concat(baseUrl, "/siswa");
     }
+
+    public String tahunAjaranUrl(){
+        return Strings.concat(baseUrl, "/ta");
+    }
 }

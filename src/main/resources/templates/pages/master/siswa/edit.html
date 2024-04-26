@@ -1,5 +1,6 @@
 <form xmlns:th="http://www.thymeleaf.org" th:id="form-siswa" th:action="@{~/master/siswa/update}"
       th:method="post" th:object="${siswa}">
+    <input type="hidden" name="id" th:value="${siswa.id}">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Edit Data Siswa</h5>
@@ -39,7 +40,7 @@
                 </div>
                 <div class="col mb-3">
                     <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
-                    <input type="date" id="tanggalLahir" name="tanggalLahir"
+                    <input type="text" id="tanggalLahir" name="tanggalLahir"
                            th:value="${siswa.tanggalLahir}" th:class="${#fields.hasErrors('tanggalLahir')}? 'form-control is-invalid': 'form-control'" placeholder="Kota Tempate Lahir" />
                     <div th:if="${#fields.hasErrors('tanggalLahir')}" class="invalid-feedback">
                         <span th:errors="*{tanggalLahir}"></span>

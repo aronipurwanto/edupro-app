@@ -37,28 +37,6 @@ public class MasterLevelController extends BaseController<LevelResponse> {
         return view;
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView edit(@PathVariable("id") String id){
-        ModelAndView view = new ModelAndView("pages/master/level/edit");
-        var result = this.service.getById(id).orElse(null);
-        if (result == null){
-            return new ModelAndView("pages/master/error/not-found");
-        }
-        view.addObject("level", result);
-        return view;
-    }
-
-    @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") String id){
-        return new ModelAndView("pages/master/level/delete");
-    }
-
-    @GetMapping("/data")
-    public ResponseEntity<Response> getData(){
-        List<LevelResponse> result = service.get();
-        return getResponse(result);
-    }
-
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("level") @Valid LevelRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/level/add");
@@ -68,20 +46,55 @@ public class MasterLevelController extends BaseController<LevelResponse> {
         }
         var response = service.save(request);
         return new ModelAndView("redirect:/master/level");
-
     }
 
-    @PostMapping("/update/{id}")
-    public ResponseEntity<Response> update(@ModelAttribute("level") @Valid LevelRequest request,@PathVariable("id") String id){
-        var result = service.update(request, id);
-
-        return getResponse(result);
+    @GetMapping("/edit/{id}/{kode}")
+    public ModelAndView edit(@PathVariable("id") String id, @PathVariable("kode") String kode){
+        ModelAndView view = new ModelAndView("pages/master/level/edit");
+        var result = this.service.getById(id, kode).orElse(null);
+        if (result == null){
+            return new ModelAndView("pages/master/error/not-found");
+        }
+        view.addObject("level", result);
+        return view;
     }
 
-    @PostMapping("/remove/{id}")
-    public ResponseEntity<Response> remove(@PathVariable("id") String id){
-        var result = service.delete(id);
+    @PostMapping("/update")
+    public ModelAndView update(@ModelAttribute("level") @Valid LevelRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/level/edit");
+        if (result.hasErrors()){
+            view.addObject("level", request);
+            return view;
+        }
+        var response = service.update(request, request.getId()).orElse(null);
+        return new ModelAndView("redirect:/master/level");
+    }
 
+    @GetMapping("/delete/{id}/{kode}")
+    public ModelAndView delete(@PathVariable("id") String id, @PathVariable("kode") String kode){
+        ModelAndView view = new ModelAndView("pages/master/level/delete");
+        var result = this.service.getById(id, kode).orElse(null);
+        if (result == null){
+            return new ModelAndView("pages/master/error/not-found");
+        }
+        view.addObject("level", result);
+        return view;
+    }
+
+    @PostMapping("/remove")
+    public ModelAndView delete(@ModelAttribute("level") @Valid LevelRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/level/delete");
+        if (result.hasErrors()){
+            view.addObject("level", request);
+            return view;
+        }
+        var response = service.delete(request.getId(), request).orElse(null);
+        return new ModelAndView("redirect:/master/level");
+    }
+
+    @GetMapping("/data")
+    public ResponseEntity<Response> getData(){
+        List<LevelResponse> result = service.get();
         return getResponse(result);
     }
 }

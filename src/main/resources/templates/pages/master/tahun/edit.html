@@ -1,0 +1,43 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-tahun" th:action="@{~/master/tahun/update}"
+      th:method="post" th:object="${tahunAjaran}">
+    <input type="hidden" name="id" th:value="${tahunAjaran.id}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Edit Tahun Ajaran</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">
+                <ul>
+                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                </ul>
+            </div>
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" id="nama" name="nama" th:value="${tahunAjaran.nama}"
+                           th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="Nama" />
+                    <div th:if="${#fields.hasErrors('nama')}" class="invalid-feedback">
+                        <span th:errors="*{nama}"></span>
+                    </div>
+                </div>
+                <div class="col mb-0">
+                    <label for="kodeKurikulum" class="form-label">kodeKurikulum</label>
+                    <input type="text" id="kodeKurikulum" name="kodeKurikulum" th:value="${tahunAjaran.kodeKurikulum}"
+                           th:class="${#fields.hasErrors('kodeKurikulum')}? 'form-control is-invalid': 'form-control'" placeholder="Kode" />
+                    <div th:if="${#fields.hasErrors('kodeKurikulum')}" class="invalid-feedback">
+                        <span th:errors="*{kodeKurikulum}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer input-group">
+            <button type="submit" class="btn btn-success">
+                Save Changes
+            </button>
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+        </div>
+    </div>
+</form>

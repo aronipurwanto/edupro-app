@@ -10,7 +10,7 @@ $(function () {
     }
 
     // data declaration
-    var dt_mapel_table = $("#table-mapel"),
+    var dt_tahun_table = $("#table-tahun"),
         statusObj = {
             0: {title: "Non Aktif"},
             1: {title: "AKtif"},
@@ -21,14 +21,15 @@ $(function () {
         };
 
     // datatable declaration
-    if (dt_mapel_table.length > 0) {
-        var ajaxUrl = $('#mapel-title').attr('href');
-        var dt_mapel = dt_mapel_table.DataTable({
+    if (dt_tahun_table.length > 0) {
+
+        var ajaxUrl = $('#ta-title').attr('href');
+        var dt_table = dt_tahun_table.DataTable({
             ajax: ajaxUrl,
             columns: [
                 { data: 'id'},
-                { data: 'kode'},
                 { data: 'nama'},
+                { data: 'kodeKurikulum'},
                 { data: 'status'},
                 { data: ' '}
             ],
@@ -39,22 +40,25 @@ $(function () {
                     orderable: false,
                     responsivePriority: 2,
                     targets: 0,
+                    render: function (data, type, full, meta) {
+                        var $item = full['id'];
+                        return '<span>'+$item +'</span>';
+                    }
                 },
                 {
                     targets: 1,
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kode'];
+                        var $item = full['nama'];
                         return '<span>' + $item + '</span>';
                     }
-                },
-                {
+                },{
                     targets: 2,
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['nama'];
+                        var $item = full['kodeKurikulum'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -88,10 +92,10 @@ $(function () {
             lengthMenu: [5, 10, 20, 50, 70, 100]
         });
 
-        dt_mapel.on('order.dt search.dt', function () {
+        dt_table.on('order.dt search.dt', function () {
             let i = 1;
 
-            dt_mapel.cells(null, 0, { search: 'applied', order: 'applied' })
+            dt_table.cells(null, 0, { search: 'applied', order: 'applied' })
                 .every(function (cell) {
                     this.data(i++);
                 });
@@ -99,32 +103,32 @@ $(function () {
 
     }
 
-    $('.dataTables_length').addClass('mt-2 mt-sm-0 mt-md-3 me-2');
-    $('.dt-buttons').addClass('d-flex flex-wrap');
+        $('.dataTables_length').addClass('mt-2 mt-sm-0 mt-md-3 me-2');
+        $('.dt-buttons').addClass('d-flex flex-wrap');
 
-    // btn add click
-    $("#btn-add").click(function () {
-        var url = $(this).attr('href');
-        showModal(url, ' ');
-    });
+        // btn add click
+        $("#btn-add").click(function () {
+            var url = $(this).attr('href');
+            showModal(url, ' ');
+        });
 
-    // form submit
-    $('#main-modal').on('submit', '#form-mapel', function (e) {
-        e.preventDefault();
-        var ajaxUrl = $(this).attr('action');
-        const data = convertFormToJSON($(this));
-        ajaxSubmit(ajaxUrl, data, dt_mapel)
-    });
+        // form submit
+        $('#main-modal').on('submit', '#form-tahun', function (e) {
+            e.preventDefault();
+            var ajaxUrl = $(this).attr('action');
+            const data = convertFormToJSON($(this));
+            ajaxSubmit(ajaxUrl, data, dt_table)
+        });
 
-    // edit data
-    $("#table-mapel").on('click', '.btn-edit', function () {
-        var url = $(this).attr('href');
-        showModal(url, ' ');
-    });
+        // edit data
+        $("#table-tahun").on('click', '.btn-edit', function () {
+            var url = $(this).attr('href');
+            showModal(url, ' ');
+        });
 
-    // delete data
-    $("#table-mapel").on('click', '.btn-delete', function () {
-        var url = $(this).attr('href');
-        showModal(url, ' ');
-    });
+        // delete data
+        $("#table-tahun").on('click', '.btn-delete', function () {
+            var url = $(this).attr('href');
+            showModal(url, ' ');
+        });
 });
