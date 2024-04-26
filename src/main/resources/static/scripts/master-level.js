@@ -91,8 +91,8 @@ $(function () {
                         var deleteUrl = ajaxUrl.replace('data', 'delete') + '/' + id;
                         return (
                             '<div class="d-inline-block text-nowrap">' +
-                            '<button class="btn btn-xs btn-primary btn-edit" href="'+ editUrl +'"><i class="ti ti-edit"></i> Edit</button> &nbsp;' +
-                            '<button class="btn btn-xs btn-danger btn-delete" href="'+ deleteUrl +'"><i class="ti ti-trash"></i></button>' +
+                            '<button class="btn btn-xs btn-primary btn-edit" href="' + editUrl + '"><i class="ti ti-edit"></i> Edit</button> &nbsp;' +
+                            '<button class="btn btn-xs btn-danger btn-delete" href="' + deleteUrl + '"><i class="ti ti-trash"></i></button>' +
                             '</div>'
                         );
                     }
@@ -142,3 +142,4 @@ $(function () {
         showModal(url, ' ');
     });
 });
+
