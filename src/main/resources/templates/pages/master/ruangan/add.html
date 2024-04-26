@@ -13,14 +13,14 @@
             </div>
             <div class="row g-2">
                 <div class="col mb-0">
-                    <label for="kodeGedung" class="form-label">Gedung</label>
-                    <select id="kodeGedung" name="kodeGedung" th:value="${ruangan.kodeGedung}" data-allow-clear="true"
-                            th:class="${#fields.hasErrors('kodeGedung')}? 'form-select select2 is-invalid': 'form-select select2'">
+                    <label for="gedungId" class="form-label">Gedung</label>
+                    <select id="gedungId" name="gedungId" th:value="${ruangan.gedungId}" data-allow-clear="true"
+                            th:class="${#fields.hasErrors('gedungId')}? 'form-select select2 is-invalid': 'form-select select2'">
                         <option value="">Pilih Gedung</option>
-                        <option th:each="item : ${dataGedung}" th:value="${item.kode}" th:text="${item.nama}" th:selected="${item.kode == ruangan.kodeGedung}"></option>
+                        <option th:each="item : ${dataGedung}" th:value="${item.kode}" th:text="${item.nama}" th:selected="${item.kode == ruangan.gedungId}"></option>
                     </select>
-                    <div th:if="${#fields.hasErrors('kodeGedung')}" class="invalid-feedback">
-                        <span th:errors="*{kodeGedung}"></span>
+                    <div th:if="${#fields.hasErrors('gedungId')}" class="invalid-feedback">
+                        <span th:errors="*{gedungId}"></span>
                     </div>
                 </div>
                 <div class="col mb-0">

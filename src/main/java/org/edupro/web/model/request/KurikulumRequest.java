@@ -11,13 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BulanRequest {
-    private Integer id;
-    @NotEmpty(message = "bulan wajib di isi")
+public class KurikulumRequest {
+    private String id;
+    @NotEmpty(message = "kode wajib di isi")
+    @Size(min = 1, max = 10, message = "minimal 1 dan maximal 10")
+    private String kode;
     @Size(min = 5, max = 100, message = "minimal 5 dan maximal 100")
-    private String bulan;
-    @NotEmpty(message = "tahun pelajaran wajib di isi")
-    @Size(min = 5, max = 50, message = "minimal 5 dan maximal 50")
-    private String tp;
-    private String detail;
+    private String nama;
 }

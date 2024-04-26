@@ -12,10 +12,10 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex align-items-md-end justify-content-md-between">
-                <h5 class="card-title mb-0" id="level-title" th:href="@{~/master/bulan/data}">Daftar Master Bulan</h5>
-                <button class="btn rounded-pill btn-primary btn-sm" id="btn-add" th:href="@{~/master/bulan/add}">
+                <h5 class="card-title mb-0" id="kurikulum-title" th:href="@{~/master/kurikulum/data}">Daftar Master Kurikulum</h5>
+                <button class="btn rounded-pill btn-primary btn-sm" id="btn-add" th:href="@{~/master/kurikulum/add}">
                     <i class="ti ti-check"></i> &nbsp;
-                    Tambah Bulan
+                    Tambah Kurikulum
                 </button>
             </div>
             <div class="demo-inline-spacing d-flex align-items-start justify-content-start">
@@ -28,13 +28,13 @@
         </div>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table id="table-level" class="table table-striped">
+                <table id="table-kurikulum" class="table table-striped">
                     <thead class="table-light">
                     <tr>
                         <th>No</th>
-                        <th>Bulan</th>
-                        <th>TP</th>
-                        <th>Detail</th>
+                        <th>Kode</th>
+                        <th>Nama</th>
+                        <th>Status</th>
                         <th class="cell-fit">Actions</th>
                     </tr>
                     </thead>
@@ -46,7 +46,7 @@
 </div>
 <!-- / Content -->
 <th:block layout:fragment="script">
-    <script th:src="@{~/scripts/master-bulan.js}"></script>
+    <script th:src="@{~/scripts/master-kurikulum.js}"></script>
 </th:block>
 </body>
 </html>
