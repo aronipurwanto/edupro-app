@@ -1,5 +1,6 @@
 <form xmlns:th="http://www.thymeleaf.org" th:id="form-siswa" th:action="@{~/master/siswa/update}"
       th:method="post" th:object="${siswa}">
+    <input type="hidden" name="id" th:value="${siswa.id}">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Edit Data Siswa</h5>
