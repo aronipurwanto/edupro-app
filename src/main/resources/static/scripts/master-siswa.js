@@ -30,6 +30,7 @@ $(function (){
                 { data: 'nama' },
                 { data: 'kotaTempatLahir' },
                 { data: 'tanggalLahir' },
+                { data: 'status' },
                 { data: '' }
             ],
             columnDefs: [
@@ -39,10 +40,6 @@ $(function (){
                     orderable: false,
                     responsivePriority: 2,
                     targets: 0,
-                    render: function (data, type, full, meta) {
-                        var $item = full['id'];
-                        return '<span>'+$item +'</span>';
-                    }
                 },
                 {
                     targets: 1,
@@ -77,6 +74,14 @@ $(function (){
                     orderable: true,
                     render: (data, type, full, meta) => {
                         var $item = full['tanggalLahir'];
+                        return '<span>'+$item +'</span>';
+                    }
+                },{
+                    targets: 5,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['status'];
                         return '<span>'+$item +'</span>';
                     }
                 },
