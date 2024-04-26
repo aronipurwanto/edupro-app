@@ -47,7 +47,7 @@ public class MasterRuanganServiceImpl implements MasterRuanganService {
     @Override
     public Optional<RuanganResponse> getById(String id) {
          try {
-             var url = Strings.concat(backEndUrl.lookupUrl(), "/" + id);
+             var url = Strings.concat(backEndUrl.ruanganUrl(), "/" + id );
              ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
              if (response.getStatusCode() == HttpStatus.OK) {
                  byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -85,7 +85,7 @@ public class MasterRuanganServiceImpl implements MasterRuanganService {
     @Override
     public Optional<RuanganResponse> update(RuanganRequest request, String id) {
         try {
-            var url = Strings.concat(backEndUrl.ruanganUrl(), "/" + request.getId());
+            var url = Strings.concat(backEndUrl.ruanganUrl(), "/" + id);
             HttpEntity<RuanganRequest> httpEntity = new HttpEntity<>(request);
             ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
@@ -106,7 +106,7 @@ public class MasterRuanganServiceImpl implements MasterRuanganService {
     @Override
     public Optional<RuanganResponse> delete(String id) {
         try {
-            var url = Strings.concat(backEndUrl.levelUrl(), "/" + id);
+            var url = Strings.concat(backEndUrl.ruanganUrl(), "/" + id);
             ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.DELETE, null, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());

@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 public class GedungResponse {
 
+    private String id;
     private String kode;
     private String nama;
     private String status;

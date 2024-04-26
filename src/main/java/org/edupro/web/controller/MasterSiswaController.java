@@ -4,10 +4,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.model.request.SiswaRequest;
 import org.edupro.web.model.response.Response;
-import org.edupro.web.model.response.SesiResponse;
 import org.edupro.web.model.response.SiswaResponse;
 import org.edupro.web.service.MasterSiswaService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -15,12 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/siswa")
 @RequiredArgsConstructor
-public class MasterSiswaController {
+public class MasterSiswaController extends BaseController<SiswaResponse> {
 
     private final MasterSiswaService service;
 
@@ -69,7 +66,7 @@ public class MasterSiswaController {
             return view;
         }
 
-        var response = service.update(request).orElse(null);
+        var response = service.update(request, request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/siswa");
     }
 
@@ -94,39 +91,13 @@ public class MasterSiswaController {
             return view;
         }
 
-        var response = service.delete(request).orElse(null);
+        var response = service.delete(request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/siswa");
     }
 
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<SiswaResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
+        return getResponse(result);
     }
-
-    private ResponseEntity<Response> getResponse(Optional<SiswaResponse> result ){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED.ordinal())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(1)
-                        .build()
-        );
-    }
-
 }

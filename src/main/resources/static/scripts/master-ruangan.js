@@ -38,7 +38,7 @@ $(function () {
         var dt_table = dt_ruangan_table.DataTable({
             ajax: ajaxUrl,
             columns: [
-                { data: 'kode'},
+                { data: 'id'},
                 { data: 'kode'},
                 { data: 'nama'},
                 { data: 'kapasitas'},
@@ -54,6 +54,10 @@ $(function () {
                     orderable: false,
                     responsivePriority: 2,
                     targets: 0,
+                    render: function (data, type, full, meta) {
+                        var $item = full['id'];
+                        return '<span>'+$item +'</span>';
+                        }
                     },
                     {
                         targets: 1,
@@ -115,9 +119,9 @@ $(function () {
                         searchable: false,
                         orderable: false,
                         render: function (data, type, full, meta) {
-                            var id = full['kode'];
+                            var id = full['id'];
                             var editUrl = ajaxUrl.replace('data','edit') + '/' + id;
-                            var deleteUrl = ajaxUrl.replace('data','delete') + '/' + id;
+                            var deleteUrl = ajaxUrl.replace('data','delete') + '/' + id ;
                             return (
                                 '<div class="d-inline-block text-nowrap">'+
                                 '<button class="btn btn-xs btn-primary btn-edit" href="'+ editUrl + '"><i class="ti ti-edit"></i> Edit </button> &nbsp;' +

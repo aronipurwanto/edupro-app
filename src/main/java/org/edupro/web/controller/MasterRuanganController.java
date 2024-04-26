@@ -8,25 +8,21 @@ import org.edupro.web.model.response.Response;
 import org.edupro.web.model.response.RuanganResponse;
 import org.edupro.web.service.MasterGedungService;
 import org.edupro.web.service.MasterRuanganService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/ruangan")
 @RequiredArgsConstructor
-public class MasterRuanganController {
+public class MasterRuanganController extends BaseController<RuanganResponse> {
 
     private final MasterRuanganService service;
     private final MasterGedungService gedungService;
-
 
     @GetMapping
     public ModelAndView index(){
@@ -59,16 +55,31 @@ public class MasterRuanganController {
         return new ModelAndView("redirect:/master/ruangan");
     }
 
-    @GetMapping("/edit/{kode}")
-    public ModelAndView edit(@PathVariable("kode") String id){
-        return new ModelAndView("pages/master/ruangan/edit");
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable("id") String id){
+        ModelAndView view = new ModelAndView("pages/master/ruangan/edit");
+        List<GedungResponse> gedungResponses = this.gedungService.get();
+
+        var result = this.service.getById(id).orElse(null);
+        if (result == null){
+            return new ModelAndView("pages/master/error/not-found");
+        }
+
+        view.addObject("ruangan", result);
+        view.addObject("dataGedung", gedungResponses);
+        return view;
     }
 
-    @PostMapping("/update/{kode}")
-    public ResponseEntity<Response> update(@RequestBody @Valid RuanganRequest request,@PathVariable("kode") String kode){
-        var result = service.update(request, kode);
+    @PostMapping("/update")
+    public ModelAndView update(@ModelAttribute("ruangan") @Valid RuanganRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/ruangan/edit");
+        if (result.hasErrors()) {
+            view.addObject("ruangan", request);
+            return view;
+        }
 
-        return getResponse(result);
+        var response = service.update(request, request.getId()).orElse(null);
+        return new ModelAndView("redirect:/master/ruangan");
     }
 
     @GetMapping("/delete/{id}")
@@ -83,41 +94,21 @@ public class MasterRuanganController {
         return view;
     }
 
-    @PostMapping("/remove/{kode}")
-    public ResponseEntity<Response> remove(@ModelAttribute("ruangan") String id){
-        var result = service.delete(id);
+    @PostMapping("/remove")
+    public ModelAndView remove(@ModelAttribute("ruangan") @Valid RuanganRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/ruangan/delete");
+        if (result.hasErrors()) {
+            view.addObject("ruangan", request);
+            return view;
+        }
 
-        return getResponse(result);
+        var response = service.delete(request.getId()).orElse(null);
+        return new ModelAndView("redirect:/master/ruangan");
     }
 
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<RuanganResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
-    }
-
-    private ResponseEntity<Response> getResponse(Optional<RuanganResponse> result){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED.ordinal())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(1)
-                        .build()
-        );
+        return getResponse(result);
     }
 }

@@ -83,7 +83,7 @@ public class MasterSiswaServiceImpl implements MasterSiswaService {
     }
 
     @Override
-    public Optional<SiswaResponse> update(SiswaRequest request) {
+    public Optional<SiswaResponse> update(SiswaRequest request, String id) {
         try {
             var url = Strings.concat(backEndUrl.siswaUrl(), "/" + request.getId());
             HttpEntity<SiswaRequest> httpEntity = new HttpEntity<>(request);
@@ -104,9 +104,9 @@ public class MasterSiswaServiceImpl implements MasterSiswaService {
     }
 
     @Override
-    public Optional<SiswaResponse> delete(SiswaRequest request) {
+    public Optional<SiswaResponse> delete(String id) {
         try {
-            var url = Strings.concat(backEndUrl.siswaUrl(), "/" + request.getId());
+            var url = Strings.concat(backEndUrl.siswaUrl(), "/" + id);
             ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.DELETE, null, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
