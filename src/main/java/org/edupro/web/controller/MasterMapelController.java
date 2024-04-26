@@ -28,6 +28,8 @@ public class MasterMapelController extends BaseController<MapelResponse> {
     @GetMapping
     public ModelAndView index(){
         var view = new ModelAndView("pages/master/mapel/index");
+        view.addObject("data", service.get());
+
         return view;
     }
 
@@ -98,6 +100,19 @@ public class MasterMapelController extends BaseController<MapelResponse> {
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<MapelResponse> result = service.get();
+        return ResponseEntity.ok().body(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Success")
+                        .data(result)
+                        .total(result.size())
+                        .build()
+        );
+    }
+  
+    @PostMapping("/save")
+    public ResponseEntity<Response> save(@RequestBody @Valid MapelRequest request){
+        var result = service.save(request);
         return getResponse(result);
     }
 

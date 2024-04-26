@@ -9,9 +9,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BulanResponse {
-    private Integer id;
-    private String bulan;
-    private String tp;
-    private String detail;
+public class KurikulumResponse {
+    private String id;
+    private String kode;
+    private String nama;
+    private String status;
 }
