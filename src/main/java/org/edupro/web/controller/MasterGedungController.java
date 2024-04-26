@@ -60,14 +60,14 @@ public class MasterGedungController {
         return view;
     }
 
-    @PostMapping("/update/{id}")
-    public ModelAndView update(@ModelAttribute("gedung") @Valid GedungRequest request,@PathVariable("id") String id, BindingResult result) {
+    @PostMapping("/update")
+    public ModelAndView update(@ModelAttribute("gedung") @Valid GedungRequest request, BindingResult result) {
         ModelAndView view = new ModelAndView("pages/master/gedung/edit");
         if (result.hasErrors()) {
             view.addObject("gedung", request);
             return view;
         }
-        var response = service.update(request, id).orElse(null);
+        var response = service.update(request, request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/gedung");
     }
 
@@ -82,11 +82,16 @@ public class MasterGedungController {
         return view;
     }
 
-    @GetMapping("/remove/{id}")
-    public ResponseEntity<Response> remove(@PathVariable("id") String id) {
-        var result = service.delete(id);
+    @PostMapping("/remove")
+    public ModelAndView remove(@ModelAttribute("gedung") @Valid GedungRequest request, BindingResult result) {
+        ModelAndView view = new ModelAndView("pages/master/gedung/delete");
+        if (result.hasErrors()) {
+            view.addObject("gedung", request);
+            return view;
+        }
 
-        return getResponse(result);
+        var response = service.delete(request.getId()).orElse(null);
+        return new ModelAndView("redirect:/master/gedung");
     }
 
 
@@ -94,17 +99,10 @@ public class MasterGedungController {
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<GedungResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
+        return getResponse(result);
     }
 
-    private ResponseEntity<Response> getResponse(Optional<GedungResponse> result){
+    private ResponseEntity<Response> getResponse(List<GedungResponse> result){
         return result.isEmpty() ? ResponseEntity.badRequest().body(
                 Response.builder()
                         .statusCode(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED.ordinal())

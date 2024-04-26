@@ -39,10 +39,6 @@ $(function () {
                     orderable: false,
                     responsivePriority: 2,
                     targets: 0,
-                    render: function (data, type, full, meta) {
-                        var $item = full['id'];
-                        return'<span>'+$item+'</span>';
-                    }
                 },
                 {
                     targets: 1,
