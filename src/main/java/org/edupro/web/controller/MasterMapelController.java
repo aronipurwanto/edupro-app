@@ -71,7 +71,7 @@ public class MasterMapelController extends BaseController<MapelResponse>{
             view.addObject("mapel", request);
             return view;
         }
-        var response = service.update(request).orElse(null);
+        var response = service.update(request, request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/mapel");
     }
 
@@ -94,12 +94,25 @@ public class MasterMapelController extends BaseController<MapelResponse>{
             view.addObject("mapel", request);
             return view;
         }
-        var response = service.delete(request).orElse(null);
+        var response = service.delete(request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/mapel");
     }
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<MapelResponse> result = service.get();
+        return getResponse(result);
+    }
+
+    @PostMapping("/update/{id}")
+    public ResponseEntity<Response> update(@RequestBody @Valid MapelRequest request, @PathVariable("id")String id){
+        var result = service.update(request, id);
+
+        return getResponse(result);
+    }
+
+    @PostMapping("/remove/{id}")
+    public ResponseEntity<Response> remove(@PathVariable("id") String id){
+        var result = service.delete(id);
         return getResponse(result);
     }
 }

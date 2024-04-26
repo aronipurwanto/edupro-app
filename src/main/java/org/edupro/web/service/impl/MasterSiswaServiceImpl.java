@@ -104,9 +104,9 @@ public class MasterSiswaServiceImpl implements MasterSiswaService {
     }
 
     @Override
-    public Optional<SiswaResponse> delete(String id) {
+    public Optional<SiswaResponse> delete(SiswaRequest request) {
         try {
-            var url = Strings.concat(backEndUrl.siswaUrl(), "/" + id);
+            var url = Strings.concat(backEndUrl.siswaUrl(), "/" + request.getId());
             ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.DELETE, null, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());

@@ -8,7 +8,6 @@ import org.edupro.web.model.request.MapelRequest;
 import org.edupro.web.model.response.MapelResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.service.MasterMapelService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -82,10 +81,9 @@ public class MasterMapelServiceImpl implements MasterMapelService {
     }
 
     @Override
-
-    public Optional<MapelResponse> update(MapelRequest request) {
+    public Optional<MapelResponse> update(MapelRequest request, String id) {
         try {
-            var url = Strings.concat(backEndUrl.mapelUrl(), "/"+ request.getId());
+            var url = Strings.concat(backEndUrl.mapelUrl(), "/"+ id);
             HttpEntity<MapelRequest> httpEntity = new HttpEntity<>(request);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
@@ -101,9 +99,9 @@ public class MasterMapelServiceImpl implements MasterMapelService {
     }
 
     @Override
-    public Optional<MapelResponse> delete(MapelRequest request) {
+    public Optional<MapelResponse> delete(String id) {
         try {
-            var url = Strings.concat(backEndUrl.mapelUrl(), "/"+ request.getId());
+            var url = Strings.concat(backEndUrl.mapelUrl(), "/"+ id);
             ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.DELETE, null, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
