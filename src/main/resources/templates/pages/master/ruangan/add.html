@@ -19,6 +19,7 @@
                         <option value="">Pilih Gedung</option>
                         <option th:each="item : ${dataGedung}" th:value="${item.id}" th:text="${item.nama}"
                                 th:selected="${item.kode == ruangan.gedungId}"></option>
+                        <option th:each="item : ${dataGedung}" th:value="${item.kode}" th:text="${item.nama}" th:selected="${item.kode == ruangan.gedungId}"></option>
                     </select>
                     <div th:if="${#fields.hasErrors('gedungId')}" class="invalid-feedback">
                         <span th:errors="*{gedungId}"></span>
@@ -52,6 +53,7 @@
         </div>
         <div class="modal-footer input-group">
             <button type="submit" class="btn btn-success">
+                <i class="ti ti-check"></i> &nbsp;
                 Save
             </button>
             <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">

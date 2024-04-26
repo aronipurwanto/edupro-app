@@ -85,7 +85,7 @@ public class MasterSiswaServiceImpl implements MasterSiswaService {
     @Override
     public Optional<SiswaResponse> update(SiswaRequest request, String id) {
         try {
-            var url = Strings.concat(backEndUrl.siswaUrl(), "/" + request.getId());
+            var url = Strings.concat(backEndUrl.siswaUrl(), "/" + id);
             HttpEntity<SiswaRequest> httpEntity = new HttpEntity<>(request);
             ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {

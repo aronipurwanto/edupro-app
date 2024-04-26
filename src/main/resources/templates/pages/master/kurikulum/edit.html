@@ -1,13 +1,13 @@
-<form xmlns:th="http://www.thymeleaf.org" th:id="form-mapel" th:action="@{~/master/mapel/update}"
-      th:method="post" th:object="${mapel}">
-    <input type="hidden" name="id" th:value="${mapel.id}">
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-kurikulum" th:action="@{~/master/kurikulum/update}"
+      th:method="post" th:object="${kurikulum}">
+    <input type="hidden" name="id" th:value="${kurikulum.id}">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel4">Edit Mata Pelajaran</h5>
+            <h5 class="modal-title" id="exampleModalLabel4">Edit Kurikulum</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div th:if="${#fields.hasAnyErrors()}" class="alert-danger errors" role="alert">
+            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">
                 <ul>
                     <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
                 </ul>
@@ -15,14 +15,14 @@
             <div class="row">
                 <div class="col mb-3">
                     <label for="kode" class="form-label">Kode</label>
-                    <input type="text" id="kode" name="kode" th:value="${mapel.kode}"
-                           th:class="${#fields.hasErrors('kode')}? 'form-control is invalid' : 'form-control'" />
+                    <input type="text" id="kode" name="kode" th:value="${kurikulum.kode}"
+                           th:class="${#fields.hasErrors('kode')}? 'form-control is-invalid': 'form-control'" readonly />
                 </div>
             </div>
             <div class="row">
                 <div class="col mb-3">
                     <label for="nama" class="form-label">Nama</label>
-                    <input type="text" id="nama" name="nama" th:value="${mapel.nama}"
+                    <input type="text" id="nama" name="nama" th:value="${kurikulum.nama}"
                            th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" />
                 </div>
             </div>

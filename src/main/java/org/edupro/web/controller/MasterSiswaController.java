@@ -4,8 +4,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.model.request.SiswaRequest;
 import org.edupro.web.model.response.Response;
+import org.edupro.web.model.response.SesiResponse;
 import org.edupro.web.model.response.SiswaResponse;
 import org.edupro.web.service.MasterSiswaService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -13,11 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/siswa")
 @RequiredArgsConstructor
-public class MasterSiswaController extends BaseController<SiswaResponse> {
+public class MasterSiswaController extends BaseController<SiswaResponse>{
 
     private final MasterSiswaService service;
 
@@ -79,7 +82,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse> {
             return new ModelAndView("pages/master/error/not-found");
         }
 
-        view.addObject("siswa", result);
+        view.addObject("ruangan", result);
         return view;
     }
 
@@ -100,4 +103,5 @@ public class MasterSiswaController extends BaseController<SiswaResponse> {
         List<SiswaResponse> result = service.get();
         return getResponse(result);
     }
+
 }

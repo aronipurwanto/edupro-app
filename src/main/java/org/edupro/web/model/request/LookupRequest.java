@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LookupRequest {
-    private Integer id;
+    private String id;
 
     @NotEmpty
     @Size(min = 2, max = 32, message = "Kode minimal 2 dan maximal 32")

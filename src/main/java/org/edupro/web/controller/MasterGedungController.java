@@ -6,7 +6,6 @@ import org.edupro.web.model.request.GedungRequest;
 import org.edupro.web.model.response.GedungResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.service.MasterGedungService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,12 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/gedung")
 @RequiredArgsConstructor
-public class MasterGedungController {
+public class MasterGedungController extends BaseController<GedungResponse>{
 
     private final MasterGedungService service;
 
@@ -48,10 +46,10 @@ public class MasterGedungController {
         return new ModelAndView("redirect:/master/gedung");
     }
 
-    @GetMapping("/edit/{kode}")
-    public ModelAndView edit(@PathVariable("kode") String kode) {
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/master/gedung/edit");
-        var result = this.service.getById(kode).orElse(null);
+        var result = this.service.getById(id).orElse(null);
         if (result == null) {
             return new ModelAndView("pages/master/error/not-found");
         }
@@ -66,12 +64,12 @@ public class MasterGedungController {
             view.addObject("gedung", request);
             return view;
         }
-        var response = service.update(request).orElse(null);
+        var response = service.update(request, request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/gedung");
     }
 
-    @GetMapping("/delete/{kode}")
-    public ModelAndView delete(@PathVariable("kode") String kode) {
+    @GetMapping("/delete/{id}")
+    public ModelAndView delete(@PathVariable("id") String kode) {
         ModelAndView view = new ModelAndView("pages/master/gedung/delete");
         var result = this.service.getById(kode).orElse(null);
         if (result == null) {
@@ -88,40 +86,13 @@ public class MasterGedungController {
             view.addObject("gedung", request);
             return view;
         }
-        var response = service.delete(request).orElse(null);
+        var response = service.delete(request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/gedung");
     }
-
-
 
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<GedungResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
-    }
-
-    private ResponseEntity<Response> getResponse(Optional<GedungResponse> result){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED.ordinal())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(1)
-                        .build()
-        );
+        return getResponse(result);
     }
 }

@@ -1,5 +1,5 @@
-$(function (){
-    if (isDarkStyle){
+$(function () {
+    if (isDarkStyle) {
         borderColor = config.colors_dark.borderColor;
         bodyBg = config.colors_dark.bodyBg;
         headingColor = config.colors_dark.headingColor;
@@ -9,85 +9,44 @@ $(function (){
         headingColor = config.colors.headingColor;
     }
 
-    // btn add click
-    $("#btn-add").click(function (){
-        var url = $(this).attr('href');
-        showModal(url,'large');
-    });
-
-    // form submit
-    $('#main-modal').on('submit', '#form-level', function (){
-        var ajaxUrl = $(this).attr('action');
-        $.ajax({
-            url: ajaxUrl,
-            method: 'POST',
-            dataType: 'JSON',
-            success: function (result){
-                $('#main-modal').modal('show');
-            }
-        });
-    });
-
-    // edit data
-    $("#table-level").on('click', '.btn-edit', function (){
-       var url = $(this).attr('href');
-       showModal(url, 'large');
-    });
-
-    // delete data
-    $("#table-level").on('click', '.btn-delete', function (){
-       var url = $(this).attr('href');
-       showModal(url, 'large');
-    });
-
-    // data-tables declaration
-    var dt_level_table = $("#table-level"),
+    // data declaration
+    var dt_mapel_table = $("#table-mapel"),
         statusObj = {
             0: {title: "Non Aktif"},
-            1: {title: "Aktif"},
+            1: {title: "AKtif"},
         },
-        riwayatObj ={
+        riwayatObj = {
             0: {title: "Non Aktif"},
             1: {title: "Aktif"},
         };
 
-    if (dt_level_table.length) {
-        var ajaxUrl = $('#level-title').attr('href');
-        var dt_level = dt_level_table.DataTable({
+    // datatable declaration
+    if (dt_mapel_table.length > 0) {
+        var ajaxUrl = $('#mapel-title').attr('href');
+        var dt_mapel = dt_mapel_table.DataTable({
             ajax: ajaxUrl,
             columns: [
-                { data: 'id' },
-                { data: 'kelompok' },
-                { data: 'kurikulum' },
-                { data: 'kodeMapel' },
-                { data: 'namaMapel' },
-                { data: 'level' },
-                { data: 'urutan' },
-                { data: 'kkm' },
-                { data: 'agama' },
-                { data: 'jadwal' },
-                { data: 'status' },
-                { data: ' ' }
+                { data: 'id'},
+                { data: 'kode'},
+                { data: 'nama'},
+                { data: 'status'},
+                { data: ' '}
             ],
-            columnDefs : [
+            columnDefs: [
                 {
                     className: 'control',
                     searchable: false,
                     orderable: false,
                     responsivePriority: 2,
                     targets: 0,
-                    render:  function (data, type, full, meta){
-                        var $item = full['id'];
-                        return '<span>'+$item +'</span>';
-                    }
                 },
                 {
                     targets: 1,
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kelompok'];
-                        return '<span>'+$item + '</span>';
+                        var $item = full['kode'];
+                        return '<span>' + $item + '</span>';
                     }
                 },
                 {
@@ -95,8 +54,8 @@ $(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kurikulum'];
-                        return '<span>'+$item + '</span>';
+                        var $item = full['nama'];
+                        return '<span>' + $item + '</span>';
                     }
                 },
                 {
@@ -104,71 +63,8 @@ $(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kodeMapel'];
-                        return '<span>'+$item + '</span>';
-                    }
-                },
-                {
-                    targets: 4,
-                    searchable: true,
-                    orderable: true,
-                    render: (data, type, full, meta) => {
-                        var $item = full['namaMapel'];
-                        return '<span>'+$item + '</span>';
-                    }
-                },
-                {
-                    targets: 5,
-                    searchable: true,
-                    orderable: true,
-                    render: (data, type, full, meta) => {
-                        var $item = full['level'];
-                        return '<span>'+$item + '</span>';
-                    }
-                },
-                {
-                    targets: 6,
-                    searchable: true,
-                    orderable: true,
-                    render: (data, type, full, meta) => {
-                        var $item = full['urutan'];
-                        return '<span>'+$item + '</span>';
-                    }
-                },
-                {
-                    targets: 7,
-                    searchable: true,
-                    orderable: true,
-                    render: (data, type, full, meta) => {
-                        var $item = full['kkm'];
-                        return '<span>'+$item + '</span>';
-                    }
-                },
-                {
-                    targets: 8,
-                    searchable: true,
-                    orderable: true,
-                    render: (data, type, full, meta) => {
-                        var $item = full['agama'];
-                        return '<span>'+$item + '</span>';
-                    }
-                },
-                {
-                    targets: 9,
-                    searchable: true,
-                    orderable: true,
-                    render: (data, type, full, meta) => {
-                        var $item = full['jadwal'];
-                        return '<span>'+$item + '</span>';
-                    }
-                },
-                {
-                    targets: 10,
-                    searchable: true,
-                    orderable: true,
-                    render: (data, type, full, meta) => {
                         var $item = full['status'];
-                        return '<span>'+$item + '</span>';
+                        return '<span>' + $item + '</span>'
                     }
                 },
                 {
@@ -176,23 +72,59 @@ $(function (){
                     title: 'Actions',
                     searchable: false,
                     orderable: false,
-                    render: function (data, type, full, meta){
+                    render: function (data, type, full, meta) {
                         var id = full['id'];
                         var editUrl = ajaxUrl.replace('data','edit') + '/' + id;
-                        var deleteUrl = ajaxUrl.replace('data','delete')+'/'+id;
-                        return (
+                        var deleteUrl = ajaxUrl.replace('data','delete') + '/' + id;
+                        return(
                             '<div class="d-inline-block text-nowrap">' +
-                            '<button class="btn btn-xs btn-primary btn btn-edit"  href="'+ editUrl +'"><i class="ti ti-edit"></i> Edit</button> &nbsp;' +
-                            '<button class="btn btn-xs btn-danger btn btn-delete"  href="'+ deleteUrl +'"><i class="ti ti-trash"></i></button>' +
+                            '<button class="btn btn-xs btn-primary btn-edit" href="' + editUrl + '"><i class="ti ti-edit"></i> Edit </button> &nbsp;' +
+                            '<button class="btn btn-xs btn-danger btn-delete" href="' + deleteUrl + '"><i class="ti ti-trash"></i> </button>' +
                             '</div>'
-                        );
+                        )
                     }
                 }
             ],
             lengthMenu: [5, 10, 20, 50, 70, 100]
         });
 
-        $('.dataTable_length').addClass('mt-2 mt-sm-0 mt-md-3 me-2');
-        $('.dt-buttons').addClass('d-flex flex-wrap');
+        dt_mapel.on('order.dt search.dt', function () {
+            let i = 1;
+
+            dt_mapel.cells(null, 0, { search: 'applied', order: 'applied' })
+                .every(function (cell) {
+                    this.data(i++);
+                });
+        }).draw();
+
     }
+
+    $('.dataTables_length').addClass('mt-2 mt-sm-0 mt-md-3 me-2');
+    $('.dt-buttons').addClass('d-flex flex-wrap');
+
+    // btn add click
+    $("#btn-add").click(function () {
+        var url = $(this).attr('href');
+        showModal(url, ' ');
+    });
+
+    // form submit
+    $('#main-modal').on('submit', '#form-mapel', function (e) {
+        e.preventDefault();
+        var ajaxUrl = $(this).attr('action');
+        const data = convertFormToJSON($(this));
+        ajaxSubmit(ajaxUrl, data, dt_mapel)
+    });
+
+    // edit data
+    $("#table-mapel").on('click', '.btn-edit', function () {
+        var url = $(this).attr('href');
+        showModal(url, ' ');
+    });
+
+    // delete data
+    $("#table-mapel").on('click', '.btn-delete', function () {
+        var url = $(this).attr('href');
+        showModal(url, ' ');
+    });
 });

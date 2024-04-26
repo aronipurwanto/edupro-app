@@ -1,5 +1,6 @@
 package org.edupro.web.controller;
 
+import org.edupro.web.model.response.KelasResponse;
 import org.edupro.web.model.response.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,13 +56,13 @@ public class BaseController<T> {
             );
         }
 
-        return ResponseEntity.ok().body(
+       return ResponseEntity.ok().body(
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())
                         .message("Success")
                         .data(result)
                         .total(1)
                         .build()
-        );
+       );
     }
 }

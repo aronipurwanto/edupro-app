@@ -19,7 +19,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/master/lookup")
 @RequiredArgsConstructor
-public class MasterLookupController {
+public class MasterLookupController extends BaseController<LookupResponse> {
 
     private final MasterLookupService service;
 
@@ -37,37 +37,6 @@ public class MasterLookupController {
         return view;
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView edit(@PathVariable("id") Integer id){
-        ModelAndView view = new ModelAndView("pages/master/lookup/edit");
-        var result = this.service.getById(id).orElse(null);
-        if(result == null){
-            return new ModelAndView("pages/master/error/not-found");
-        }
-
-        view.addObject("lookup", result);
-        view.addObject("groups", service.getGroup());
-        return view;
-    }
-
-    @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") Integer id){
-        return new ModelAndView("pages/master/lookup/delete");
-    }
-
-    @GetMapping("/data")
-    public ResponseEntity<Response> getData(){
-        List<LookupResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
-    }
-
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("lookup") @Valid LookupRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/lookup/add");
@@ -82,6 +51,19 @@ public class MasterLookupController {
         return new ModelAndView("redirect:/master/lookup");
     }
 
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable("id") String id){
+        ModelAndView view = new ModelAndView("pages/master/lookup/edit");
+        var result = this.service.getById(id).orElse(null);
+        if(result == null){
+            return new ModelAndView("pages/master/error/not-found");
+        }
+
+        view.addObject("lookup", result);
+        view.addObject("groups", service.getGroup());
+        return view;
+    }
+
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("lookup") @Valid LookupRequest request,  BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/lookup/edit");
@@ -91,32 +73,36 @@ public class MasterLookupController {
             view.addObject("lookup", request);
             return view;
         }
-        var response = service.update(request).orElse(null);
+        var response = service.update(request, request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/lookup");
     }
 
-    @PostMapping("/remove/{id}")
-    public ResponseEntity<Response> remove(@PathVariable("id") Integer id){
-        var result = service.delete(id);
-
-        return getResponse(result);
+    @GetMapping("/delete/{id}")
+    public ModelAndView delete(@PathVariable("id") String id){
+        ModelAndView view = new ModelAndView("pages/master/lookup/delete");
+        var result = this.service.getById(id).orElse(null);
+        if (result == null){
+            return new ModelAndView("pages/master/error/not-found");
+        }
+        view.addObject("lookup", result);
+        return view;
     }
 
-    private ResponseEntity<Response> getResponse(Optional<LookupResponse> result){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BAD_REQUEST.value())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(1)
-                        .build()
-        );
+    @PostMapping("/remove")
+    public ModelAndView remove(@ModelAttribute("lookup") @Valid LookupRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/lookup/delete");
+        if (result.hasErrors()){
+            view.addObject("lookup", request);
+            return view;
+        }
+
+        var response = service.delete(request.getId()).orElse(null);
+        return new ModelAndView("redirect:/master/lookup");
+    }
+
+    @GetMapping("/data")
+    public ResponseEntity<Response> getData(){
+        List<LookupResponse> result = service.get();
+        return getResponse(result);
     }
 }

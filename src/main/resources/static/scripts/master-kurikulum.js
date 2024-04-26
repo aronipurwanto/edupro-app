@@ -10,7 +10,7 @@ $(function () {
     }
 
     // data declaration
-    var dt_gedung_table = $("#table-gedung"),
+    var dt_kurikulum_table = $("#table-kurikulum"),
         statusObj = {
             0: {title: "Non Aktif"},
             1: {title: "AKtif"},
@@ -21,9 +21,9 @@ $(function () {
         };
 
         // datatable declaration
-    if (dt_gedung_table.length > 0) {
-        var ajaxUrl = $('#gedung-title').attr('href');
-        var dt_gedung = dt_gedung_table.DataTable({
+    if (dt_kurikulum_table.length > 0) {
+        var ajaxUrl = $('#kurikulum-title').attr('href');
+        var dt_kurikulum = dt_kurikulum_table.DataTable({
             ajax: ajaxUrl,
             columns: [
                 { data: 'kode'},
@@ -88,10 +88,10 @@ $(function () {
             lengthMenu: [5, 10, 20, 50, 70, 100]
         });
 
-        dt_gedung.on('order.dt search.dt', function () {
+        dt_kurikulum.on('order.dt search.dt', function () {
             let i = 1;
 
-            dt_gedung.cells(null, 0, { search: 'applied', order: 'applied' })
+            dt_kurikulum.cells(null, 0, { search: 'applied', order: 'applied' })
                 .every(function (cell) {
                     this.data(i++);
                 });
@@ -108,21 +108,21 @@ $(function () {
         });
 
         // form submit
-        $('#main-modal').on('submit', '#form-gedung', function (e) {
+        $('#main-modal').on('submit', '#form-kurikulum', function (e) {
             e.preventDefault();
             var ajaxUrl = $(this).attr('action');
             const data = convertFormToJSON($(this));
-            ajaxSubmit(ajaxUrl, data, dt_gedung)
+            ajaxSubmit(ajaxUrl, data, dt_kurikulum)
         });
 
         // edit data
-        $("#table-gedung").on('click', '.btn-edit', function () {
+        $("#table-kurikulum").on('click', '.btn-edit', function () {
             var url = $(this).attr('href');
             showModal(url, ' ');
         });
 
         // delete data
-        $("#table-gedung").on('click', '.btn-delete', function () {
+        $("#table-kurikulum").on('click', '.btn-delete', function () {
             var url = $(this).attr('href');
             showModal(url, ' ');
         });

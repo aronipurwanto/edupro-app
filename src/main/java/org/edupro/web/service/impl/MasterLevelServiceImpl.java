@@ -1,5 +1,6 @@
 package org.edupro.web.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.edupro.web.constant.BackEndUrl;
@@ -18,16 +19,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class MasterLevelServiceImpl implements MasterLevelService {
     private final BackEndUrl backEndUrl;
     private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
 
     @Override
     public List<LevelResponse> get() {
@@ -45,16 +45,20 @@ public class MasterLevelServiceImpl implements MasterLevelService {
     }
 
     @Override
-    public Optional<LevelResponse> getById(Integer id) {
+    public Optional<LevelResponse> getById(String id, String kode) {
         try {
-            var url = Strings.concat(backEndUrl.levelUrl(), "/"+ id);
-            ResponseEntity<Response> response = restTemplate.getForEntity( url, Response.class);
+            var url = Strings.concat(backEndUrl.levelUrl(), "/"+ id +"/"+ kode);
+            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
-                var result = (LevelResponse) response.getBody().getData();
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                LevelResponse result = objectMapper.readValue(json, LevelResponse.class);
+
                 return Optional.of(result);
             }
         }catch (RestClientException e){
             return Optional.empty();
+        } catch (IOException e){
+            throw new RuntimeException(e);
         }
         return Optional.empty();
     }
@@ -64,44 +68,53 @@ public class MasterLevelServiceImpl implements MasterLevelService {
         try{
             var url = backEndUrl.levelUrl();
             HttpEntity<LevelRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.postForEntity( url, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
-                var result = (LevelResponse) response.getBody().getData();
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                LevelResponse result = objectMapper.readValue(json, LevelResponse.class);
                 return Optional.of(result);
             }
         }catch (RestClientException e){
             return Optional.empty();
+        }catch (IOException e){
+            throw new RuntimeException(e);
         }
         return Optional.empty();
     }
 
     @Override
-    public Optional<LevelResponse> update(LevelRequest request, Integer id) {
+    public Optional<LevelResponse> update(LevelRequest request, String id) {
         try{
-            var url = Strings.concat(backEndUrl.levelUrl(),"/"+ id);
+            var url = Strings.concat(backEndUrl.levelUrl(), "/" + id + "/" + request.getKode());
             HttpEntity<LevelRequest> httpEntity = new HttpEntity<>(request);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
-                var result = (LevelResponse) response.getBody().getData();
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                LevelResponse result = objectMapper.readValue(json, LevelResponse.class);
                 return Optional.of(result);
             }
         }catch (RestClientException e){
             return Optional.empty();
+        }catch (IOException e){
+            throw new RuntimeException(e);
         }
         return Optional.empty();
     }
 
     @Override
-    public Optional<LevelResponse> delete(Integer id) {
+    public Optional<LevelResponse> delete(String id, LevelRequest request) {
         try{
-            var url = Strings.concat(backEndUrl.levelUrl(),"/"+ id);
+            var url = Strings.concat(backEndUrl.levelUrl(),"/"+ id + "/" + request.getKode());
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
-                var result = (LevelResponse) response.getBody().getData();
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                LevelResponse result = objectMapper.readValue(json, LevelResponse.class);
                 return Optional.of(result);
             }
         }catch (RestClientException e){
             return Optional.empty();
+        }catch (IOException e){
+            throw new RuntimeException(e);
         }
         return Optional.empty();
     }
