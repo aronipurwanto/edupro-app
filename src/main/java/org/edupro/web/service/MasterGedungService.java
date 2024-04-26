@@ -11,7 +11,7 @@ public interface MasterGedungService {
     List<GedungResponse> get();
     Optional<GedungResponse> getById(String id);
     Optional<GedungResponse> save(GedungRequest request);
-    Optional<GedungResponse> update(GedungRequest request);
-    Optional<GedungResponse> delete(GedungRequest request);
+    Optional<GedungResponse> update(GedungRequest request, String id);
+    Optional<GedungResponse> delete(String id);
 
 }
