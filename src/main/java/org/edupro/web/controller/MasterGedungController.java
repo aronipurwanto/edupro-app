@@ -90,8 +90,6 @@ public class MasterGedungController extends BaseController<GedungResponse>{
         return new ModelAndView("redirect:/master/gedung");
     }
 
-
-
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<GedungResponse> result = service.get();

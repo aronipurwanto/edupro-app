@@ -37,30 +37,6 @@ public class MasterLookupController extends BaseController<LookupResponse> {
         return view;
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView edit(@PathVariable("id") Integer id){
-        ModelAndView view = new ModelAndView("pages/master/lookup/edit");
-        var result = this.service.getById(id).orElse(null);
-        if(result == null){
-            return new ModelAndView("pages/master/error/not-found");
-        }
-
-        view.addObject("lookup", result);
-        view.addObject("groups", service.getGroup());
-        return view;
-    }
-
-    @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") Integer id){
-        return new ModelAndView("pages/master/lookup/delete");
-    }
-
-    @GetMapping("/data")
-    public ResponseEntity<Response> getData(){
-        List<LookupResponse> result = service.get();
-        return getResponse(result);
-    }
-
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("lookup") @Valid LookupRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/lookup/add");
@@ -75,6 +51,19 @@ public class MasterLookupController extends BaseController<LookupResponse> {
         return new ModelAndView("redirect:/master/lookup");
     }
 
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable("id") String id){
+        ModelAndView view = new ModelAndView("pages/master/lookup/edit");
+        var result = this.service.getById(id).orElse(null);
+        if(result == null){
+            return new ModelAndView("pages/master/error/not-found");
+        }
+
+        view.addObject("lookup", result);
+        view.addObject("groups", service.getGroup());
+        return view;
+    }
+
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("lookup") @Valid LookupRequest request,  BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/lookup/edit");
@@ -84,14 +73,36 @@ public class MasterLookupController extends BaseController<LookupResponse> {
             view.addObject("lookup", request);
             return view;
         }
-        var response = service.update(request).orElse(null);
+        var response = service.update(request, request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/lookup");
     }
 
-    @PostMapping("/remove/{id}")
-    public ResponseEntity<Response> remove(@PathVariable("id") Integer id){
-        var result = service.delete(id);
+    @GetMapping("/delete/{id}")
+    public ModelAndView delete(@PathVariable("id") String id){
+        ModelAndView view = new ModelAndView("pages/master/lookup/delete");
+        var result = this.service.getById(id).orElse(null);
+        if (result == null){
+            return new ModelAndView("pages/master/error/not-found");
+        }
+        view.addObject("lookup", result);
+        return view;
+    }
 
+    @PostMapping("/remove")
+    public ModelAndView remove(@ModelAttribute("lookup") @Valid LookupRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/lookup/delete");
+        if (result.hasErrors()){
+            view.addObject("lookup", request);
+            return view;
+        }
+
+        var response = service.delete(request.getId()).orElse(null);
+        return new ModelAndView("redirect:/master/lookup");
+    }
+
+    @GetMapping("/data")
+    public ResponseEntity<Response> getData(){
+        List<LookupResponse> result = service.get();
         return getResponse(result);
     }
 }

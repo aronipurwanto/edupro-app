@@ -60,7 +60,7 @@ public class MasterLookupServiceImpl implements MasterLookupService {
     }
 
     @Override
-    public Optional<LookupResponse> getById(Integer id) {
+    public Optional<LookupResponse> getById(String id) {
         try {
             var url = Strings.concat(backEndUrl.lookupUrl(), "/"+ id);
             ResponseEntity<Response> response = restTemplate.getForEntity( url, Response.class);
@@ -98,9 +98,9 @@ public class MasterLookupServiceImpl implements MasterLookupService {
     }
 
     @Override
-    public Optional<LookupResponse> update(LookupRequest request) {
+    public Optional<LookupResponse> update(LookupRequest request, String id) {
         try{
-            var url = Strings.concat(backEndUrl.lookupUrl(),"/"+ request.getId());
+            var url = Strings.concat(backEndUrl.lookupUrl(),"/"+ id);
             HttpEntity<LookupRequest> httpEntity = new HttpEntity<>(request);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
@@ -117,7 +117,7 @@ public class MasterLookupServiceImpl implements MasterLookupService {
     }
 
     @Override
-    public Optional<LookupResponse> delete(Integer id) {
+    public Optional<LookupResponse> delete(String id) {
         try{
             var url = Strings.concat(backEndUrl.lookupUrl(),"/"+ id);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);

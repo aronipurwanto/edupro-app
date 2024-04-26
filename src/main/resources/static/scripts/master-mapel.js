@@ -26,7 +26,7 @@ $(function () {
         var dt_mapel = dt_mapel_table.DataTable({
             ajax: ajaxUrl,
             columns: [
-                { data: 'kode'},
+                { data: 'id'},
                 { data: 'kode'},
                 { data: 'nama'},
                 { data: 'status'},

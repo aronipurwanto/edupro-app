@@ -45,9 +45,9 @@ public class MasterLevelServiceImpl implements MasterLevelService {
     }
 
     @Override
-    public Optional<LevelResponse> getById(String id) {
+    public Optional<LevelResponse> getById(String id, String kode) {
         try {
-            var url = Strings.concat(backEndUrl.levelUrl(), "/"+ id);
+            var url = Strings.concat(backEndUrl.levelUrl(), "/"+ id +"/"+ kode);
             ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -85,30 +85,36 @@ public class MasterLevelServiceImpl implements MasterLevelService {
     @Override
     public Optional<LevelResponse> update(LevelRequest request, String id) {
         try{
-            var url = Strings.concat(backEndUrl.levelUrl(),"/"+ id);
+            var url = Strings.concat(backEndUrl.levelUrl(), "/" + id + "/" + request.getKode());
             HttpEntity<LevelRequest> httpEntity = new HttpEntity<>(request);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
-                var result = (LevelResponse) response.getBody().getData();
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                LevelResponse result = objectMapper.readValue(json, LevelResponse.class);
                 return Optional.of(result);
             }
         }catch (RestClientException e){
             return Optional.empty();
+        }catch (IOException e){
+            throw new RuntimeException(e);
         }
         return Optional.empty();
     }
 
     @Override
-    public Optional<LevelResponse> delete(String id) {
+    public Optional<LevelResponse> delete(String id, LevelRequest request) {
         try{
-            var url = Strings.concat(backEndUrl.levelUrl(),"/"+ id);
+            var url = Strings.concat(backEndUrl.levelUrl(),"/"+ id + "/" + request.getKode());
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
-                var result = (LevelResponse) response.getBody().getData();
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                LevelResponse result = objectMapper.readValue(json, LevelResponse.class);
                 return Optional.of(result);
             }
         }catch (RestClientException e){
             return Optional.empty();
+        }catch (IOException e){
+            throw new RuntimeException(e);
         }
         return Optional.empty();
     }
