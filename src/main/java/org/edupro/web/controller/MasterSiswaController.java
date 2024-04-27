@@ -82,7 +82,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
             return new ModelAndView("pages/master/error/not-found");
         }
 
-        view.addObject("ruangan", result);
+        view.addObject("siswa", result);
         return view;
     }
 
