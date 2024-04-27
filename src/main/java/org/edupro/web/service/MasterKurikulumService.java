@@ -10,6 +10,6 @@ public interface MasterKurikulumService {
     List<KurikulumResponse> get();
     Optional<KurikulumResponse> getById(String id);
     Optional<KurikulumResponse> save(KurikulumRequest request);
-    Optional<KurikulumResponse> update(KurikulumRequest request);
-    Optional<KurikulumResponse> delete(KurikulumRequest request);
+    Optional<KurikulumResponse> update(KurikulumRequest request, String id);
+    Optional<KurikulumResponse> delete(String id);
 }

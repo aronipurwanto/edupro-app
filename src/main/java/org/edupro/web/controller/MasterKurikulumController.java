@@ -6,7 +6,6 @@ import org.edupro.web.model.request.KurikulumRequest;
 import org.edupro.web.model.response.KurikulumResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.service.MasterKurikulumService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,12 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/kurikulum")
 @RequiredArgsConstructor
-public class MasterKurikulumController {
+public class MasterKurikulumController  extends BaseController<KurikulumResponse> {
     private final MasterKurikulumService service;
 
     @GetMapping
@@ -65,7 +63,7 @@ public class MasterKurikulumController {
             view.addObject("kurikulum", request);
             return view;
         }
-        var response = service.update(request).orElse(null);
+        var response = service.update(request, request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/kurikulum");
     }
 
@@ -87,7 +85,7 @@ public class MasterKurikulumController {
             view.addObject("kurikulum", request);
             return view;
         }
-        var response = service.delete(request).orElse(null);
+        var response = service.delete(request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/kurikulum");
     }
 
@@ -96,31 +94,6 @@ public class MasterKurikulumController {
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<KurikulumResponse> result = service.get();
-        return ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(result.size())
-                        .build()
-        );
-    }
-
-    private ResponseEntity<Response> getResponse(Optional<KurikulumResponse> result){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED.ordinal())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
-                Response.builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Success")
-                        .data(result)
-                        .total(1)
-                        .build()
-        );
+        return getResponse(result);
     }
 }
