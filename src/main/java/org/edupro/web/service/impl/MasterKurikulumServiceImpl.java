@@ -82,9 +82,9 @@ public class MasterKurikulumServiceImpl implements MasterKurikulumService {
 
 
     @Override
-    public Optional<KurikulumResponse> update(KurikulumRequest request) {
+    public Optional<KurikulumResponse> update(KurikulumRequest request, String id) {
         try {
-            var url = Strings.concat(backEndUrl.kurikulumUrl(),"/"+ request.getId());
+            var url = Strings.concat(backEndUrl.kurikulumUrl(),"/"+ id);
             HttpEntity<KurikulumRequest> httpEntity = new HttpEntity<>(request);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
@@ -101,9 +101,9 @@ public class MasterKurikulumServiceImpl implements MasterKurikulumService {
     }
 
     @Override
-    public Optional<KurikulumResponse> delete(KurikulumRequest request) {
+    public Optional<KurikulumResponse> delete(String id) {
         try {
-            var url = Strings.concat(backEndUrl.kurikulumUrl(),"/"+ request.getId());
+            var url = Strings.concat(backEndUrl.kurikulumUrl(),"/"+ id);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
