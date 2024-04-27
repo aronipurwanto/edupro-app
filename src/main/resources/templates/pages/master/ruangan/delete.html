@@ -11,6 +11,7 @@
                 <div class="col mb-0">
                     <label for="namaGedung" class="form-label">Gedung</label>
                     <input type="text" id="namaGedung" name="namaGedung" class="form-control" th:value="${ruangan.namaGedung}" readonly>
+                    <input type="hidden" name="gedungId" th:value="${ruangan.gedungId}">
                 </div>
                 <div class="col mb-0">
                     <label for="kode" class="form-label">Kode</label>
