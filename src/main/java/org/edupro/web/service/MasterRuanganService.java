@@ -1,7 +1,6 @@
 package org.edupro.web.service;
 
 import org.edupro.web.model.request.RuanganRequest;
-import org.edupro.web.model.response.GedungResponse;
 import org.edupro.web.model.response.RuanganResponse;
 
 import java.util.List;
