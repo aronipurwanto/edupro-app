@@ -18,6 +18,7 @@
                     <label for="tahunAjaranId" class="form-label">Tahun Ajaran</label>
                     <select id="tahunAjaranId" name="tahunAjaranId" th:value="${sesi.tahunAjaranId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('tahunAjaranId')}? 'form-select select2 is-invalid': 'form-select select2'">
+                        <option value="">Pilih Tahun Ajaran</option>
                         <option th:each="item : ${dataTa}" th:value="${item.id}" th:text="${item.nama}" th:selected="${item.id == sesi.tahunAjaranId}"></option>
                     </select>
                     <div th:if="${#fields.hasErrors('tahunAjaranId')}" class="invalid-feedback">
@@ -42,7 +43,7 @@
                 <div class="col mb-3">
                     <label for="kodeKurikulum" class="form-label">Kode Kurikulum</label>
                     <input type="text" id="kodeKurikulum" name="kodeKurikulum" th:value="${sesi.kodeKurikulum}"
-                           th:class="${#fields.hasErrors('kodeKurikulum')}? 'form-control is-invalid': 'form-control'" placeholder="Kode Kurikulum" />
+                           th:class="${#fields.hasErrors('kodeKurikulum')}? 'form-control is-invalid': 'form-control'" placeholder="Kode Kurikulum" readonly />
                     <div th:if="${#fields.hasErrors('kodeKurikulum')}" class="invalid-feedback">
                         <span th:errors="*{kodeKurikulum}"></span>
                     </div>
@@ -51,8 +52,8 @@
             <div class="form-group row">
                 <div class="col mb-3">
                     <label for="urut" class="form-label">Urut</label>
-                    <input type="number" id="urut" name="urut" th:value="${sesi.urut}"
-                           th:class="${#fields.hasErrors('urut')}? 'form-control is-invalid': 'form-control'" placeholder="urut" />
+                    <input type="text" id="urut" name="urut" th:value="${sesi.urut}"
+                           th:class="${#fields.hasErrors('urut')}? 'form-control is-invalid': 'form-control'" placeholder="urut" readonly/>
                     <div th:if="${#fields.hasErrors('urut')}" class="invalid-feedback">
                         <span th:errors="*{urut}"></span>
                     </div>

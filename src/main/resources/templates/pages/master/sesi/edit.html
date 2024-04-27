@@ -18,7 +18,7 @@
                     <label for="tahunAjaranId" class="form-label">Tahun Ajaran</label>
                     <select id="tahunAjaranId" name="tahunAjaranId" th:value="${sesi.tahunAjaranId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('tahunAjaranId')}? 'form-select select2 is-invalid': 'form-select select2'">
-                        <option value="">Pilih Tahun Ajaran</option>
+                        <option value="0">Pilih Tahun Ajaran</option>
                         <option th:each="item : ${dataTa}" th:value="${item.id}" th:text="${item.nama}" th:selected="${item.id == sesi.tahunAjaranId}"></option>
                     </select>
                     <div th:if="${#fields.hasErrors('tahunAjaranId')}" class="invalid-feedback">
@@ -31,7 +31,7 @@
                     <label for="kurikulumId" class="form-label"></label>
                     <select id="kurikulumId" name="kurikulumId" th:value="${sesi.kurikulumId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('kurikulumId')}? 'form-select select2 is-invalid': 'form-select select2'">
-                        <option value="">Pilih Kurikulum</option>
+                        <option value="0">Pilih Kurikulum</option>
                         <option th:each="item : ${kurikulum}" th:value="${item.id}" th:text="${item.nama}" th:selected="${item.id == sesi.kurikulumId}"></option>
                     </select>
                     <div th:if="${#fields.hasErrors('kurikulumId')}" class="invalid-feedback">
