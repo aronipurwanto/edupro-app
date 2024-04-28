@@ -14,6 +14,4 @@ public interface MasterKelasService {
     Optional<KelasResponse> save(KelasRequest request);
     Optional<KelasResponse> update(KelasRequest request, Integer id);
     Optional<KelasResponse> delete(Integer id);
-
-
 }

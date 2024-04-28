@@ -77,7 +77,7 @@
             <div class="row">
                 <div class="col mb-3">
                     <label for="golDarah" class="form-label">Gedung</label>
-                    <select id="golDarah" name="gender" th:value="${siswa.golDarah}" data-allow-clear="true"
+                    <select id="golDarah" name="golDarah" th:value="${siswa.golDarah}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('golDarah')}? 'form-select select2 is-invalid': 'form-select select2'">
                         <option value="">Pilih Gol Darah</option>
                         <option th:each="item : ${golDarah}" th:value="${item.kode}" th:text="${item.nama}"
