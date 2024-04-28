@@ -60,6 +60,21 @@ public class MasterLookupServiceImpl implements MasterLookupService {
     }
 
     @Override
+    public List<LookupResponse> getByGroup(String group) {
+        try {
+            var url = Strings.concat(backEndUrl.lookupUrl(),"/group/"+ group);
+            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            if(response.getStatusCode() == HttpStatus.OK) {
+                return (List<LookupResponse>) response.getBody().getData();
+            }
+        }catch (RestClientException e){
+            return Collections.emptyList();
+        }
+
+        return Collections.emptyList();
+    }
+
+    @Override
     public Optional<LookupResponse> getById(String id) {
         try {
             var url = Strings.concat(backEndUrl.lookupUrl(), "/"+ id);

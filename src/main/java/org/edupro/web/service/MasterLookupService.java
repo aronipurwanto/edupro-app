@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface MasterLookupService {
     List<LookupResponse> get();
     List<CommonResponse> getGroup();
+    List<LookupResponse> getByGroup(String group);
     Optional<LookupResponse> getById(String id);
     Optional<LookupResponse> save(LookupRequest request);
     Optional<LookupResponse> update(LookupRequest request, String id);

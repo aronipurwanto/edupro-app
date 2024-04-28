@@ -3,8 +3,10 @@ package org.edupro.web.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.model.request.PersonRequest;
+import org.edupro.web.model.response.LookupResponse;
 import org.edupro.web.model.response.PersonResponse;
 import org.edupro.web.model.response.Response;
+import org.edupro.web.service.MasterLookupService;
 import org.edupro.web.service.MasterPersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import java.util.List;
 public class MasterPersonController extends BaseController<PersonResponse>{
 
     private final MasterPersonService service;
+    private final MasterLookupService lookupService;
 
     @GetMapping
     public ModelAndView index(){
@@ -32,6 +35,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
     @GetMapping("/add")
     public ModelAndView add(){
         ModelAndView view = new ModelAndView("pages/master/person/add");
+        List<LookupResponse> lookupResponses = this.lookupService.getByGroup("AGAMA");
 
         view.addObject("person", new PersonRequest());
         return view;
