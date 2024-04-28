@@ -10,53 +10,44 @@ import java.util.Optional;
 
 public class BaseController<T> {
     public ResponseEntity<Response> getResponse(Optional<T> result){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BAD_REQUEST.value())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
+        return result.<ResponseEntity<Response>>map(t -> ResponseEntity.ok().body(
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())
                         .message("Success")
-                        .data(result)
+                        .data(t)
+                        .data(t)
+                        .data(t)
                         .total(1)
                         .build()
-        );
+        )).orElseGet(() -> ResponseEntity.badRequest().body(
+                Response.builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Success")
+                        .data(null)
+                        .total(0)
+                        .build()
+        ));
     }
 
     public ResponseEntity<Response> getResponse(List<T> result){
-        return result.isEmpty() ? ResponseEntity.badRequest().body(
-                Response.builder()
-                        .statusCode(HttpStatus.BAD_REQUEST.value())
-                        .message("Failed")
-                        .data(null)
-                        .total(0)
-                        .build()
-        ) : ResponseEntity.ok().body(
+        return ResponseEntity.ok().body(
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())
                         .message("Success")
                         .data(result)
-                        .total(1)
+                        .total(result.size())
                         .build()
         );
     }
 
     public ResponseEntity<Response> getResponse(T result){
-        if (result == null) {
-            return ResponseEntity.ok().body(Response.builder()
-                    .statusCode(HttpStatus.BAD_REQUEST.value())
-                    .message("Failed")
-                    .data(null)
-                    .total(0)
-                    .build()
-            );
-        }
-
-       return ResponseEntity.ok().body(
+       return result == null ? ResponseEntity.ok().body(Response.builder()
+               .statusCode(HttpStatus.BAD_REQUEST.value())
+               .message("Success")
+               .data(null)
+               .total(0)
+               .build()
+       ):  ResponseEntity.ok().body(
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())
                         .message("Success")
