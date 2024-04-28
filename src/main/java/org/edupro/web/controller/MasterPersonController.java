@@ -2,6 +2,7 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.constant.CommonConstant;
 import org.edupro.web.model.request.PersonRequest;
 import org.edupro.web.model.response.LookupResponse;
 import org.edupro.web.model.response.PersonResponse;
@@ -26,59 +27,50 @@ public class MasterPersonController extends BaseController<PersonResponse>{
 
     @GetMapping
     public ModelAndView index(){
-        var view = new ModelAndView("pages/master/person/index");
-        view.addObject("person", service.get());
-
-        return view;
+        return new ModelAndView("pages/master/person/index");
     }
 
     @GetMapping("/add")
     public ModelAndView add(){
         ModelAndView view = new ModelAndView("pages/master/person/add");
-        List<LookupResponse> agama = this.lookupService.getByGroup("AGAMA");
-        List<LookupResponse> gender = this.lookupService.getByGroup("GENDER");
-        List<LookupResponse> golDarah = this.lookupService.getByGroup("GOL_DARAH");
-
         view.addObject("person", new PersonRequest());
-        view.addObject("agama", agama);
-        view.addObject("gender", gender);
-        view.addObject("golDarah", golDarah);
+        addObject(view);
         return view;
+    }
+
+    public void addObject(ModelAndView view){
+        List<LookupResponse> agama = lookupService.getByGroup(CommonConstant.GROUP_AGAMA);
+        view.addObject("agama", agama);
+
+        List<LookupResponse> gender = lookupService.getByGroup(CommonConstant.GROUP_GENDER);
+        view.addObject("gender", gender);
+
+        List<LookupResponse> golDarah = lookupService.getByGroup(CommonConstant.GROUP_GOL_DARAH);
+        view.addObject("golDarah", golDarah);
     }
 
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("person") @Valid PersonRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/person/add");
-        List<LookupResponse> agama = this.lookupService.getByGroup("AGAMA");
-        List<LookupResponse> gender = this.lookupService.getByGroup("GENDER");
-        List<LookupResponse> golDarah = this.lookupService.getByGroup("GOL_DARAH");
-
         if (result.hasErrors()){
             view.addObject("person", request);
+            addObject(view);
             return view;
         }
         var response = service.save(request);
-        view.addObject("agama", agama);
-        view.addObject("gender", gender);
-        view.addObject("golDarah", golDarah);
         return new ModelAndView("redirect:/master/person");
     }
 
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/person/edit");
-        List<LookupResponse> agama = this.lookupService.getByGroup("AGAMA");
-        List<LookupResponse> gender = this.lookupService.getByGroup("GENDER");
-        List<LookupResponse> golDarah = this.lookupService.getByGroup("GOL_DARAH");
 
         var result = this.service.getById(id).orElse(null);
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
         view.addObject("person", result);
-        view.addObject("agama", agama);
-        view.addObject("gender", gender);
-        view.addObject("golDarah", golDarah);
+        view.addObject(view);
         return view;
     }
 
@@ -87,6 +79,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
         ModelAndView view = new ModelAndView("pages/master/person/edit");
         if (result.hasErrors()){
             view.addObject("person", request);
+            addObject(view);
             return view;
         }
         var response = service.update(request, request.getId()).orElse(null);
@@ -101,6 +94,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
             return new ModelAndView("pages/master/error/not-found");
         }
         view.addObject("person", result);
+        addObject(view);
         return view;
     }
 
@@ -109,13 +103,14 @@ public class MasterPersonController extends BaseController<PersonResponse>{
         ModelAndView view = new ModelAndView("pages/master/person/delete");
         if (result.hasErrors()){
             view.addObject("person", request);
+            addObject(view);
             return view;
         }
         var response = this.service.delete(request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/person");
     }
 
-    @GetMapping("/date")
+    @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<PersonResponse> result = service.get();
         return getResponse(result);

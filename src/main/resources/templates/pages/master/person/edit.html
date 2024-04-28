@@ -20,8 +20,6 @@
                         <span th:errors="*{userId}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col mb-3">
                     <label for="nomor" class="form-label">Nomor</label>
                     <input type="text" id="nomor" name="nomor" th:value="${person.nomor}" th:class="${#fields.hasErrors('nomor')}? 'form-control is-invalid': 'form-control'" placeholder="Nomor" />
@@ -29,8 +27,6 @@
                         <span th:errors="*{nomor}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col mb-3">
                     <label for="nama" class="form-label">Nama Person</label>
                     <input type="text" id="nama" name="nama" th:value="${person.nama}"
@@ -49,8 +45,6 @@
                         <span th:errors="*{alamatTinggal}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col mb-3">
                     <label for="nik" class="form-label">NIK</label>
                     <input type="text" id="nik" name="nik" th:value="${person.nik}"
@@ -59,8 +53,6 @@
                         <span th:errors="*{nik}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col mb-3">
                     <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
                     <input type="text" id="tanggalLahir" name="tanggalLahir" th:value="${person.tanggalLahir}"
@@ -79,8 +71,6 @@
                         <span th:errors="*{tempatLahir}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col mb-0">
                     <label for="gender" class="form-label">Gender</label>
                     <select id="gender" name="gender" th:value="${person.gender}" data-allow-clear="true"
@@ -93,8 +83,6 @@
                         <span th:errors="*{gender}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col mb-0">
                     <label for="agama" class="form-label">Agama</label>
                     <select id="agama" name="agama" th:value="${person.agama}" data-allow-clear="true"
@@ -121,8 +109,6 @@
                         <span th:errors="*{golDarah}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col mb-3">
                     <label for="noTelp" class="form-label">No Telp</label>
                     <input type="text" id="noTelp" name="noTelp" th:value="${person.noTelp}"
@@ -131,8 +117,6 @@
                         <span th:errors="*{noTelp}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="text" id="email" name="email" th:value="${person.email}"
