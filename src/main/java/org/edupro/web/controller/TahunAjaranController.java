@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/master/tahun")
+@RequestMapping("/master/ta")
 @RequiredArgsConstructor
 public class TahunAjaranController extends BaseController<TahunAjaranResponse> {
 
@@ -100,6 +100,12 @@ public class TahunAjaranController extends BaseController<TahunAjaranResponse> {
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<TahunAjaranResponse> result = service.get();
+        return getResponse(result);
+    }
+
+    @GetMapping("/kurikulum/{id}")
+    public ResponseEntity<Response> getDataByKurikulum(@PathVariable("id") String kurikulumId){
+        List<TahunAjaranResponse> result = service.getByKurikulumId(kurikulumId);
         return getResponse(result);
     }
 }

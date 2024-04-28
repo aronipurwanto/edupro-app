@@ -32,8 +32,8 @@ function convertFormToJSON(form) {
         }, {});
 }
 
+var token = $("meta[name='_csrf']").attr("content");
 function ajaxSubmit(url, data, dataTable = null){
-    var token = $("meta[name='_csrf']").attr("content");
     console.log(data);
     $.ajax({
         url: url,

@@ -14,18 +14,6 @@
             </div>
             <div class="row">
                 <div class="col mb-3">
-                    <label for="tahunAjaranId" class="form-label">Tahun Ajaran</label>
-                    <select id="tahunAjaranId" name="tahunAjaranId" th:value="${sesi.tahunAjaranId}" data-allow-clear="true"
-                            th:class="${#fields.hasErrors('tahunAjaranId')}? 'form-select select2 is-invalid': 'form-select select2'">
-                        <option value="">Pilih Tahun Ajaran</option>
-                        <option th:each="item : ${dataTa}" th:value="${item.id}" th:text="${item.nama}" th:selected="${item.id == sesi.tahunAjaranId}"></option>
-                    </select>
-                    <div th:if="${#fields.hasErrors('tahunAjaranId')}" class="invalid-feedback">
-                        <span th:errors="*{tahunAjaranId}"></span>
-                    </div>
-                </div>
-
-                <div class="col mb-3">
                     <label for="kurikulumId" class="form-label"></label>
                     <select id="kurikulumId" name="kurikulumId" th:value="${sesi.kurikulumId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('kurikulumId')}? 'form-select select2 is-invalid': 'form-select select2'">
@@ -34,6 +22,17 @@
                     </select>
                     <div th:if="${#fields.hasErrors('kurikulumId')}" class="invalid-feedback">
                         <span th:errors="*{kurikulumId}"></span>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label for="tahunAjaranId" class="form-label">Tahun Ajaran</label>
+                    <select id="tahunAjaranId" name="tahunAjaranId" th:value="${sesi.tahunAjaranId}" data-allow-clear="true"
+                            th:class="${#fields.hasErrors('tahunAjaranId')}? 'form-select select2 is-invalid': 'form-select select2'">
+                        <option value="">Pilih Tahun Ajaran</option>
+                        <option th:each="item : ${dataTa}" th:value="${item.id}" th:text="${item.nama}" th:selected="${item.id == sesi.tahunAjaranId}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('tahunAjaranId')}" class="invalid-feedback">
+                        <span th:errors="*{tahunAjaranId}"></span>
                     </div>
                 </div>
             </div>
