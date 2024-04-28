@@ -18,7 +18,7 @@ spring:
             client-id: edupro-login
             authorization-grant-type: authorization_code
             scope: openid, profile, roles
-            client-secret: 83HvdgvyFh3F0EVSlqPO6CuKEFn3rC98
+            client-secret: onAnAzOXAKz9a84PQkqdpefPnIZh4q1X
             redirect-uri: http://localhost:8082/login/oauth2/code/edupro-login
         provider:
           keycloak:

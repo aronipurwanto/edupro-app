@@ -1,17 +1,13 @@
 package org.edupro.web.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.edupro.web.constant.BackEndUrl;
-import org.edupro.web.model.request.KelasRequest;
 import org.edupro.web.model.request.SesiRequest;
-import org.edupro.web.model.request.SesiRequest;
-import org.edupro.web.model.response.KelasResponse;
 import org.edupro.web.model.response.SesiResponse;
 import org.edupro.web.model.response.Response;
-import org.edupro.web.model.response.SesiResponse;
 import org.edupro.web.service.MasterSesiService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -20,15 +16,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
+
 @Service
 @RequiredArgsConstructor
 public class MasterSesiServiceImpl implements MasterSesiService {
     private final BackEndUrl backEndUrl;
     private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
 
     @Override
     public List<SesiResponse> get() {
@@ -46,16 +42,20 @@ public class MasterSesiServiceImpl implements MasterSesiService {
     }
 
     @Override
-    public Optional<SesiResponse> getById(Integer id) {
+    public Optional<SesiResponse> getById(String id) {
         try {
-            var url = Strings.concat(backEndUrl.sesiUrl(), "/"+ id);
-            ResponseEntity<Response> response = restTemplate.getForEntity( url, Response.class);
-            if(response.getStatusCode() == HttpStatus.OK) {
-                var result = (SesiResponse) response.getBody().getData();
+            var url = Strings.concat(backEndUrl.sesiUrl(), "/" + id);
+            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                SesiResponse result = objectMapper.readValue(json, SesiResponse.class);
+
                 return Optional.of(result);
             }
         }catch (RestClientException e){
             return Optional.empty();
+        }catch (IOException e) {
+            throw  new RuntimeException(e);
         }
         return Optional.empty();
     }
@@ -67,42 +67,54 @@ public class MasterSesiServiceImpl implements MasterSesiService {
             HttpEntity<SesiRequest> httpEntity = new HttpEntity<>(request);
             ResponseEntity<Response> response = restTemplate.postForEntity( url, httpEntity, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
-                var result = (SesiResponse) response.getBody().getData();
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                SesiResponse result = objectMapper.readValue(json, SesiResponse.class);
+
                 return Optional.of(result);
             }
         }catch (RestClientException e){
             return Optional.empty();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return Optional.empty();
     }
 
     @Override
-    public Optional<SesiResponse> update(SesiRequest request, Integer id) {
+    public Optional<SesiResponse> update(SesiRequest request, String id) {
         try{
-            var url = Strings.concat(backEndUrl.sesiUrl(),"/"+ id);
+            var url = Strings.concat(backEndUrl.sesiUrl(),"/" + id);
             HttpEntity<SesiRequest> httpEntity = new HttpEntity<>(request);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
-                var result = (SesiResponse) response.getBody().getData();
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                SesiResponse result = objectMapper.readValue(json, SesiResponse.class);
+
                 return Optional.of(result);
             }
         }catch (RestClientException e){
             return Optional.empty();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return Optional.empty();
     }
 
     @Override
-    public Optional<SesiResponse> delete(Integer id) {
+    public Optional<SesiResponse> delete(String id) {
         try{
-            var url = Strings.concat(backEndUrl.sesiUrl(),"/"+ id);
+            var url = Strings.concat(backEndUrl.sesiUrl(),"/" + id);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
-                var result = (SesiResponse) response.getBody().getData();
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                SesiResponse result = objectMapper.readValue(json, SesiResponse.class);
+
                 return Optional.of(result);
             }
         }catch (RestClientException e){
             return Optional.empty();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return Optional.empty();
     }

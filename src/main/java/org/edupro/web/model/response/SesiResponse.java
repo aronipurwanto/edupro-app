@@ -8,8 +8,12 @@ import lombok.*;
 @Setter
 @Builder
 public class SesiResponse {
-    private Integer tahunPelajaran;
-    private Integer urut;
+    private String id;
+    private String tahunAjaranId;
+    private String tahunAjaranName;
+    private String kurikulumId;
     private String kodeKurikulum;
+    private String kurikulumName;
+    private Integer urut;
     private String status;
 }
