@@ -48,10 +48,10 @@ public class MasterLevelController extends BaseController<LevelResponse> {
         return new ModelAndView("redirect:/master/level");
     }
 
-    @GetMapping("/edit/{id}/{kode}")
-    public ModelAndView edit(@PathVariable("id") String id, @PathVariable("kode") String kode){
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/level/edit");
-        var result = this.service.getById(id, kode).orElse(null);
+        var result = this.service.getById(id).orElse(null);
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
@@ -70,10 +70,10 @@ public class MasterLevelController extends BaseController<LevelResponse> {
         return new ModelAndView("redirect:/master/level");
     }
 
-    @GetMapping("/delete/{id}/{kode}")
-    public ModelAndView delete(@PathVariable("id") String id, @PathVariable("kode") String kode){
+    @GetMapping("/delete/{id}")
+    public ModelAndView delete(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/level/delete");
-        var result = this.service.getById(id, kode).orElse(null);
+        var result = this.service.getById(id).orElse(null);
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
@@ -88,7 +88,7 @@ public class MasterLevelController extends BaseController<LevelResponse> {
             view.addObject("level", request);
             return view;
         }
-        var response = service.delete(request.getId(), request).orElse(null);
+        var response = service.delete(request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/level");
     }
 
