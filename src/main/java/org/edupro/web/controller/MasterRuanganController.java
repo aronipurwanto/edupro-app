@@ -33,24 +33,28 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
     @GetMapping("/add")
     public ModelAndView add(){
         ModelAndView view = new ModelAndView("pages/master/ruangan/add");
-        List<GedungResponse> gedungResponses = this.gedungService.get();
 
         view.addObject("ruangan", new RuanganRequest());
-        view.addObject("dataGedung", gedungResponses);
+        addObject(view);
         return view;
+    }
+
+    public void addObject(ModelAndView view){
+        List<GedungResponse> gedung = this.gedungService.get();
+        view.addObject("dataGedung", gedung);
     }
 
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("ruangan") @Valid RuanganRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/ruangan/add");
-        List<GedungResponse> gedungResponses = this.gedungService.get();
 
         if (result.hasErrors()){
             view.addObject("ruangan", request);
+            addObject(view);
             return view;
         }
 
-        view.addObject("dataGedung", gedungResponses);
+
         var response = service.save(request);
         return new ModelAndView("redirect:/master/ruangan");
     }
@@ -58,15 +62,13 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/ruangan/edit");
-        List<GedungResponse> gedungResponses = this.gedungService.get();
-
         var result = this.service.getById(id).orElse(null);
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
 
         view.addObject("ruangan", result);
-        view.addObject("dataGedung", gedungResponses);
+        addObject(view);
         return view;
     }
 
@@ -75,6 +77,7 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
         ModelAndView view = new ModelAndView("pages/master/ruangan/edit");
         if (result.hasErrors()) {
             view.addObject("ruangan", request);
+            addObject(view);
             return view;
         }
 
