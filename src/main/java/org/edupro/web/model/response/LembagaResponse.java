@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class LembagaResponse {
-    private Integer id;
+    private String id;
     private String nama;
     private String namaSingkat;
     private String nomorInduk;

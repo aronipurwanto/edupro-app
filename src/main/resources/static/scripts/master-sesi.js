@@ -144,6 +144,25 @@ $(function (){
         var ajaxUrl = $(this).attr('action');
         const data = convertFormToJSON($(this));
         ajaxSubmit(ajaxUrl, data, dt_sesi);
+    }).on('change','#kurikulumId', function (e){
+        var kurikulumId = $(this).value;
+        var ajaxUrl = $("#ta-url").attr('href')+'/'+kurikulumId;
+        console.log(data);
+        $.ajax({
+            url: ajaxUrl,
+            type: 'GET',
+            dataType: 'JSON',
+            headers: {
+                'X-CSRF-TOKEN' : token
+            },
+            contentType: 'application/json',
+            success: function (result){
+                var $option =$("#main-modal").find("#tahunAjaranId");
+                $option.empty();
+                $option.append('<option value="">Pilih Tahun Ajaran</option>');
+                $option.append('<option value="test">Test</option>')
+            }
+        });
     });
 
     // edit data

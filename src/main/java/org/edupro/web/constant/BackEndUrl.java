@@ -60,4 +60,8 @@ public class BackEndUrl {
     public String personUrl(){
         return Strings.concat(baseUrl, "/person");
     }
+
+    public String lembagaUrl(){
+        return Strings.concat(baseUrl, "/lembaga");
+    }
 }

@@ -4,10 +4,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.model.request.KelasRequest;
 import org.edupro.web.model.request.LevelRequest;
-import org.edupro.web.model.response.KelasResponse;
-import org.edupro.web.model.response.LevelResponse;
-import org.edupro.web.model.response.Response;
+import org.edupro.web.model.response.*;
 import org.edupro.web.service.MasterKelasService;
+import org.edupro.web.service.MasterLembagaService;
+import org.edupro.web.service.MasterLevelService;
+import org.edupro.web.service.MasterRuanganService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ import java.util.Optional;
 @RequestMapping("/master/kelas")
 public class MasterKelasController extends BaseController<KelasResponse> {
     private final MasterKelasService service;
+    private final MasterLembagaService lembagaService;
+    private final MasterRuanganService ruanganService;
+    private final MasterLevelService levelService;
 
     @GetMapping
     public ModelAndView index(){
@@ -32,29 +36,43 @@ public class MasterKelasController extends BaseController<KelasResponse> {
 
     @GetMapping("/add")
     public ModelAndView add(){
-        return new ModelAndView("pages/master/kelas/add");
+        ModelAndView view = new ModelAndView("pages/master/kelas/add");
+        view.addObject("kelas", new KelasRequest());
+        addObject(view);
+
+        return view;
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView edit(@PathVariable("id") Integer id){
-        return new ModelAndView("pages/master/kelas/edit");
+    public void addObject(ModelAndView view){
+        List<LevelResponse> level = levelService.get();
+        view.addObject("level", level);
+
+        List<RuanganResponse> ruangan = ruanganService.get();
+        view.addObject("ruangan", ruangan);
+
+        List<LembagaResponse> lembaga = lembagaService.get();
+        view.addObject("lembaga", lembaga);
     }
 
-    @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") Integer id){
-        return new ModelAndView("pages/master/kelas/delete");
-    }
 
-    @GetMapping("/data")
-    public ResponseEntity<Response> getData(){
-        List<KelasResponse> result = service.getAll();
-        return getResponse(result);
-    }
 
     @PostMapping("/save")
     public ResponseEntity<Response> save(@RequestBody @Valid KelasRequest request){
         var result = service.save(request);
         return getResponse(result);
+    }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable("id") Integer id){
+        ModelAndView view = new ModelAndView("pages/master/kelas/edit");
+        var result = this.service.getById(id).orElse(null);
+        if (result == null) {
+            return new ModelAndView("pages/master/error/not-found");
+        }
+        view.addObject("kelas", result);
+        addObject(view);
+
+        return view;
     }
 
     @PostMapping("/update/{id}")
@@ -64,10 +82,30 @@ public class MasterKelasController extends BaseController<KelasResponse> {
         return getResponse(result);
     }
 
+    @GetMapping("/delete/{id}")
+    public ModelAndView delete(@PathVariable("id") Integer id){
+        ModelAndView view = new ModelAndView("pages/master/kelas/delete");
+
+        var result = this.service.getById(id).orElse(null);
+        if (result == null) {
+            return new ModelAndView("pages/master/error/not-found");
+        }
+        view.addObject("kelas", result);
+        addObject(view);
+
+        return view;
+    }
+
     @PostMapping("/remove/{id}")
     public ResponseEntity<Response> remove(@PathVariable("id") Integer id){
         var result = service.delete(id);
 
         return this.getResponse(result);
+    }
+
+    @GetMapping("/data")
+    public ResponseEntity<Response> getData(){
+        List<KelasResponse> result = service.getAll();
+        return getResponse(result);
     }
 }

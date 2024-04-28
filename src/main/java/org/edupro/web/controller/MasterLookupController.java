@@ -60,17 +60,22 @@ public class MasterLookupController extends BaseController<LookupResponse> {
         }
 
         view.addObject("lookup", result);
-        view.addObject("groups", service.getGroup());
+        addObject(view);
+
         return view;
+    }
+
+    private void addObject(ModelAndView view){
+        view.addObject("groups", service.getGroup());
     }
 
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("lookup") @Valid LookupRequest request,  BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/lookup/edit");
-        view.addObject("groups", service.getGroup());
-
         if(result.hasErrors()){
             view.addObject("lookup", request);
+            addObject(view);
+
             return view;
         }
         var response = service.update(request, request.getId()).orElse(null);
@@ -84,7 +89,9 @@ public class MasterLookupController extends BaseController<LookupResponse> {
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
+
         view.addObject("lookup", result);
+        addObject(view);
         return view;
     }
 
@@ -93,6 +100,8 @@ public class MasterLookupController extends BaseController<LookupResponse> {
         ModelAndView view = new ModelAndView("pages/master/lookup/delete");
         if (result.hasErrors()){
             view.addObject("lookup", request);
+            addObject(view);
+
             return view;
         }
 

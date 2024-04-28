@@ -2,9 +2,12 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.constant.CommonConstant;
 import org.edupro.web.model.request.SiswaRequest;
+import org.edupro.web.model.response.LookupResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.model.response.SiswaResponse;
+import org.edupro.web.service.MasterLookupService;
 import org.edupro.web.service.MasterSiswaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,12 +17,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+import static org.edupro.web.constant.CommonConstant.GROUP_AGAMA;
+
 @Controller
 @RequestMapping("/master/siswa")
 @RequiredArgsConstructor
 public class MasterSiswaController extends BaseController<SiswaResponse>{
 
     private final MasterSiswaService service;
+    private final MasterLookupService lookupService;
 
     @GetMapping
     public ModelAndView index(){
@@ -31,7 +37,19 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
         ModelAndView view = new ModelAndView("pages/master/siswa/add");
 
         view.addObject("siswa", new SiswaRequest());
+        addObject(view);
         return view;
+    }
+
+    public void addObject(ModelAndView view){
+        List<LookupResponse> agama = lookupService.getByGroup(CommonConstant.GROUP_AGAMA);
+        view.addObject("agama", agama);
+
+        List<LookupResponse> gender = lookupService.getByGroup(CommonConstant.GROUP_GENDER);
+        view.addObject("gender", gender);
+
+        List<LookupResponse> golDarah = lookupService.getByGroup(CommonConstant.GROUP_GOL_DARAH);
+        view.addObject("golDarah", golDarah);
     }
 
     @PostMapping("/save")
@@ -39,6 +57,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
         ModelAndView view = new ModelAndView("pages/master/siswa/add");
         if (result.hasErrors()){
             view.addObject("siswa", request);
+            addObject(view);
             return view;
         }
 
@@ -55,6 +74,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
         }
 
         view.addObject("siswa", result);
+        addObject(view);
         return view;
     }
 
@@ -62,7 +82,8 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
     public ModelAndView update(@ModelAttribute("siswa") @Valid SiswaRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/siswa/edit");
         if (result.hasErrors()) {
-            view.addObject("siswa", request);
+            view.addObject("siswa", result);
+            addObject(view);
             return view;
         }
 
@@ -80,6 +101,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
         }
 
         view.addObject("siswa", result);
+        addObject(view);
         return view;
     }
 
@@ -88,6 +110,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
         ModelAndView view = new ModelAndView("pages/master/siswa/delete");
         if (result.hasErrors()) {
             view.addObject("siswa", request);
+            addObject(view);
             return view;
         }
 

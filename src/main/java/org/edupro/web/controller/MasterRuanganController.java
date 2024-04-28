@@ -54,7 +54,6 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
             return view;
         }
 
-
         var response = service.save(request);
         return new ModelAndView("redirect:/master/ruangan");
     }
@@ -62,6 +61,7 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/ruangan/edit");
+
         var result = this.service.getById(id).orElse(null);
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
@@ -94,6 +94,7 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
         }
 
         view.addObject("ruangan", result);
+        addObject(view);
         return view;
     }
 
@@ -102,6 +103,7 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
         ModelAndView view = new ModelAndView("pages/master/ruangan/delete");
         if (result.hasErrors()) {
             view.addObject("ruangan", request);
+            addObject(view);
             return view;
         }
 
