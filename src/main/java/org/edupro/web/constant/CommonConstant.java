@@ -10,4 +10,5 @@ public class CommonConstant {
     public static final String GROUP_ABSENSI = "ABSENSI";
     public static final String GROUP_GENDER = "GENDER";
     public static final String GROUP_GOL_DARAH = "GOL_DARAH";
+    public static final String GROUP_SEMESTER = "SEMESTER";
 }

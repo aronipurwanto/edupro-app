@@ -12,7 +12,7 @@
                     <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
                 </ul>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="col mb-3">
                     <label for="tahunAjaranId" class="form-label">Tahun Ajaran</label>
                     <select id="tahunAjaranId" name="tahunAjaranId" th:value="${sesi.tahunAjaranId}" data-allow-clear="true"
@@ -24,21 +24,20 @@
                         <span th:errors="*{tahunAjaranId}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="form-group row">
+
                 <div class="col mb-3">
                     <label for="kurikulumId" class="form-label"></label>
                     <select id="kurikulumId" name="kurikulumId" th:value="${sesi.kurikulumId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('kurikulumId')}? 'form-select select2 is-invalid': 'form-select select2'">
                         <option value="">Pilih Kurikulum</option>
-                        <option th:each="item : ${kurikulum}" th:value="${item.id}" th:text="${item.nama}" th:selected="${item.nama == sesi.kurikulumId}"></option>
+                        <option th:each="item : ${kurikulum}" th:value="${item.id}" th:text="${item.nama}" th:selected="${item.id == sesi.kurikulumId}"></option>
                     </select>
                     <div th:if="${#fields.hasErrors('kurikulumId')}" class="invalid-feedback">
                         <span th:errors="*{kurikulumId}"></span>
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="col mb-3">
                     <label for="kodeKurikulum" class="form-label">Kode Kurikulum</label>
                     <input type="text" id="kodeKurikulum" name="kodeKurikulum" th:value="${sesi.kodeKurikulum}"
@@ -47,14 +46,16 @@
                         <span th:errors="*{kodeKurikulum}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="form-group row">
+
                 <div class="col mb-3">
-                    <label for="urut" class="form-label">Urut</label>
-                    <input type="number" id="urut" name="urut" th:value="${sesi.urut}"
-                           th:class="${#fields.hasErrors('urut')}? 'form-control is-invalid': 'form-control'" placeholder="urut" />
-                    <div th:if="${#fields.hasErrors('urut')}" class="invalid-feedback">
-                        <span th:errors="*{urut}"></span>
+                    <label for="semester" class="form-label">Urut</label>
+                    <select id="semester" name="semester" th:value="${sesi.kurikulumId}" data-allow-clear="true"
+                            th:class="${#fields.hasErrors('semester')}? 'form-select select2 is-invalid': 'form-select select2'">
+                        <option value="">Pilih Semester</option>
+                        <option th:each="item : ${semester}" th:value="${item.kode}" th:text="${item.nama}" th:selected="${item.kode == sesi.semester}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('semester')}" class="invalid-feedback">
+                        <span th:errors="*{semester}"></span>
                     </div>
                 </div>
             </div>
