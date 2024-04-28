@@ -14,6 +14,6 @@ public class SesiResponse {
     private String kurikulumId;
     private String kodeKurikulum;
     private String kurikulumName;
-    private Integer urut;
+    private Integer semester;
     private String status;
 }
