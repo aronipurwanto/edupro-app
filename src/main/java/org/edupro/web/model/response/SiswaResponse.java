@@ -10,11 +10,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SiswaResponse {
-
     private String id;
     private String nisn;
     private String nama;
     private String kotaTempatLahir;
     private String tanggalLahir;
+    private String agama;
+    private String golDarah;
+    private String noTelp;
+    private String email;
     private String status;
 }
