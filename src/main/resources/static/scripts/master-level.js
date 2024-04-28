@@ -83,9 +83,8 @@ $(function () {
                     orderable: false,
                     render: function (data, type, full, meta) {
                         var id = full['id'];
-                        var kode = full['kode']
-                        var editUrl = ajaxUrl.replace('data', 'edit') + '/' + id + '/' + kode;
-                        var deleteUrl = ajaxUrl.replace('data', 'delete') + '/' + id + '/' + kode;
+                        var editUrl = ajaxUrl.replace('data', 'edit') + '/' + id;
+                        var deleteUrl = ajaxUrl.replace('data', 'delete') + '/' + id;
                         return (
                             '<div class="d-inline-block text-nowrap">' +
                             '<button class="btn btn-xs btn-primary btn-edit" href="' + editUrl + '"><i class="ti ti-edit"></i> Edit</button> &nbsp;' +
