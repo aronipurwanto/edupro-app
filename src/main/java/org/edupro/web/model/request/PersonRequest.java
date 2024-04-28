@@ -25,6 +25,8 @@ public class PersonRequest {
     private String nik;
     @NotEmpty(message = "Tanggal Lahir wajib diisi")
     private String tanggalLahir;
+    @NotEmpty(message = "Tempat Lahir wajib diisi")
+    private String tempatLahir;
     @NotEmpty(message = "Gender wajib diisi")
     private String gender;
     @NotEmpty(message = "Agama wajib diisi")

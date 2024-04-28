@@ -35,31 +35,50 @@ public class MasterPersonController extends BaseController<PersonResponse>{
     @GetMapping("/add")
     public ModelAndView add(){
         ModelAndView view = new ModelAndView("pages/master/person/add");
-        List<LookupResponse> lookupResponses = this.lookupService.getByGroup("AGAMA");
+        List<LookupResponse> agama = this.lookupService.getByGroup("AGAMA");
+        List<LookupResponse> gender = this.lookupService.getByGroup("GENDER");
+        List<LookupResponse> golDarah = this.lookupService.getByGroup("GOL_DARAH");
 
         view.addObject("person", new PersonRequest());
+        view.addObject("agama", agama);
+        view.addObject("gender", gender);
+        view.addObject("golDarah", golDarah);
         return view;
     }
 
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("person") @Valid PersonRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/person/add");
+        List<LookupResponse> agama = this.lookupService.getByGroup("AGAMA");
+        List<LookupResponse> gender = this.lookupService.getByGroup("GENDER");
+        List<LookupResponse> golDarah = this.lookupService.getByGroup("GOL_DARAH");
+
         if (result.hasErrors()){
             view.addObject("person", request);
             return view;
         }
         var response = service.save(request);
+        view.addObject("agama", agama);
+        view.addObject("gender", gender);
+        view.addObject("golDarah", golDarah);
         return new ModelAndView("redirect:/master/person");
     }
 
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/person/edit");
+        List<LookupResponse> agama = this.lookupService.getByGroup("AGAMA");
+        List<LookupResponse> gender = this.lookupService.getByGroup("GENDER");
+        List<LookupResponse> golDarah = this.lookupService.getByGroup("GOL_DARAH");
+
         var result = this.service.getById(id).orElse(null);
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
         view.addObject("person", result);
+        view.addObject("agama", agama);
+        view.addObject("gender", gender);
+        view.addObject("golDarah", golDarah);
         return view;
     }
 
@@ -81,7 +100,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
-        view.addObject("pages", result);
+        view.addObject("person", result);
         return view;
     }
 
