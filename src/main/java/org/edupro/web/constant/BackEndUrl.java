@@ -52,7 +52,11 @@ public class BackEndUrl {
     public String tahunAjaranUrl(){
         return Strings.concat(baseUrl, "/ta");
     }
-
+  
+    public String courseUrl(){
+        return Strings.concat(baseUrl, "/course");
+    }
+  
     public String personUrl(){
         return Strings.concat(baseUrl, "/person");
     }
