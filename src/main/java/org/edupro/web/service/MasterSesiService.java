@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface MasterSesiService {
     List<SesiResponse> get();
-    Optional<SesiResponse> getById(Integer id);
+    Optional<SesiResponse> getById(String id);
     Optional<SesiResponse> save(SesiRequest request);
-    Optional<SesiResponse> update(SesiRequest request, Integer id);
-    Optional<SesiResponse> delete(Integer id);
+    Optional<SesiResponse> update(SesiRequest request, String id);
+    Optional<SesiResponse> delete(String id);
 }

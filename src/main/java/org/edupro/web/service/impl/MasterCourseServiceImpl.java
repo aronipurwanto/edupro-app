@@ -1,16 +1,14 @@
 package org.edupro.web.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nimbusds.jose.crypto.opts.OptionUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.edupro.web.constant.BackEndUrl;
-import org.edupro.web.model.request.LevelRequest;
-import org.edupro.web.model.request.LevelRequest;
-import org.edupro.web.model.response.LevelResponse;
-import org.edupro.web.model.response.LevelResponse;
+import org.edupro.web.model.request.CourseRequest;
+import org.edupro.web.model.response.CourseResponse;
 import org.edupro.web.model.response.Response;
-import org.edupro.web.service.MasterLevelService;
-import org.springframework.beans.BeanUtils;
+import org.edupro.web.service.MasterCourseService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -20,22 +18,25 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class MasterLevelServiceImpl implements MasterLevelService {
+public class MasterCourseServiceImpl implements MasterCourseService {
     private final BackEndUrl backEndUrl;
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
     @Override
-    public List<LevelResponse> get() {
+    public List<CourseResponse> get() {
         try {
-            var url = backEndUrl.levelUrl();
+            var url = backEndUrl.courseUrl();
             ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
-            if(response.getStatusCode() == HttpStatus.OK) {
-                return (List<LevelResponse>) response.getBody().getData();
+            if (response.getStatusCode() == HttpStatus.OK){
+                return (List<CourseResponse>) response.getBody().getData();
             }
         }catch (RestClientException e){
             return Collections.emptyList();
@@ -45,33 +46,32 @@ public class MasterLevelServiceImpl implements MasterLevelService {
     }
 
     @Override
-    public Optional<LevelResponse> getById(String id) {
+    public Optional<CourseResponse> getById(String id) {
         try {
-            var url = Strings.concat(backEndUrl.levelUrl(), "/"+ id);
+            var url = Strings.concat(backEndUrl.courseUrl(), "/" + id);
             ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
-            if(response.getStatusCode() == HttpStatus.OK) {
+            if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
-                LevelResponse result = objectMapper.readValue(json, LevelResponse.class);
-
-                return Optional.of(result);
+                CourseResponse result = objectMapper.readValue(json, CourseResponse.class);
             }
         }catch (RestClientException e){
             return Optional.empty();
         } catch (IOException e){
             throw new RuntimeException(e);
         }
+
         return Optional.empty();
     }
 
     @Override
-    public Optional<LevelResponse> save(LevelRequest request) {
-        try{
-            var url = backEndUrl.levelUrl();
-            HttpEntity<LevelRequest> httpEntity = new HttpEntity<>(request);
+    public Optional<CourseResponse> save(CourseRequest courseRequest) {
+        try {
+            var url = backEndUrl.courseUrl();
+            HttpEntity<CourseRequest> httpEntity = new HttpEntity<>(courseRequest);
             ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
-            if(response.getStatusCode() == HttpStatus.OK) {
+            if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
-                LevelResponse result = objectMapper.readValue(json, LevelResponse.class);
+                CourseResponse result = objectMapper.readValue(json, CourseResponse.class);
                 return Optional.of(result);
             }
         }catch (RestClientException e){
@@ -79,18 +79,19 @@ public class MasterLevelServiceImpl implements MasterLevelService {
         }catch (IOException e){
             throw new RuntimeException(e);
         }
+
         return Optional.empty();
     }
 
     @Override
-    public Optional<LevelResponse> update(LevelRequest request, String id) {
-        try{
-            var url = Strings.concat(backEndUrl.levelUrl(), "/" + id);
-            HttpEntity<LevelRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
-            if(response.getStatusCode() == HttpStatus.OK) {
+    public Optional<CourseResponse> update(CourseRequest courseRequest, String id) {
+        try {
+            var url = Strings.concat(backEndUrl.courseUrl(), "/" + id);
+            HttpEntity<CourseRequest> httpEntity = new HttpEntity<>(courseRequest);
+            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Response.class);
+            if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
-                LevelResponse result = objectMapper.readValue(json, LevelResponse.class);
+                CourseResponse result = objectMapper.readValue(json, CourseResponse.class);
                 return Optional.of(result);
             }
         }catch (RestClientException e){
@@ -98,24 +99,25 @@ public class MasterLevelServiceImpl implements MasterLevelService {
         }catch (IOException e){
             throw new RuntimeException(e);
         }
+
         return Optional.empty();
     }
 
     @Override
-    public Optional<LevelResponse> delete(String id) {
-        try{
-            var url = Strings.concat(backEndUrl.levelUrl(),"/"+ id);
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
-            if(response.getStatusCode() == HttpStatus.OK) {
+    public Optional<CourseResponse> delete(String id) {
+        try {
+            var url = Strings.concat(backEndUrl.courseUrl(), "/" + id);
+            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.DELETE, null, Response.class);
+            if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
-                LevelResponse result = objectMapper.readValue(json, LevelResponse.class);
-                return Optional.of(result);
+                CourseResponse result = objectMapper.readValue(json, CourseResponse.class);
             }
         }catch (RestClientException e){
             return Optional.empty();
         }catch (IOException e){
-            throw new RuntimeException(e);
+            throw new RuntimeException();
         }
+
         return Optional.empty();
     }
 }

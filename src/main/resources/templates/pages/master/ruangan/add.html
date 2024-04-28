@@ -19,7 +19,6 @@
                         <option value="">Pilih Gedung</option>
                         <option th:each="item : ${dataGedung}" th:value="${item.id}" th:text="${item.nama}"
                                 th:selected="${item.kode == ruangan.gedungId}"></option>
-                        <option th:each="item : ${dataGedung}" th:value="${item.kode}" th:text="${item.nama}" th:selected="${item.kode == ruangan.gedungId}"></option>
                     </select>
                     <div th:if="${#fields.hasErrors('gedungId')}" class="invalid-feedback">
                         <span th:errors="*{gedungId}"></span>
