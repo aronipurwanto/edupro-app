@@ -46,6 +46,21 @@ public class TahunAjaranServiceImpl implements TahunAjaranService {
     }
 
     @Override
+    public List<TahunAjaranResponse> getByKurikulumId(String kurikulumId) {
+        try {
+            var url = Strings.concat(backEndUrl.tahunAjaranUrl(), "/kurikulum/" + kurikulumId);
+            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                return (List<TahunAjaranResponse>) response.getBody().getData();
+            }
+        }catch (RestClientException e) {
+            return Collections.emptyList();
+        }
+
+        return Collections.emptyList();
+    }
+
+    @Override
     public Optional<TahunAjaranResponse> getById(String id) {
         try {
             var url = Strings.concat(backEndUrl.tahunAjaranUrl(), "/" + id);

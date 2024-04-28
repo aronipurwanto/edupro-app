@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface TahunAjaranService {
     List<TahunAjaranResponse> get();
+    List<TahunAjaranResponse> getByKurikulumId(String kurikulumId);
     Optional<TahunAjaranResponse> getById(String id);
     Optional<TahunAjaranResponse> save(TahunAjaranRequest request);
     Optional<TahunAjaranResponse> update(TahunAjaranRequest request, String id);
