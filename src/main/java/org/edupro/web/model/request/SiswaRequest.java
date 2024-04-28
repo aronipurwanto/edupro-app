@@ -1,6 +1,7 @@
 package org.edupro.web.model.request;
 
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -16,7 +17,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class SiswaRequest {
-
     private String id;
 
     @NotEmpty(message = "nisn wajib di isi")
@@ -31,6 +31,18 @@ public class SiswaRequest {
     @Size(max = 20)
     private String kotaTempatLahir;
 
-    //@NotNull(message = "tanggal lahir tidak boleh kosong")
     private LocalDate tanggalLahir;
+    @NotEmpty(message = "Jenis Kelamin tidak boleh kosong")
+    private String gender;
+
+    @NotEmpty(message = "Agama tidak boleh kosong")
+    private String agama;
+
+    @NotEmpty(message = "Golongan Darah tidak boleh kosong")
+    private String golDarah;
+
+    private String noTelp;
+
+    @Email(message = "Email harus berformat email")
+    private String email;
 }
