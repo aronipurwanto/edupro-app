@@ -9,6 +9,17 @@ $(function (){
         headingColor = config.colors.headingColor;
     }
 
+    const formSelect2 = $('#main-modal').find('.select2');
+    // Select2 (Country)
+    if (formSelect2.length) {
+        formSelect2.wrap('<div class="position-relative"></div>');
+        formSelect2
+            .select2({
+                placeholder: 'Pilih Tahun Ajaran',
+                dropdownParent: formSelect2.parent()
+            });
+    }
+
     // datatable declaration
     var dt_sesi_table = $("#table-sesi"),
         statusObj = {
@@ -23,13 +34,14 @@ $(function (){
     if(dt_sesi_table.length > 0) {
 
         var ajaxUrl = $('#sesi-title').attr('href');
-        var dt_table = dt_sesi_table.DataTable({
+        var dt_sesi = dt_sesi_table.DataTable({
             ajax: ajaxUrl,
             columns: [
-                { data: 'tahunPelajaran' },
-                { data: 'tahunPelajaran' },
-                { data: 'urut' },
-                { data: 'kodeKurikulum' },
+                { data: 'id'},
+                { data: 'tahunAjaranName'},
+                { data: 'kodeKurikulum'},
+                { data: 'kuriKulumName' },
+                { data: 'urut'},
                 { data: 'status' },
                 { data: '' }
             ],
@@ -46,7 +58,7 @@ $(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['tahunPelajaran'];
+                        var $item = full['tahunAjaranName'];
                         return '<span>'+$item +'</span>';
                     }
                 },
@@ -55,7 +67,7 @@ $(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['urut'];
+                        var $item = full['kodeKurikulum'];
                         return '<span>'+$item +'</span>';
                     }
                 },
@@ -64,12 +76,21 @@ $(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kodeKurikulum'];
+                        var $item = full['kurikulumName'];
                         return '<span>'+$item +'</span>';
                     }
                 },
                 {
                     targets: 4,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['urut'];
+                        return '<span>'+$item +'</span>';
+                    }
+                },
+                {
+                    targets: 5,
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
@@ -83,10 +104,9 @@ $(function (){
                     searchable: false,
                     orderable: false,
                     render: function (data, type, full, meta) {
-                        var tahun = full['tahunPelajaran'];
-                        var urut = full['urut'];
-                        var editUrl = ajaxUrl.replace('data','edit') +'/'+ tahun +'/'+ urut;
-                        var deleteUrl = ajaxUrl.replace('data','delete')+'/'+ tahun +'/'+ urut;
+                        var id = full['id'];
+                        var editUrl = ajaxUrl.replace('data','edit') +'/'+ id;
+                        var deleteUrl = ajaxUrl.replace('data','delete')+'/'+ id;
                         return (
                             '<div class="d-inline-block text-nowrap">' +
                             '<button class="btn btn-xs btn-primary btn-edit" href="'+ editUrl +'"><i class="ti ti-edit"></i> Edit</button> &nbsp;' +
@@ -99,10 +119,10 @@ $(function (){
             lengthMenu: [5, 10, 20, 50, 70, 100]
         });
 
-        dt_table.on('order.dt search.dt', function () {
+        dt_sesi.on('order.dt search.dt', function () {
             let i = 1;
 
-            dt_table.cells(null, 0, { search: 'applied', order: 'applied' })
+            dt_sesi.cells(null, 0, { search: 'applied', order: 'applied' })
                 .every(function (cell) {
                     this.data(i++);
                 });
