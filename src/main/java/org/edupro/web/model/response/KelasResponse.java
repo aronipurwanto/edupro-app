@@ -8,11 +8,20 @@ import lombok.*;
 @Setter
 @Builder
 public class KelasResponse {
-    private Integer id;
-    private String waliKelas;
-    private String kodeKelas;
-    private String level;
-    private String nameKelas;
-    private Integer jumlahSiswa;
+    private String id;
+    private String kode;
+    private String nama;
+    private String ruangId;
+    private String kodeRuangan;
+    private String lembagaId;
+    private String namaLembaga;
+    private String tahunAjaranId;
+    private String namaTahunAjaran;
+    private String levelId;
+    private String namaLevel;
+    private String sesiAkademikId;
+    private String semester;
+    private String waliKelasId;
+    private String namaWaliKelas;
     private String status;
 }
