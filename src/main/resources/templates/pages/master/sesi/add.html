@@ -47,8 +47,8 @@
                 </div>
 
                 <div class="col mb-3">
-                    <label for="semester" class="form-label">Urut</label>
-                    <select id="semester" name="semester" th:value="${sesi.kurikulumId}" data-allow-clear="true"
+                    <label for="semester" class="form-label">Semester</label>
+                    <select id="semester" name="semester" th:value="${sesi.semester}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('semester')}? 'form-select select2 is-invalid': 'form-select select2'">
                         <option value="">Pilih Semester</option>
                         <option th:each="item : ${semester}" th:value="${item.kode}" th:text="${item.nama}" th:selected="${item.kode == sesi.semester}"></option>

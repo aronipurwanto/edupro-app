@@ -9,17 +9,6 @@ $(function (){
         headingColor = config.colors.headingColor;
     }
 
-    const formSelect2 = $('#main-modal').find('.select2');
-    // Select2 (Country)
-    if (formSelect2.length) {
-        formSelect2.wrap('<div class="position-relative"></div>');
-        formSelect2
-            .select2({
-                placeholder: 'Pilih Tahun Ajaran',
-                dropdownParent: formSelect2.parent()
-            });
-    }
-
     // datatable declaration
     var dt_sesi_table = $("#table-sesi"),
         statusObj = {
@@ -41,7 +30,7 @@ $(function (){
                 { data: 'tahunAjaranName'},
                 { data: 'kodeKurikulum'},
                 { data: 'kuriKulumName' },
-                { data: 'urut'},
+                { data: 'semester'},
                 { data: 'status' },
                 { data: '' }
             ],
@@ -85,7 +74,7 @@ $(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['urut'];
+                        var $item = full['semester'];
                         return '<span>'+$item +'</span>';
                     }
                 },
