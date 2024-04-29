@@ -74,7 +74,7 @@ public class MasterCourseController extends BaseController<CourseResponse> {
 
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("course") @Valid CourseRequest request, BindingResult result){
-        ModelAndView view = new ModelAndView("pages/master/ruangan/edit");
+        ModelAndView view = new ModelAndView("pages/master/course/edit");
         if (result.hasErrors()){
             view.addObject("course", request);
             addObject(view);
@@ -94,6 +94,7 @@ public class MasterCourseController extends BaseController<CourseResponse> {
         }
 
         view.addObject("course", result);
+        addObject(view);
         return view;
     }
 
@@ -102,6 +103,7 @@ public class MasterCourseController extends BaseController<CourseResponse> {
         ModelAndView view = new ModelAndView("pages/master/course/delete");
         if (result.hasErrors()){
             view.addObject("course", request);
+            addObject(view);
         }
 
         var response = service.delete(request.getId()).orElse(null);

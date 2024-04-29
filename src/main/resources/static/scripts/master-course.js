@@ -49,7 +49,7 @@ $(function (){
                 { data: 'hiddenSection'},
                 { data: 'layout'},
                 { data: 'completionTracking'},
-                { data: 'mapelId'},
+                { data: 'kodeMapel'},
                 { data: 'kodeLevel'},
                 { data: 'status'},
                 { data: ' '}
