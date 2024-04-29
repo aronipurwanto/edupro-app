@@ -10,7 +10,7 @@ $(function () {
     }
 
     const formSelect2 = $('#main-modal').find('.select2');
-    // Select2 (Country)
+    // Select2 (Gedung)
     if (formSelect2.length) {
         formSelect2.wrap('<div class="position-relative"></div>');
         formSelect2

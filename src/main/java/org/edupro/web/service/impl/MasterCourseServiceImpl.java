@@ -64,10 +64,10 @@ public class MasterCourseServiceImpl implements MasterCourseService {
     }
 
     @Override
-    public Optional<CourseResponse> save(CourseRequest courseRequest) {
+    public Optional<CourseResponse> save(CourseRequest request) {
         try {
             var url = backEndUrl.courseUrl();
-            HttpEntity<CourseRequest> httpEntity = new HttpEntity<>(courseRequest);
+            HttpEntity<CourseRequest> httpEntity = new HttpEntity<>(request);
             ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
