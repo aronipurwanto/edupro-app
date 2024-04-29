@@ -22,7 +22,8 @@
                 </div>
                 <div class="col mb-3">
                     <label for="nama" class="form-label">Nama</label>
-                    <input type="text" id="nama" name="nama" th:value="${siswa.nama}" th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="Nama" />
+                    <input type="text" id="nama" name="nama" th:value="${siswa.nama}"
+                           th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="Nama" />
                     <div th:if="${#fields.hasErrors('nama')}" class="invalid-feedback">
                         <span th:errors="*{nama}"></span>
                     </div>

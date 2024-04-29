@@ -2,6 +2,7 @@ package org.edupro.web.model.response;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -14,8 +15,8 @@ public class CourseResponse {
     private String name;
     private String shortName;
     private Boolean shown;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String summary;
     private Long imageId;
     private Integer format;
@@ -24,4 +25,6 @@ public class CourseResponse {
     private Boolean completionTracking;
     private String mapelId;
     private String kodeLevel;
+    private String kodeMapel;
+    private String status;
 }
