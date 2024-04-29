@@ -21,4 +21,5 @@ public class PersonResponse {
     private String golDarah;
     private String noTelp;
     private String email;
+    private String status;
 }
