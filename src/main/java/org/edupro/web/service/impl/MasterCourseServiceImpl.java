@@ -53,6 +53,8 @@ public class MasterCourseServiceImpl implements MasterCourseService {
             if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 CourseResponse result = objectMapper.readValue(json, CourseResponse.class);
+
+                return Optional.of(result);
             }
         }catch (RestClientException e){
             return Optional.empty();
