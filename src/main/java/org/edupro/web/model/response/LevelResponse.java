@@ -9,8 +9,10 @@ import lombok.*;
 @Builder
 public class LevelResponse {
     private String id;
-    private Integer idLembaga;
+    private String idLembaga;
+    private String namaLembaga;
     private String kode;
     private String nama;
+    private Integer noUrut;
     private String status;
 }

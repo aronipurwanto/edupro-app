@@ -70,7 +70,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
             return new ModelAndView("pages/master/error/not-found");
         }
         view.addObject("person", result);
-        view.addObject(view);
+        addObject(view);
         return view;
     }
 

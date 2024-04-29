@@ -3,8 +3,10 @@ package org.edupro.web.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.model.request.LevelRequest;
+import org.edupro.web.model.response.LembagaResponse;
 import org.edupro.web.model.response.LevelResponse;
 import org.edupro.web.model.response.Response;
+import org.edupro.web.service.MasterLembagaService;
 import org.edupro.web.service.MasterLevelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import java.util.Optional;
 public class MasterLevelController extends BaseController<LevelResponse> {
 
     private final MasterLevelService service;
+    private final MasterLembagaService lembagaService;
 
     @GetMapping
     public ModelAndView index(){
@@ -34,7 +37,14 @@ public class MasterLevelController extends BaseController<LevelResponse> {
     public ModelAndView add(){
         ModelAndView view = new ModelAndView("pages/master/level/add");
         view.addObject("level", new LevelRequest());
+
+        addObject(view);
         return view;
+    }
+
+    public void addObject(ModelAndView view){
+        List<LembagaResponse> lembaga = this.lembagaService.get();
+        view.addObject("dataLembaga", lembaga);
     }
 
     @PostMapping("/save")
@@ -42,8 +52,10 @@ public class MasterLevelController extends BaseController<LevelResponse> {
         ModelAndView view = new ModelAndView("pages/master/level/add");
         if (result.hasErrors()){
             view.addObject("level", request);
+            addObject(view);
             return view;
         }
+
         var response = service.save(request);
         return new ModelAndView("redirect:/master/level");
     }
@@ -56,6 +68,7 @@ public class MasterLevelController extends BaseController<LevelResponse> {
             return new ModelAndView("pages/master/error/not-found");
         }
         view.addObject("level", result);
+        addObject(view);
         return view;
     }
 
@@ -64,6 +77,7 @@ public class MasterLevelController extends BaseController<LevelResponse> {
         ModelAndView view = new ModelAndView("pages/master/level/edit");
         if (result.hasErrors()){
             view.addObject("level", request);
+            addObject(view);
             return view;
         }
         var response = service.update(request, request.getId()).orElse(null);
@@ -77,7 +91,9 @@ public class MasterLevelController extends BaseController<LevelResponse> {
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
+
         view.addObject("level", result);
+        addObject(view);
         return view;
     }
 
@@ -86,6 +102,7 @@ public class MasterLevelController extends BaseController<LevelResponse> {
         ModelAndView view = new ModelAndView("pages/master/level/delete");
         if (result.hasErrors()){
             view.addObject("level", request);
+            addObject(view);
             return view;
         }
         var response = service.delete(request.getId()).orElse(null);
