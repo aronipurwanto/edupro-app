@@ -50,7 +50,7 @@
                 <div class="col mb-0">
                     <label for="endDate" class="form-label">End Date</label>
                     <input type="date" id="endDate" name="endDate" th:value="${course.endDate}"
-                           th:class="${#fields.hasErrors('endDate')} ? 'form-control is-onvalid': 'form-control'" placeholder="End Date"/>
+                           th:class="${#fields.hasErrors('endDate')} ? 'form-control is-invalid': 'form-control'" placeholder="End Date"/>
                     <div th:if="${#fields.hasErrors('endDate')}" class="invalid-feedback">
                         <span th:errors="*{endDate}"></span>
                     </div>
@@ -67,7 +67,7 @@
             <div class="row g-2">
                 <div class="col mb-0">
                     <label for="imageId" class="form-label">Image Id</label>
-                    <input type="text" id="imageId" name="imageId" th:value="${course.summary}"
+                    <input type="text" id="imageId" name="imageId" th:value="${course.imageId}"
                            th:class="${#fields.hasErrors('imageId')} ? 'form-control is-invalid': 'form-control'" placeholder="Image Id"/>
                     <div th:if="${#fields.hasErrors('imageId')}" class="invalid-feedback">
                         <span th:errors="*{imageId}"></span>
@@ -123,7 +123,7 @@
                             th:class="${#fields.hasErrors('mapelId')} ? 'form-select is-invalid': 'form-select'">
                         <option value="">Pilih Mapel</option>
                         <option th:each="item : ${dataMapel}" th:value="${item.id}" th:text="${item.nama}"
-                                th:selected="${item.kode == course.mapelId}"></option>
+                                th:selected="${item.id == course.mapelId}"></option>
                     </select>
                     <div th:if="${#fields.hasErrors('mapelId')}" class="invalid-feedback">
                         <span th:errors="*{mapelId}"></span>

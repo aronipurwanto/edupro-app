@@ -49,7 +49,7 @@
                 <div class="col mb-0">
                     <label for="endDate" class="form-label">End Date</label>
                     <input type="date" id="endDate" name="endDate" th:value="${course.endDate}"
-                           th:class="${#fields.hasErrors('endDate')} ? 'form-control is-onvalid': 'form-control'" placeholder="End Date"/>
+                           th:class="${#fields.hasErrors('endDate')} ? 'form-control is-invalid': 'form-control'" placeholder="End Date"/>
                     <div th:if="${#fields.hasErrors('endDate')}" class="invalid-feedback">
                         <span th:errors="*{endDate}"></span>
                     </div>
