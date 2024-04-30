@@ -15,6 +15,7 @@ public class SiswaResponse {
     private String nama;
     private String kotaTempatLahir;
     private String tanggalLahir;
+    private String gender;
     private String agama;
     private String golDarah;
     private String noTelp;

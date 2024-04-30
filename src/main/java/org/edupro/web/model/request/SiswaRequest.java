@@ -31,7 +31,9 @@ public class SiswaRequest {
     @Size(max = 20)
     private String kotaTempatLahir;
 
+    @NotNull(message = "tanggal lahir wajib di isi")
     private LocalDate tanggalLahir;
+
     @NotEmpty(message = "Jenis Kelamin tidak boleh kosong")
     private String gender;
 
@@ -41,6 +43,7 @@ public class SiswaRequest {
     @NotEmpty(message = "Golongan Darah tidak boleh kosong")
     private String golDarah;
 
+    @NotEmpty(message = "No Telepon tidak boleh kosong")
     private String noTelp;
 
     @Email(message = "Email harus berformat email")

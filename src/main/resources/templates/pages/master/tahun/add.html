@@ -1,4 +1,4 @@
-<form xmlns:th="http://www.thymeleaf.org" th:id="form-tahun" th:action="@{~/master/tahun/save}"
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-tahun" th:action="@{~/master/ta/save}"
       th:method="post" th:object="${tahunAjaran}">
     <div class="modal-content">
         <div class="modal-header">
@@ -21,11 +21,15 @@
                     </div>
                 </div>
                 <div class="col mb-0">
-                    <label for="kodeKurikulum" class="form-label">kodeKurikulum</label>
-                    <input type="text" id="kodeKurikulum" name="kodeKurikulum" th:value="${tahunAjaran.kodeKurikulum}"
-                           th:class="${#fields.hasErrors('kodeKurikulum')}? 'form-control is-invalid': 'form-control'" placeholder="Kode Kurikulum" />
-                    <div th:if="${#fields.hasErrors('kodeKurikulum')}" class="invalid-feedback">
-                        <span th:errors="*{kodeKurikulum}"></span>
+                    <label for="kodeKurikulumId" class="form-label">kodeKurikulum</label>
+                    <select id="kodeKurikulumId" name="kodeKurikulumId" th:value="${tahunAjaran.kodeKurikulumId}" data-allow-clear="true"
+                            th:class="${#fields.hasErrors('kodeKurikulumId')}? 'form-select select2 is-invalid': 'form-select select2'">
+                        <option value="">Pilih Kurikulum</option>
+                        <option th:each="item : ${dataKurikulum}" th:value="${item.id}" th:text="${item.nama}"
+                                th:selected="${item.id == tahunAjaran.kodeKurikulumId}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('kodeKurikulumId')}" class="invalid-feedback">
+                        <span th:errors="*{kodeKurikulumId}"></span>
                     </div>
                 </div>
             </div>

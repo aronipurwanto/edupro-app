@@ -17,17 +17,17 @@ public class RuanganRequest {
     private String id;
 
     @NotEmpty(message = "kode wajib diisi")
-    @Size(min = 4, max = 10, message = "minimal 1 dan maximal 10")
+    @Size(min = 5, max = 10, message = "kode minimal 4 dan maksimal 10")
     private String kode;
 
-    @Size(min = 4, max = 100, message = "minimal 5 dan maximal 100")
+    @NotEmpty(message = "nama tidak boleh kosong")
+    @Size(min = 5, max = 100, message = "nama minimal 4 dan maksimal 10")
     private String nama;
 
     @NotNull(message = "kapasitas tidak boleh kosong")
     private Integer kapasitas;
 
-    @NotEmpty
-    @Size(min = 36, max = 36, message = "kode gedung tidak boleh kosong")
+    @NotEmpty(message = "kode gedung tidak boleh kosong")
     private String gedungId;
 
 }
