@@ -66,7 +66,7 @@ public class MasterMapelController extends BaseController<MapelResponse>{
 
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("mapel") @Valid MapelRequest request, BindingResult result) {
-        ModelAndView view = new ModelAndView("pages/master/gedung/edit");
+        ModelAndView view = new ModelAndView("pages/master/mapel/edit");
         if (result.hasErrors()) {
             view.addObject("mapel", request);
             return view;
@@ -100,19 +100,6 @@ public class MasterMapelController extends BaseController<MapelResponse>{
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         List<MapelResponse> result = service.get();
-        return getResponse(result);
-    }
-
-    @PostMapping("/update/{id}")
-    public ResponseEntity<Response> update(@RequestBody @Valid MapelRequest request, @PathVariable("id")String id){
-        var result = service.update(request, id);
-
-        return getResponse(result);
-    }
-
-    @PostMapping("/remove/{id}")
-    public ResponseEntity<Response> remove(@PathVariable("id") String id){
-        var result = service.delete(id);
         return getResponse(result);
     }
 }

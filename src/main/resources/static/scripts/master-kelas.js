@@ -180,7 +180,7 @@ $(function () {
     // btn add click
     $("#btn-add").click(function () {
         var url = $(this).attr('href');
-        showModal(url, ' ');
+        showModal(url, 'large');
     });
 
     // form submit
@@ -194,12 +194,12 @@ $(function () {
     // edit data
     $("#table-kelas").on('click', '.btn-edit', function () {
         var url = $(this).attr('href');
-        showModal(url, ' ');
+        showModal(url, 'large');
     });
 
     // delete data
     $("#table-kelas").on('click', '.btn-delete', function () {
         var url = $(this).attr('href');
-        showModal(url, ' ')
+        showModal(url, 'large')
     });
 });
