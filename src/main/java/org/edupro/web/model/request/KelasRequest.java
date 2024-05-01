@@ -28,16 +28,25 @@ public class KelasRequest {
     @NotEmpty(message = "lemabag wajib diisi")
     private String lembagaId;
 
+    private String namaLembaga;
+
     @NotEmpty(message = "tahun ajaran wajib diisi")
     private String tahunAjaranId;
+
+    private String namaTahunAjaran;
 
     @NotEmpty(message = "level wajib diisi")
     private String levelId;
 
+    private String namaLevel;
+
     @NotEmpty(message = "sesi akademik wajib diisi")
     private String sesiAkademikId;
+
+    private String semester;
 
     @NotEmpty(message = "wali kelas wajib diisi")
     private String waliKelasId;
 
+    private String namaWaliKelas;
 }
