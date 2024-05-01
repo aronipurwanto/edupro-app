@@ -63,6 +63,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/siswa/edit");
         var result = this.service.getById(id).orElse(null);
+
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }

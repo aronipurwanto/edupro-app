@@ -6,11 +6,11 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">
-                <ul>
-                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
-                </ul>
-            </div>
+<!--            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">-->
+<!--                <ul>-->
+<!--                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
+<!--                </ul>-->
+<!--            </div>-->
             <div class="row g-2">
                 <div class="col mb-0">
                     <label for="nama" class="form-label">Nama</label>
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="col mb-0">
-                    <label for="kurikulumId" class="form-label">kodeKurikulum</label>
+                    <label for="kurikulumId" class="form-label">Kode Kurikulum</label>
                     <select id="kurikulumId" name="kurikulumId" th:value="${tahunAjaran.kurikulumId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('kurikulumId')}? 'form-select select2 is-invalid': 'form-select select2'">
                         <option value="">Pilih Kurikulum</option>
