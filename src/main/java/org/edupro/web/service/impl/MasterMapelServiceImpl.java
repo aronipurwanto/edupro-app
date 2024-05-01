@@ -89,6 +89,7 @@ public class MasterMapelServiceImpl implements MasterMapelService {
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 MapelResponse result = objectMapper.readValue(json, MapelResponse.class);
+                return Optional.of(result);
             }
         }catch (RestClientException e){
             return Optional.empty();
