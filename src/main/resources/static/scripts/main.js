@@ -48,7 +48,8 @@ function ajaxSubmit(url, data, dataTable = null){
             $('#main-modal').find('.modal-content').html(result);
 
             var error = $('#main-modal').find(".errors").length;
-            if(error == 0) {
+            var invalid = $('#main-modal').find(".invalid-feedback").length;
+            if(error == 0 && invalid == 0) {
                 $('#main-modal').modal('hide');
 
                 if(dataTable !== null){
