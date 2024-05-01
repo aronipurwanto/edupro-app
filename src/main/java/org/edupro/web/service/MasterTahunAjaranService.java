@@ -6,7 +6,7 @@ import org.edupro.web.model.response.TahunAjaranResponse;
 import java.util.List;
 import java.util.Optional;
 
-public interface TahunAjaranService {
+public interface MasterTahunAjaranService {
     List<TahunAjaranResponse> get();
     List<TahunAjaranResponse> getByKurikulumId(String kurikulumId);
     Optional<TahunAjaranResponse> getById(String id);

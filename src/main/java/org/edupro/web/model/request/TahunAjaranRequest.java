@@ -20,5 +20,5 @@ public class TahunAjaranRequest {
 
     @NotEmpty(message = "kode kurikulum wajib di isi")
     @Size(min = 5, max = 100, message = "minimal 5 dan maximal 100")
-    private String kodeKurikulum;
+    private String kodeKurikulumId;
 }

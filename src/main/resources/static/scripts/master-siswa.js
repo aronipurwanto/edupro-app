@@ -30,6 +30,11 @@ $(function (){
                 { data: 'nama' },
                 { data: 'kotaTempatLahir' },
                 { data: 'tanggalLahir' },
+                { data: 'gender' },
+                { data: 'agama' },
+                { data: 'golDarah' },
+                { data: 'noTelp' },
+                { data: 'email' },
                 { data: 'status' },
                 { data: '' }
             ],
@@ -78,6 +83,46 @@ $(function (){
                     }
                 },{
                     targets: 5,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['gender'];
+                        return '<span>'+$item +'</span>';
+                    }
+                },{
+                    targets: 6,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['agama'];
+                        return '<span>'+$item +'</span>';
+                    }
+                },{
+                    targets: 7,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['golDarah'];
+                        return '<span>'+$item +'</span>';
+                    }
+                },{
+                    targets: 8,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['noTelp'];
+                        return '<span>'+$item +'</span>';
+                    }
+                },{
+                    targets: 9,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['email'];
+                        return '<span>'+$item +'</span>';
+                    }
+                },{
+                    targets: 10,
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {

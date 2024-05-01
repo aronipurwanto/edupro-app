@@ -49,7 +49,7 @@
             </div>
             <div class="row">
                 <div class="col mb-3">
-                    <label for="gender" class="form-label">Gedung</label>
+                    <label for="gender" class="form-label">Gender</label>
                     <select id="gender" name="gender" th:value="${siswa.gender}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('gender')}? 'form-select select2 is-invalid': 'form-select select2'">
                         <option value="">Pilih Gender</option>
@@ -77,7 +77,7 @@
 
             <div class="row">
                 <div class="col mb-3">
-                    <label for="golDarah" class="form-label">Gedung</label>
+                    <label for="golDarah" class="form-label">Gol Darah</label>
                     <select id="golDarah" name="golDarah" th:value="${siswa.golDarah}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('golDarah')}? 'form-select select2 is-invalid': 'form-select select2'">
                         <option value="">Pilih Gol Darah</option>
@@ -108,7 +108,7 @@
         <!-- footer -->
         <div class="modal-footer input-group">
             <button type="submit" class="btn btn-success">
-                Save
+                Save Changes
             </button>
             <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
                 Close
