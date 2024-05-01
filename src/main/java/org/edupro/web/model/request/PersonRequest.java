@@ -12,29 +12,43 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PersonRequest {
+
     private String id;
-    @NotEmpty(message = "User Id tidak boleh kosong")
+
+    @NotEmpty(message = "Id Tidak Boleh Kosong")
     private String userId;
-    @NotEmpty(message = "Nomor wajib diisi")
+
+    @NotEmpty(message = "Nomor Tidak Boleh Kosong")
     private String nomor;
-    @Size(min = 2, max = 100, message = "Minimal 2 Maksimal 100")
+
+    @NotEmpty(message = "Nama Tidak Boleh Kosong")
+    @Size(min = 2, max = 100, message = "Nama Minimal 2 Maksimal 100")
     private String nama;
-    @Size(min = 2, max = 255, message = "Minimal 2 dan maksimal 255")
+
+    @NotEmpty(message = "Alamat Tinggal Tidak Boleh Kosong")
     private String alamatTinggal;
-    @NotEmpty(message = "NIK wajib diisi")
+
+    @NotEmpty(message = "NIK Tidak Boleh Kosong")
     private String nik;
-    @NotEmpty(message = "Tanggal Lahir wajib diisi")
+
+    @NotEmpty(message = "Tanggal Lahir Tidak Boleh Kosong")
     private String tanggalLahir;
-    @NotEmpty(message = "Tempat Lahir wajib diisi")
+
+    @NotEmpty(message = "Tempat Lahir Tidak Boleh Kosong")
     private String tempatLahir;
-    @NotEmpty(message = "Jenis kelamin tidak boleh kosong")
+
+    @NotEmpty(message = "Jenis Kelamin Tidak Boleh Kosong")
     private String gender;
-    @NotEmpty(message = "Agama wajib diisi")
+
+    @NotEmpty(message = "Agama Tidak Boleh Kosong")
     private String agama;
-    @NotEmpty(message = "Golongan Darah wajib diisi")
+
+    @NotEmpty(message = "Golongan Darah Tidak Boleh Kosong")
     private String golDarah;
-    @NotEmpty(message = "No Tlp wajib diisi")
+
+    @NotEmpty(message = "No Telp Wajib Diisi")
     private String noTelp;
-    @NotEmpty(message = "Email wajib diisi")
+
+    @NotEmpty(message = "Email Tidak Boleh Kosong")
     private String email;
 }

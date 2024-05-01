@@ -16,16 +16,19 @@ import lombok.Setter;
 public class LevelRequest {
     private String id;
 
-    @NotEmpty(message = "Lembaga Id tidak boleh kosong")
+    @NotEmpty(message = "Lembaga Tidak Boleh Kosong")
     private String idLembaga;
 
-    @NotEmpty(message = "kode wajib diisi")
-    @Size(min = 1, max = 10, message = "minimal 1 dan maksimal 10")
+    private String namaLembaga;
+
+    @NotEmpty(message = "Kode Tidak Boleh Kosong")
+    @Size(min = 1, max = 10, message = "Kode Minimal 1 dan Maksimal 10")
     private String kode;
 
-    @Size(min = 2, max = 100, message = "minimal 2 dan maksimal 100")
+    @NotEmpty(message = "Nama Tidak Boleh Kosong")
+    @Size(min = 2, max = 100, message = "Nama Minimal 2 dan Maksimal 100")
     private String nama;
 
-    @NotNull(message = "No Urut wajib diisi")
+    @NotNull(message = "No-Urut Tidak Boleh Kosong")
     private Integer noUrut;
 }
