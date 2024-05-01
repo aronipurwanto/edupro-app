@@ -1,67 +1,67 @@
-<form xmlns:th="http://www.thymeleaf.org" th:id="form-level" th:action="@{~/master/kelas/remove}" th:method="post">
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-kelas" th:action="@{~/master/kelas/remove}"
+      th:method="post" th:object="${kelas}">
+    <input type="hidden" name="id" th:value="${kelas.id}">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Delete Kelas</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div class="form-group row">
-                <div class="col mb-3">
-                    <label for="waliKelas" class="form-label">Wali Kelas</label>
-                    <input type="text" id="waliKelas" name="waliKelas" class="form-control" placeholder="Wali Kelas" />
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="kode" class="form-label">Kode</label>
+                    <input type="text" id="kode" name="kode" class="form-control" th:value="${kelas.kode}" readonly />
+                </div>
+                <div class="col mb-0">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" id="nama" name="nama" class="form-control" th:value="${kelas.nama}" readonly />
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col mb-3">
-                    <label for="kodeKelas" class="form-label">Kode Kelas</label>
-                    <input type="text" id="kodeKelas" name="kodeKelas" class="form-control" placeholder="Kode Kelas" />
+
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="kodeRuang" class="form-label">Kode Ruang</label>
+                    <input type="text" id="kodeRuang" name="kodeRuang" class="form-control" th:value="${kelas.kodeRuangan}" readonly />
+                    <input type="hidden" name="ruangId" th:value="${kelas.ruangId}">
+                </div>
+                <div class="col mb-0">
+                    <label for="namaLembaga" class="form-label">Lembaga</label>
+                    <input type="text" id="namaLembaga" name="namaLembaga" class="form-control" th:value="${kelas.namaLembaga}" readonly />
+                    <input type="hidden" name="lembagaId" th:value="${kelas.lembagaId}">
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col mb-3">
-                    <label for="level" class="form-label">Level</label>
-                    <select  id="level" name="status" class="form-select">
-                        <option value="">-</option>
-                        <option value="I">I</option>
-                        <option value="II">II</option>
-                        <option value="III">III</option>
-                        <option value="IV">IV</option>
-                        <option value="V">V</option>
-                        <option value="VI">VI</option>
-                        <option value="VII">VII</option>
-                        <option value="VIII">VIII</option>
-                        <option value="IX">IX</option>
-                        <option value="X">X</option>
-                        <option value="XI">XI</option>
-                        <option value="XXI">XXI</option>
-                    </select>
+
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="namaTahunAjaran" class="form-label">Tahun Ajaran</label>
+                    <input type="text" id="namaTahunAjaran" name="namaTahunAjaran" class="form-control" th:value="${kelas.namaTahunAjaran}" readonly />
+                    <input type="hidden" name="tahunAjaranId" th:value="${kelas.tahunAjaranId}">
+                </div>
+                <div class="col mb-0">
+                    <label for="namaLevel" class="form-label">Level</label>
+                    <input type="text" id="namaLevel" name="namaLevel" class="form-control" th:value="${kelas.namaLevel}" readonly />
+                    <input type="hidden" name="levelId" th:value="${kelas.levelId}">
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col mb-3">
-                    <label for="nameKelas" class="form-label">Nama Kelas</label>
-                    <input type="text" id="nameKelas" name="nameKelas" class="form-control" placeholder="Nama Kelas" />
+
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="semester" class="form-label">Sesi / Semester</label>
+                    <input type="text" id="semester" name="semester" class="form-control" th:value="${kelas.semester}" readonly />
+                    <input type="hidden" name="sesiAkademikId" th:value="${kelas.sesiAkademikId}">
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col mb-3">
-                    <label for="jumlahSiswa" class="form-label">Jumlah Siswa</label>
-                    <input type="text" id="jumlahSiswa" name="jumlahSiswa" class="form-control" placeholder="Jumlah Siswa" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col mb-3">
-                    <label for="status" class="form-label">Status</label>
-                    <select  id="status" name="status" class="form-select">
-                        <option value="Aktif">Aktif</option>
-                        <option value="Non Aktif">Non Aktif</option>
-                    </select>
+                <div class="col mb-0">
+                    <label for="namaWaliKelas" class="form-label">Wali Kelas</label>
+                    <input type="text" id="namaWaliKelas" name="namaWaliKelas" class="form-control" th:value="${kelas.namaWaliKelas}" readonly />
+                    <input type="hidden" name="waliKelasId" th:value="${kelas.waliKelasId}">
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-danger">Save</button>
+        <div class="modal-footer input-group">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
         </div>
     </div>
 </form>
