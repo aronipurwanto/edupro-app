@@ -2,9 +2,7 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.edupro.web.constant.CommonConstant;
 import org.edupro.web.model.request.PersonRequest;
-import org.edupro.web.model.response.LookupResponse;
 import org.edupro.web.model.response.PersonResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.service.MasterLookupService;
@@ -34,19 +32,8 @@ public class MasterPersonController extends BaseController<PersonResponse>{
     public ModelAndView add(){
         ModelAndView view = new ModelAndView("pages/master/person/add");
         view.addObject("person", new PersonRequest());
-        addObject(view);
+        addObject(view, lookupService);
         return view;
-    }
-
-    public void addObject(ModelAndView view){
-        List<LookupResponse> agama = lookupService.getByGroup(CommonConstant.GROUP_AGAMA);
-        view.addObject("agama", agama);
-
-        List<LookupResponse> gender = lookupService.getByGroup(CommonConstant.GROUP_GENDER);
-        view.addObject("gender", gender);
-
-        List<LookupResponse> golDarah = lookupService.getByGroup(CommonConstant.GROUP_GOL_DARAH);
-        view.addObject("golDarah", golDarah);
     }
 
     @PostMapping("/save")
@@ -54,7 +41,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
         ModelAndView view = new ModelAndView("pages/master/person/add");
         if (result.hasErrors()){
             view.addObject("person", request);
-            addObject(view);
+            addObject(view, lookupService);
             return view;
         }
         var response = service.save(request);
@@ -70,7 +57,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
             return new ModelAndView("pages/master/error/not-found");
         }
         view.addObject("person", result);
-        addObject(view);
+        addObject(view, lookupService);
         return view;
     }
 
@@ -79,7 +66,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
         ModelAndView view = new ModelAndView("pages/master/person/edit");
         if (result.hasErrors()){
             view.addObject("person", request);
-            addObject(view);
+            addObject(view, lookupService);
             return view;
         }
         var response = service.update(request, request.getId()).orElse(null);
@@ -94,7 +81,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
             return new ModelAndView("pages/master/error/not-found");
         }
         view.addObject("person", result);
-        addObject(view);
+        addObject(view, lookupService);
         return view;
     }
 
@@ -103,7 +90,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
         ModelAndView view = new ModelAndView("pages/master/person/delete");
         if (result.hasErrors()){
             view.addObject("person", request);
-            addObject(view);
+            addObject(view, lookupService);
             return view;
         }
         var response = this.service.delete(request.getId()).orElse(null);

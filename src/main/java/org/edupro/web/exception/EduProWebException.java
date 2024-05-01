@@ -1,26 +1,30 @@
 package org.edupro.web.exception;
 
 import org.springframework.http.HttpStatus;
-public class CommonApiException extends RuntimeException {
+import org.springframework.validation.FieldError;
+
+import java.util.List;
+
+public class EduProWebException extends RuntimeException {
     private final HttpStatus status;
     private final String message;
-    private final Object errors;
+    private final List<FieldError> errors;
 
-    public CommonApiException(HttpStatus status, String message, Object errors) {
+    public EduProWebException(String message, List<FieldError> errors) {
         super(message);
-        this.status = status;
+        this.status = HttpStatus.INTERNAL_SERVER_ERROR;
         this.message = message;
         this.errors = errors;
     }
 
-    public CommonApiException(String message, HttpStatus status) {
+    public EduProWebException(String message, HttpStatus status) {
         super(message);
         this.status = status;
         this.message = message;
         this.errors = null;
     }
 
-    public CommonApiException(String message, HttpStatus status, Object errors) {
+    public EduProWebException(String message, HttpStatus status, List<FieldError> errors) {
         super(message);
         this.status = status;
         this.message = message;
