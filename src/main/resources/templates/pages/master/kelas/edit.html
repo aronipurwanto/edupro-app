@@ -13,14 +13,14 @@
 <!--                </ul>-->
 <!--            </div>-->
             <div class="row g-2">
-                <div class="col mb-0">
+                <div class="col mb-3">
                     <label for="kode" class="form-label">Kode</label>
                     <input type="text" id="kode" name="kode" th:value="${kelas.kode}" th:class="${#fields.hasErrors('kode')}? 'form-control is-invalid': 'form-control'" placeholder="Kode" />
                     <div th:if="${#fields.hasErrors('kode')}" class="invalid-feedback">
                         <span th:errors="*{kode}"></span>
                     </div>
                 </div>
-                <div class="col mb-0">
+                <div class="col mb-3">
                     <label for="nama" class="form-label">Nama</label>
                     <input type="text" id="nama" name="nama" th:value="${kelas.nama}" th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="Nama Kelas" />
                     <div th:if="${#fields.hasErrors('nama')}" class="invalid-feedback">
@@ -30,7 +30,7 @@
             </div>
 
             <div class="row g-2">
-                <div class="col mb-0">
+                <div class="col mb-3">
                     <label for="ruangId" class="form-label">Ruangan</label>
                     <select id="ruangId" name="ruangId" th:value="${kelas.ruangId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('ruangId')}? 'form-select select2 is-invalid': 'form-select select2'">
@@ -42,7 +42,7 @@
                         <span th:errors="*{ruangId}"></span>
                     </div>
                 </div>
-                <div class="col mb-0">
+                <div class="col mb-3">
                     <label for="lembagaId" class="form-label">Lembaga</label>
                     <select id="lembagaId" name="lembagaId" th:value="${kelas.lembagaId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('ruangId')}? 'form-select select2 is-invalid': 'form-select select2'">
@@ -57,7 +57,7 @@
             </div>
 
             <div class="row g-2">
-                <div class="col mb-0">
+                <div class="col mb-3">
                     <label for="tahunAjaranId" class="form-label">Tahun Ajaran</label>
                     <select id="tahunAjaranId" name="tahunAjaranId" th:value="${kelas.tahunAjaranId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('tahunAjaranId')}? 'form-select select2 is-invalid': 'form-select select2'">
@@ -69,7 +69,7 @@
                         <span th:errors="*{tahunAjaranId}"></span>
                     </div>
                 </div>
-                <div class="col mb-0">
+                <div class="col mb-3">
                     <label for="levelId" class="form-label">Level</label>
                     <select id="levelId" name="levelId" th:value="${kelas.levelId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('levelId')}? 'form-select select2 is-invalid': 'form-select select2'">
@@ -84,7 +84,7 @@
             </div>
 
             <div class="row g-2">
-                <div class="col mb-0">
+                <div class="col mb-3">
                     <label for="sesiAkademikId" class="form-label">Sesi / Semester</label>
                     <select id="sesiAkademikId" name="sesiAkademikId" th:value="${kelas.sesiAkademikId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('levelId')}? 'form-select select2 is-invalid': 'form-select select2'">
@@ -96,7 +96,7 @@
                         <span th:errors="*{sesiAkademikId}"></span>
                     </div>
                 </div>
-                <div class="col mb-0">
+                <div class="col mb-3">
                     <label for="waliKelasId" class="form-label">Wali Kelas</label>
                     <select id="waliKelasId" name="waliKelasId" th:value="${kelas.waliKelasId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('levelId')}? 'form-select select2 is-invalid': 'form-select select2'">

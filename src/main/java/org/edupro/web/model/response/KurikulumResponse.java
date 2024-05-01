@@ -13,5 +13,6 @@ public class KurikulumResponse {
     private String id;
     private String kode;
     private String nama;
+    private Integer noUrut;
     private String status;
 }
