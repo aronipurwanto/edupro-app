@@ -64,4 +64,8 @@ public class BackEndUrl {
     public String lembagaUrl(){
         return Strings.concat(baseUrl, "/lembaga");
     }
+
+    public String kelasUrl(){
+        return Strings.concat(baseUrl, "/kelas");
+    }
 }

@@ -10,23 +10,34 @@ import lombok.*;
 @Getter
 @Setter
 public class KelasRequest {
-    private Integer id;
+    private String id;
 
-    @NotEmpty
-    @Size(max = 100)
-    private String waliKelas;
+    @NotEmpty(message = "kode wajib diisi")
+    @Size(min = 4, max = 10, message = "minimal 4 dan maximal 10")
+    private String kode;
 
-    @Size(max = 50)
-    private String kodeKelas;
+    @NotEmpty(message = "nama wajib diisi")
+    @Size(min = 2, max = 100, message = "minimal 2 dan maximal 100")
+    private String nama;
 
-    @Size(max = 50)
-    private String level;
+    @NotEmpty(message = "ruang wajib di isi")
+    private String ruangId;
 
-    @Size(max = 70)
-    private String nameKelas;
+    private String kodeRuangan;
 
-    private Integer jumlahSiswa;
+    @NotEmpty(message = "lemabag wajib diisi")
+    private String lembagaId;
 
-    @Size(max = 60)
-    private String status;
+    @NotEmpty(message = "tahun ajaran wajib diisi")
+    private String tahunAjaranId;
+
+    @NotEmpty(message = "level wajib diisi")
+    private String levelId;
+
+    @NotEmpty(message = "sesi akademik wajib diisi")
+    private String sesiAkademikId;
+
+    @NotEmpty(message = "wali kelas wajib diisi")
+    private String waliKelasId;
+
 }
