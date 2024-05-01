@@ -68,7 +68,7 @@ public class MasterTahunAjaranController extends BaseController<TahunAjaranRespo
             return new ModelAndView("pages/master/error/not-found");
         }
 
-        view.addObject("tahunAjaran", result);
+        view.addObject("tahun", result);
         addObject(view);
         return view;
     }

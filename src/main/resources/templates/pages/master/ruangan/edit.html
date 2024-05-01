@@ -16,7 +16,7 @@
                 <div class="col mb-0">
                     <label for="gedungId" class="form-label">Gedung</label>
                     <select id="gedungId" name="gedungId" th:value="${ruangan.gedungId}" data-allow-clear="true"
-                            th:class="${#fields.hasErrors('kodeGedung')}? 'form-select select2 is-invalid': 'form-select select2'">
+                            th:class="${#fields.hasErrors('gedungId')}? 'form-select select2 is-invalid': 'form-select select2'">
                         <option value="">Pilih Gedung</option>
                         <option th:each="item : ${dataGedung}" th:value="${item.id}" th:text="${item.nama}"
                                 th:selected="${item.id == ruangan.gedungId}"></option>
