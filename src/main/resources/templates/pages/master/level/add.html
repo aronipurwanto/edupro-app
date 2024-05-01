@@ -5,11 +5,11 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">
-                <ul>
-                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
-                </ul>
-            </div>
+<!--            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">-->
+<!--                <ul>-->
+<!--                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
+<!--                </ul>-->
+<!--            </div>-->
             <div class="row">
                 <div class="col mb-3">
                     <label for="idLembaga" class="form-label">Lembaga</label>
@@ -46,9 +46,9 @@
             </div>
             <div class="row">
                 <div class="col mb-3">
-                    <label for="noUrut" class="form-label">No Urut</label>
+                    <label for="noUrut" class="form-label">No-Urut</label>
                     <input type="number" id="noUrut" name="noUrut" th:value="${level.noUrut}"
-                           th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="no urut" />
+                           th:class="${#fields.hasErrors('noUrut')}? 'form-control is-invalid': 'form-control'" placeholder="no-urut" />
                     <div th:if="${#fields.hasErrors('noUrut')}" class="invalid-feedback">
                         <span th:errors="*{noUrut}"></span>
                     </div>

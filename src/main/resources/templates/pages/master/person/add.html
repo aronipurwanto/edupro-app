@@ -6,11 +6,11 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">
-                <ul>
-                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
-                </ul>
-            </div>
+<!--            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">-->
+<!--                <ul>-->
+<!--                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
+<!--                </ul>-->
+<!--            </div>-->
             <div class="row">
                 <div class="col mb-3">
                     <label for="userId" class="form-label">User Id</label>
@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="col mb-3">
-                    <label for="gender" class="form-label">Jenis Kelamin</label>
+                    <label for="gender" class="form-label">Gender</label>
                     <select id="gender" name="gender" th:value="${person.gender}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('gender')}? 'form-select select2 is-invalid': 'form-select select2'">
                         <option value="">Pilih Gender</option>
