@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class LembagaRequest {
-    private Integer id;
+    private String id;
 
     @NotEmpty
     @Size(max = 100)

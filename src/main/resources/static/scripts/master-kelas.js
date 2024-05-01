@@ -9,39 +9,19 @@ $(function () {
         headingColor = config.colors.headingColor;
     }
 
-    // btn add click
-    $("#btn-add").click(function (){
-        var url = $(this).attr('href');
-        showModal(url, ' ')
-    });
+    const formSelect2 = $('#main-modal').find('.select2');
+    // Select2
+    if (formSelect2.length) {
+        formSelect2.wrap('<div class="position-relative"></div>');
+        formSelect2
+            .select2({
+                placeholder: 'Pilih ',
+                dropdownParent: formSelect2.parent()
+            });
+    }
 
-    // from submit
-    $('#main-modal').on('submit', '#form-level', function (){
-        var ajaxUrl = $(this).attr('action');
-        $.ajax({
-            url: ajaxUrl,
-            method: 'POST',
-            dataType: 'JSON',
-            success: function (result){
-                $('#main-modal').modal('show');
-            }
-        });
-    });
-
-    //edit data
-    $("#table-level").on('click','.btn-edit', function (){
-        var url = $(this).attr('href');
-        showModal(url,' ');
-    });
-
-    //delete data
-    $("#table-level").on('click','.btn-delete',function (){
-        var url = $(this).attr('href');
-        showModal(url,' ');
-    })
-
-    //data table declaration
-    var dt_level_table = $("#table-level"),
+    // datatable declaration
+    var dt_kelas_table = $("#table-kelas"),
         statusObj = {
             0: {title: "Non Aktif"},
             1: {title: "Aktif"},
@@ -51,19 +31,24 @@ $(function () {
             1: {title: "Aktif"},
         };
 
-    if (dt_level_table.length) {
-        var ajaxUrl = $('#level-title').attr('href');
-        var dt_level = dt_level_table.DataTable({
+    if (dt_kelas_table.length > 0) {
+        // datatable declaration
+
+        var ajaxUrl = $('#kelas-title').attr('href');
+        var dt_table = dt_kelas_table.DataTable({
             ajax: ajaxUrl,
             columns: [
                 { data: 'id'},
-                { data: 'waliKelas'},
-                { data: 'kodeKelas'},
-                { data: 'level'},
-                { data: 'nameKelas'},
-                { data: 'jumlahSiswa'},
+                { data: 'kode'},
+                { data: 'nama'},
+                { data: 'kodeRuangan'},
+                { data: 'namaLembaga'},
+                { data: 'namaTahunAjaran'},
+                { data: 'namaLevel'},
+                { data: 'semester'},
+                { data: 'namaWaliKelas'},
                 { data: 'status'},
-                { data: ''}
+                { data: ' '}
             ],
             columnDefs: [
                 {
@@ -72,17 +57,17 @@ $(function () {
                     orderable: false,
                     responsivePriority: 2,
                     targets: 0,
-                    render: function (data, type, full, meta){
+                    render: function (data, type, full, meta) {
                         var $item = full['id'];
-                        return '<span>' + $item + '</span>';
+                        return '<span>'+$item +'</span>';
                     }
                 },
                 {
                     targets: 1,
                     searchable: true,
                     orderable: true,
-                    render: (data, type, full, meta)=>{
-                        var $item = full['waliKelas'];
+                    render: (data, type, full, meta) => {
+                        var $item = full['kode'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -91,8 +76,8 @@ $(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kodeKelas'];
-                        return '<span>'+$item +'</span>';
+                        var $item = full['nama'];
+                        return '<span>' +$item + '</span>';
                     }
                 },
                 {
@@ -100,8 +85,8 @@ $(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['level'];
-                        return '<span>'+$item +'</span>';
+                        var $item = full['kodeRuangan'];
+                        return '<span>' + $item + '</span>';
                     }
                 },
                 {
@@ -109,8 +94,8 @@ $(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['nameKelas'];
-                        return '<span>' + $item + '</span>';
+                        var $item = full['namaLembaga'];
+                        return '<span>' +$item + '</span>';
                     }
                 },
                 {
@@ -118,8 +103,8 @@ $(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['jumlahSiswa'];
-                        return '<span>' + $item + '</span>';
+                        var $item = full['namaTahunAjaran'];
+                        return '<span>' +$item + '</span>';
                     }
                 },
                 {
@@ -127,8 +112,35 @@ $(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
+                        var $item = full['namaLevel'];
+                        return '<span>' +$item + '</span>';
+                    }
+                },
+                {
+                    targets: 7,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['semester'];
+                        return '<span>' +$item + '</span>';
+                    }
+                },
+                {
+                    targets: 8,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['namaWaliKelas'];
+                        return '<span>' +$item + '</span>';
+                    }
+                },
+                {
+                    targets: 9,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
                         var $item = full['status'];
-                        return '<span>' + $item + '</span>';
+                        return '<span>' +$item + '</span>';
                     }
                 },
                 {
@@ -136,14 +148,14 @@ $(function () {
                     title: 'Actions',
                     searchable: false,
                     orderable: false,
-                    render: function (data, type, full, meta){
+                    render: function (data, type, full, meta) {
                         var id = full['id'];
-                        var editUrl = ajaxUrl.replace('data','edit') +'/'+ id;
-                        var deleteUrl = ajaxUrl.replace('data','delete')+'/'+ id;
+                        var editUrl = ajaxUrl.replace('data','edit') + '/' + id;
+                        var deleteUrl = ajaxUrl.replace('data','delete') + '/' + id ;
                         return (
-                            '<div class="d-inline-block text-nowrap">' +
-                            '<button class="btn btn-xs btn-primary btn-edit" href="'+ editUrl +'"><i class="ti ti-edit"></i> Edit</button> &nbsp;' +
-                            '<button class="btn btn-xs btn-danger btn-delete" href="'+ deleteUrl +'"><i class="ti ti-trash"></i></button>' +
+                            '<div class="d-inline-block text-nowrap">'+
+                            '<button class="btn btn-xs btn-primary btn-edit" href="'+ editUrl + '"><i class="ti ti-edit"></i> Edit </button> &nbsp;' +
+                            '<button class="btn btn-xs btn-danger btn-delete" href="'+ deleteUrl + '"><i class="ti ti-trash"></i></button>' +
                             '</div>'
                         );
                     }
@@ -152,7 +164,42 @@ $(function () {
             lengthMenu: [5, 10, 20, 50, 70, 100]
         });
 
-        $('.dataTables-length').addClass('mt-2 mt-sm-0 mt-md-3 me-2');
-        $('.dt-buttons').addClass('d-flex flex-wrap');
+        dt_table.on('order.dt search.dt', function () {
+            let i = 1;
+
+            dt_table.cells(null, 0, { search: 'applied', order: 'applied'})
+                .every(function (cell) {
+                    this.data(i++);
+                });
+        }).draw();
     }
+
+    $('.dataTables_length').addClass('mt-2 mt-sm-0 mt-md-3 me-2');
+    $('.dt-buttons').addClass('d-flex flex-wrap');
+
+    // btn add click
+    $("#btn-add").click(function () {
+        var url = $(this).attr('href');
+        showModal(url, ' ');
+    });
+
+    // form submit
+    $('#main-modal').on('submit', '#form-kelas', function (e) {
+        e.preventDefault();
+        var ajaxUrl = $(this).attr('action');
+        const data = convertFormToJSON($(this));
+        ajaxSubmit(ajaxUrl, data, dt_table);
+    });
+
+    // edit data
+    $("#table-kelas").on('click', '.btn-edit', function () {
+        var url = $(this).attr('href');
+        showModal(url, ' ');
+    });
+
+    // delete data
+    $("#table-kelas").on('click', '.btn-delete', function () {
+        var url = $(this).attr('href');
+        showModal(url, ' ')
+    });
 });
