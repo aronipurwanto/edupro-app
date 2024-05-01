@@ -17,8 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-import static org.edupro.web.constant.CommonConstant.GROUP_AGAMA;
-
 @Controller
 @RequestMapping("/master/siswa")
 @RequiredArgsConstructor
@@ -69,6 +67,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/siswa/edit");
         var result = this.service.getById(id).orElse(null);
+
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
