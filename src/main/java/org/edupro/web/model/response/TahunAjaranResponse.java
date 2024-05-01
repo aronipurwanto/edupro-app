@@ -10,7 +10,7 @@ import lombok.*;
 public class TahunAjaranResponse {
     private String id;
     private String nama;
-    private String kodeKurikulumId;
-    private String namaKurikulum;
+    private String kurikulumId;
+    private String kodeKurikulum;
     private String status;
 }
