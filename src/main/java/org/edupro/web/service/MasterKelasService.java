@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MasterKelasService {
-    List<KelasResponse> getAll();
-    Optional<LevelResponse> getById(Integer id);
+    List<KelasResponse> get();
+    Optional<KelasResponse> getById(String id);
     Optional<KelasResponse> save(KelasRequest request);
-    Optional<KelasResponse> update(KelasRequest request, Integer id);
-    Optional<KelasResponse> delete(Integer id);
+    Optional<KelasResponse> update(KelasRequest request, String id);
+    Optional<KelasResponse> delete(String id);
 }

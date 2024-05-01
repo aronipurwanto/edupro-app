@@ -4,9 +4,11 @@ package org.edupro.web.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.model.request.TahunAjaranRequest;
+import org.edupro.web.model.response.KurikulumResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.model.response.TahunAjaranResponse;
-import org.edupro.web.service.TahunAjaranService;
+import org.edupro.web.service.MasterKurikulumService;
+import org.edupro.web.service.MasterTahunAjaranService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,9 +20,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/master/ta")
 @RequiredArgsConstructor
-public class TahunAjaranController extends BaseController<TahunAjaranResponse> {
+public class MasterTahunAjaranController extends BaseController<TahunAjaranResponse> {
 
-    private final TahunAjaranService service;
+    private final MasterTahunAjaranService service;
+    private final MasterKurikulumService kurikulumService;
 
     @GetMapping
     public ModelAndView index(){
@@ -33,7 +36,13 @@ public class TahunAjaranController extends BaseController<TahunAjaranResponse> {
         ModelAndView view = new ModelAndView("pages/master/tahun/add");
 
         view.addObject("tahunAjaran", new TahunAjaranRequest());
+        addObject(view);
         return view;
+    }
+
+    public void addObject(ModelAndView view){
+        List<KurikulumResponse> gedung = this.kurikulumService.get();
+        view.addObject("dataKurikulum", gedung);
     }
 
     @PostMapping("/save")
@@ -42,22 +51,25 @@ public class TahunAjaranController extends BaseController<TahunAjaranResponse> {
 
         if (result.hasErrors()){
             view.addObject("tahunAjaran", request);
+            addObject(view);
             return view;
         }
 
         var response = service.save(request);
-        return new ModelAndView("redirect:/master/tahun");
+        return new ModelAndView("redirect:/master/ta");
     }
 
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/tahun/edit");
+
         var result = this.service.getById(id).orElse(null);
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
 
         view.addObject("tahunAjaran", result);
+        addObject(view);
         return view;
     }
 
@@ -66,11 +78,12 @@ public class TahunAjaranController extends BaseController<TahunAjaranResponse> {
         ModelAndView view = new ModelAndView("pages/master/tahun/edit");
         if (result.hasErrors()){
             view.addObject("tahunAjaran", request);
+            addObject(view);
             return view;
         }
 
         var response = service.update(request, request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/tahun");
+        return new ModelAndView("redirect:/master/ta");
     }
 
     @GetMapping("/delete/{id}")
@@ -82,6 +95,7 @@ public class TahunAjaranController extends BaseController<TahunAjaranResponse> {
         }
 
         view.addObject("tahunAjaran", result);
+        addObject(view);
         return view;
     }
 
@@ -90,11 +104,12 @@ public class TahunAjaranController extends BaseController<TahunAjaranResponse> {
         ModelAndView view = new ModelAndView("pages/master/tahun/delete");
         if (result.hasErrors()){
             view.addObject("tahunAjaran", request);
+            addObject(view);
             return view;
         }
 
         var response = service.delete(request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/tahun");
+        return new ModelAndView("redirect:/master/ta");
     }
 
     @GetMapping("/data")

@@ -7,7 +7,7 @@ import org.edupro.web.constant.BackEndUrl;
 import org.edupro.web.model.request.TahunAjaranRequest;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.model.response.TahunAjaranResponse;
-import org.edupro.web.service.TahunAjaranService;
+import org.edupro.web.service.MasterTahunAjaranService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class TahunAjaranServiceImpl implements TahunAjaranService {
+public class MasterTahunAjaranServiceImpl implements MasterTahunAjaranService {
 
     private final BackEndUrl backEndUrl;
     private final RestTemplate restTemplate;

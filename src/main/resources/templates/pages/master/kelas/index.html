@@ -13,7 +13,7 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex align-items-md-end justify-content-md-between">
-                <h5 class="card-title mb-0" id="level-title" th:href="@{~/master/kelas/data}">DAFTAR KELAS</h5>
+                <h5 class="card-title mb-0" id="kelas-title" th:href="@{~/master/kelas/data}">DAFTAR KELAS</h5>
                 <button class="btn rounded-pill btn-success btn-sm" id="btn-add" th:href="@{~/master/kelas/add}">
                     <i class="ti ti-check"></i> &nbsp;
                     Tambah Kelas
@@ -22,15 +22,18 @@
         </div>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-striped" id="table-level">
+                <table class="table table-striped" id="table-kelas">
                     <thead class="table-light">
                     <tr>
-                        <th>#</th>
-                        <th>Wali Kelas</th>
-                        <th>Kode Kelas</th>
+                        <th>No</th>
+                        <th>Kode</th>
+                        <th>Kelas</th>
+                        <th>Kode Ruangan</th>
+                        <th>Lembaga</th>
+                        <th>Tahun Ajaran</th>
                         <th>Level</th>
-                        <th>Name Kelas</th>
-                        <th>Jumlah Siswa</th>
+                        <th>Semester</th>
+                        <th>Wali Kelas</th>
                         <th>Status</th>
                         <th class="cell-fit">Actions</th>
                     </tr>
