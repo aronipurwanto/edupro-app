@@ -15,18 +15,17 @@ import lombok.Setter;
 public class LookupRequest {
     private String id;
 
-    @NotEmpty
-    @Size(min = 2, max = 32, message = "Kode minimal 2 dan maximal 32")
+    @NotEmpty(message = "Group Tidak Boleh Kosong")
     private String group;
 
-    @NotEmpty
-    @Size(min = 2, max = 32, message = "Kode minimal 2 dan maximal 32")
+    @NotEmpty(message = "Kode Tidak Boleh Kosong")
+    @Size(min = 2, max = 32, message = "Kode Minimal 2 dan Maksimal 32")
     private String kode;
 
-    @NotEmpty
-    @Size(min = 4, max = 128, message = "Nama minimal 4 dan maximal 128")
+    @NotEmpty(message = "Nama Tidak Boleh Kosong")
+    @Size(min = 4, max = 128, message = "Nama Minimal 4 dan Maximal 128")
     private String nama;
 
-    @NotNull(message = "urutan tidak boleh kosong")
+    @NotNull(message = "Urutan Tidak Boleh Kosong")
     private Integer urutan;
 }

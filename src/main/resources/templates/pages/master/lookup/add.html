@@ -2,7 +2,7 @@
       th:method="post" th:object="${lookup}">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel4">Tambah lookup</h5>
+            <h5 class="modal-title" id="exampleModalLabel4">Tambah Lookup</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -25,7 +25,8 @@
                 </div>
                 <div class="col mb-0">
                     <label for="kode" class="form-label">Kode</label>
-                    <input type="text" id="kode" name="kode" th:value="${lookup.kode}" th:class="${#fields.hasErrors('kode')}? 'form-control is-invalid': 'form-control'" placeholder="Kode" />
+                    <input type="text" id="kode" name="kode" th:value="${lookup.kode}"
+                           th:class="${#fields.hasErrors('kode')}? 'form-control is-invalid': 'form-control'" placeholder="kode" />
                     <div th:if="${#fields.hasErrors('kode')}" class="invalid-feedback">
                         <span th:errors="*{kode}"></span>
                     </div>
@@ -35,14 +36,16 @@
             <div class="row g-2">
                 <div class="col mb-0">
                     <label for="nama" class="form-label">Nama</label>
-                    <input type="text" id="nama" name="nama" th:value="${lookup.nama}" th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="Nama" />
+                    <input type="text" id="nama" name="nama" th:value="${lookup.nama}"
+                           th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="nama" />
                     <div th:if="${#fields.hasErrors('nama')}" class="invalid-feedback">
                         <span th:errors="*{nama}"></span>
                     </div>
                 </div>
                 <div class="col mb-0">
                     <label for="urutan" class="form-label">Urutan</label>
-                    <input type="number" id="urutan" name="urutan" th:value="${lookup.urutan}" th:class="${#fields.hasErrors('urutan')}? 'form-control is-invalid': 'form-control'" placeholder="Urutan" />
+                    <input type="number" id="urutan" name="urutan" th:value="${lookup.urutan}"
+                           th:class="${#fields.hasErrors('urutan')}? 'form-control is-invalid': 'form-control'" placeholder="urutan" />
                     <div th:if="${#fields.hasErrors('urutan')}" class="invalid-feedback">
                         <span th:errors="*{urutan}"></span>
                     </div>
