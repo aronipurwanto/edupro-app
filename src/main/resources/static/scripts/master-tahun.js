@@ -9,6 +9,17 @@ $(function () {
         headingColor = config.colors.headingColor;
     }
 
+    const formSelect2 = $('#main-modal').find('.select2');
+    // Select2 (Kurikulum)
+    if (formSelect2.length) {
+        formSelect2.wrap('<div class="position-relative"></div>');
+        formSelect2
+            .select2({
+                placeholder: 'Pilih Kurikulum',
+                dropdownParent: formSelect2.parent()
+            });
+    }
+
     // data declaration
     var dt_tahun_table = $("#table-tahun"),
         statusObj = {

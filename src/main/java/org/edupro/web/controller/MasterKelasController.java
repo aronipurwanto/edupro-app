@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.edupro.web.model.request.KelasRequest;
 import org.edupro.web.model.request.LevelRequest;
 import org.edupro.web.model.response.*;
-import org.edupro.web.service.MasterKelasService;
-import org.edupro.web.service.MasterLembagaService;
-import org.edupro.web.service.MasterLevelService;
-import org.edupro.web.service.MasterRuanganService;
+import org.edupro.web.service.*;
 import org.edupro.web.service.impl.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +22,11 @@ import java.util.Optional;
 @RequestMapping("/master/kelas")
 public class MasterKelasController extends BaseController<KelasResponse> {
     private final MasterKelasService service;
-    private final MasterRuanganServiceImpl ruanganService;
-    private final MasterLevelServiceImpl levelService;
-    private final MasterLembagaServiceImpl lembagaService;
-    private final MasterPersonServiceImpl personService;
-    private final TahunAjaranServiceImpl tahunAjaranService;
+    private final MasterRuanganService ruanganService;
+    private final MasterLevelService levelService;
+    private final MasterLembagaService lembagaService;
+    private final MasterPersonService personService;
+    private final MasterTahunAjaranService tahunAjaranService;
     private final MasterSesiServiceImpl sesiService;
 
     @GetMapping

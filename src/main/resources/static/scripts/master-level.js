@@ -9,6 +9,17 @@ $(function () {
         headingColor = config.colors.headingColor;
     }
 
+    const formSelect2 = $('#main-modal').find('.select2');
+    // Select2 (Country)
+    if (formSelect2.length) {
+        formSelect2.wrap('<div class="position-relative"></div>');
+        formSelect2
+            .select2({
+                placeholder: 'Pilih Lembaga',
+                dropdownParent: formSelect2.parent()
+            });
+    }
+
     // datatable declaration
     var dt_level_table = $("#table-level"),
         statusObj = {
@@ -26,11 +37,12 @@ $(function () {
             ajax: ajaxUrl,
             columns: [
                 {data: 'id'},
-                {data: 'idLembaga'},
+                {data: 'namaLembaga'},
                 {data: 'kode'},
                 {data: 'nama'},
+                {data: 'noUrut'},
                 {data: 'status'},
-                {data: ''}
+                {data: ' '}
             ],
             columnDefs: [
                 {
@@ -45,7 +57,7 @@ $(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['idLembaga'];
+                        var $item = full['namaLembaga'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -69,6 +81,15 @@ $(function () {
                 },
                 {
                     targets: 4,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['noUrut'];
+                        return '<span>' + $item + '</span>';
+                    }
+                },
+                {
+                    targets: 5,
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {

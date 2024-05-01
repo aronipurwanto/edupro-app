@@ -8,7 +8,7 @@ import org.edupro.web.model.response.*;
 import org.edupro.web.service.MasterKurikulumService;
 import org.edupro.web.service.MasterLookupService;
 import org.edupro.web.service.MasterSesiService;
-import org.edupro.web.service.TahunAjaranService;
+import org.edupro.web.service.MasterTahunAjaranService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MasterSesiController extends BaseController<SesiResponse>{
     private final MasterSesiService service;
-    private final TahunAjaranService taService;
+    private final MasterTahunAjaranService taService;
     private final MasterKurikulumService kurikulumService;
     private final MasterLookupService lookupService;
 
