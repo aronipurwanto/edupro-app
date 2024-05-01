@@ -12,8 +12,13 @@
             </div>
             <div class="row">
                 <div class="col mb-3">
-                    <label for="idLembaga" class="form-label">Id Lembaga</label>
-                    <input type="text" id="idLembaga" name="idLembaga" th:value="${level.idLembaga}" th:class="${#fields.hasErrors('idLembaga')}? 'form-control is-invalid': 'form-control'" placeholder="id lembaga" />
+                    <label for="idLembaga" class="form-label">Lembaga</label>
+                    <select id="idLembaga" name="idLembaga" th:value="${level.idLembaga}" data-allow-clear="true"
+                            th:class="${#fields.hasErrors('idLembaga')}? 'form-select select2 is-invalid': 'form-select select2'">
+                        <option value="">Pilih Lembaga</option>
+                        <option th:each="item : ${dataLembaga}" th:value="${item.id}" th:text="${item.nama}"
+                                th:selected="${item.id == level.idLembaga}"></option>
+                    </select>
                     <div th:if="${#fields.hasErrors('idLembaga')}" class="invalid-feedback">
                         <span th:errors="*{idLembaga}"></span>
                     </div>
@@ -22,7 +27,8 @@
             <div class="row">
                 <div class="col mb-3">
                     <label for="kode" class="form-label">Kode Level</label>
-                    <input type="text" id="kode" name="kode" th:value="${level.kode}" th:class="${#fields.hasErrors('kode')}? 'form-control is-invalid': 'form-control'" placeholder="kode" />
+                    <input type="text" id="kode" name="kode" th:value="${level.kode}"
+                           th:class="${#fields.hasErrors('kode')}? 'form-control is-invalid': 'form-control'" placeholder="kode" />
                     <div th:if="${#fields.hasErrors('kode')}" class="invalid-feedback">
                         <span th:errors="*{kode}"></span>
                     </div>
@@ -31,13 +37,21 @@
             <div class="row">
                 <div class="col mb-3">
                     <label for="nama" class="form-label">Nama Level</label>
-                    <input type="text" id="nama" name="nama" th:value="${level.nama}" th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="nama" />
+                    <input type="text" id="nama" name="nama" th:value="${level.nama}"
+                           th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="nama" />
                     <div th:if="${#fields.hasErrors('nama')}" class="invalid-feedback">
                         <span th:errors="*{nama}"></span>
                     </div>
                 </div>
             </div>
-            <div class="row g-2">
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="noUrut" class="form-label">No Urut</label>
+                    <input type="text" id="noUrut" name="noUrut" th:value="${level.noUrut}" th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="No Urut" />
+                    <div th:if="${#fields.hasErrors('noUrut')}" class="invalid-feedback">
+                        <span th:errors="*{noUrut}"></span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="modal-footer">
