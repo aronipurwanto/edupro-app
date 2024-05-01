@@ -21,15 +21,15 @@
                     </div>
                 </div>
                 <div class="col mb-0">
-                    <label for="kodeKurikulumId" class="form-label">kodeKurikulum</label>
-                    <select id="kodeKurikulumId" name="kodeKurikulumId" th:value="${tahunAjaran.kodeKurikulumId}" data-allow-clear="true"
-                            th:class="${#fields.hasErrors('kodeKurikulumId')}? 'form-select select2 is-invalid': 'form-select select2'">
+                    <label for="kurikulumId" class="form-label">kodeKurikulum</label>
+                    <select id="kurikulumId" name="kurikulumId" th:value="${tahunAjaran.kurikulumId}" data-allow-clear="true"
+                            th:class="${#fields.hasErrors('kurikulumId')}? 'form-select select2 is-invalid': 'form-select select2'">
                         <option value="">Pilih Kurikulum</option>
                         <option th:each="item : ${dataKurikulum}" th:value="${item.id}" th:text="${item.nama}"
-                                th:selected="${item.id == tahunAjaran.kodeKurikulumId}"></option>
+                                th:selected="${item.id == tahunAjaran.kurikulumId}"></option>
                     </select>
-                    <div th:if="${#fields.hasErrors('kodeKurikulumId')}" class="invalid-feedback">
-                        <span th:errors="*{kodeKurikulumId}"></span>
+                    <div th:if="${#fields.hasErrors('kurikulumId')}" class="invalid-feedback">
+                        <span th:errors="*{kurikulumId}"></span>
                     </div>
                 </div>
             </div>
