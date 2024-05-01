@@ -1,4 +1,4 @@
-<form xmlns:th="http://www.thymeleaf.org" th:id="form-level" th:action="@{~/master/kurikulum/remove}"
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-kurikulum" th:action="@{~/master/kurikulum/remove}"
       th:method="post" th:object="${kurikulum}">
   <input type="hidden" name="id" th:value="${kurikulum.id}">
   <div class="modal-content">
@@ -17,6 +17,12 @@
         <div class="col mb-3">
           <label for="nama" class="form-label">Nama</label>
           <input type="text" id="nama" name="nama" th:value="${kurikulum.nama}" class="form-control" readonly />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col mb-3">
+          <label for="noUrut" class="form-label">No Urut</label>
+          <input type="text" id="noUrut" name="noUrut" th:value="${kurikulum.noUrut}" class="form-control" readonly />
         </div>
       </div>
     </div>

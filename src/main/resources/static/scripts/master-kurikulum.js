@@ -29,6 +29,7 @@ $(function () {
                 { data: 'kode'},
                 { data: 'kode'},
                 { data: 'nama'},
+                { data: 'noUrut'},
                 { data: 'status'},
                 { data: ' '}
             ],
@@ -55,6 +56,15 @@ $(function () {
                     orderable: true,
                     render: (data, type, full, meta) => {
                         var $item = full['nama'];
+                        return '<span>' + $item + '</span>';
+                    }
+                },
+                {
+                    targets: 3,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['noUrut'];
                         return '<span>' + $item + '</span>';
                     }
                 },
