@@ -5,7 +5,7 @@
  import lombok.RequiredArgsConstructor;
  import lombok.extern.slf4j.Slf4j;
  import org.edupro.web.constant.CommonConstant;
- import org.edupro.web.exception.CommonApiException;
+ import org.edupro.web.exception.EduProWebException;
  import org.edupro.web.exception.EmptyResponseBodyException;
  import org.edupro.web.model.response.Response;
  import org.edupro.web.util.CommonUtil;
@@ -19,7 +19,6 @@
  import org.springframework.web.bind.MethodArgumentNotValidException;
  import org.springframework.web.bind.MissingRequestHeaderException;
  import org.springframework.web.bind.MissingServletRequestParameterException;
- import org.springframework.web.bind.annotation.ControllerAdvice;
  import org.springframework.web.bind.annotation.ExceptionHandler;
  import org.springframework.web.multipart.MultipartException;
  import org.springframework.web.multipart.support.MissingServletRequestPartException;
@@ -170,8 +169,8 @@
                  .build());
      }
 
-     @ExceptionHandler(value = {CommonApiException.class})
-     public ResponseEntity<Response> handleException(CommonApiException e) {
+     @ExceptionHandler(value = {EduProWebException.class})
+     public ResponseEntity<Response> handleException(EduProWebException e) {
          if(e.getErrors() == null) {
              return ResponseEntity.status(e.getStatus()).body(Response.builder()
                      .statusCode(e.getStatus().value())

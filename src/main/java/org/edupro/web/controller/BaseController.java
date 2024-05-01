@@ -1,9 +1,10 @@
 package org.edupro.web.controller;
 
-import org.edupro.web.model.response.KelasResponse;
 import org.edupro.web.model.response.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import java.util.List;
 import java.util.Optional;
@@ -55,5 +56,11 @@ public class BaseController<T> {
                         .total(1)
                         .build()
        );
+    }
+
+    public void addError(String object, BindingResult bindingResult, List<FieldError> fieldErrors){
+        for(FieldError fieldError : fieldErrors){
+            bindingResult.addError(new FieldError(object, fieldError.getField(), fieldError.getDefaultMessage()));
+        }
     }
 }

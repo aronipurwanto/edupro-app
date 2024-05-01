@@ -11,4 +11,9 @@ public class CommonConstant {
     public static final String GROUP_GENDER = "GENDER";
     public static final String GROUP_GOL_DARAH = "GOL_DARAH";
     public static final String GROUP_SEMESTER = "SEMESTER";
+
+    public static class Error {
+        public static final String ERR_NOT_EXIST = "ERR_NOT_EXIST";
+        public static final String ERR_API = "ERR_API";
+    }
 }

@@ -2,7 +2,7 @@ package org.edupro.web.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.edupro.web.constant.CommonConstant;
-import org.edupro.web.exception.CommonApiException;
+import org.edupro.web.exception.EduProWebException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
@@ -71,7 +71,7 @@ public class CommonUtil {
             return Base64.getEncoder().encodeToString(image.getBytes());
         } catch (IOException e) {
             log.error("Failed to encode image to Base64 format: {}", e.getMessage());
-            throw new CommonApiException("Failed to encode image to Base64 format", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new EduProWebException("Failed to encode image to Base64 format", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

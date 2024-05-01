@@ -1,8 +1,10 @@
 package org.edupro.web.controller;
 
+import com.google.gson.Gson;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.constant.CommonConstant;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.SiswaRequest;
 import org.edupro.web.model.response.LookupResponse;
 import org.edupro.web.model.response.Response;
@@ -12,12 +14,11 @@ import org.edupro.web.service.MasterSiswaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-
-import static org.edupro.web.constant.CommonConstant.GROUP_AGAMA;
 
 @Controller
 @RequestMapping("/master/siswa")
@@ -26,6 +27,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
 
     private final MasterSiswaService service;
     private final MasterLookupService lookupService;
+    private final Gson gson;
 
     @GetMapping
     public ModelAndView index(){
@@ -55,14 +57,19 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("siswa") @Valid SiswaRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/siswa/add");
+        view.addObject("siswa", request);
         if (result.hasErrors()){
-            view.addObject("siswa", request);
             addObject(view);
             return view;
         }
 
-        var response = service.save(request);
-        return new ModelAndView("redirect:/master/siswa");
+        try {
+            service.save(request);
+            return new ModelAndView("redirect:/master/siswa");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/edit/{id}")
@@ -81,14 +88,20 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("siswa") @Valid SiswaRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/siswa/edit");
+        view.addObject("siswa", result);
+
         if (result.hasErrors()) {
-            view.addObject("siswa", result);
             addObject(view);
             return view;
         }
 
-        var response = service.update(request, request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/siswa");
+        try {
+            service.update(request, request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/siswa");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
 
@@ -108,14 +121,20 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
     @PostMapping("/remove")
     public ModelAndView remove(@ModelAttribute("siswa") @Valid SiswaRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/siswa/delete");
+        view.addObject("siswa", request);
+
         if (result.hasErrors()) {
-            view.addObject("siswa", request);
             addObject(view);
             return view;
         }
 
-        var response = service.delete(request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/siswa");
+        try {
+            service.delete(request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/siswa");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/data")
