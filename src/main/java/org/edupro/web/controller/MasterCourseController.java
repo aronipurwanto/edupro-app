@@ -2,6 +2,7 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.CourseRequest;
 import org.edupro.web.model.response.CourseResponse;
 import org.edupro.web.model.response.MapelResponse;
@@ -11,6 +12,7 @@ import org.edupro.web.service.MasterMapelService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,15 +49,19 @@ public class MasterCourseController extends BaseController<CourseResponse> {
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("course") @Valid CourseRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/course/add");
-
+        view.addObject("course", request);
         if (result.hasErrors()){
-            view.addObject("course", request);
             addObject(view);
             return view;
         }
 
-        var response = service.save(request);
-        return new ModelAndView("redirect:/master/course");
+        try {
+            service.save(request);
+            return new ModelAndView("redirect:/master/course");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/edit/{id}")
@@ -75,14 +81,19 @@ public class MasterCourseController extends BaseController<CourseResponse> {
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("course") @Valid CourseRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/course/edit");
+        view.addObject("course", request);
         if (result.hasErrors()){
-            view.addObject("course", request);
             addObject(view);
             return view;
         }
 
-        var response = this.service.update(request, request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/course");
+        try {
+            this.service.update(request, request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/course");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/delete/{id}")
@@ -101,13 +112,18 @@ public class MasterCourseController extends BaseController<CourseResponse> {
     @PostMapping("/remove")
     public ModelAndView remove(@ModelAttribute("course")@Valid CourseRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/course/delete");
+        view.addObject("course", request);
         if (result.hasErrors()){
-            view.addObject("course", request);
             addObject(view);
         }
 
-        var response = service.delete(request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/course");
+        try{
+            var response = service.delete(request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/course");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/data")

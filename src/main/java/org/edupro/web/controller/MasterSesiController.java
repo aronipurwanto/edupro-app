@@ -3,6 +3,7 @@ package org.edupro.web.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.constant.CommonConstant;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.SesiRequest;
 import org.edupro.web.model.response.*;
 import org.edupro.web.service.MasterKurikulumService;
@@ -12,6 +13,7 @@ import org.edupro.web.service.MasterTahunAjaranService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -62,14 +64,21 @@ public class MasterSesiController extends BaseController<SesiResponse>{
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("sesi") @Valid SesiRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/sesi/add");
+        view.addObject("sesi", request);
+
         if (result.hasErrors()){
-            view.addObject("sesi", request);
             addObject(view);
 
             return view;
         }
-        var response = service.save(request);
-        return new ModelAndView("redirect:/master/sesi");
+
+        try {
+            service.save(request);
+            return new ModelAndView("redirect:/master/sesi");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/edit/{id}")
@@ -79,6 +88,7 @@ public class MasterSesiController extends BaseController<SesiResponse>{
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
+
         view.addObject("sesi", result);
         addObject(view);
 
@@ -88,14 +98,20 @@ public class MasterSesiController extends BaseController<SesiResponse>{
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("sesi") @Valid SesiRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/sesi/edit");
+        view.addObject("sesi", request);
+
         if (result.hasErrors()){
-            view.addObject("sesi", request);
             addObject(view);
             return view;
         }
 
-        var response = service.update(request, request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/sesi");
+        try {
+            service.update(request, request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/sesi");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/delete/{id}")
@@ -105,6 +121,7 @@ public class MasterSesiController extends BaseController<SesiResponse>{
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
+
         view.addObject("sesi", result);
         addObject(view);
 
@@ -114,14 +131,20 @@ public class MasterSesiController extends BaseController<SesiResponse>{
     @PostMapping("/remove")
     public ModelAndView remove(@ModelAttribute("sesi") @Valid SesiRequest request, BindingResult result) {
         ModelAndView view = new ModelAndView("pages/master/sesi/delete");
+        view.addObject("sesi", request);
+
         if (result.hasErrors()) {
-            view.addObject("sesi", request);
             addObject(view);
             return view;
         }
 
-        var response = service.delete(request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/sesi");
+        try {
+            service.delete(request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/sesi");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
 }

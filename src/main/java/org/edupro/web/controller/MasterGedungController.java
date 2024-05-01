@@ -2,6 +2,7 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.GedungRequest;
 import org.edupro.web.model.response.GedungResponse;
 import org.edupro.web.model.response.Response;
@@ -9,6 +10,7 @@ import org.edupro.web.service.MasterGedungService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,13 +39,17 @@ public class MasterGedungController extends BaseController<GedungResponse>{
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("gedung") @Valid GedungRequest request, BindingResult result) {
         ModelAndView view = new ModelAndView("pages/master/gedung/add");
+        view.addObject("gedung", request);
         if (result.hasErrors()) {
-            view.addObject("gedung", request);
             return view;
         }
-
-        var response = service.save(request);
-        return new ModelAndView("redirect:/master/gedung");
+        try {
+            service.save(request);
+            return new ModelAndView("redirect:/master/gedung");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/edit/{id}")
@@ -60,12 +66,18 @@ public class MasterGedungController extends BaseController<GedungResponse>{
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("gedung") @Valid GedungRequest request, BindingResult result) {
         ModelAndView view = new ModelAndView("pages/master/gedung/edit");
+        view.addObject("gedung", request);
         if (result.hasErrors()) {
-            view.addObject("gedung", request);
             return view;
         }
-        var response = service.update(request, request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/gedung");
+
+        try {
+            service.update(request, request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/gedung");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/delete/{id}")
@@ -82,12 +94,18 @@ public class MasterGedungController extends BaseController<GedungResponse>{
     @PostMapping("/remove")
     public ModelAndView remove(@ModelAttribute("gedung") @Valid GedungRequest request, BindingResult result) {
         ModelAndView view = new ModelAndView("pages/master/gedung/delete");
+        view.addObject("gedung", request);
+
         if (result.hasErrors()) {
-            view.addObject("gedung", request);
             return view;
         }
-        var response = service.delete(request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/gedung");
+        try {
+            service.delete(request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/gedung");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/data")

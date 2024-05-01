@@ -3,6 +3,7 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.TahunAjaranRequest;
 import org.edupro.web.model.response.KurikulumResponse;
 import org.edupro.web.model.response.Response;
@@ -12,6 +13,7 @@ import org.edupro.web.service.MasterTahunAjaranService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -48,15 +50,20 @@ public class MasterTahunAjaranController extends BaseController<TahunAjaranRespo
     @PostMapping("/save")
     public ModelAndView save (@ModelAttribute("tahunAjaran") @Valid TahunAjaranRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/tahun/add");
+        view.addObject("tahunAjaran", request);
 
         if (result.hasErrors()){
-            view.addObject("tahunAjaran", request);
             addObject(view);
             return view;
         }
 
-        var response = service.save(request);
-        return new ModelAndView("redirect:/master/ta");
+        try {
+            service.save(request);
+            return new ModelAndView("redirect:/master/ta");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/edit/{id}")
@@ -76,14 +83,20 @@ public class MasterTahunAjaranController extends BaseController<TahunAjaranRespo
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("tahunAjaran") @Valid TahunAjaranRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/tahun/edit");
+        view.addObject("tahunAjaran", request);
+
         if (result.hasErrors()){
-            view.addObject("tahunAjaran", request);
             addObject(view);
             return view;
         }
 
-        var response = service.update(request, request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/ta");
+        try {
+            service.update(request, request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/ta");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/delete/{id}")
@@ -102,14 +115,20 @@ public class MasterTahunAjaranController extends BaseController<TahunAjaranRespo
     @PostMapping("/remove")
     public ModelAndView remove(@ModelAttribute("tahunAjaran") @Valid TahunAjaranRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/tahun/delete");
+        view.addObject("tahunAjaran", request);
+
         if (result.hasErrors()){
-            view.addObject("tahunAjaran", request);
             addObject(view);
             return view;
         }
 
-        var response = service.delete(request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/ta");
+        try {
+            service.delete(request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/ta");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/data")

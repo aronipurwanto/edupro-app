@@ -45,6 +45,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
     public ModelAndView save(@ModelAttribute("siswa") @Valid SiswaRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/siswa/add");
         view.addObject("siswa", request);
+
         if (result.hasErrors()){
             addObject(view, lookupService);
             return view;
@@ -97,6 +98,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
     public ModelAndView delete(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/siswa/delete");
         var result = this.service.getById(id).orElse(null);
+
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }

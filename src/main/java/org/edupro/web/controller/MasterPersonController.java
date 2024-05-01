@@ -2,6 +2,7 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.PersonRequest;
 import org.edupro.web.model.response.PersonResponse;
 import org.edupro.web.model.response.Response;
@@ -10,6 +11,7 @@ import org.edupro.web.service.MasterPersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,13 +41,20 @@ public class MasterPersonController extends BaseController<PersonResponse>{
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("person") @Valid PersonRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/person/add");
+        view.addObject("person", request);
+
         if (result.hasErrors()){
-            view.addObject("person", request);
             addObject(view, lookupService);
             return view;
         }
-        var response = service.save(request);
-        return new ModelAndView("redirect:/master/person");
+
+        try {
+            var response = service.save(request);
+            return new ModelAndView("redirect:/master/person");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/edit/{id}")
@@ -56,6 +65,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
+
         view.addObject("person", result);
         addObject(view, lookupService);
         return view;
@@ -64,13 +74,19 @@ public class MasterPersonController extends BaseController<PersonResponse>{
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("person") @Valid PersonRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/person/edit");
+        view.addObject("person", request);
         if (result.hasErrors()){
-            view.addObject("person", request);
             addObject(view, lookupService);
             return view;
         }
-        var response = service.update(request, request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/person");
+
+        try {
+            service.update(request, request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/person");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/delete/{id}")
@@ -80,6 +96,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
+
         view.addObject("person", result);
         addObject(view, lookupService);
         return view;
@@ -88,13 +105,20 @@ public class MasterPersonController extends BaseController<PersonResponse>{
     @PostMapping("/remove")
     public ModelAndView delete(@ModelAttribute("pages") @Valid PersonRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/person/delete");
+        view.addObject("person", request);
+
         if (result.hasErrors()){
-            view.addObject("person", request);
             addObject(view, lookupService);
             return view;
         }
-        var response = this.service.delete(request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/person");
+
+        try {
+            this.service.delete(request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/person");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/data")

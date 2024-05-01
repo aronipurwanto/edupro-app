@@ -3,21 +3,19 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.MapelRequest;
 import org.edupro.web.model.response.MapelResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.service.MasterMapelService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/mapel")
@@ -43,13 +41,18 @@ public class MasterMapelController extends BaseController<MapelResponse>{
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("mapel") @Valid MapelRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/mapel/add");
+        view.addObject("mapel", request);
         if (result.hasErrors()){
-            view.addObject("mapel", request);
             return view;
         }
 
-        var response = service.save(request);
-        return new ModelAndView("redirect:/master/mapel");
+        try {
+            service.save(request);
+            return new ModelAndView("redirect:/master/mapel");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/edit/{id}")
@@ -67,12 +70,19 @@ public class MasterMapelController extends BaseController<MapelResponse>{
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("mapel") @Valid MapelRequest request, BindingResult result) {
         ModelAndView view = new ModelAndView("pages/master/mapel/edit");
+        view.addObject("mapel", request);
+
         if (result.hasErrors()) {
-            view.addObject("mapel", request);
             return view;
         }
-        var response = service.update(request, request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/mapel");
+
+        try {
+            service.update(request, request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/mapel");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
 
@@ -90,12 +100,18 @@ public class MasterMapelController extends BaseController<MapelResponse>{
     @PostMapping("/remove")
     public ModelAndView remove(@ModelAttribute("mapel") @Valid MapelRequest request, BindingResult result) {
         ModelAndView view = new ModelAndView("pages/master/mapel/delete");
+        view.addObject("mapel", request);
         if (result.hasErrors()) {
-            view.addObject("mapel", request);
             return view;
         }
-        var response = service.delete(request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/mapel");
+
+        try {
+            service.delete(request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/mapel");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){

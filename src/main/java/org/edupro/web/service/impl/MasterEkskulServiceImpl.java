@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class MasterEkskulServiceImpl implements MasterEkskulService {
+public class MasterEkskulServiceImpl extends BaseService implements MasterEkskulService {
 
     private final RestTemplate  restTemplate;
 

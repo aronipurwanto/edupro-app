@@ -2,6 +2,7 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.RuanganRequest;
 import org.edupro.web.model.response.GedungResponse;
 import org.edupro.web.model.response.Response;
@@ -11,6 +12,7 @@ import org.edupro.web.service.MasterRuanganService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,15 +49,20 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("ruangan") @Valid RuanganRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/ruangan/add");
+        view.addObject("ruangan", request);
 
         if (result.hasErrors()){
-            view.addObject("ruangan", request);
             addObject(view);
             return view;
         }
 
-        var response = service.save(request);
-        return new ModelAndView("redirect:/master/ruangan");
+        try {
+            var response = service.save(request);
+            return new ModelAndView("redirect:/master/ruangan");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/edit/{id}")
@@ -75,20 +82,27 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("ruangan") @Valid RuanganRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/ruangan/edit");
+        view.addObject("ruangan", request);
+
         if (result.hasErrors()) {
-            view.addObject("ruangan", request);
             addObject(view);
             return view;
         }
 
-        var response = service.update(request, request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/ruangan");
+        try {
+            var response = service.update(request, request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/ruangan");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/ruangan/delete");
         var result = this.service.getById(id).orElse(null);
+
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
@@ -101,14 +115,20 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
     @PostMapping("/remove")
     public ModelAndView remove(@ModelAttribute("ruangan") @Valid RuanganRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/ruangan/delete");
+        view.addObject("ruangan", request);
+
         if (result.hasErrors()) {
-            view.addObject("ruangan", request);
             addObject(view);
             return view;
         }
 
-        var response = service.delete(request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/ruangan");
+        try {
+            service.delete(request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/ruangan");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/data")

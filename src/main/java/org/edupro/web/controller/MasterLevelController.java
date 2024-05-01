@@ -2,21 +2,21 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.LevelRequest;
 import org.edupro.web.model.response.LembagaResponse;
 import org.edupro.web.model.response.LevelResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.service.MasterLembagaService;
 import org.edupro.web.service.MasterLevelService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/level")
@@ -50,14 +50,20 @@ public class MasterLevelController extends BaseController<LevelResponse> {
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("level") @Valid LevelRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/level/add");
+        view.addObject("level", request);
+
         if (result.hasErrors()){
-            view.addObject("level", request);
             addObject(view);
             return view;
         }
 
-        var response = service.save(request);
-        return new ModelAndView("redirect:/master/level");
+        try {
+            service.save(request);
+            return new ModelAndView("redirect:/master/level");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/edit/{id}")
@@ -75,13 +81,20 @@ public class MasterLevelController extends BaseController<LevelResponse> {
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("level") @Valid LevelRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/level/edit");
+        view.addObject("level", request);
+
         if (result.hasErrors()){
-            view.addObject("level", request);
             addObject(view);
             return view;
         }
-        var response = service.update(request, request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/level");
+
+        try {
+            service.update(request, request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/level");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/delete/{id}")
@@ -100,13 +113,20 @@ public class MasterLevelController extends BaseController<LevelResponse> {
     @PostMapping("/remove")
     public ModelAndView delete(@ModelAttribute("level") @Valid LevelRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/level/delete");
+        view.addObject("level", request);
+
         if (result.hasErrors()){
-            view.addObject("level", request);
             addObject(view);
             return view;
         }
-        var response = service.delete(request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/level");
+
+        try {
+            service.delete(request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/level");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/data")

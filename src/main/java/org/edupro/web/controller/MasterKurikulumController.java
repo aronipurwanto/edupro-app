@@ -2,6 +2,7 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.KurikulumRequest;
 import org.edupro.web.model.response.KurikulumResponse;
 import org.edupro.web.model.response.Response;
@@ -9,6 +10,7 @@ import org.edupro.web.service.MasterKurikulumService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,13 +38,18 @@ public class MasterKurikulumController  extends BaseController<KurikulumResponse
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("kurikulum") @Valid KurikulumRequest request, BindingResult result) {
         ModelAndView view = new ModelAndView("pages/master/kurikulum/add");
+        view.addObject("kurikulum", request);
         if (result.hasErrors()) {
-            view.addObject("kurikulum", request);
             return view;
         }
 
-        var response = service.save(request);
-        return new ModelAndView("redirect:/master/kurikulum");
+        try {
+            service.save(request);
+            return new ModelAndView("redirect:/master/kurikulum");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/edit/{id}")
@@ -59,12 +66,18 @@ public class MasterKurikulumController  extends BaseController<KurikulumResponse
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("kurikulum") @Valid KurikulumRequest request, BindingResult result) {
         ModelAndView view = new ModelAndView("pages/master/kurikulum/edit");
+        view.addObject("kurikulum", request);
         if (result.hasErrors()) {
-            view.addObject("kurikulum", request);
             return view;
         }
-        var response = service.update(request, request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/kurikulum");
+
+        try {
+            service.update(request, request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/kurikulum");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/delete/{id}")
@@ -81,12 +94,18 @@ public class MasterKurikulumController  extends BaseController<KurikulumResponse
     @PostMapping("/remove")
     public ModelAndView remove(@ModelAttribute("kurikulum") @Valid KurikulumRequest request, BindingResult result) {
         ModelAndView view = new ModelAndView("pages/master/kurikulum/delete");
+        view.addObject("kurikulum", request);
         if (result.hasErrors()) {
-            view.addObject("kurikulum", request);
             return view;
         }
-        var response = service.delete(request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/kurikulum");
+
+        try {
+            service.delete(request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/kurikulum");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
 

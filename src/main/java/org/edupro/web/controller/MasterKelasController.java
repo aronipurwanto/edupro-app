@@ -2,20 +2,19 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.KelasRequest;
-import org.edupro.web.model.request.LevelRequest;
 import org.edupro.web.model.response.*;
 import org.edupro.web.service.*;
-import org.edupro.web.service.impl.*;
-import org.springframework.http.HttpStatus;
+import org.edupro.web.service.impl.MasterSesiServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -68,15 +67,20 @@ public class MasterKelasController extends BaseController<KelasResponse> {
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("kelas") @Valid KelasRequest kelasRequest, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/kelas/add");
+        view.addObject("kelas", kelasRequest);
 
         if(result.hasErrors()){
-            view.addObject("kelas", kelasRequest);
             addObject(view);
             return view;
         }
 
-        var response = service.save(kelasRequest);
-        return new ModelAndView("redirect:/master/kelas");
+        try {
+            service.save(kelasRequest);
+            return new ModelAndView("redirect:/master/kelas");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/edit/{id}")
@@ -95,14 +99,19 @@ public class MasterKelasController extends BaseController<KelasResponse> {
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("kelas") @Valid KelasRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/kelas/edit");
+        view.addObject("kelas", request);
         if(result.hasErrors()){
-            view.addObject("kelas", request);
             addObject(view);
             return view;
         }
 
-        var response = service.update(request, request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/kelas");
+        try {
+            service.update(request, request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/kelas");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/delete/{id}")
@@ -121,14 +130,19 @@ public class MasterKelasController extends BaseController<KelasResponse> {
     @PostMapping("/remove")
     public ModelAndView remove(@ModelAttribute("kelas") @Valid KelasRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/kelas/delete");
+        view.addObject("kelas", request);
         if(result.hasErrors()){
-            view.addObject("kelas", request);
             addObject(view);
             return view;
         }
 
-        var response = service.delete(request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/kelas");
+        try {
+            service.delete(request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/kelas");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/data")

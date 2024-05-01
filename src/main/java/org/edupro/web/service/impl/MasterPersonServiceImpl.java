@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.edupro.web.constant.BackEndUrl;
+import org.edupro.web.constant.CommonConstant;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.PersonRequest;
 import org.edupro.web.model.response.PersonResponse;
 import org.edupro.web.model.response.Response;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.FieldError;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,7 +27,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class MasterPersonServiceImpl implements MasterPersonService {
+public class MasterPersonServiceImpl extends BaseService implements MasterPersonService {
     private final BackEndUrl backEndUrl;
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -37,11 +40,12 @@ public class MasterPersonServiceImpl implements MasterPersonService {
             if (response.getStatusCode() == HttpStatus.OK){
                 return (List<PersonResponse>) response.getBody().getData();
             }
-        }catch (RestClientException e){
-            return Collections.emptyList();
-        }
 
-        return Collections.emptyList();
+            return Collections.emptyList();
+        }catch (RestClientException e){
+            var errors = this.readError(e);
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        }
     }
 
     @Override
@@ -55,12 +59,15 @@ public class MasterPersonServiceImpl implements MasterPersonService {
 
                 return Optional.of(result);
             }
-        }catch (RestClientException e){
+
             return Optional.empty();
-        }catch (IOException e){
-            throw new RuntimeException(e);
+        }catch (RestClientException e){
+            var errors = this.readError(e);
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        }catch (IOException e) {
+            List<FieldError> errors = List.of(new FieldError("id", id, e.getMessage()));
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
         }
-        return Optional.empty();
     }
 
     @Override
@@ -74,12 +81,15 @@ public class MasterPersonServiceImpl implements MasterPersonService {
                 PersonResponse result = objectMapper.readValue(json, PersonResponse.class);
                 return Optional.of(result);
             }
-        }catch (RestClientException e){
+
             return Optional.empty();
-        }catch (IOException e){
-            throw new RuntimeException(e);
+        }catch (RestClientException e){
+            var errors = this.readError(e);
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        }catch (IOException e) {
+            List<FieldError> errors = List.of(new FieldError("id", "id", e.getMessage()));
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
         }
-        return Optional.empty();
     }
 
     @Override
@@ -93,12 +103,15 @@ public class MasterPersonServiceImpl implements MasterPersonService {
                 PersonResponse result = objectMapper.readValue(json, PersonResponse.class);
                 return Optional.of(result);
             }
-        }catch (RestClientException e){
+
             return Optional.empty();
-        }catch (IOException e){
-            throw new RuntimeException(e);
+        }catch (RestClientException e){
+            var errors = this.readError(e);
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        }catch (IOException e) {
+            List<FieldError> errors = List.of(new FieldError("id", id, e.getMessage()));
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
         }
-        return Optional.empty();
     }
 
     @Override
@@ -111,11 +124,14 @@ public class MasterPersonServiceImpl implements MasterPersonService {
                 PersonResponse result = objectMapper.readValue( json, PersonResponse.class);
                 return Optional.of(result);
             }
-        }catch (RestClientException e){
+
             return Optional.empty();
-        }catch (IOException e){
-            throw new RuntimeException(e);
+        }catch (RestClientException e){
+            var errors = this.readError(e);
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        }catch (IOException e) {
+            List<FieldError> errors = List.of(new FieldError("id", id, e.getMessage()));
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
         }
-        return Optional.empty();
     }
 }

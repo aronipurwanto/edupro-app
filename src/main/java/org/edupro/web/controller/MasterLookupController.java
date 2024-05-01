@@ -2,19 +2,19 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.LookupRequest;
 import org.edupro.web.model.response.LookupResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.service.MasterLookupService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/lookup")
@@ -33,22 +33,27 @@ public class MasterLookupController extends BaseController<LookupResponse> {
     public ModelAndView add(){
         ModelAndView view = new ModelAndView("pages/master/lookup/add");
         view.addObject("lookup", new LookupRequest());
-        view.addObject("groups", service.getGroup());
+        addObject(view);
         return view;
     }
 
     @PostMapping("/save")
     public ModelAndView save(@ModelAttribute("lookup") @Valid LookupRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/lookup/add");
-        view.addObject("groups", service.getGroup());
+        view.addObject("lookup", request);
 
         if(result.hasErrors()){
-            view.addObject("lookup", request);
+            addObject(view);
             return view;
         }
 
-        var response = service.save(request);
-        return new ModelAndView("redirect:/master/lookup");
+        try {
+            service.save(request);
+            return new ModelAndView("redirect:/master/lookup");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/edit/{id}")
@@ -72,14 +77,20 @@ public class MasterLookupController extends BaseController<LookupResponse> {
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("lookup") @Valid LookupRequest request,  BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/lookup/edit");
-        if(result.hasErrors()){
-            view.addObject("lookup", request);
-            addObject(view);
+        view.addObject("lookup", request);
 
+        if(result.hasErrors()){
+            addObject(view);
             return view;
         }
-        var response = service.update(request, request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/lookup");
+
+        try {
+            service.update(request, request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/lookup");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/delete/{id}")
@@ -98,15 +109,19 @@ public class MasterLookupController extends BaseController<LookupResponse> {
     @PostMapping("/remove")
     public ModelAndView remove(@ModelAttribute("lookup") @Valid LookupRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/lookup/delete");
+        view.addObject("lookup", request);
         if (result.hasErrors()){
-            view.addObject("lookup", request);
             addObject(view);
-
             return view;
         }
 
-        var response = service.delete(request.getId()).orElse(null);
-        return new ModelAndView("redirect:/master/lookup");
+        try {
+            service.delete(request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/lookup");
+        } catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            return view;
+        }
     }
 
     @GetMapping("/data")
