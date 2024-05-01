@@ -1,10 +1,14 @@
 package org.edupro.web.controller;
 
+import org.edupro.web.constant.CommonConstant;
+import org.edupro.web.model.response.LookupResponse;
 import org.edupro.web.model.response.Response;
+import org.edupro.web.service.MasterLookupService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +32,17 @@ public class BaseController<T> {
                         .total(0)
                         .build()
         ));
+    }
+
+    static void addObject(ModelAndView view, MasterLookupService lookupService) {
+        List<LookupResponse> agama = lookupService.getByGroup(CommonConstant.GROUP_AGAMA);
+        view.addObject("agama", agama);
+
+        List<LookupResponse> gender = lookupService.getByGroup(CommonConstant.GROUP_GENDER);
+        view.addObject("gender", gender);
+
+        List<LookupResponse> golDarah = lookupService.getByGroup(CommonConstant.GROUP_GOL_DARAH);
+        view.addObject("golDarah", golDarah);
     }
 
     public ResponseEntity<Response> getResponse(List<T> result){

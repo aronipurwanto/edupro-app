@@ -3,10 +3,8 @@ package org.edupro.web.controller;
 import com.google.gson.Gson;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.edupro.web.constant.CommonConstant;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.SiswaRequest;
-import org.edupro.web.model.response.LookupResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.model.response.SiswaResponse;
 import org.edupro.web.service.MasterLookupService;
@@ -39,19 +37,8 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
         ModelAndView view = new ModelAndView("pages/master/siswa/add");
 
         view.addObject("siswa", new SiswaRequest());
-        addObject(view);
+        addObject(view, lookupService);
         return view;
-    }
-
-    public void addObject(ModelAndView view){
-        List<LookupResponse> agama = lookupService.getByGroup(CommonConstant.GROUP_AGAMA);
-        view.addObject("agama", agama);
-
-        List<LookupResponse> gender = lookupService.getByGroup(CommonConstant.GROUP_GENDER);
-        view.addObject("gender", gender);
-
-        List<LookupResponse> golDarah = lookupService.getByGroup(CommonConstant.GROUP_GOL_DARAH);
-        view.addObject("golDarah", golDarah);
     }
 
     @PostMapping("/save")
@@ -59,7 +46,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
         ModelAndView view = new ModelAndView("pages/master/siswa/add");
         view.addObject("siswa", request);
         if (result.hasErrors()){
-            addObject(view);
+            addObject(view, lookupService);
             return view;
         }
 
@@ -81,7 +68,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
         }
 
         view.addObject("dataSiswa", result);
-        addObject(view);
+        addObject(view, lookupService);
         return view;
     }
 
@@ -91,7 +78,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
         view.addObject("siswa", result);
 
         if (result.hasErrors()) {
-            addObject(view);
+            addObject(view, lookupService);
             return view;
         }
 
@@ -114,7 +101,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
         }
 
         view.addObject("siswa", result);
-        addObject(view);
+        addObject(view, lookupService);
         return view;
     }
 
@@ -124,7 +111,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
         view.addObject("siswa", request);
 
         if (result.hasErrors()) {
-            addObject(view);
+            addObject(view, lookupService);
             return view;
         }
 
