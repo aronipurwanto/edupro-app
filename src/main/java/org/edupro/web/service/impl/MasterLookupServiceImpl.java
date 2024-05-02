@@ -122,7 +122,7 @@ public class MasterLookupServiceImpl extends BaseService implements MasterLookup
         }catch (IOException e) {
             List<FieldError> errors = List.of(new FieldError("id", "id", e.getMessage()));
             throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
-        };
+        }
     }
 
     @Override

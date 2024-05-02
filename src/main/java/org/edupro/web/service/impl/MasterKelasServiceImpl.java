@@ -87,7 +87,7 @@ public class MasterKelasServiceImpl extends BaseService implements MasterKelasSe
             var errors = this.readError(e);
             throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
         }catch (IOException e) {
-            List<FieldError> errors = List.of(new FieldError("id", id, e.getMessage()));
+            List<FieldError> errors = List.of(new FieldError("id", "id", e.getMessage()));
             throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
         }
     }
