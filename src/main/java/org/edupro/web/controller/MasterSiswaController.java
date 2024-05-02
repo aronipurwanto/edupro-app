@@ -56,6 +56,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
             return new ModelAndView("redirect:/master/siswa");
         }catch (EduProWebException e){
             addError("siswa", result,(List<FieldError>)e.getErrors());
+            addObject(view, lookupService);
             return view;
         }
     }
@@ -89,6 +90,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
             return new ModelAndView("redirect:/master/siswa");
         }catch (EduProWebException e){
             addError("siswa", result,(List<FieldError>)e.getErrors());
+            addObject(view, lookupService);
             return view;
         }
     }
@@ -123,6 +125,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
             return new ModelAndView("redirect:/master/siswa");
         }catch (EduProWebException e){
             addError("siswa", result,(List<FieldError>)e.getErrors());
+            addObject(view, lookupService);
             return view;
         }
     }
