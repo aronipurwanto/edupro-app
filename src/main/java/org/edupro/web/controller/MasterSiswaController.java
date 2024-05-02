@@ -70,7 +70,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
             return new ModelAndView("pages/master/error/not-found");
         }
 
-        view.addObject("dataSiswa", result);
+        view.addObject("siswa", result);
         addObject(view, lookupService);
         return view;
     }
@@ -78,7 +78,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("siswa") @Valid SiswaRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/siswa/edit");
-        view.addObject("siswa", result);
+        view.addObject("siswa", request);
 
         if (result.hasErrors()) {
             addObject(view, lookupService);
