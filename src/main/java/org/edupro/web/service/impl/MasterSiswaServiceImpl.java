@@ -36,7 +36,7 @@ public class MasterSiswaServiceImpl extends BaseService implements MasterSiswaSe
      public List<SiswaResponse> get() throws EduProWebException {
          try {
              var url = backEndUrl.siswaUrl();
-             ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, getHttpEntity(), Response.class);
              if (response.getStatusCode() == HttpStatus.OK) {
                  var data = (List<SiswaResponse>) response.getBody().getData();
                  return data;
@@ -52,7 +52,7 @@ public class MasterSiswaServiceImpl extends BaseService implements MasterSiswaSe
     public Optional<SiswaResponse> getById(String id) throws EduProWebException{
          try {
              var url = Strings.concat(backEndUrl.siswaUrl(), "/" + id);
-             ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, getHttpEntity(), Response.class);
              if (response.getStatusCode() == HttpStatus.OK) {
                  byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                  SiswaResponse result = objectMapper.readValue(json, SiswaResponse.class);
@@ -73,8 +73,8 @@ public class MasterSiswaServiceImpl extends BaseService implements MasterSiswaSe
     public Optional<SiswaResponse> save(SiswaRequest request) throws EduProWebException {
          try {
              var url = backEndUrl.siswaUrl();
-             HttpEntity<SiswaRequest> httpEntity = new HttpEntity<>(request);
-             ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
+             HttpEntity<SiswaRequest> httpEntity = new HttpEntity<>(request, this.getHeader());
+             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.POST, httpEntity, Response.class);
              if (response.getStatusCode() == HttpStatus.OK) {
                  byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                  SiswaResponse result = objectMapper.readValue(json, SiswaResponse.class);
@@ -94,7 +94,7 @@ public class MasterSiswaServiceImpl extends BaseService implements MasterSiswaSe
     public Optional<SiswaResponse> update(SiswaRequest request, String id) {
         try {
             var url = Strings.concat(backEndUrl.siswaUrl(), "/" + id);
-            HttpEntity<SiswaRequest> httpEntity = new HttpEntity<>(request);
+            HttpEntity<SiswaRequest> httpEntity = new HttpEntity<>(request, getHeader());
             ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -116,7 +116,7 @@ public class MasterSiswaServiceImpl extends BaseService implements MasterSiswaSe
     public Optional<SiswaResponse> delete(String id) {
         try {
             var url = Strings.concat(backEndUrl.siswaUrl(), "/" + id);
-            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.DELETE, null, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.DELETE, getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 SiswaResponse result = objectMapper.readValue(json, SiswaResponse.class);
