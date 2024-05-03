@@ -71,7 +71,7 @@ public class MasterSesiController extends BaseController<SesiResponse>{
             service.save(request);
             return new ModelAndView("redirect:/master/sesi");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("sesi", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
@@ -79,9 +79,19 @@ public class MasterSesiController extends BaseController<SesiResponse>{
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/sesi/edit");
-        var result = service.getById(id).orElse(null);
+        return getModelAndView(id, view);
+    }
+
+    private ModelAndView getModelAndView(String id, ModelAndView view) {
+        SesiResponse result;
+        try {
+            result = this.service.getById(id).orElse(null);
+        }catch (EduProWebException e){
+            return new ModelAndView("pages/error/modal-500");
+        }
+
         if (result == null){
-            return new ModelAndView("pages/master/error/not-found");
+            return new ModelAndView("pages/error/modal-not-found");
         }
 
         view.addObject("sesi", result);
@@ -104,7 +114,7 @@ public class MasterSesiController extends BaseController<SesiResponse>{
             service.update(request, request.getId()).orElse(null);
             return new ModelAndView("redirect:/master/sesi");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("sesi", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
@@ -112,15 +122,7 @@ public class MasterSesiController extends BaseController<SesiResponse>{
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/sesi/delete");
-        var result = service.getById(id).orElse(null);
-        if (result == null){
-            return new ModelAndView("pages/master/error/not-found");
-        }
-
-        view.addObject("sesi", result);
-        addObject(view);
-
-        return view;
+        return getModelAndView(id, view);
     }
 
     @PostMapping("/remove")
@@ -137,7 +139,7 @@ public class MasterSesiController extends BaseController<SesiResponse>{
             service.delete(request.getId()).orElse(null);
             return new ModelAndView("redirect:/master/sesi");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("sesi", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }

@@ -65,10 +65,19 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/siswa/edit");
-        var result = this.service.getById(id).orElse(null);
+        return getModelAndView(id, view);
+    }
+
+    private ModelAndView getModelAndView(String id, ModelAndView view) {
+        SiswaResponse result;
+        try {
+            result = this.service.getById(id).orElse(null);
+        }catch (EduProWebException e){
+            return new ModelAndView("pages/error/modal-500");
+        }
 
         if (result == null){
-            return new ModelAndView("pages/master/error/not-found");
+            return new ModelAndView("pages/error/modal-not-found");
         }
 
         view.addObject("siswa", result);
@@ -100,15 +109,7 @@ public class MasterSiswaController extends BaseController<SiswaResponse>{
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/siswa/delete");
-        var result = this.service.getById(id).orElse(null);
-
-        if (result == null){
-            return new ModelAndView("pages/master/error/not-found");
-        }
-
-        view.addObject("siswa", result);
-        addObject(view, lookupService);
-        return view;
+        return getModelAndView(id, view);
     }
 
     @PostMapping("/remove")

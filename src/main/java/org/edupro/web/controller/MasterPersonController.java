@@ -50,10 +50,10 @@ public class MasterPersonController extends BaseController<PersonResponse>{
         }
 
         try {
-            var response = service.save(request);
+            service.save(request);
             return new ModelAndView("redirect:/master/person");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("person", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
@@ -62,9 +62,19 @@ public class MasterPersonController extends BaseController<PersonResponse>{
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/person/edit");
 
-        var result = this.service.getById(id).orElse(null);
+        return getModelAndView(id, view);
+    }
+
+    private ModelAndView getModelAndView(String id, ModelAndView view) {
+        PersonResponse result;
+        try {
+            result = this.service.getById(id).orElse(null);
+        }catch (EduProWebException e){
+            return new ModelAndView("pages/error/modal-500");
+        }
+
         if (result == null){
-            return new ModelAndView("pages/master/error/not-found");
+            return new ModelAndView("pages/error/modal-not-found");
         }
 
         view.addObject("person", result);
@@ -85,7 +95,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
             service.update(request, request.getId()).orElse(null);
             return new ModelAndView("redirect:/master/person");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("person", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
@@ -93,14 +103,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/person/delete");
-        var result = this.service.getById(id).orElse(null);
-        if (result == null){
-            return new ModelAndView("pages/master/error/not-found");
-        }
-
-        view.addObject("person", result);
-        addObject(view, lookupService);
-        return view;
+        return getModelAndView(id, view);
     }
 
     @PostMapping("/remove")
@@ -117,7 +120,7 @@ public class MasterPersonController extends BaseController<PersonResponse>{
             this.service.delete(request.getId()).orElse(null);
             return new ModelAndView("redirect:/master/person");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("person", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }

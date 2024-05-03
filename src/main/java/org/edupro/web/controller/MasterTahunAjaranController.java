@@ -62,7 +62,7 @@ public class MasterTahunAjaranController extends BaseController<TahunAjaranRespo
             service.save(request);
             return new ModelAndView("redirect:/master/ta");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("tahun", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
@@ -71,9 +71,19 @@ public class MasterTahunAjaranController extends BaseController<TahunAjaranRespo
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/tahun/edit");
 
-        var result = this.service.getById(id).orElse(null);
+        return getModelAndView(id, view);
+    }
+
+    private ModelAndView getModelAndView(String id, ModelAndView view) {
+        TahunAjaranResponse result;
+        try {
+            result = this.service.getById(id).orElse(null);
+        }catch (EduProWebException e){
+            return new ModelAndView("pages/error/modal-500");
+        }
+
         if (result == null){
-            return new ModelAndView("pages/master/error/not-found");
+            return new ModelAndView("pages/error/modal-not-found");
         }
 
         view.addObject("tahun", result);
@@ -95,7 +105,7 @@ public class MasterTahunAjaranController extends BaseController<TahunAjaranRespo
             service.update(request, request.getId()).orElse(null);
             return new ModelAndView("redirect:/master/ta");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("tahun", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
@@ -103,14 +113,8 @@ public class MasterTahunAjaranController extends BaseController<TahunAjaranRespo
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id")String id){
         ModelAndView view = new ModelAndView("pages/master/tahun/delete");
-        var result = this.service.getById(id).orElse(null);
-        if (result == null){
-            return new ModelAndView("pages/master/error/not-found");
-        }
 
-        view.addObject("tahunAjaran", result);
-        addObject(view);
-        return view;
+        return getModelAndView(id, view);
     }
 
     @PostMapping("/remove")
@@ -127,7 +131,7 @@ public class MasterTahunAjaranController extends BaseController<TahunAjaranRespo
             service.delete(request.getId()).orElse(null);
             return new ModelAndView("redirect:/master/ta");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("tahun", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }

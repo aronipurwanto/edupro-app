@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class KelompokRequest {
+    private String id;
 
     private Integer idLembaga;
 

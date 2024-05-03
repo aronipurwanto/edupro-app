@@ -51,7 +51,7 @@ public class MasterMapelController extends BaseController<MapelResponse>{
             service.save(request);
             return new ModelAndView("redirect:/master/mapel");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("mapel", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
@@ -59,13 +59,7 @@ public class MasterMapelController extends BaseController<MapelResponse>{
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/mapel/edit");
-        var result = service.getById(id).orElse(null);
-        if (result == null){
-            return new ModelAndView("pages/master/error/not-found");
-        }
-
-        view.addObject("mapel", result);
-        return view;
+        return getModelAndView(id, view);
     }
 
     @PostMapping("/update")
@@ -90,10 +84,21 @@ public class MasterMapelController extends BaseController<MapelResponse>{
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/master/mapel/delete");
-        var result = this.service.getById(id).orElse(null);
-        if (result == null) {
-            return new ModelAndView("pages/master/error/not-found");
+        return getModelAndView(id, view);
+    }
+
+    private ModelAndView getModelAndView(String id, ModelAndView view) {
+        MapelResponse result;
+        try {
+            result = this.service.getById(id).orElse(null);
+        }catch (EduProWebException e){
+            return new ModelAndView("pages/error/modal-500");
         }
+
+        if (result == null){
+            return new ModelAndView("pages/error/modal-not-found");
+        }
+
         view.addObject("mapel", result);
         return view;
     }
@@ -110,7 +115,7 @@ public class MasterMapelController extends BaseController<MapelResponse>{
             service.delete(request.getId()).orElse(null);
             return new ModelAndView("redirect:/master/mapel");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("mapel", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }

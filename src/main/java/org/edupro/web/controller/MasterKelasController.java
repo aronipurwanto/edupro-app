@@ -79,7 +79,7 @@ public class MasterKelasController extends BaseController<KelasResponse> {
             service.save(kelasRequest);
             return new ModelAndView("redirect:/master/kelas");
         }catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("kelas", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
@@ -87,10 +87,21 @@ public class MasterKelasController extends BaseController<KelasResponse> {
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/kelas/edit");
-        var result = this.service.getById(id).orElse(null);
-        if (result == null) {
-            return new ModelAndView("pages/master/error/not-found");
+        return getModelAndView(id, view);
+    }
+
+    private ModelAndView getModelAndView(String id, ModelAndView view) {
+        KelasResponse result;
+        try {
+            result = this.service.getById(id).orElse(null);
+        }catch (EduProWebException e){
+            return new ModelAndView("pages/error/modal-500");
         }
+
+        if (result == null){
+            return new ModelAndView("pages/error/modal-not-found");
+        }
+
         view.addObject("kelas", result);
         addObject(view);
 
@@ -110,7 +121,7 @@ public class MasterKelasController extends BaseController<KelasResponse> {
             service.update(request, request.getId()).orElse(null);
             return new ModelAndView("redirect:/master/kelas");
         }catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("kelas", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
@@ -118,14 +129,7 @@ public class MasterKelasController extends BaseController<KelasResponse> {
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/kelas/delete");
-        var result = this.service.getById(id).orElse(null);
-        if (result == null) {
-            return new ModelAndView("pages/master/error/not-found");
-        }
-        view.addObject("kelas", result);
-        addObject(view);
-
-        return view;
+        return getModelAndView(id, view);
     }
 
     @PostMapping("/remove")
@@ -141,7 +145,7 @@ public class MasterKelasController extends BaseController<KelasResponse> {
             service.delete(request.getId()).orElse(null);
             return new ModelAndView("redirect:/master/kelas");
         }catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("kelas", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }

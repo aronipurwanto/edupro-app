@@ -61,7 +61,7 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
             var response = service.save(request);
             return new ModelAndView("redirect:/master/ruangan");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("ruangan", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
@@ -70,9 +70,19 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
     public ModelAndView edit(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/ruangan/edit");
 
-        var result = this.service.getById(id).orElse(null);
+        return getModelAndView(id, view);
+    }
+
+    private ModelAndView getModelAndView(String id, ModelAndView view) {
+        RuanganResponse result;
+        try {
+            result = this.service.getById(id).orElse(null);
+        }catch (EduProWebException e){
+            return new ModelAndView("pages/error/modal-500");
+        }
+
         if (result == null){
-            return new ModelAndView("pages/master/error/not-found");
+            return new ModelAndView("pages/error/modal-not-found");
         }
 
         view.addObject("ruangan", result);
@@ -94,7 +104,7 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
             var response = service.update(request, request.getId()).orElse(null);
             return new ModelAndView("redirect:/master/ruangan");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("ruangan", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
@@ -102,15 +112,7 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") String id){
         ModelAndView view = new ModelAndView("pages/master/ruangan/delete");
-        var result = this.service.getById(id).orElse(null);
-
-        if (result == null){
-            return new ModelAndView("pages/master/error/not-found");
-        }
-
-        view.addObject("ruangan", result);
-        addObject(view);
-        return view;
+        return getModelAndView(id, view);
     }
 
     @PostMapping("/remove")
@@ -127,7 +129,7 @@ public class MasterRuanganController extends BaseController<RuanganResponse> {
             service.delete(request.getId()).orElse(null);
             return new ModelAndView("redirect:/master/ruangan");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("ruangan", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }

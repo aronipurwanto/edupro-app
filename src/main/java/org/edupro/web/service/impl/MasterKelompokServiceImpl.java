@@ -49,9 +49,9 @@ public class MasterKelompokServiceImpl extends BaseService implements MasterKelo
     }
 
     @Override
-    public Optional<KelompokResponse> getById(Integer id, String kode) {
+    public Optional<KelompokResponse> getById(String id) {
         try {
-            var url = Strings.concat(backEndUrl.kelompokUrl(), "/" + id + "/" + kode);
+            var url = Strings.concat(backEndUrl.kelompokUrl(), "/" + id);
             ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -94,9 +94,9 @@ public class MasterKelompokServiceImpl extends BaseService implements MasterKelo
     }
 
     @Override
-    public Optional<KelompokResponse> update(KelompokRequest request) {
+    public Optional<KelompokResponse> update(KelompokRequest request, String id) {
         try {
-            var url = Strings.concat(backEndUrl.kelompokUrl(), "/" + request.getIdLembaga() + "/" + request.getKode());
+            var url = Strings.concat(backEndUrl.kelompokUrl(), "/" + id);
             HttpEntity<KelompokRequest> httpEntity = new HttpEntity<>(request);
             ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
@@ -117,9 +117,9 @@ public class MasterKelompokServiceImpl extends BaseService implements MasterKelo
     }
 
     @Override
-    public Optional<KelompokResponse> delete(KelompokRequest request) {
+    public Optional<KelompokResponse> delete(String id) {
         try{
-            var url = Strings.concat(backEndUrl.kelompokUrl(), "/" + request.getIdLembaga()) + "/" + request.getKode();
+            var url = Strings.concat(backEndUrl.kelompokUrl(), "/" + id);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());

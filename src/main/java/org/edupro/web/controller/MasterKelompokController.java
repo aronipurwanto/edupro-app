@@ -2,11 +2,11 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.KelompokRequest;
 import org.edupro.web.model.response.KelompokResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.service.MasterKelompokService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/kelompok")
@@ -49,10 +48,10 @@ public class MasterKelompokController extends BaseController<KelompokResponse> {
         return new ModelAndView("redirect:/master/kelompok");
     }
 
-    @GetMapping("/edit/{id}/{kode}")
-    public ModelAndView edit(@PathVariable("id") Integer id, @PathVariable("kode") String kode) {
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/master/kelompok/edit");
-        var result = this.service.getById(id, kode).orElse(null);
+        var result = this.service.getById(id).orElse(null);
         if (result == null){
             return new ModelAndView("pages/master/error/not-found");
         }
@@ -71,7 +70,7 @@ public class MasterKelompokController extends BaseController<KelompokResponse> {
             return view;
         }
 
-        var response = service.update(request);
+        var response = service.update(request, request.getId());
         return new ModelAndView("redirect:/master/kelompok");
     }
 
@@ -81,12 +80,18 @@ public class MasterKelompokController extends BaseController<KelompokResponse> {
         return getResponse(result);
     }
 
-    @GetMapping("/delete/{id}/{kode}")
-    public ModelAndView delete(@PathVariable("id") Integer id ,@PathVariable("kode") String kode) {
+    @GetMapping("/delete/{id}")
+    public ModelAndView delete(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/master/kelompok/delete");
-        var result = this.service.getById(id, kode).orElse(null);
+        KelompokResponse result;
+        try {
+            result = this.service.getById(id).orElse(null);
+        }catch (EduProWebException e){
+            return new ModelAndView("pages/error/modal-500");
+        }
+
         if (result == null){
-            return new ModelAndView("pages/master/error/not-found");
+            return new ModelAndView("pages/error/modal-not-found");
         }
 
         view.addObject("kelompok", result);
@@ -94,14 +99,14 @@ public class MasterKelompokController extends BaseController<KelompokResponse> {
     }
 
     @PostMapping("/remove")
-    public ModelAndView remove(@ModelAttribute("kelompok") KelompokRequest request, @Valid BindingResult result){
+    public ModelAndView remove(@ModelAttribute("kelompok") @Valid KelompokRequest request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/kelompok/delete");
         if (result.hasErrors()){
             view.addObject("kelompok", request);
             return view;
         }
 
-        var response = service.delete(request).orElse(null);
+        var response = service.delete(request.getId()).orElse(null);
         return new ModelAndView("redirect:/master/kelompok");
     }
 }

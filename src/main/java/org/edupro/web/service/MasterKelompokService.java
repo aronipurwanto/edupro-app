@@ -9,12 +9,12 @@ import java.util.Optional;
 public interface MasterKelompokService {
     List<KelompokResponse> get();
 
-    Optional<KelompokResponse> getById(Integer id, String kode);
+    Optional<KelompokResponse> getById(String id);
 
     Optional<KelompokResponse> save(KelompokRequest request);
 
-    Optional<KelompokResponse> update(KelompokRequest request);
+    Optional<KelompokResponse> update(KelompokRequest request, String id);
 
-    Optional<KelompokResponse> delete(KelompokRequest request);
+    Optional<KelompokResponse> delete(String id);
 
 }

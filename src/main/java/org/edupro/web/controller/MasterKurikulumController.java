@@ -48,7 +48,7 @@ public class MasterKurikulumController  extends BaseController<KurikulumResponse
             service.save(request);
             return new ModelAndView("redirect:/master/kurikulum");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("kurikulum", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
@@ -56,10 +56,21 @@ public class MasterKurikulumController  extends BaseController<KurikulumResponse
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/master/kurikulum/edit");
-        var result = this.service.getById(id).orElse(null);
-        if (result == null) {
-            return new ModelAndView("pages/master/error/not-found");
+        return getModelAndView(id, view);
+    }
+
+    private ModelAndView getModelAndView(String id, ModelAndView view) {
+        KurikulumResponse result;
+        try {
+            result = this.service.getById(id).orElse(null);
+        }catch (EduProWebException e){
+            return new ModelAndView("pages/error/modal-500");
         }
+
+        if (result == null){
+            return new ModelAndView("pages/error/modal-not-found");
+        }
+
         view.addObject("kurikulum", result);
         return view;
     }
@@ -76,20 +87,15 @@ public class MasterKurikulumController  extends BaseController<KurikulumResponse
             service.update(request, request.getId()).orElse(null);
             return new ModelAndView("redirect:/master/kurikulum");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("kurikulum", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
 
     @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") String kode) {
+    public ModelAndView delete(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/master/kurikulum/delete");
-        var result = this.service.getById(kode).orElse(null);
-        if (result == null) {
-            return new ModelAndView("pages/master/error/not-found");
-        }
-        view.addObject("kurikulum", result);
-        return view;
+        return getModelAndView(id, view);
     }
 
     @PostMapping("/remove")
@@ -104,7 +110,7 @@ public class MasterKurikulumController  extends BaseController<KurikulumResponse
             service.delete(request.getId()).orElse(null);
             return new ModelAndView("redirect:/master/kurikulum");
         } catch (EduProWebException e){
-            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addError("kurikulum", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
