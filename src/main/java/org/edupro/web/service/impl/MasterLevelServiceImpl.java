@@ -36,7 +36,7 @@ public class MasterLevelServiceImpl extends BaseService implements MasterLevelSe
     public List<LevelResponse> get() {
         try {
             var url = backEndUrl.levelUrl();
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 return (List<LevelResponse>) response.getBody().getData();
             }
@@ -52,7 +52,7 @@ public class MasterLevelServiceImpl extends BaseService implements MasterLevelSe
     public Optional<LevelResponse> getById(String id) {
         try {
             var url = Strings.concat(backEndUrl.levelUrl(), "/"+ id);
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 LevelResponse result = objectMapper.readValue(json, LevelResponse.class);
@@ -74,7 +74,7 @@ public class MasterLevelServiceImpl extends BaseService implements MasterLevelSe
     public Optional<LevelResponse> save(LevelRequest request) {
         try{
             var url = backEndUrl.levelUrl();
-            HttpEntity<LevelRequest> httpEntity = new HttpEntity<>(request);
+            HttpEntity<LevelRequest> httpEntity = new HttpEntity<>(request, getHeader());
             ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -96,7 +96,7 @@ public class MasterLevelServiceImpl extends BaseService implements MasterLevelSe
     public Optional<LevelResponse> update(LevelRequest request, String id) {
         try{
             var url = Strings.concat(backEndUrl.levelUrl(), "/" + id);
-            HttpEntity<LevelRequest> httpEntity = new HttpEntity<>(request);
+            HttpEntity<LevelRequest> httpEntity = new HttpEntity<>(request, getHeader());
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -118,7 +118,7 @@ public class MasterLevelServiceImpl extends BaseService implements MasterLevelSe
     public Optional<LevelResponse> delete(String id) {
         try{
             var url = Strings.concat(backEndUrl.levelUrl(),"/"+ id);
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, this.getHttpEntity(), Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 LevelResponse result = objectMapper.readValue(json, LevelResponse.class);

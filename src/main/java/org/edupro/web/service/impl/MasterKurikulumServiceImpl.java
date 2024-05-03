@@ -36,7 +36,7 @@ public class MasterKurikulumServiceImpl extends BaseService implements MasterKur
     public List<KurikulumResponse> get() {
         try {
             var url = backEndUrl.kurikulumUrl();
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 return (List<KurikulumResponse>) response.getBody().getData();
             }
@@ -52,7 +52,7 @@ public class MasterKurikulumServiceImpl extends BaseService implements MasterKur
     public Optional<KurikulumResponse> getById(String id) {
         try {
             var url = Strings.concat(backEndUrl.kurikulumUrl(), "/"+ id);
-            ResponseEntity<Response> response = restTemplate.getForEntity( url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 KurikulumResponse result = objectMapper.readValue(json, KurikulumResponse.class);
@@ -74,7 +74,7 @@ public class MasterKurikulumServiceImpl extends BaseService implements MasterKur
     public Optional<KurikulumResponse> save(KurikulumRequest request) {
         try {
             var url = backEndUrl.kurikulumUrl();
-            HttpEntity<KurikulumRequest> httpEntity = new HttpEntity<>(request);
+            HttpEntity<KurikulumRequest> httpEntity = new HttpEntity<>(request, getHeader());
             ResponseEntity<Response> response = restTemplate.postForEntity( url, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -97,7 +97,7 @@ public class MasterKurikulumServiceImpl extends BaseService implements MasterKur
     public Optional<KurikulumResponse> update(KurikulumRequest request, String id) {
         try {
             var url = Strings.concat(backEndUrl.kurikulumUrl(),"/"+ id);
-            HttpEntity<KurikulumRequest> httpEntity = new HttpEntity<>(request);
+            HttpEntity<KurikulumRequest> httpEntity = new HttpEntity<>(request, getHeader());
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -119,7 +119,7 @@ public class MasterKurikulumServiceImpl extends BaseService implements MasterKur
     public Optional<KurikulumResponse> delete(String id) {
         try {
             var url = Strings.concat(backEndUrl.kurikulumUrl(),"/"+ id);
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 KurikulumResponse result = objectMapper.readValue(json, KurikulumResponse.class);

@@ -36,7 +36,7 @@ public class MasterKelasServiceImpl extends BaseService implements MasterKelasSe
     public List<KelasResponse> get() {
         try {
             var url = backEndUrl.kelasUrl();
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 return (List<KelasResponse>) response.getBody().getData();
             }
@@ -52,7 +52,7 @@ public class MasterKelasServiceImpl extends BaseService implements MasterKelasSe
     public Optional<KelasResponse> getById(String id) {
         try {
             var url = Strings.concat(backEndUrl.kelasUrl(),"/"+ id);
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 KelasResponse result = objectMapper.readValue(json, KelasResponse.class);
@@ -74,8 +74,8 @@ public class MasterKelasServiceImpl extends BaseService implements MasterKelasSe
     public Optional<KelasResponse> save(KelasRequest request) {
         try {
             var url = backEndUrl.kelasUrl();
-            HttpEntity<KelasRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
+            HttpEntity<KelasRequest> httpEntity = new HttpEntity<>(request, getHeader());
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.POST, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 KelasResponse result = objectMapper.readValue(json, KelasResponse.class);
@@ -96,7 +96,7 @@ public class MasterKelasServiceImpl extends BaseService implements MasterKelasSe
     public Optional<KelasResponse> update(KelasRequest request, String id) {
         try {
             var url = Strings.concat(backEndUrl.kelasUrl(), "/"+ id);
-            HttpEntity<KelasRequest> httpEntity = new HttpEntity<>(request);
+            HttpEntity<KelasRequest> httpEntity = new HttpEntity<>(request, getHeader());
             ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -119,7 +119,7 @@ public class MasterKelasServiceImpl extends BaseService implements MasterKelasSe
     public Optional<KelasResponse> delete(String id) {
         try {
             var url = Strings.concat(backEndUrl.kelasUrl(), "/"+ id);
-            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.DELETE, null, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 KelasResponse result = objectMapper.readValue(json, KelasResponse.class);

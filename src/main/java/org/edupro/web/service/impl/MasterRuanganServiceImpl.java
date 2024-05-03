@@ -36,7 +36,7 @@ public class MasterRuanganServiceImpl extends BaseService implements MasterRuang
      public List<RuanganResponse> get() {
          try {
              var url = backEndUrl.ruanganUrl();
-             ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
              if (response.getStatusCode() == HttpStatus.OK) {
                  return (List<RuanganResponse>) response.getBody().getData();
              }
@@ -52,7 +52,7 @@ public class MasterRuanganServiceImpl extends BaseService implements MasterRuang
     public Optional<RuanganResponse> getById(String id) {
          try {
              var url = Strings.concat(backEndUrl.ruanganUrl(), "/" + id );
-             ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
              if (response.getStatusCode() == HttpStatus.OK) {
                  byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                  RuanganResponse result = objectMapper.readValue(json, RuanganResponse.class);
@@ -74,7 +74,7 @@ public class MasterRuanganServiceImpl extends BaseService implements MasterRuang
     public Optional<RuanganResponse> save(RuanganRequest request) {
          try {
              var url = backEndUrl.ruanganUrl();
-             HttpEntity<RuanganRequest> httpEntity = new HttpEntity<>(request);
+             HttpEntity<RuanganRequest> httpEntity = new HttpEntity<>(request, getHeader());
              ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
              if (response.getStatusCode() == HttpStatus.OK) {
                  byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -96,7 +96,7 @@ public class MasterRuanganServiceImpl extends BaseService implements MasterRuang
     public Optional<RuanganResponse> update(RuanganRequest request, String id) {
         try {
             var url = Strings.concat(backEndUrl.ruanganUrl(), "/" + id);
-            HttpEntity<RuanganRequest> httpEntity = new HttpEntity<>(request);
+            HttpEntity<RuanganRequest> httpEntity = new HttpEntity<>(request, getHeader());
             ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -119,7 +119,7 @@ public class MasterRuanganServiceImpl extends BaseService implements MasterRuang
     public Optional<RuanganResponse> delete(String id) {
         try {
             var url = Strings.concat(backEndUrl.ruanganUrl(), "/" + id);
-            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.DELETE, null, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 RuanganResponse result = objectMapper.readValue(json, RuanganResponse.class);
