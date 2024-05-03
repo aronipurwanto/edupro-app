@@ -14,6 +14,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -110,7 +111,11 @@ public class MasterGedungController extends BaseController<GedungResponse>{
 
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
-        List<GedungResponse> result = service.get();
-        return getResponse(result);
+        try {
+            List<GedungResponse> result = service.get();
+            return getResponse(result);
+        }catch (EduProWebException e){
+            return getResponse(Collections.emptyList());
+        }
     }
 }

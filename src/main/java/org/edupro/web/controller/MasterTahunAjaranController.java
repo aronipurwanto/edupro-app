@@ -17,6 +17,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -133,13 +134,21 @@ public class MasterTahunAjaranController extends BaseController<TahunAjaranRespo
 
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
-        List<TahunAjaranResponse> result = service.get();
-        return getResponse(result);
+        try {
+            List<TahunAjaranResponse> result = service.get();
+            return getResponse(result);
+        }catch (EduProWebException e){
+            return getResponse(Collections.emptyList());
+        }
     }
 
     @GetMapping("/kurikulum/{id}")
     public ResponseEntity<Response> getDataByKurikulum(@PathVariable("id") String kurikulumId){
-        List<TahunAjaranResponse> result = service.getByKurikulumId(kurikulumId);
-        return getResponse(result);
+        try {
+            List<TahunAjaranResponse> result = service.getByKurikulumId(kurikulumId);
+            return getResponse(result);
+        }catch (EduProWebException e){
+            return getResponse(Collections.emptyList());
+        }
     }
 }

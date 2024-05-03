@@ -17,6 +17,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -53,12 +54,6 @@ public class MasterSesiController extends BaseController<SesiResponse>{
 
         List<LookupResponse> lookup = this.lookupService.getByGroup(CommonConstant.GROUP_SEMESTER);
         view.addObject("semester", lookup);
-    }
-
-    @GetMapping("/data")
-    public ResponseEntity<Response> getData(){
-        List<SesiResponse> result = service.get();
-        return getResponse(result);
     }
 
     @PostMapping("/save")
@@ -144,6 +139,16 @@ public class MasterSesiController extends BaseController<SesiResponse>{
         } catch (EduProWebException e){
             addError("siswa", result,(List<FieldError>)e.getErrors());
             return view;
+        }
+    }
+
+    @GetMapping("/data")
+    public ResponseEntity<Response> getData(){
+        try {
+            List<SesiResponse> result = service.get();
+            return getResponse(result);
+        }catch (EduProWebException e){
+            return getResponse(Collections.emptyList());
         }
     }
 
