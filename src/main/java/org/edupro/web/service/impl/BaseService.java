@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import jakarta.validation.constraints.Null;
 import org.edupro.web.constant.CommonConstant;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.response.ResponseError;
@@ -17,10 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.FieldError;
 import org.springframework.web.client.RestClientException;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class BaseService {
@@ -55,6 +51,26 @@ public class BaseService {
 
     protected List<FieldError> readError(RestClientException e){
         String message = e.getMessage();
+        if(message.contains("400")) {
+            return readError400(message);
+        }
+
+        if(message.contains("500")) {
+            return readError500(message);
+        }
+        return Collections.emptyList();
+    }
+
+    protected List<FieldError> readError500(String message){
+        message = message.replace("400 :","");
+        message = message.substring(2, message.length()-1);
+
+        return Arrays.asList(
+                new FieldError("","id",message)
+        );
+    }
+
+    protected List<FieldError> readError400(String message){
         if(!message.contains("400")){
             return Collections.emptyList();
         }
