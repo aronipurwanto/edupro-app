@@ -6,7 +6,7 @@ import org.edupro.web.model.response.CourseResponse;
 import java.util.List;
 import java.util.Optional;
 
-public interface MasterCourseService {
+public interface CourseService {
     List<CourseResponse> get();
     Optional<CourseResponse> getById(String id);
     Optional<CourseResponse> save(CourseRequest courseRequest);

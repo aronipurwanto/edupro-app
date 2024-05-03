@@ -7,7 +7,7 @@ import org.edupro.web.model.request.CourseRequest;
 import org.edupro.web.model.response.CourseResponse;
 import org.edupro.web.model.response.MapelResponse;
 import org.edupro.web.model.response.Response;
-import org.edupro.web.service.MasterCourseService;
+import org.edupro.web.service.CourseService;
 import org.edupro.web.service.MasterMapelService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MasterCourseController extends BaseController<CourseResponse> {
 
-    private final MasterCourseService service;
+    private final CourseService service;
     private final MasterMapelService mapelService;
 
     @GetMapping

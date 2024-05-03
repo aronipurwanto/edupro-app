@@ -9,7 +9,7 @@ import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.CourseRequest;
 import org.edupro.web.model.response.CourseResponse;
 import org.edupro.web.model.response.Response;
-import org.edupro.web.service.MasterCourseService;
+import org.edupro.web.service.CourseService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class MasterCourseServiceImpl extends BaseService implements MasterCourseService {
+public class CourseServiceImpl extends BaseService implements CourseService {
     private final BackEndUrl backEndUrl;
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
