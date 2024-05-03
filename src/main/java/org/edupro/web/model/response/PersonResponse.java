@@ -2,6 +2,8 @@ package org.edupro.web.model.response;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -14,7 +16,7 @@ public class PersonResponse {
     private String nama;
     private String alamatTinggal;
     private String nik;
-    private String tanggalLahir;
+    private LocalDate tanggalLahir;
     private String tempatLahir;
     private String gender;
     private String agama;
