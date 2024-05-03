@@ -36,7 +36,7 @@ public class MasterPersonServiceImpl extends BaseService implements MasterPerson
     public List<PersonResponse> get() {
         try {
             var url = backEndUrl.personUrl();
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.GET, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 return (List<PersonResponse>) response.getBody().getData();
             }
@@ -52,7 +52,7 @@ public class MasterPersonServiceImpl extends BaseService implements MasterPerson
     public Optional<PersonResponse> getById(String id) {
         try {
             var url = Strings.concat(backEndUrl.personUrl(), "/" + id);
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.GET, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 PersonResponse result = objectMapper.readValue(json, PersonResponse.class);
@@ -74,8 +74,7 @@ public class MasterPersonServiceImpl extends BaseService implements MasterPerson
     public Optional<PersonResponse> save(PersonRequest request) {
         try {
             var url = backEndUrl.personUrl();
-            HttpEntity<PersonRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.POST, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 PersonResponse result = objectMapper.readValue(json, PersonResponse.class);
@@ -96,8 +95,7 @@ public class MasterPersonServiceImpl extends BaseService implements MasterPerson
     public Optional<PersonResponse> update(PersonRequest request, String id) {
         try {
             var url = Strings.concat(backEndUrl.personUrl(), "/" + id);
-            HttpEntity<PersonRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.PUT, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 PersonResponse result = objectMapper.readValue(json, PersonResponse.class);
@@ -118,7 +116,7 @@ public class MasterPersonServiceImpl extends BaseService implements MasterPerson
     public Optional<PersonResponse> delete(String id) {
         try {
             var url = Strings.concat(backEndUrl.personUrl(), "/" + id);
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 PersonResponse result = objectMapper.readValue( json, PersonResponse.class);
