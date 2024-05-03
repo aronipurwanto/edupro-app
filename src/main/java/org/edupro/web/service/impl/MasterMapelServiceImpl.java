@@ -10,7 +10,6 @@ import org.edupro.web.model.request.MapelRequest;
 import org.edupro.web.model.response.MapelResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.service.MasterMapelService;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +35,7 @@ public class MasterMapelServiceImpl extends BaseService implements MasterMapelSe
     public List<MapelResponse> get() {
         try {
             var url = backEndUrl.mapelUrl();
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 return (List<MapelResponse>) response.getBody().getData();
             }
@@ -52,7 +51,7 @@ public class MasterMapelServiceImpl extends BaseService implements MasterMapelSe
     public Optional<MapelResponse> getById(String id) {
         try {
             var url = Strings.concat(backEndUrl.mapelUrl(), "/"+ id);
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 MapelResponse result = objectMapper.readValue(json, MapelResponse.class);
@@ -74,8 +73,7 @@ public class MasterMapelServiceImpl extends BaseService implements MasterMapelSe
     public Optional<MapelResponse> save(MapelRequest request) {
         try {
             var url = backEndUrl.mapelUrl();
-            HttpEntity<MapelRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.postForEntity( url, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.POST, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 MapelResponse result = objectMapper.readValue(json, MapelResponse.class);
@@ -96,8 +94,7 @@ public class MasterMapelServiceImpl extends BaseService implements MasterMapelSe
     public Optional<MapelResponse> update(MapelRequest request, String id) {
         try {
             var url = Strings.concat(backEndUrl.mapelUrl(), "/"+ id);
-            HttpEntity<MapelRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 MapelResponse result = objectMapper.readValue(json, MapelResponse.class);
@@ -118,7 +115,7 @@ public class MasterMapelServiceImpl extends BaseService implements MasterMapelSe
     public Optional<MapelResponse> delete(String id) {
         try {
             var url = Strings.concat(backEndUrl.mapelUrl(), "/"+ id);
-            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.DELETE, null, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 MapelResponse result = objectMapper.readValue(json, MapelResponse.class);

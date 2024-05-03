@@ -14,6 +14,7 @@ public class CommonConstant {
 
     public static class Error {
         public static final String ERR_NOT_EXIST = "ERR_NOT_EXIST";
+        public static final String ERR_TOKEN_EMPTY = "Token is empty";
         public static final String ERR_API = "ERR_API";
     }
 }

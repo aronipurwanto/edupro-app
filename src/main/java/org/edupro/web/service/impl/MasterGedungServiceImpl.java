@@ -10,7 +10,6 @@ import org.edupro.web.model.request.GedungRequest;
 import org.edupro.web.model.response.GedungResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.service.MasterGedungService;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,10 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +34,7 @@ public class MasterGedungServiceImpl extends BaseService implements MasterGedung
     public List<GedungResponse> get() {
         try {
             var url = backEndUrl.gedungUrl();
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 return (List<GedungResponse>) response.getBody().getData();
             }
@@ -47,7 +49,7 @@ public class MasterGedungServiceImpl extends BaseService implements MasterGedung
     public Optional<GedungResponse> getById(String id) {
         try {
             var url = Strings.concat(backEndUrl.gedungUrl(), "/"+ id);
-            ResponseEntity<Response> response = restTemplate.getForEntity( url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 GedungResponse result = objectMapper.readValue(json, GedungResponse.class);
@@ -69,8 +71,7 @@ public class MasterGedungServiceImpl extends BaseService implements MasterGedung
     public Optional<GedungResponse> save(GedungRequest request) {
         try {
             var url = backEndUrl.gedungUrl();
-            HttpEntity<GedungRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.postForEntity( url, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.POST, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 GedungResponse result = objectMapper.readValue(json, GedungResponse.class);
@@ -92,8 +93,7 @@ public class MasterGedungServiceImpl extends BaseService implements MasterGedung
     public Optional<GedungResponse> update(GedungRequest request, String id) {
         try {
             var url = Strings.concat(backEndUrl.gedungUrl(),"/"+ id);
-            HttpEntity<GedungRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 GedungResponse result = objectMapper.readValue(json, GedungResponse.class);
@@ -114,7 +114,7 @@ public class MasterGedungServiceImpl extends BaseService implements MasterGedung
     public Optional<GedungResponse> delete(String id) {
         try {
             var url = Strings.concat(backEndUrl.gedungUrl(),"/"+ id);
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 GedungResponse result = objectMapper.readValue(json, GedungResponse.class);

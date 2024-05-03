@@ -4,8 +4,16 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import org.edupro.web.constant.CommonConstant;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.response.ResponseError;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.FieldError;
 import org.springframework.web.client.RestClientException;
 
@@ -16,6 +24,31 @@ import java.util.Map;
 
 @Service
 public class BaseService {
+
+    public String getToken(){
+        final DefaultOidcUser user = (DefaultOidcUser) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        OidcIdToken token = user.getIdToken();
+        if (token == null) {
+            return "";
+        }
+        return token.getTokenValue();
+    }
+
+    public HttpEntity getHeader(){
+        if(getToken() == null || getToken().isEmpty()){
+            List<FieldError> errors = List.of(new FieldError("token", "token", CommonConstant.Error.ERR_TOKEN_EMPTY));
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        headers.add("Authorization", "Bearer " + getToken());
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(headers);
+
+        return entity;
+    }
 
     protected List<FieldError> readError(RestClientException e){
         String message = e.getMessage();

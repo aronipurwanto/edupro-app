@@ -11,7 +11,6 @@ import org.edupro.web.model.response.CommonResponse;
 import org.edupro.web.model.response.LookupResponse;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.service.MasterLookupService;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +34,11 @@ public class MasterLookupServiceImpl extends BaseService implements MasterLookup
 
     @Override
     public List<LookupResponse> get() {
+        var httpEntity = this.getHeader();
+
         try {
             var url = backEndUrl.lookupUrl();
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, httpEntity, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 return (List<LookupResponse>) response.getBody().getData();
             }
@@ -53,7 +54,7 @@ public class MasterLookupServiceImpl extends BaseService implements MasterLookup
     public List<LookupResponse> getByGroup(String group) {
         try {
             var url = Strings.concat(backEndUrl.lookupUrl(),"/group/"+group);
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHeader(), Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 return (List<LookupResponse>) response.getBody().getData();
             }
@@ -69,7 +70,7 @@ public class MasterLookupServiceImpl extends BaseService implements MasterLookup
     public List<CommonResponse> getGroup() {
         try {
             var url = Strings.concat(backEndUrl.lookupUrl(),"/group");
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHeader(), Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 return (List<CommonResponse>) response.getBody().getData();
             }
@@ -85,7 +86,7 @@ public class MasterLookupServiceImpl extends BaseService implements MasterLookup
     public Optional<LookupResponse> getById(String id) {
         try {
             var url = Strings.concat(backEndUrl.lookupUrl(), "/"+ id);
-            ResponseEntity<Response> response = restTemplate.getForEntity( url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHeader(), Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 LookupResponse result = objectMapper.readValue(json, LookupResponse.class);
@@ -107,8 +108,7 @@ public class MasterLookupServiceImpl extends BaseService implements MasterLookup
     public Optional<LookupResponse> save(LookupRequest request) {
         try{
             var url = backEndUrl.lookupUrl();
-            HttpEntity<LookupRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.postForEntity( url, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.POST, this.getHeader(), Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 LookupResponse result = objectMapper.readValue(json, LookupResponse.class);
@@ -129,8 +129,7 @@ public class MasterLookupServiceImpl extends BaseService implements MasterLookup
     public Optional<LookupResponse> update(LookupRequest request, String id) {
         try{
             var url = Strings.concat(backEndUrl.lookupUrl(),"/"+ id);
-            HttpEntity<LookupRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, this.getHeader(), Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 LookupResponse result = objectMapper.readValue(json, LookupResponse.class);
@@ -151,7 +150,7 @@ public class MasterLookupServiceImpl extends BaseService implements MasterLookup
     public Optional<LookupResponse> delete(String id) {
         try{
             var url = Strings.concat(backEndUrl.lookupUrl(),"/"+ id);
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, this.getHeader(), Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 LookupResponse result = objectMapper.readValue(json, LookupResponse.class);

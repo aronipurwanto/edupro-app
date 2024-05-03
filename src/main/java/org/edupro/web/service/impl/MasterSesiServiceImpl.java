@@ -10,7 +10,6 @@ import org.edupro.web.model.request.SesiRequest;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.model.response.SesiResponse;
 import org.edupro.web.service.MasterSesiService;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +35,7 @@ public class MasterSesiServiceImpl extends BaseService implements MasterSesiServ
     public List<SesiResponse> get() {
         try {
             var url = backEndUrl.sesiUrl();
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHeader(), Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 return (List<SesiResponse>) response.getBody().getData();
             }
@@ -52,7 +51,7 @@ public class MasterSesiServiceImpl extends BaseService implements MasterSesiServ
     public Optional<SesiResponse> getById(String id) {
         try {
             var url = Strings.concat(backEndUrl.sesiUrl(), "/" + id);
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 SesiResponse result = objectMapper.readValue(json, SesiResponse.class);
@@ -74,8 +73,7 @@ public class MasterSesiServiceImpl extends BaseService implements MasterSesiServ
     public Optional<SesiResponse> save(SesiRequest request) {
         try{
             var url = backEndUrl.sesiUrl();
-            HttpEntity<SesiRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.postForEntity( url, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.POST, this.getHeader(), Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 SesiResponse result = objectMapper.readValue(json, SesiResponse.class);
@@ -97,8 +95,7 @@ public class MasterSesiServiceImpl extends BaseService implements MasterSesiServ
     public Optional<SesiResponse> update(SesiRequest request, String id) {
         try{
             var url = Strings.concat(backEndUrl.sesiUrl(),"/" + id);
-            HttpEntity<SesiRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, this.getHeader(), Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 SesiResponse result = objectMapper.readValue(json, SesiResponse.class);
@@ -120,7 +117,7 @@ public class MasterSesiServiceImpl extends BaseService implements MasterSesiServ
     public Optional<SesiResponse> delete(String id) {
         try{
             var url = Strings.concat(backEndUrl.sesiUrl(),"/" + id);
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, null, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, this.getHeader(), Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 SesiResponse result = objectMapper.readValue(json, SesiResponse.class);

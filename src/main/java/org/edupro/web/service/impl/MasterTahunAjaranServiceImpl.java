@@ -10,7 +10,6 @@ import org.edupro.web.model.request.TahunAjaranRequest;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.model.response.TahunAjaranResponse;
 import org.edupro.web.service.MasterTahunAjaranService;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +36,7 @@ public class MasterTahunAjaranServiceImpl extends BaseService implements MasterT
     public List<TahunAjaranResponse> get() {
         try {
             var url = backEndUrl.tahunAjaranUrl();
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 return (List<TahunAjaranResponse>) response.getBody().getData();
             }
@@ -53,7 +52,7 @@ public class MasterTahunAjaranServiceImpl extends BaseService implements MasterT
     public List<TahunAjaranResponse> getByKurikulumId(String kurikulumId) {
         try {
             var url = Strings.concat(backEndUrl.tahunAjaranUrl(), "/kurikulum/" + kurikulumId);
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 return (List<TahunAjaranResponse>) response.getBody().getData();
             }
@@ -69,7 +68,7 @@ public class MasterTahunAjaranServiceImpl extends BaseService implements MasterT
     public Optional<TahunAjaranResponse> getById(String id) {
         try {
             var url = Strings.concat(backEndUrl.tahunAjaranUrl(), "/" + id);
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 TahunAjaranResponse result = objectMapper.readValue(json, TahunAjaranResponse.class);
@@ -91,8 +90,7 @@ public class MasterTahunAjaranServiceImpl extends BaseService implements MasterT
     public Optional<TahunAjaranResponse> save(TahunAjaranRequest request) {
         try {
             var url = backEndUrl.tahunAjaranUrl();
-            HttpEntity<TahunAjaranRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.POST, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 TahunAjaranResponse result = objectMapper.readValue(json, TahunAjaranResponse.class);
@@ -113,8 +111,7 @@ public class MasterTahunAjaranServiceImpl extends BaseService implements MasterT
     public Optional<TahunAjaranResponse> update(TahunAjaranRequest request, String id) {
         try {
             var url = Strings.concat(backEndUrl.tahunAjaranUrl(), "/" + id);
-            HttpEntity<TahunAjaranRequest> httpEntity = new HttpEntity<>(request);
-            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 TahunAjaranResponse result = objectMapper.readValue(json, TahunAjaranResponse.class);
@@ -136,7 +133,7 @@ public class MasterTahunAjaranServiceImpl extends BaseService implements MasterT
     public Optional<TahunAjaranResponse> delete(String id) {
         try {
             var url = Strings.concat(backEndUrl.tahunAjaranUrl(), "/" + id);
-            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.DELETE, null,Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, this.getHeader(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 TahunAjaranResponse result = objectMapper.readValue(json, TahunAjaranResponse.class);
