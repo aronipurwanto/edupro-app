@@ -1,8 +1,9 @@
-package org.edupro.web.controller;
+package org.edupro.web.controller.master;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.constant.CommonConstant;
+import org.edupro.web.controller.BaseController;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.SesiRequest;
 import org.edupro.web.model.response.*;
@@ -23,7 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/master/sesi")
 @RequiredArgsConstructor
-public class MasterSesiController extends BaseController<SesiResponse>{
+public class MasterSesiController extends BaseController<SesiResponse> {
     private final MasterSesiService service;
     private final MasterTahunAjaranService taService;
     private final MasterKurikulumService kurikulumService;

@@ -1,6 +1,7 @@
-package org.edupro.web.controller;
+package org.edupro.web.controller.master;
 
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.controller.BaseController;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.response.JadwalSekolahResponse;
 import org.edupro.web.service.MasterJadwalSekolahService;

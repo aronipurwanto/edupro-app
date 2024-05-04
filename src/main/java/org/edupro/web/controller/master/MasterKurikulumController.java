@@ -1,7 +1,8 @@
-package org.edupro.web.controller;
+package org.edupro.web.controller.master;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.controller.BaseController;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.KurikulumRequest;
 import org.edupro.web.model.response.KurikulumResponse;

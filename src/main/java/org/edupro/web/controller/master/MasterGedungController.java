@@ -1,7 +1,8 @@
-package org.edupro.web.controller;
+package org.edupro.web.controller.master;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.controller.BaseController;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.GedungRequest;
 import org.edupro.web.model.response.GedungResponse;
@@ -20,7 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/master/gedung")
 @RequiredArgsConstructor
-public class MasterGedungController extends BaseController<GedungResponse>{
+public class MasterGedungController extends BaseController<GedungResponse> {
 
     private final MasterGedungService service;
 

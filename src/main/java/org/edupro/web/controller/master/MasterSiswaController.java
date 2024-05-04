@@ -1,13 +1,15 @@
-package org.edupro.web.controller;
+package org.edupro.web.controller.master;
 
+import com.google.gson.Gson;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.controller.BaseController;
 import org.edupro.web.exception.EduProWebException;
-import org.edupro.web.model.request.PersonRequest;
-import org.edupro.web.model.response.PersonResponse;
+import org.edupro.web.model.request.SiswaRequest;
 import org.edupro.web.model.response.Response;
+import org.edupro.web.model.response.SiswaResponse;
 import org.edupro.web.service.MasterLookupService;
-import org.edupro.web.service.MasterPersonService;
+import org.edupro.web.service.MasterSiswaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,30 +21,32 @@ import java.util.Collections;
 import java.util.List;
 
 @Controller
-@RequestMapping("/master/person")
+@RequestMapping("/master/siswa")
 @RequiredArgsConstructor
-public class MasterPersonController extends BaseController<PersonResponse>{
+public class MasterSiswaController extends BaseController<SiswaResponse> {
 
-    private final MasterPersonService service;
+    private final MasterSiswaService service;
     private final MasterLookupService lookupService;
+    private final Gson gson;
 
     @GetMapping
     public ModelAndView index(){
-        return new ModelAndView("pages/master/person/index");
+        return new ModelAndView("pages/master/siswa/index");
     }
 
     @GetMapping("/add")
     public ModelAndView add(){
-        ModelAndView view = new ModelAndView("pages/master/person/add");
-        view.addObject("person", new PersonRequest());
+        ModelAndView view = new ModelAndView("pages/master/siswa/add");
+
+        view.addObject("siswa", new SiswaRequest());
         addObject(view, lookupService);
         return view;
     }
 
     @PostMapping("/save")
-    public ModelAndView save(@ModelAttribute("person") @Valid PersonRequest request, BindingResult result){
-        ModelAndView view = new ModelAndView("pages/master/person/add");
-        view.addObject("person", request);
+    public ModelAndView save(@ModelAttribute("siswa") @Valid SiswaRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/siswa/add");
+        view.addObject("siswa", request);
 
         if (result.hasErrors()){
             addObject(view, lookupService);
@@ -51,22 +55,22 @@ public class MasterPersonController extends BaseController<PersonResponse>{
 
         try {
             service.save(request);
-            return new ModelAndView("redirect:/master/person");
-        } catch (EduProWebException e){
-            addError("person", result,(List<FieldError>)e.getErrors());
+            return new ModelAndView("redirect:/master/siswa");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addObject(view, lookupService);
             return view;
         }
     }
 
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") String id){
-        ModelAndView view = new ModelAndView("pages/master/person/edit");
-
+        ModelAndView view = new ModelAndView("pages/master/siswa/edit");
         return getModelAndView(id, view);
     }
 
     private ModelAndView getModelAndView(String id, ModelAndView view) {
-        PersonResponse result;
+        SiswaResponse result;
         try {
             result = this.service.getById(id).orElse(null);
         }catch (EduProWebException e){
@@ -77,50 +81,54 @@ public class MasterPersonController extends BaseController<PersonResponse>{
             return new ModelAndView("pages/error/modal-not-found");
         }
 
-        view.addObject("person", result);
+        view.addObject("siswa", result);
         addObject(view, lookupService);
         return view;
     }
 
     @PostMapping("/update")
-    public ModelAndView update(@ModelAttribute("person") @Valid PersonRequest request, BindingResult result){
-        ModelAndView view = new ModelAndView("pages/master/person/edit");
-        view.addObject("person", request);
-        if (result.hasErrors()){
+    public ModelAndView update(@ModelAttribute("siswa") @Valid SiswaRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/siswa/edit");
+        view.addObject("siswa", request);
+
+        if (result.hasErrors()) {
             addObject(view, lookupService);
             return view;
         }
 
         try {
             service.update(request, request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/person");
-        } catch (EduProWebException e){
-            addError("person", result,(List<FieldError>)e.getErrors());
+            return new ModelAndView("redirect:/master/siswa");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addObject(view, lookupService);
             return view;
         }
     }
 
+
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") String id){
-        ModelAndView view = new ModelAndView("pages/master/person/delete");
+        ModelAndView view = new ModelAndView("pages/master/siswa/delete");
         return getModelAndView(id, view);
     }
 
     @PostMapping("/remove")
-    public ModelAndView delete(@ModelAttribute("pages") @Valid PersonRequest request, BindingResult result){
-        ModelAndView view = new ModelAndView("pages/master/person/delete");
-        view.addObject("person", request);
+    public ModelAndView remove(@ModelAttribute("siswa") @Valid SiswaRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/siswa/delete");
+        view.addObject("siswa", request);
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             addObject(view, lookupService);
             return view;
         }
 
         try {
-            this.service.delete(request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/person");
-        } catch (EduProWebException e){
-            addError("person", result,(List<FieldError>)e.getErrors());
+            service.delete(request.getId()).orElse(null);
+            return new ModelAndView("redirect:/master/siswa");
+        }catch (EduProWebException e){
+            addError("siswa", result,(List<FieldError>)e.getErrors());
+            addObject(view, lookupService);
             return view;
         }
     }
@@ -128,10 +136,11 @@ public class MasterPersonController extends BaseController<PersonResponse>{
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         try {
-            List<PersonResponse> result = service.get();
+            List<SiswaResponse> result = service.get();
             return getResponse(result);
         }catch (EduProWebException e){
             return getResponse(Collections.emptyList());
         }
     }
+
 }

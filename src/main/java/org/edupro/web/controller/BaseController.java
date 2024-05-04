@@ -34,7 +34,7 @@ public class BaseController<T> {
         ));
     }
 
-    static void addObject(ModelAndView view, MasterLookupService lookupService) {
+    protected static void addObject(ModelAndView view, MasterLookupService lookupService) {
         List<LookupResponse> agama = lookupService.getByGroup(CommonConstant.GROUP_AGAMA);
         view.addObject("agama", agama);
 

@@ -1,21 +1,18 @@
-package org.edupro.web.controller;
+package org.edupro.web.controller.master;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.edupro.web.model.request.SesiRequest;
+import org.edupro.web.controller.BaseController;
 import org.edupro.web.model.request.UjianRequest;
 import org.edupro.web.model.response.UjianResponse;
 import org.edupro.web.model.response.Response;
-import org.edupro.web.model.response.SesiResponse;
 import org.edupro.web.service.MasterUjianService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/ujian")

@@ -1,8 +1,9 @@
-package org.edupro.web.controller;
+package org.edupro.web.controller.master;
 
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.controller.BaseController;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.MapelRequest;
 import org.edupro.web.model.response.MapelResponse;
@@ -21,7 +22,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/master/mapel")
 @RequiredArgsConstructor
-public class MasterMapelController extends BaseController<MapelResponse>{
+public class MasterMapelController extends BaseController<MapelResponse> {
     private final MasterMapelService service;
 
     @GetMapping
