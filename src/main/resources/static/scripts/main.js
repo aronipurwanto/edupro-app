@@ -23,6 +23,17 @@ function showModal(url, title){
     });
 }
 
+function loadPage(url, element){
+    $.ajax({
+        url: url,
+        method: 'GET',
+        dataType: 'html',
+        success: function (result){
+            $(element).html(result);
+        }
+    });
+}
+
 function convertFormToJSON(form) {
     return $(form)
         .serializeArray()

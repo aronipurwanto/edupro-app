@@ -1,12 +1,15 @@
-package org.edupro.web.controller;
+package org.edupro.web.controller.master;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.edupro.web.controller.BaseController;
 import org.edupro.web.exception.EduProWebException;
-import org.edupro.web.model.request.LookupRequest;
-import org.edupro.web.model.response.LookupResponse;
+import org.edupro.web.model.request.LevelRequest;
+import org.edupro.web.model.response.LembagaResponse;
+import org.edupro.web.model.response.LevelResponse;
 import org.edupro.web.model.response.Response;
-import org.edupro.web.service.MasterLookupService;
+import org.edupro.web.service.MasterLembagaService;
+import org.edupro.web.service.MasterLevelService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,53 +21,61 @@ import java.util.Collections;
 import java.util.List;
 
 @Controller
-@RequestMapping("/master/lookup")
+@RequestMapping("/master/level")
 @RequiredArgsConstructor
-public class MasterLookupController extends BaseController<LookupResponse> {
+public class MasterLevelController extends BaseController<LevelResponse> {
 
-    private final MasterLookupService service;
+    private final MasterLevelService service;
+    private final MasterLembagaService lembagaService;
 
     @GetMapping
     public ModelAndView index(){
-        var view = new ModelAndView("pages/master/lookup/index");
+        var view = new ModelAndView("pages/master/level/index");
+        view.addObject("level",service.get());
+
         return view;
     }
-
     @GetMapping("/add")
     public ModelAndView add(){
-        ModelAndView view = new ModelAndView("pages/master/lookup/add");
-        view.addObject("lookup", new LookupRequest());
+        ModelAndView view = new ModelAndView("pages/master/level/add");
+        view.addObject("level", new LevelRequest());
+
         addObject(view);
         return view;
     }
 
-    @PostMapping("/save")
-    public ModelAndView save(@ModelAttribute("lookup") @Valid LookupRequest request, BindingResult result){
-        ModelAndView view = new ModelAndView("pages/master/lookup/add");
-        view.addObject("lookup", request);
+    public void addObject(ModelAndView view){
+        List<LembagaResponse> lembaga = this.lembagaService.get();
+        view.addObject("dataLembaga", lembaga);
+    }
 
-        if(result.hasErrors()){
+    @PostMapping("/save")
+    public ModelAndView save(@ModelAttribute("level") @Valid LevelRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/level/add");
+        view.addObject("level", request);
+
+        if (result.hasErrors()){
             addObject(view);
             return view;
         }
 
         try {
             service.save(request);
-            return new ModelAndView("redirect:/master/lookup");
+            return new ModelAndView("redirect:/master/level");
         } catch (EduProWebException e){
-            addError("lookup", result,(List<FieldError>)e.getErrors());
+            addError("level", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
 
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") String id){
-        ModelAndView view = new ModelAndView("pages/master/lookup/edit");
+        ModelAndView view = new ModelAndView("pages/master/level/edit");
         return getModelAndView(id, view);
     }
 
     private ModelAndView getModelAndView(String id, ModelAndView view) {
-        LookupResponse result;
+        LevelResponse result;
         try {
             result = this.service.getById(id).orElse(null);
         }catch (EduProWebException e){
@@ -75,45 +86,41 @@ public class MasterLookupController extends BaseController<LookupResponse> {
             return new ModelAndView("pages/error/modal-not-found");
         }
 
-        view.addObject("lookup", result);
+        view.addObject("level", result);
         addObject(view);
-
         return view;
     }
 
-    private void addObject(ModelAndView view){
-        view.addObject("groups", service.getGroup());
-    }
-
     @PostMapping("/update")
-    public ModelAndView update(@ModelAttribute("lookup") @Valid LookupRequest request,  BindingResult result){
-        ModelAndView view = new ModelAndView("pages/master/lookup/edit");
-        view.addObject("lookup", request);
+    public ModelAndView update(@ModelAttribute("level") @Valid LevelRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/level/edit");
+        view.addObject("level", request);
 
-        if(result.hasErrors()){
+        if (result.hasErrors()){
             addObject(view);
             return view;
         }
 
         try {
             service.update(request, request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/lookup");
+            return new ModelAndView("redirect:/master/level");
         } catch (EduProWebException e){
-            addError("lookup", result,(List<FieldError>)e.getErrors());
+            addError("level", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
 
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable("id") String id){
-        ModelAndView view = new ModelAndView("pages/master/lookup/delete");
+        ModelAndView view = new ModelAndView("pages/master/level/delete");
         return getModelAndView(id, view);
     }
 
     @PostMapping("/remove")
-    public ModelAndView remove(@ModelAttribute("lookup") @Valid LookupRequest request, BindingResult result){
-        ModelAndView view = new ModelAndView("pages/master/lookup/delete");
-        view.addObject("lookup", request);
+    public ModelAndView delete(@ModelAttribute("level") @Valid LevelRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/master/level/delete");
+        view.addObject("level", request);
+
         if (result.hasErrors()){
             addObject(view);
             return view;
@@ -121,9 +128,9 @@ public class MasterLookupController extends BaseController<LookupResponse> {
 
         try {
             service.delete(request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/lookup");
+            return new ModelAndView("redirect:/master/level");
         } catch (EduProWebException e){
-            addError("lookup", result,(List<FieldError>)e.getErrors());
+            addError("level", result,(List<FieldError>)e.getErrors());
             return view;
         }
     }
@@ -131,7 +138,7 @@ public class MasterLookupController extends BaseController<LookupResponse> {
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
         try {
-            List<LookupResponse> result = service.get();
+            List<LevelResponse> result = service.get();
             return getResponse(result);
         }catch (EduProWebException e){
             return getResponse(Collections.emptyList());
