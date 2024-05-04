@@ -17,6 +17,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -131,7 +132,11 @@ public class MasterCourseController extends BaseController<CourseResponse> {
 
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
-        List<CourseResponse> result = this.service.get();
-        return getResponse(result);
+        try {
+            List<CourseResponse> result = this.service.get();
+            return getResponse(result);
+        }catch (EduProWebException e){
+            return getResponse(Collections.emptyList());
+        }
     }
 }

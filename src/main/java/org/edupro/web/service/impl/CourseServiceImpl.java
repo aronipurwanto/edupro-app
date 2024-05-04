@@ -33,10 +33,10 @@ public class CourseServiceImpl extends BaseService implements CourseService {
     private final ObjectMapper objectMapper;
 
     @Override
-    public List<CourseResponse> get() {
+    public List<CourseResponse> get() throws EduProWebException {
         try {
             var url = backEndUrl.courseUrl();
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 return (List<CourseResponse>) response.getBody().getData();
             }
@@ -48,10 +48,10 @@ public class CourseServiceImpl extends BaseService implements CourseService {
     }
 
     @Override
-    public Optional<CourseResponse> getById(String id) {
+    public Optional<CourseResponse> getById(String id) throws EduProWebException{
         try {
             var url = Strings.concat(backEndUrl.courseUrl(), "/" + id);
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 CourseResponse result = objectMapper.readValue(json, CourseResponse.class);
@@ -73,7 +73,7 @@ public class CourseServiceImpl extends BaseService implements CourseService {
     public Optional<CourseResponse> save(CourseRequest request) {
         try {
             var url = backEndUrl.courseUrl();
-            HttpEntity<CourseRequest> httpEntity = new HttpEntity<>(request);
+            HttpEntity<CourseRequest> httpEntity = new HttpEntity<>(request, getHeader());
             ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -95,7 +95,7 @@ public class CourseServiceImpl extends BaseService implements CourseService {
     public Optional<CourseResponse> update(CourseRequest courseRequest, String id) {
         try {
             var url = Strings.concat(backEndUrl.courseUrl(), "/" + id);
-            HttpEntity<CourseRequest> httpEntity = new HttpEntity<>(courseRequest);
+            HttpEntity<CourseRequest> httpEntity = new HttpEntity<>(courseRequest, getHeader());
             ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -117,7 +117,7 @@ public class CourseServiceImpl extends BaseService implements CourseService {
     public Optional<CourseResponse> delete(String id) {
         try {
             var url = Strings.concat(backEndUrl.courseUrl(), "/" + id);
-            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.DELETE, null, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 CourseResponse result = objectMapper.readValue(json, CourseResponse.class);

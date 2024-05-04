@@ -1,5 +1,6 @@
 package org.edupro.web.service;
 
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.CourseRequest;
 import org.edupro.web.model.response.CourseResponse;
 
@@ -7,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CourseService {
-    List<CourseResponse> get();
-    Optional<CourseResponse> getById(String id);
+    List<CourseResponse> get() throws EduProWebException;
+    Optional<CourseResponse> getById(String id) throws EduProWebException;
     Optional<CourseResponse> save(CourseRequest courseRequest);
     Optional<CourseResponse> update(CourseRequest courseRequest, String id);
     Optional<CourseResponse> delete(String id);

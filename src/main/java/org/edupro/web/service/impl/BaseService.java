@@ -55,6 +55,10 @@ public class BaseService {
             return readError400(message);
         }
 
+        if(message.contains("401")) {
+            return readError401(message);
+        }
+
         if(message.contains("500")) {
             return readError500(message);
         }
@@ -62,11 +66,17 @@ public class BaseService {
     }
 
     protected List<FieldError> readError500(String message){
-        message = message.replace("400 :","");
+        message = message.replace("500 :","");
         message = message.substring(2, message.length()-1);
 
         return Arrays.asList(
                 new FieldError("","id",message)
+        );
+    }
+
+    protected List<FieldError> readError401(String message){
+        return Arrays.asList(
+                new FieldError("","id","Unauthorized token")
         );
     }
 
