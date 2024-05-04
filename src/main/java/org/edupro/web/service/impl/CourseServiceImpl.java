@@ -36,7 +36,7 @@ public class CourseServiceImpl extends BaseService implements CourseService {
     public List<CourseResponse> get() {
         try {
             var url = backEndUrl.courseUrl();
-            ResponseEntity<Response> response = restTemplate.getForEntity(url, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.GET, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 return (List<CourseResponse>) response.getBody().getData();
             }
