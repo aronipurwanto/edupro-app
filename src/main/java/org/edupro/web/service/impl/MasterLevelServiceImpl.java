@@ -75,7 +75,7 @@ public class MasterLevelServiceImpl extends BaseService implements MasterLevelSe
         try{
             var url = backEndUrl.levelUrl();
             HttpEntity<LevelRequest> httpEntity = new HttpEntity<>(request, getHeader());
-            ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, Response.class);
             if(response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 LevelResponse result = objectMapper.readValue(json, LevelResponse.class);
