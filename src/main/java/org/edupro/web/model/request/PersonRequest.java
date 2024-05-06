@@ -1,11 +1,14 @@
 package org.edupro.web.model.request;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,8 +34,8 @@ public class PersonRequest {
     @NotEmpty(message = "NIK Tidak Boleh Kosong")
     private String nik;
 
-    @NotEmpty(message = "Tanggal Lahir Tidak Boleh Kosong")
-    private String tanggalLahir;
+    @NotNull(message = "Tanggal Lahir Tidak Boleh Kosong")
+    private LocalDate tanggalLahir;
 
     @NotEmpty(message = "Tempat Lahir Tidak Boleh Kosong")
     private String tempatLahir;
