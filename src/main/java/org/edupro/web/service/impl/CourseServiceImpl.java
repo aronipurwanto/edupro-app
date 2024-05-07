@@ -48,6 +48,21 @@ public class CourseServiceImpl extends BaseService implements CourseService {
     }
 
     @Override
+    public List<CourseResponse> getByUser() throws EduProWebException {
+        try {
+            var url = backEndUrl.courseUrl()+"/user";
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
+            if (response.getStatusCode() == HttpStatus.OK){
+                return (List<CourseResponse>) response.getBody().getData();
+            }
+            return Collections.emptyList();
+        }catch (RestClientException e){
+            var errors = this.readError(e);
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        }
+    }
+
+    @Override
     public Optional<CourseResponse> getById(String id) throws EduProWebException{
         try {
             var url = Strings.concat(backEndUrl.courseUrl(), "/" + id);
