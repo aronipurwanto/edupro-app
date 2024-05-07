@@ -15,8 +15,8 @@ public class CourseResponse {
     private String name;
     private String shortName;
     private Boolean shown;
-    private String startDate;
-    private String endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String summary;
     private Long imageId;
     private Integer format;

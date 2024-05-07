@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,11 +24,11 @@ public class CourseRequest {
     @NotNull(message = "shown tidak boleh kosong")
     private Boolean shown;
 
-    @NotEmpty(message = "start date tidak boleh kosong")
-    private String startDate;
+    @NotNull(message = "start date tidak boleh kosong")
+    private LocalDate startDate;
 
-    @NotEmpty(message = "end date tidak boleh kosong")
-    private String endDate;
+    @NotNull(message = "end date tidak boleh kosong")
+    private LocalDate endDate;
 
     @NotEmpty(message = "summary tidak boleh kosong")
     private String summary;

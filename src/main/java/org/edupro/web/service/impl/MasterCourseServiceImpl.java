@@ -27,13 +27,13 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CourseServiceImpl extends BaseService implements CourseService {
+public class MasterCourseServiceImpl extends BaseService implements CourseService {
     private final BackEndUrl backEndUrl;
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
     @Override
-    public List<CourseResponse> get() throws EduProWebException {
+    public List<CourseResponse> get(){
         try {
             var url = backEndUrl.courseUrl();
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
@@ -48,7 +48,7 @@ public class CourseServiceImpl extends BaseService implements CourseService {
     }
 
     @Override
-    public Optional<CourseResponse> getById(String id) throws EduProWebException{
+    public Optional<CourseResponse> getById(String id){
         try {
             var url = Strings.concat(backEndUrl.courseUrl(), "/" + id);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
@@ -74,7 +74,7 @@ public class CourseServiceImpl extends BaseService implements CourseService {
         try {
             var url = backEndUrl.courseUrl();
             HttpEntity<CourseRequest> httpEntity = new HttpEntity<>(request, getHeader());
-            ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.exchange(url,HttpMethod.POST, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 CourseResponse result = objectMapper.readValue(json, CourseResponse.class);
