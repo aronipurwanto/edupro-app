@@ -19,8 +19,6 @@ public class LevelRequest {
     @NotEmpty(message = "Lembaga Tidak Boleh Kosong")
     private String idLembaga;
 
-    private String namaLembaga;
-
     @NotEmpty(message = "Kode Tidak Boleh Kosong")
     @Size(min = 1, max = 10, message = "Kode Minimal 1 dan Maksimal 10")
     private String kode;
