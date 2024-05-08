@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.edupro</groupId>
     <artifactId>edupro-web</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>edupro-web</name>
     <description>edupro-web</description>
     <properties>
