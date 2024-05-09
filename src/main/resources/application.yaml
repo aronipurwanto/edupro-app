@@ -1,0 +1,29 @@
+server:
+  port: 8082
+spring:
+  mvc:
+    format:
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
+  application:
+    back-end-url: http://localhost:8081/api/v1
+  security:
+    white-list:
+      - "/"
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: edupro-login
+            authorization-grant-type: authorization_code
+            scope: openid, profile, roles
+            client-secret: RBJ6eu1QalyjhtNZhEXjPKgx9RkXlDT1
+            redirect-uri: http://localhost:8082/login/oauth2/code/edupro-login
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/edupro
+            user-name-attribute: preferred_username
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/edupro
