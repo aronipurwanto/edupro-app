@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface CourseService {
     List<CourseResponse> get() throws EduProWebException;
+    List<CourseResponse> getByUser() throws EduProWebException;
     Optional<CourseResponse> getById(String id) throws EduProWebException;
     Optional<CourseResponse> save(CourseRequest courseRequest);
     Optional<CourseResponse> update(CourseRequest courseRequest, String id);

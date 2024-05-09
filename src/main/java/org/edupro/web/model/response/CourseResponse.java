@@ -2,9 +2,6 @@ package org.edupro.web.model.response;
 
 import lombok.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -13,6 +10,7 @@ import java.time.LocalDateTime;
 public class CourseResponse {
     private String id;
     private String name;
+    private String description;
     private String shortName;
     private Boolean shown;
     private LocalDate startDate;

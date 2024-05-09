@@ -27,13 +27,13 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class MasterCourseServiceImpl extends BaseService implements CourseService {
+public class CourseServiceImpl extends BaseService implements CourseService {
     private final BackEndUrl backEndUrl;
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
     @Override
-    public List<CourseResponse> get(){
+    public List<CourseResponse> get() throws EduProWebException {
         try {
             var url = backEndUrl.courseUrl();
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
@@ -48,7 +48,22 @@ public class MasterCourseServiceImpl extends BaseService implements CourseServic
     }
 
     @Override
-    public Optional<CourseResponse> getById(String id){
+    public List<CourseResponse> getByUser() throws EduProWebException {
+        try {
+            var url = backEndUrl.courseUrl()+"/user";
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
+            if (response.getStatusCode() == HttpStatus.OK){
+                return (List<CourseResponse>) response.getBody().getData();
+            }
+            return Collections.emptyList();
+        }catch (RestClientException e){
+            var errors = this.readError(e);
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        }
+    }
+
+    @Override
+    public Optional<CourseResponse> getById(String id) throws EduProWebException{
         try {
             var url = Strings.concat(backEndUrl.courseUrl(), "/" + id);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
@@ -74,7 +89,7 @@ public class MasterCourseServiceImpl extends BaseService implements CourseServic
         try {
             var url = backEndUrl.courseUrl();
             HttpEntity<CourseRequest> httpEntity = new HttpEntity<>(request, getHeader());
-            ResponseEntity<Response> response = restTemplate.exchange(url,HttpMethod.POST, httpEntity, Response.class);
+            ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 CourseResponse result = objectMapper.readValue(json, CourseResponse.class);
