@@ -20,6 +20,11 @@ public class ClassroomController {
         return new ModelAndView("pages/classroom/index");
     }
 
+    @GetMapping("/topic/add")
+    public ModelAndView addTopic() {
+        return new ModelAndView("pages/classroom/topic");
+    }
+
     @GetMapping("/items")
     public ModelAndView courseItem() {
         ModelAndView view = new ModelAndView("pages/classroom/_course-item");
