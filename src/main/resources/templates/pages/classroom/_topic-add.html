@@ -1,5 +1,4 @@
-<form xmlns:th="http://www.thymeleaf.org" th:id="form-topic" th:action="@{~/classroom/topic/save}"
-      th:method="post">
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-topic" th:action="@{~/classroom/topic/save}"  th:method="post">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Topic</h5>
@@ -9,13 +8,19 @@
             <div class="row">
                 <div class="col mb-3">
                     <label for="kode" class="form-label">Kode</label>
-                    <input type="text" id="kode" name="kode" placeholder="Kode" />
+                    <input type="text" id="kode" name="kode" th:value="${gedung.kode}" th:class="${#fields.hasErrors('kode')}? 'form-control is-invalid': 'form-control'" placeholder="Kode" />
+                    <div th:if="${#fields.hasErrors('kode')}" class="invalid-feedback">
+                        <span th:errors="*{kode}"></span>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col mb-3">
                     <label for="nama" class="form-label">Nama</label>
-                    <input type="text" id="nama" name="nama" placeholder="Nama"/>
+                    <input type="text" id="nama" name="nama" th:value="${gedung.nama}" th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="Nama" />
+                    <div th:if="${#fields.hasErrors('nama')}" class="invalid-feedback">
+                        <span th:errors="*{nama}"></span>
+                    </div>
                 </div>
             </div>
         </div>

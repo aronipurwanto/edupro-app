@@ -22,7 +22,7 @@ public class ClassroomController {
 
     @GetMapping("/topic/add")
     public ModelAndView addTopic() {
-        return new ModelAndView("pages/classroom/topic");
+        return new ModelAndView("pages/classroom/_topic-add");
     }
 
     @GetMapping("/items")

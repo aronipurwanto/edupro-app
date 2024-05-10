@@ -15,7 +15,9 @@ $(function (){
     loadPage(itemUrl,'#classroom-content');
 
     // btn add click
-    $("#btn-add").click(function () {
+    $("#btn-topic-add").click(function (event) {
+        event.preventDefault();
+
         var url = $(this).attr('href');
         showModal(url, ' ');
     });
