@@ -21,4 +21,19 @@ $(function (){
         const  data = convertFormToJSON($(this));
         ajaxSubmit(ajaxUrl, data )
     });
+
+
+    // create
+    $('#btn-classroom-new').click(function (event){
+        event.preventDefault();
+        var ajaxUrl = $(this).attr('href');
+        showModal(ajaxUrl);
+    });
+
+    $('#main-modal').on('submit', '#form-course', function (e) {
+        e.preventDefault();
+        var ajaxUrl = $(this).attr('action');
+        const  data = convertFormToJSON($(this));
+        ajaxSubmit(ajaxUrl, data )
+    });
 });
