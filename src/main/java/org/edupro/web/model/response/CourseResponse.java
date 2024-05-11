@@ -2,6 +2,10 @@ package org.edupro.web.model.response;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -13,8 +17,8 @@ public class CourseResponse {
     private String description;
     private String shortName;
     private Boolean shown;
-    private String startDate;
-    private String endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private String summary;
     private Long imageId;
     private Integer format;
@@ -22,7 +26,7 @@ public class CourseResponse {
     private Integer layout;
     private Boolean completionTracking;
     private String mapelId;
-    private String kodeLevel;
     private String kodeMapel;
-    private String status;
+    private String kodeLevel;
+    private List<CourseSectionRes> sections = new ArrayList<>();
 }

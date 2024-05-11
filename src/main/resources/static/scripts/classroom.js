@@ -14,14 +14,6 @@ $(function (){
     //first load
     loadPage(itemUrl,'#classroom-content');
 
-    // btn add click
-    $("#btn-topic-add").click(function (event) {
-        event.preventDefault();
-
-        var url = $(this).attr('href');
-        showModal(url, ' ');
-    });
-
     // form submit
     $('#main-modal').on('submit', '#form-topic', function (e) {
         e.preventDefault();
