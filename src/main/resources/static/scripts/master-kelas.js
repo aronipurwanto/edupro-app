@@ -1,4 +1,4 @@
-$(function () {
+$(document).ready(function () {
     if (isDarkStyle) {
         borderColor = config.colors_dark.borderColor;
         bodyBg = config.colors_dark.bodyBg;

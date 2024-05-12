@@ -3,6 +3,7 @@ package org.edupro.web.controller;
 import jakarta.validation.Valid;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.CourseRequest;
+import org.edupro.web.model.response.CourseSectionRes;
 import org.edupro.web.service.CourseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -10,6 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -65,9 +67,12 @@ public class ClassroomController extends BaseController {
 
     @GetMapping("/detail/{id}")
     public ModelAndView courseDetail(@PathVariable("id") String id) {
-        var result = courseService.getById(id);
         ModelAndView view = new ModelAndView("pages/classroom/detail");
+        var result = courseService.getById(id);
         view.addObject("course", result);
+        List<CourseSectionRes> sections = courseService.getSectionByCourseId(id);
+        view.addObject("sections", sections);
+        view.addObject("noUrutComparator", Comparator.comparing(CourseSectionRes::getNoUrut));
         return view;
     }
 }

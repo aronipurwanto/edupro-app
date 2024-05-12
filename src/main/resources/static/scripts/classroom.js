@@ -1,4 +1,4 @@
-$(function (){
+$(document).ready(function (){
     if (isDarkStyle) {
         borderColor = config.colors_dark.borderColor;
         bodyBg = config.colors_dark.bodyBg;
@@ -9,6 +9,7 @@ $(function (){
         headingColor = config.colors.headingColor;
     }
 
+    // load page
     // first url
     var itemUrl = $('#classroom-item-url').attr('href');
     //first load

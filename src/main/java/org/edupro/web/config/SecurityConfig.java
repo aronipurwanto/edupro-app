@@ -60,20 +60,20 @@ class SecurityConfig {
         http.cors(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(auth -> auth
                 // Allows preflight requests from browser
-                .requestMatchers(new AntPathRequestMatcher("/customers*", HttpMethod.OPTIONS.name()))
-                .permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/customers*","/users*"))
-                .hasRole("user")
-                .requestMatchers(new AntPathRequestMatcher("/"))
-                .permitAll()
-                .anyRequest()
-                .authenticated());
+                .requestMatchers(new AntPathRequestMatcher("/customers*", HttpMethod.OPTIONS.name())).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/customers*","/users*")).hasRole("user")
+                .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/login*")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/sso*")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("//error")).permitAll()
+                .anyRequest().authenticated());
         http.oauth2ResourceServer(oauth2 -> oauth2
                 .jwt(Customizer.withDefaults()));
         http.oauth2Login(Customizer.withDefaults())
                 .logout(logout -> logout.addLogoutHandler(keycloakLogoutHandler)
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/"));
+                        .logoutSuccessUrl("/")
+                );
         return http.build();
     }
 
