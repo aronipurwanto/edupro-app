@@ -20,16 +20,16 @@
         <div class="col-md-12">
             <ul class="nav nav-pills flex-column flex-sm-row mb-4">
                 <li class="nav-item">
-                    <a class="nav-link dashboard-menu" th:href="@{~/classroom/pages/profile}"><i class="ti-xs ti ti-user-check me-1"></i> Steam</a>
+                    <a class="nav-link dashboard-menu" th:href="@{~/classroom/pages/stream}"><i class="ti-xs ti ti-user-check me-1"></i> Steam</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link dashboard-menu" th:href="@{~/classroom/pages/course}"><i class="ti-xs ti ti-layout-grid me-1"></i> Classwork</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link dashboard-menu" th:href="@{~/classroom/pages/mapel}"><i class="ti-xs ti ti-users me-1"></i> People</a>
+                    <a class="nav-link dashboard-menu" th:href="@{~/classroom/pages/people}"><i class="ti-xs ti ti-users me-1"></i> People</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link dashboard-menu" th:href="@{~/classroom/pages/siswa}"><i class="ti-xs ti ti-link me-1"></i> Grades</a>
+                    <a class="nav-link dashboard-menu" th:href="@{~/classroom/pages/grades}"><i class="ti-xs ti ti-link me-1"></i> Grades</a>
                 </li>
                 <li class="nav-item">
                     <!-- Button New -->
@@ -39,22 +39,22 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="#" class="dropdown-item d-flex align-content-lg-between">
+                                <a th:href="@{~/classroom/add/assignment}" class="dropdown-item d-flex align-content-lg-between">
                                     <i class="fa-regular fa-clipboard"></i> &nbsp; Assignment
                                 </a>
                             </li>
                             <li>
-                                <a href="" class="dropdown-item d-flex align-items-center">
+                                <a th:href="@{~/classroom/add/quiz/assignment}" class="dropdown-item d-flex align-items-center">
                                     <i class="fa-solid fa-clipboard"></i> &nbsp; Quiz Assignment
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="dropdown-item d-flex align-items-center">
+                                <a th:href="@{~/classroom/add/quiz}" class="dropdown-item d-flex align-items-center">
                                     <i class="fa-solid fa-clipboard-question"></i> &nbsp; Quiz
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="dropdown-item d-flex align-items-center">
+                                <a th:href="@{~/classroom/add/material}" class="dropdown-item d-flex align-items-center">
                                     <i class="fa-solid fa-book-bookmark"></i> &nbsp; Material
                                 </a>
                             </li>
@@ -64,7 +64,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a id="btn-topic-add" th:href="@{~/classroom/topic/add}" class="dropdown-item d-flex align-items-center">
+                                <a id="btn-topic-add" th:href="@{~/classroom/add/topic}" class="dropdown-item d-flex align-items-center">
                                     <i class="fa-solid fa-table-list"></i> &nbsp; Topic
                                 </a>
                             </li>
