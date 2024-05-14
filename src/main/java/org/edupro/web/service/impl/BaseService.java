@@ -33,14 +33,15 @@ public class BaseService {
     }
 
     public HttpHeaders getHeader(){
-        if(getToken() == null || getToken().isEmpty()){
+        String token = getToken();
+        if(token == null || token.isEmpty()){
             List<FieldError> errors = List.of(new FieldError("token", "token", CommonConstant.Error.ERR_TOKEN_EMPTY));
             throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
         }
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
-        headers.add("Authorization", "Bearer " + getToken());
+        headers.add("Authorization", "Bearer " + token);
 
         return headers;
     }

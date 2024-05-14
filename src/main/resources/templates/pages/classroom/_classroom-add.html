@@ -1,0 +1,61 @@
+<form xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      th:id="form-course" th:action="@{~/classroom/save}"
+      th:method="post" th:object="${course}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Tambah Course</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="col mb-0">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" id="name" name="name" th:value="${course.name}"
+                       th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'" placeholder="Name" />
+                <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                    <span th:errors="*{name}"></span>
+                </div>
+            </div>
+            <div class="col mb-0">
+                <label for="shortName" class="form-label">Short Name</label>
+                <input type="text" id="shortName" name="shortName" th:value="${course.shortName}"
+                       th:class="${#fields.hasErrors('shortName')} ? 'form-control is-invalid' : 'form-control'" placeholder="Short Name" />
+                <div th:if="${#fields.hasErrors('shortName')}" class="invalid-feedback">
+                    <span th:errors="*{shortName}"></span>
+                </div>
+            </div>
+            <div class="col mb-0">
+                <label for="startDate" class="form-label">Start Date</label>
+                <input type="date" id="startDate" name="startDate" th:value="${course.startDate}"
+                       th:class="${#fields.hasErrors('startDate')} ? 'form-control is-invalid' : 'form-control'" placeholder="Start Date"/>
+                <div th:if="${#fields.hasErrors('startDate')}" class="invalid-feedback">
+                    <span th:errors="*{startDate}"></span>
+                </div>
+            </div>
+            <div class="col mb-0">
+                <label for="endDate" class="form-label">End Date</label>
+                <input type="date" id="endDate" name="endDate" th:value="${course.endDate}"
+                       th:class="${#fields.hasErrors('endDate')} ? 'form-control is-invalid': 'form-control'" placeholder="End Date"/>
+                <div th:if="${#fields.hasErrors('endDate')}" class="invalid-feedback">
+                    <span th:errors="*{endDate}"></span>
+                </div>
+            </div>
+            <div class="col mb-0">
+                <label for="summary" class="form-label">Summary</label>
+                <textarea id="summary" name="summary" th:value="${course.summary}" th:class="${#fields.hasErrors('summary')} ? 'form-control is-invalid': 'form-control'" placeholder="Summary">
+                </textarea>
+                <div th:if="${#fields.hasErrors('summary')}" class="invalid-feedback">
+                    <span th:errors="*{summary}"></span>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div class="modal-footer input-group">
+            <button type="submit" class="btn btn-success">
+                <i class="ti ti-check"></i>&nbsp;Save
+            </button>
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+        </div>
+    </div>
+</form>

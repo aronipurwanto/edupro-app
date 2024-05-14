@@ -1,4 +1,4 @@
-$(function (){
+$(document).ready(function (){
     // first url
     var defaultUrl = $('.dashboard-menu:eq(0)').attr('href');
     //first load

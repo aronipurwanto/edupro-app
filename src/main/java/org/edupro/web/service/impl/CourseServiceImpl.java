@@ -8,8 +8,10 @@ import org.edupro.web.constant.CommonConstant;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.CourseRequest;
 import org.edupro.web.model.response.CourseResponse;
+import org.edupro.web.model.response.CourseSectionRes;
 import org.edupro.web.model.response.Response;
 import org.edupro.web.service.CourseService;
+import org.edupro.web.util.CommonUtil;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -32,18 +34,25 @@ public class CourseServiceImpl extends BaseService implements CourseService {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
+    private List<CourseResponse> getCourseResponses(String url) throws IOException {
+        ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
+        if (response.getStatusCode() == HttpStatus.OK){
+            String json = objectMapper.writeValueAsString(Objects.requireNonNull(response.getBody()).getData());
+            return CommonUtil.jsonArrayToList(json, CourseResponse.class);
+        }
+        return Collections.emptyList();
+    }
+
     @Override
     public List<CourseResponse> get() throws EduProWebException {
         try {
             var url = backEndUrl.courseUrl();
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
-            if (response.getStatusCode() == HttpStatus.OK){
-                return (List<CourseResponse>) response.getBody().getData();
-            }
-            return Collections.emptyList();
+            return getCourseResponses(url);
         }catch (RestClientException e){
             var errors = this.readError(e);
             throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -51,14 +60,31 @@ public class CourseServiceImpl extends BaseService implements CourseService {
     public List<CourseResponse> getByUser() throws EduProWebException {
         try {
             var url = backEndUrl.courseUrl()+"/user";
+            return getCourseResponses(url);
+        }catch (RestClientException e){
+            var errors = this.readError(e);
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<CourseSectionRes> getSectionByCourseId(String courseId) throws EduProWebException {
+        try {
+            var url = backEndUrl.courseUrl()+"/"+courseId+"/section";
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
-                return (List<CourseResponse>) response.getBody().getData();
+                String json = objectMapper.writeValueAsString(Objects.requireNonNull(response.getBody()).getData());
+                List<CourseSectionRes> result = CommonUtil.jsonArrayToList(json, CourseSectionRes.class);
+                return result;
             }
             return Collections.emptyList();
         }catch (RestClientException e){
             var errors = this.readError(e);
             throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -136,6 +162,7 @@ public class CourseServiceImpl extends BaseService implements CourseService {
             if (response.getStatusCode() == HttpStatus.OK){
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
                 CourseResponse result = objectMapper.readValue(json, CourseResponse.class);
+                return Optional.of(result);
             }
 
             return Optional.empty();

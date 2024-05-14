@@ -1,5 +1,7 @@
 package org.edupro.web.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import lombok.extern.slf4j.Slf4j;
 import org.edupro.web.constant.CommonConstant;
 import org.edupro.web.exception.EduProWebException;
@@ -11,10 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Base64;
-import java.util.Objects;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -25,6 +24,13 @@ public class CommonUtil {
 
     public String getUUID(){
         return UUID.randomUUID().toString();
+    }
+
+    public static <T> List<T> jsonArrayToList(String json, Class<T> elementClass) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        CollectionType listType =
+                objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, elementClass);
+        return objectMapper.readValue(json, listType);
     }
 
     public String getAlphaNumericString(int n) {
