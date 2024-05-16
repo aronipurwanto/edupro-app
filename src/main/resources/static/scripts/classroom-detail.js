@@ -23,4 +23,11 @@ $(document).ready(function (){
         var url = $(this).attr('href');
         showModal(url, 'large');
     });
+
+    $("#btn-page-grade").click(function (event){
+        event.preventDefault();
+
+        var url = $(this).attr('href');
+        showModal(url, ' ');
+    });
 });
