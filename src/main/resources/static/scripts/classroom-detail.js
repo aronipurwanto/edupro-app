@@ -16,4 +16,11 @@ $(document).ready(function (){
         var url = $(this).attr('href');
         showModal(url, ' ');
     });
+
+    $("#btn-people-add").click(function (event){
+        event.preventDefault();
+
+        var url = $(this).attr('href');
+        showModal(url, 'large');
+    });
 });
