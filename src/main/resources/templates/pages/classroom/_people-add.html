@@ -1,11 +1,11 @@
 <form xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
       th:id="form-people" th:action="@{~/people/save}"
-      th:method="post" class="p-3 p-md-5">
-        <div class="modal-body">
+      th:method="post">
+        <div class="modal-body p-3 p-md-3">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="text-center">
-                <h3 class="mb-2">Share Project</h3>
-                <p>Share project with a team member</p>
+                <h3 class="mb-2">Member Class</h3>
+                <p>Daily Tasks</p>
             </div>
         </div>
         <div class="mb-4 pb-2">
@@ -14,15 +14,25 @@
                     id="select2Basic"
                     class="form-select form-select-lg share-project-select"
                     data-allow-clear="true">
-                <option data-name="Adelaide Nichols" data-image="img/avatars/13.png}" selected>
+                <option data-name="Adelaide Nichols" th:src="@{~/img/avatars/13.png}"  selected>
                     Adelaide Nichols
                 </option>
-                <option data-name="Julian Murphy" data-image="img/avatars/9.png}">Julian Murphy</option>
-                <option data-name="Sophie Gilbert" data-image="img/avatars/10.png}">Sophie Gilbert</option>
-                <option data-name="Marvin Wheeler" data-image="img/avatars/7.png}">Marvin Wheeler</option>
+                <option data-name="Julian Murphy" th:src="@{~/img/avatars/9.png}">Julian Murphy</option>
+                <option data-name="Sophie Gilbert" th:src="@{~/img/avatars/10.png}">Sophie Gilbert</option>
+                <option data-name="Marvin Wheeler" th:src="@{~/img/avatars/7.png}">Marvin Wheeler</option>
             </select>
         </div>
-        <h4 class="mb-4 pb-2">8 Members</h4>
+
+        <div class="d-flex align-items-start mb-5 align-items-sm-center">
+            <div class="d-flex justify-content-between flex-grow-1 align-items-center flex-wrap gap-2">
+                <h4 class="mb-0">8 Member</h4>
+                <a href="#" class="btn btn-outline-primary">Invite Student &nbsp;
+                    <i class="ti ti-user-plus">
+                    </i>
+                </a>
+            </div>
+        </div>
+
         <ul class="p-0 m-0">
             <li class="d-flex flex-wrap mb-3">
                 <div class="avatar me-3">
@@ -297,11 +307,4 @@
                 </div>
             </li>
         </ul>
-        <div class="d-flex align-items-start mt-4 align-items-sm-center">
-            <i class="ti ti-users me-2"></i>
-            <div class="d-flex justify-content-between flex-grow-1 align-items-center flex-wrap gap-2">
-                <h6 class="mb-0">Public to Vuexy - Pixinvent</h6>
-                <button class="btn btn-primary">Copy Project Link</button>
-            </div>
-        </div>
 </form>

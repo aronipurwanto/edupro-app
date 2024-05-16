@@ -37,11 +37,4 @@ $(document).ready(function (){
         const  data = convertFormToJSON($(this));
         ajaxSubmit(ajaxUrl, data )
     });
-
-    // btn people click
-    $("#btn-people-add").click(function (event) {
-        event.preventDefault();
-        var url = $(this).attr('href');
-        showModal(url, ' ');
-    });
 });

@@ -9,22 +9,7 @@ $(document).ready(function (){
         headingColor = config.colors.headingColor;
     }
 
-    // btn add click
-    $("#btn-topic-add").click(function (event) {
-        event.preventDefault();
-
-        var url = $(this).attr('href');
-        showModal(url, ' ');
-    });
-  
-    $("#btn-people-add").click(function (event){
-        event.preventDefault();
-
-        var url = $(this).attr('href');
-        showModal(url, 'large');
-    });
-
-    $("#btn-page-grade").click(function (event){
+    $("#btn-people").click(function (event){
         event.preventDefault();
 
         var url = $(this).attr('href');
