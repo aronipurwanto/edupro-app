@@ -9,8 +9,7 @@ $(document).ready(function (){
         headingColor = config.colors.headingColor;
     }
 
-    // btn add click
-    $("#btn-topic-add").click(function (event) {
+    $("#btn-people").click(function (event){
         event.preventDefault();
 
         var url = $(this).attr('href');
