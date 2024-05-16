@@ -61,7 +61,7 @@ public class ClassroomController extends BaseController {
     public ModelAndView addPeople() {
         return new ModelAndView("pages/classroom/_people-add");
     }
-
+  
     @GetMapping("/people")
     public ModelAndView people() {
         return new ModelAndView("pages/classroom/people");
