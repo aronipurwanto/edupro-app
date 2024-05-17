@@ -9,10 +9,17 @@ $(document).ready(function (){
         headingColor = config.colors.headingColor;
     }
 
-    $("#btn-people").click(function (event){
+    $("#btn-people-teacher").click(function (event){
         event.preventDefault();
 
         var url = $(this).attr('href');
         showModal(url, ' ');
     });
+
+    $("#btn-people-student").click(function (event) {
+        event.preventDefault();
+
+        var url = $(this).attr('href');
+        showModal(url, ' ');
+    })
 });
