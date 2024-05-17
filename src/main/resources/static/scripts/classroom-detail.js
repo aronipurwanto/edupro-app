@@ -30,4 +30,11 @@ $(document).ready(function (){
         var url = $(this).attr('href');
         showModal(url, ' ');
     });
+
+    $("#btn-add-material").click(function (event){
+        event.preventDefault();
+
+        var url = $(this).attr('href');
+        showModal(url, 'extra-large');
+    });
 });

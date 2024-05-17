@@ -1,0 +1,79 @@
+<form xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      th:id="form-material" th:action="@{~/material/save}"
+      th:method="post">
+    <div class="modal-body mb-0">
+        <div class="d-flex align-items-start mt-4 align-items-sm-center">
+            <i class="fa-solid fa-book-bookmark"></i> &nbsp;
+            <div class="d-flex justify-content-between flex-grow-1 align-items-center flex-wrap gap-2">
+                <h6 class="mb-0">Material</h6>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary">Info</button>
+                    <button
+                            type="button"
+                            class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                        <li><a class="dropdown-item" href="#">Separated link</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="col-xl">
+            <div class="card mb-2">
+                <div class="card-body">
+                    <form>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder="Title"
+                                   aria-describedby="floatingInputHelp" />
+                            <label>Title</label>
+                            <div class="form-text">
+                            </div>
+                        </div>
+                        <div>
+                            <textarea class="form-control" placeholder="Description (optional)" rows="6"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attach -->
+    <div class="modal-body">
+        <div class="col-xl">
+            <div class="card mb-0">
+                <div class="card-body">
+                    <h6>Attach</h6>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-icon rounded-circle">
+                            <i class="ti ti-brand-google-drive ti-sm"></i>
+                        </button>
+                        <button type="button" class="btn btn-icon rounded-circle">
+                            <i class="ti ti-brand-youtube ti-sm"></i>
+                        </button>
+                        <button type="button" class="btn btn-icon rounded-circle">
+                            <i class="ti ti-plus ti-sm"></i>
+                        </button>
+                        <button type="button" class="btn btn-icon rounded-circle">
+                            <i class="ti ti-upload ti-sm"></i>
+                        </button>
+                        <button type="button" class="btn btn-icon rounded-circle">
+                            <i class="ti ti-link ti-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
