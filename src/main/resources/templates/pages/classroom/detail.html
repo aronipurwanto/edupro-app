@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <th:block layout:fragment="pageCss">
         <link rel="stylesheet" th:href="@{~/vendor/css/pages/app-academy-details.css}" />
+        <link rel="stylesheet" th:href="@{~/vendor/libs/quill/typography.css}" />
+        <link rel="stylesheet" th:href="@{~/vendor/libs/quill/katex.css}" />
+        <link rel="stylesheet" th:href="@{~/vendor/libs/quill/editor.css}" />
     </th:block>
     <title>Title</title>
 </head>
@@ -207,6 +210,10 @@
 <!-- / Content -->
 
 <th:block layout:fragment="script">
+    <!-- Vendors JS -->
+    <script th:src="@{~/vendor/libs/quill/katex.js}"></script>
+    <script th:src="@{~/vendor/libs/quill/quill.js}"></script>
+
     <script th:src="@{~/scripts/classroom-detail.js}"></script>
 </th:block>
 </body>
