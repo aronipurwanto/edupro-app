@@ -26,7 +26,7 @@
                     <a class="nav-link active" id="btn-people"  th:href="@{~/classroom/people}"><i class=" ti-xs ti ti-users me-1"></i> People</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="btn-page-grade" th:href="@{~/classroom/pages/grades}"><i class="ti-xs ti ti-link me-1"></i> Grades</a>
+                    <a class="nav-link" id="btn-page-grade" th:href="@{~/classroom/grades}"><i class="ti-xs ti ti-link me-1"></i> Grades</a>
                 </li>
             </ul>
         </div>
@@ -35,12 +35,12 @@
 
     <div class="card-body">
         <div class="row mb-3">
-            <div class="col-md-6">
+            <div class="col-md-6 ">
                 <h4>Teachers</h4>
             </div>
             <div class="col-md-6">
-                <a href="#">
-                    <i class="fa fa-xl fa-user-plus"></i>
+                <a id="btn-people-teacher" th:href="@{~/classroom/people-teacher}">
+                    <i class="fa fa-xl fa-user-plus fa-pull-right"></i>
                 </a>
             </div>
             <hr>
@@ -51,8 +51,8 @@
                 <h4>Students</h4>
             </div>
             <div class="col-md-6">
-                <a href="#">
-                    <i class="fa fa-xl fa-user-plus"></i>
+                <a id="btn-people-student" th:href="@{~/classroom/people-student}">
+                    <i class="fa fa-xl fa-user-plus fa-pull-right"></i>
                 </a>
             </div>
             <hr>
