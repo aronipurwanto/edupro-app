@@ -1,4 +1,4 @@
-$(document).ready(function (){
+$(document).ready(function () {
     if (isDarkStyle) {
         borderColor = config.colors_dark.borderColor;
         bodyBg = config.colors_dark.bodyBg;
@@ -16,18 +16,25 @@ $(document).ready(function (){
         var url = $(this).attr('href');
         showModal(url, ' ');
     });
-  
-    $("#btn-people-add").click(function (event){
+
+    $("#btn-people-add").click(function (event) {
         event.preventDefault();
 
         var url = $(this).attr('href');
         showModal(url, 'large');
     });
 
-    $("#btn-page-grade").click(function (event){
+    $("#btn-page-grade").click(function (event) {
         event.preventDefault();
 
         var url = $(this).attr('href');
         showModal(url, ' ');
+    });
+
+    $("#btn-add-material").click(function (event) {
+        event.preventDefault();
+
+        var url = $(this).attr('href');
+        showModal(url, 'extra-large');
     });
 });

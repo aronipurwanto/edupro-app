@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <th:block layout:fragment="pageCss">
         <link rel="stylesheet" th:href="@{~/vendor/css/pages/app-academy-details.css}" />
+        <link rel="stylesheet" th:href="@{~/vendor/libs/quill/typography.css}" />
+        <link rel="stylesheet" th:href="@{~/vendor/libs/quill/katex.css}" />
+        <link rel="stylesheet" th:href="@{~/vendor/libs/quill/editor.css}" />
     </th:block>
     <title>Title</title>
 </head>
@@ -29,7 +32,7 @@
                     <a class="nav-link" id="btn-people"  th:href="@{~/classroom/people}"><i class="ti-xs ti ti-users me-1"></i> People</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="btn-page-grade" th:href="@{~/classroom/pages/grades}"><i class="ti-xs ti ti-link me-1"></i> Grades</a>
+                    <a class="nav-link" id="btn-page-grade" th:href="@{~/classroom/grades}"><i class="ti-xs ti ti-link me-1"></i> Grades</a>
                 </li>
                 <li class="nav-item">
                     <!-- Button New -->
@@ -54,7 +57,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{~/classroom/add/material}" class="dropdown-item d-flex align-items-center">
+                                <a th:href="@{~/classroom/add/material}" id="btn-add-material" class="dropdown-item d-flex align-items-center">
                                     <i class="fa-solid fa-book-bookmark"></i> &nbsp; Material
                                 </a>
                             </li>
@@ -207,6 +210,10 @@
 <!-- / Content -->
 
 <th:block layout:fragment="script">
+    <!-- Vendors JS -->
+    <script th:src="@{~/vendor/libs/quill/katex.js}"></script>
+    <script th:src="@{~/vendor/libs/quill/quill.js}"></script>
+
     <script th:src="@{~/scripts/classroom-detail.js}"></script>
 </th:block>
 </body>

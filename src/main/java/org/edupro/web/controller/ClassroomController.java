@@ -72,6 +72,16 @@ public class ClassroomController extends BaseController {
         return new ModelAndView("pages/classroom/people");
     }
 
+    @GetMapping("/grades")
+    public ModelAndView grade() {
+        return new ModelAndView("pages/classroom/_page-grade");
+    }
+
+    @GetMapping("/add/material")
+    public ModelAndView material() {
+        return new ModelAndView("pages/classroom/_page-material");
+    }
+
     @GetMapping("/items")
     public ModelAndView courseItem() {
         ModelAndView view = new ModelAndView("pages/classroom/_course-item");
