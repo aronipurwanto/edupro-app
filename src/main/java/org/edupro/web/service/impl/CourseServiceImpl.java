@@ -43,6 +43,15 @@ public class CourseServiceImpl extends BaseService implements CourseService {
         return Collections.emptyList();
     }
 
+    private List<CourseSectionRes> getCourseSecResponses(String url) throws IOException {
+        ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
+        if (response.getStatusCode() == HttpStatus.OK){
+            String json = objectMapper.writeValueAsString(Objects.requireNonNull(response.getBody()).getData());
+            return CommonUtil.jsonArrayToList(json, CourseSectionRes.class);
+        }
+        return Collections.emptyList();
+    }
+
     @Override
     public List<CourseResponse> get() throws EduProWebException {
         try {
@@ -52,6 +61,19 @@ public class CourseServiceImpl extends BaseService implements CourseService {
             var errors = this.readError(e);
             throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<CourseSectionRes> getAllSection() throws EduProWebException {
+        try {
+            var url = backEndUrl.sectionUrl();
+            return getCourseSecResponses(url);
+        } catch (RestClientException e) {
+            var errors = this.readError(e);
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        }catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

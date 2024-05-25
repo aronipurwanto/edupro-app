@@ -1,5 +1,4 @@
 <form xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
-      data-assets-path="../../static/"
       th:id="form-material" th:action="@{~/material/save}"
       th:method="post">
     <div class="modal-body mb-0">
@@ -8,7 +7,7 @@
             <div class="d-flex justify-content-between flex-grow-1 align-items-center flex-wrap gap-2">
                 <h6 class="mb-0">Material</h6>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-secondary">Info</button>
+                    <button type="submit" class="btn btn-secondary">Post</button>
                     <button
                             type="button"
                             class="btn btn-primary dropdown-toggle dropdown-toggle-split"
@@ -33,40 +32,52 @@
         <div class="col-xl">
             <div class="card mb-2">
                 <div class="card-body">
-                    <form>
-                        <div id="snow-toolbar">
+                    <div class="row">
+                        <div class="col col-lg-9">
+                            <form>
+                                <div id="snow-toolbar">
                             <span class="ql-formats">
                               <select class="ql-font"></select>
                               <select class="ql-size"></select>
                             </span>
-                            <span class="ql-formats">
+                                    <span class="ql-formats">
                               <button class="ql-bold"></button>
                               <button class="ql-italic"></button>
                               <button class="ql-underline"></button>
                               <button class="ql-strike"></button>
                             </span>
-                            <span class="ql-formats">
+                                    <span class="ql-formats">
                               <select class="ql-color"></select>
                               <select class="ql-background"></select>
                             </span>
-                            <span class="ql-formats">
+                                    <span class="ql-formats">
                               <button class="ql-script" value="sub"></button>
                               <button class="ql-script" value="super"></button>
                             </span>
-                            <span class="ql-formats">
+                                    <span class="ql-formats">
                               <button class="ql-header" value="1"></button>
                               <button class="ql-header" value="2"></button>
                               <button class="ql-blockquote"></button>
                               <button class="ql-code-block"></button>
                             </span>
+                                </div>
+                                <div id="snow-editor">
+                                    <h6>Title</h6>
+                                    <p>
+                                        Description (Optional)
+                                    </p>
+                                </div>
+                            </form>
                         </div>
-                        <div id="snow-editor">
-                            <h6>Title</h6>
-                            <p>
-                                Description (Optional)
-                            </p>
+                        <div class="col col-lg-3">
+                            <label for="sectionList" class="form-label">Topic</label>
+                            <select id="sectionList" name="sectionList" th:value="${sectionList.sectionType}">
+                                <option value="">Select Topic</option>
+                                <option th:each="data : ${sectionData}" th:value="${data.id}" th:text="${data.name}"
+                                        th:selected="${data.id == sectionList.courseId}"></option>
+                            </select>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

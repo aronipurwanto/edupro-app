@@ -3,6 +3,7 @@ package org.edupro.web.controller;
 import jakarta.validation.Valid;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.CourseRequest;
+import org.edupro.web.model.request.CourseSectionRequest;
 import org.edupro.web.model.response.CourseSectionRes;
 import org.edupro.web.service.CourseService;
 import org.springframework.stereotype.Controller;
@@ -79,7 +80,10 @@ public class ClassroomController extends BaseController {
 
     @GetMapping("/add/material")
     public ModelAndView material() {
-        return new ModelAndView("pages/classroom/_page-material");
+        ModelAndView view =  new ModelAndView("pages/classroom/_page-material");
+        view.addObject("sectionList", new CourseSectionRequest());
+        addObjectSection(view);
+        return view;
     }
 
     @GetMapping("/items")
@@ -99,5 +103,10 @@ public class ClassroomController extends BaseController {
         view.addObject("sections", sections);
         view.addObject("noUrutComparator", Comparator.comparing(CourseSectionRes::getNoUrut));
         return view;
+    }
+
+    public void addObjectSection(ModelAndView view){
+        List<CourseSectionRes> sectionRes = this.courseService.getAllSection();
+        view.addObject("sectionData", sectionRes );
     }
 }

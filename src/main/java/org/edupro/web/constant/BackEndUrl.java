@@ -56,6 +56,10 @@ public class BackEndUrl {
     public String courseUrl(){
         return Strings.concat(baseUrl, "/course");
     }
+
+    public String sectionUrl(){
+        return Strings.concat(baseUrl, "/course/{courseId}/section");
+    }
   
     public String personUrl(){
         return Strings.concat(baseUrl, "/person");
