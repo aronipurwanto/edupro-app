@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.CoursePersonRequest;
 import org.edupro.web.model.request.CourseRequest;
+import org.edupro.web.model.request.CourseSectionReq;
 import org.edupro.web.model.request.CourseSiswaRequest;
 import org.edupro.web.model.response.*;
 import org.edupro.web.service.CourseService;
@@ -63,11 +64,6 @@ public class ClassroomController extends BaseController {
         }
     }
 
-    @GetMapping("/topic/add")
-    public ModelAndView addTopic() {
-        return new ModelAndView("pages/classroom/_topic-add");
-    }
-
     @GetMapping("/people-teacher")
     public ModelAndView addPeopleTeacher() {
         ModelAndView view = new ModelAndView("pages/classroom/_people-teacher-add");
@@ -111,13 +107,52 @@ public class ClassroomController extends BaseController {
     @GetMapping("/detail/{id}")
     public ModelAndView courseDetail(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/classroom/detail");
-        var result = courseService.getById(id);
+        var result = courseService.getById(id).orElse(null);
         view.addObject("course", result);
         List<CourseSectionRes> sections = courseService.getSectionByCourseId(id);
+        if (sections.isEmpty()) {
+            sections = Collections.emptyList();
+        }
         view.addObject("sections", sections);
         view.addObject("noUrutComparator", Comparator.comparing(CourseSectionRes::getNoUrut));
         return view;
     }
+
+    @GetMapping("/{id}/topic/add")
+    public ModelAndView addTopic(@PathVariable("id") String id) {
+        ModelAndView view = new ModelAndView("pages/classroom/_topic-add");
+        CourseSectionReq section = new CourseSectionReq(id, "TOPIC");
+        view.addObject("section", section);
+        return view;
+    }
+
+    @PostMapping("/section/save")
+    public ModelAndView sectionSave(@Valid @ModelAttribute("section") CourseSectionReq request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/classroom/_topic-add");
+        if (result.hasErrors()){
+            addObjectTopic(view, request);
+            return view;
+        }
+
+        try{
+            CourseSectionRes courseSectionRes = courseService.saveSection(request).orElse(null);
+            if (courseSectionRes == null){
+                result.addError(new FieldError("section", "id", "Course section is null"));
+                addObjectTopic(view, request);
+                return view;
+            }
+            addObjectTopic(view, new CourseSectionReq(request.getCourseId(), "TOPIC"));
+            return view;
+        }catch (EduProWebException e){
+            result.addError(new FieldError("section", "id", "course section is null"));
+            addObjectTopic(view, request);
+            return view;
+        }
+    }
+    private void addObjectTopic(ModelAndView view, CourseSectionReq request){
+        view.addObject("section", request);
+    }
+
 
     private void addObject(ModelAndView view){
         view.addObject("studentList", siswaService.get());

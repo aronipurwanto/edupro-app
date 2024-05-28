@@ -67,7 +67,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a id="btn-topic-add" th:href="@{~/classroom/add/topic}" class="dropdown-item d-flex align-items-center">
+                                <a id="btn-topic-add" th:href="@{~/classroom/{id}/topic/add(id=${course.id})}" class="dropdown-item d-flex align-items-center">
                                     <i class="fa-solid fa-table-list"></i> &nbsp; Topic
                                 </a>
                             </li>

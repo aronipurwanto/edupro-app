@@ -1,10 +1,10 @@
 <form xmlns:th="http://www.thymeleaf.org" th:id="form-course" th:action="@{~/master/course/remove}"
       th:method="post" th:object="${course}">
-    <input type="hidden" name="id" th:value="${course.id}">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Delete Course</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <input type="hidden" name="id" th:value="${course.id}">
         </div>
         <div class="modal-body">
             <div class="row g-2">
