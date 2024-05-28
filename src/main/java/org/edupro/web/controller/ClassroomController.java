@@ -2,15 +2,21 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import org.edupro.web.exception.EduProWebException;
+import org.edupro.web.model.request.CoursePersonRequest;
 import org.edupro.web.model.request.CourseRequest;
-import org.edupro.web.model.response.CourseSectionRes;
+import org.edupro.web.model.request.CourseSiswaRequest;
+import org.edupro.web.model.response.*;
 import org.edupro.web.service.CourseService;
+import org.edupro.web.service.MasterPersonService;
+import org.edupro.web.service.MasterSiswaService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -18,8 +24,13 @@ import java.util.List;
 @RequestMapping("/classroom")
 public class ClassroomController extends BaseController {
     private final CourseService courseService;
-    public ClassroomController(CourseService courseService) {
+    private final MasterSiswaService siswaService;
+    private final MasterPersonService personService;
+
+    public ClassroomController(CourseService courseService, MasterSiswaService siswaService, MasterPersonService personService) {
         this.courseService = courseService;
+        this.siswaService = siswaService;
+        this.personService = personService;
     }
 
     @GetMapping
@@ -59,17 +70,24 @@ public class ClassroomController extends BaseController {
 
     @GetMapping("/people-teacher")
     public ModelAndView addPeopleTeacher() {
-        return new ModelAndView("pages/classroom/_people-teacher");
+        ModelAndView view = new ModelAndView("pages/classroom/_people-teacher-add");
+        view.addObject("teacher", new CoursePersonRequest());
+        addObject(view);
+        return view;
     }
 
     @GetMapping("/people-student")
     public ModelAndView addPeopleStudent() {
-        return new ModelAndView("pages/classroom/_people-student");
+        ModelAndView view = new ModelAndView("pages/classroom/_people-student-add");
+        view.addObject("student", new CourseSiswaRequest());
+        addObject(view);
+        return view;
     }
   
     @GetMapping("/people")
     public ModelAndView people() {
-        return new ModelAndView("pages/classroom/people");
+        var view = new ModelAndView("pages/classroom/people");
+        return view;
     }
 
     @GetMapping("/grades")
@@ -99,5 +117,30 @@ public class ClassroomController extends BaseController {
         view.addObject("sections", sections);
         view.addObject("noUrutComparator", Comparator.comparing(CourseSectionRes::getNoUrut));
         return view;
+    }
+
+    private void addObject(ModelAndView view){
+        view.addObject("studentList", siswaService.get());
+        view.addObject("teacherList", personService.get());
+    }
+
+    @GetMapping("/data-student")
+    public ResponseEntity<Response> getStudent(){
+        try {
+            List<SiswaResponse> result = siswaService.get();
+            return getResponse(result);
+        }catch (EduProWebException e){
+            return getResponse(Collections.emptyList());
+        }
+    }
+
+    @GetMapping("/data-teacher")
+    public ResponseEntity<Response> getTeacher(){
+        try {
+            List<PersonResponse> result = personService.get();
+            return getResponse(result);
+        }catch (EduProWebException e){
+            return getResponse(Collections.emptyList());
+        }
     }
 }

@@ -7,9 +7,7 @@ import org.edupro.web.constant.BackEndUrl;
 import org.edupro.web.constant.CommonConstant;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.CourseRequest;
-import org.edupro.web.model.response.CourseResponse;
-import org.edupro.web.model.response.CourseSectionRes;
-import org.edupro.web.model.response.Response;
+import org.edupro.web.model.response.*;
 import org.edupro.web.service.CourseService;
 import org.edupro.web.util.CommonUtil;
 import org.springframework.http.HttpEntity;
@@ -53,6 +51,22 @@ public class CourseServiceImpl extends BaseService implements CourseService {
             throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<CoursePeopleResponse> getPeople() {
+        try {
+            var url = backEndUrl.courseUrl()+ "/people";
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
+            if (response.getStatusCode() == HttpStatus.OK){
+                return (List<CoursePeopleResponse>) response.getBody().getData();
+            }
+
+            return Collections.emptyList();
+        }catch (RestClientException e){
+            var errors = this.readError(e);
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
         }
     }
 
