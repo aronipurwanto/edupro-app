@@ -1,0 +1,74 @@
+<form xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" th:id="form-sesi"
+      th:action="@{~/master/sesi/save}"
+      th:method="post" th:object="${sesi}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Tambah Sesi</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">
+                <ul>
+                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="kurikulumId" class="form-label"></label>
+                    <select id="kurikulumId" name="kurikulumId" th:value="${sesi.kurikulumId}" data-allow-clear="true"
+                            th:class="${#fields.hasErrors('kurikulumId')}? 'form-select select2 is-invalid': 'form-select select2'">
+                        <option value="">Pilih Kurikulum</option>
+                        <option th:each="item : ${kurikulum}" th:value="${item.id}" th:text="${item.nama}" th:selected="${item.id == sesi.kurikulumId}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('kurikulumId')}" class="invalid-feedback">
+                        <span th:errors="*{kurikulumId}"></span>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label for="tahunAjaranId" class="form-label">Tahun Ajaran</label>
+                    <select id="tahunAjaranId" name="tahunAjaranId" th:value="${sesi.tahunAjaranId}" data-allow-clear="true"
+                            th:class="${#fields.hasErrors('tahunAjaranId')}? 'form-select select2 is-invalid': 'form-select select2'">
+                        <option value="">Pilih Tahun Ajaran</option>
+                        <option th:each="item : ${dataTa}" th:value="${item.id}" th:text="${item.nama}" th:selected="${item.id == sesi.tahunAjaranId}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('tahunAjaranId')}" class="invalid-feedback">
+                        <span th:errors="*{tahunAjaranId}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="kodeKurikulum" class="form-label">Kode Kurikulum</label>
+                    <input type="text" id="kodeKurikulum" name="kodeKurikulum" th:value="${sesi.kodeKurikulum}"
+                           th:class="${#fields.hasErrors('kodeKurikulum')}? 'form-control is-invalid': 'form-control'" placeholder="Kode Kurikulum" />
+                    <div th:if="${#fields.hasErrors('kodeKurikulum')}" class="invalid-feedback">
+                        <span th:errors="*{kodeKurikulum}"></span>
+                    </div>
+                </div>
+
+                <div class="col mb-3">
+                    <label for="semester" class="form-label">Semester</label>
+                    <select id="semester" name="semester" th:value="${sesi.semester}" data-allow-clear="true"
+                            th:class="${#fields.hasErrors('semester')}? 'form-select select2 is-invalid': 'form-select select2'">
+                        <option value="">Pilih Semester</option>
+                        <option th:each="item : ${semester}" th:value="${item.kode}" th:text="${item.nama}" th:selected="${item.kode == sesi.semester}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('semester')}" class="invalid-feedback">
+                        <span th:errors="*{semester}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="fa-pull-right">
+                <button type="submit" class="btn btn-success">
+                    <i class="ti ti-check"></i>
+                    Simpan
+                </button>
+                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

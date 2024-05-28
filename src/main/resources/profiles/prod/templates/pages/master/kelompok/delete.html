@@ -1,0 +1,35 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-kelompok" th:action="@{~/master/kelompok/remove}"
+      th:method="post" th:object="${kelompok}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Delete Kelompok</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="idLembaga" class="form-label">Id Lembaga</label>
+                    <input type="text" id="idLembaga" name="idLembaga" class="form-control" th:value="${kelompok.idLembaga}" readonly>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="kode" class="form-label">Kode Lembaga</label>
+                    <input type="text" id="kode" name="kode" class="form-control" th:value="${kelompok.kode}" readonly>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="nama" class="form-label">Nama Kelompok</label>
+                    <input type="text" id="nama" name="nama" class="form-control" th:value="${kelompok.nama}" readonly>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="submit" name="submit" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</form>

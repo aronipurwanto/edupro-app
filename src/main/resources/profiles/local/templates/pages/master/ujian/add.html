@@ -1,0 +1,64 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-level" th:action="@{~/master/ujian/save}" th:method="post">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Penilaian Akhir Semester 2023/2024</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                    <label for="kodeUjian" class="form-label">Jenis Ujian</label>
+                    <select id="kodeUjian" name="kodeUjian" class="form-select">
+                        <option value="">Pilih Jenis Ujian</option>
+                    </select>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label for="namaUmum" class="form-label">Nama Ujian Umum</label>
+                    <input type="text" id="namaUmum" name="namaUjian" class="form-control" placeholder="Nama Ujian" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                    <label for="namaUjianIkm" class="form-label">Nama Ujian IKM Semester Ganjil</label>
+                    <input type="text" id="namaUjianIkm" name="namaUjianIkm" class="form-control" placeholder="Nama ujian IKM Semester Ganjil" />
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label  for="namaUjianIkmGenap" class="form-label">Nama Ujian IKM Semester Genap</label>
+                    <input type="text" id="namaUjianIkmGenap" name="namaUjianIkmGenap" class="form-control" placeholder="Nama ujian IKM SemesterGenap" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                    <label for="namaUjian" class="form-label">Nama Ujian K-13 Semester Ganjil</label>
+                    <input type="text" id="namaUjian" name="namaUjian" class="form-control" placeholder="Nama ujian K-13 Semester Ganjil" />
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label  for="namaUjianGenap" class="form-label">Nama Ujian K-13 Semester Genap</label>
+                    <input type="text" id="namaUjianGenap" name="namaUjianGenap" class="form-control" placeholder="Nama ujian K-13 SemesterGenap" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                    <label for="statusGuru" class="form-label">Status Guru</label>
+                    <select id="statusGuru" name="statusGuru" class="form-select">
+                        <option value="">Pilih Status</option>
+                        <option value="Aktif">Aktif</option>
+                        <option value="Non Aktif">Non Aktif</option>
+                    </select>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label for="statusSiswa" class="form-label">Status Siswa</label>
+                    <select id="statusSiswa" name="statusSiswa" class="form-select">
+                        <option value="">Pilih Status</option>
+                        <option value="Aktif">Aktif</option>
+                        <option value="Non Aktif">Non Aktif</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>
