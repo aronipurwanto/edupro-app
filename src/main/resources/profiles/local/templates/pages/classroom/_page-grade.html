@@ -1,0 +1,109 @@
+<form xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      th:id="form-grade" th:action="@{~/grade/save}"
+      th:method="post">
+    <div class="modal-body p-2 p-md-2">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="text-sm-start">
+            <h2 class="mb-2 text-info">Grading</h2>
+            <p class="mb-4">Grade Calculation</p>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p class="mb-0">Overall Grade Calcuation</p>
+                <p class="text-muted"><small>Choose grading System .<a href="">Learn More</a></small></p>
+            </div>
+            <div class="col-6">
+                <select class="form-control form-select">
+                    <option value="">No Overall Grade</option>
+                    <option value="">Total Points</option>
+                    <option value="">Weighted By Category</option>
+                </select>
+            </div>
+        </div>
+        <p>Show overall grades to students</p>
+        <hr>
+        <h3 class="mb-0">Grades Categories</h3>
+        <p>Grade categories must add up to 100%</p>
+        <div class="row">
+            <div class="col-6 mb-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control" placeholder="Enter Grade Category"
+                           aria-describedby="floatingInputHelp" />
+                    <label>Grade Category*</label>
+                    <div class="form-text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mb-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control" placeholder="Percentage"
+                           aria-describedby="floatingInputHelp" />
+                    <label>Percentage*</label>
+                    <div class="form-text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 mb-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control" placeholder="Enter Grade Category"
+                           aria-describedby="floatingInputHelp" />
+                    <label>Grade Category*</label>
+                    <div class="form-text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mb-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control" placeholder="Percentage"
+                           aria-describedby="floatingInputHelp" />
+                    <label>Percentage*</label>
+                    <div class="form-text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 mb-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control" placeholder="Enter Grade Category"
+                           aria-describedby="floatingInputHelp" />
+                    <label>Grade Category*</label>
+                    <div class="form-text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mb-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control" placeholder="Percentage"
+                           aria-describedby="floatingInputHelp" />
+                    <label>Percentage*</label>
+                    <div class="form-text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 mb-4">
+                <div class="form-floating">
+                    <input type="text" class="form-control" placeholder="Enter Grade Category"
+                           aria-describedby="floatingInputHelp" />
+                    <label>Grade Category*</label>
+                    <div class="form-text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mb-4">
+                <div class="form-floating">
+                    <input type="text" class="form-control" placeholder="Percentage"
+                           aria-describedby="floatingInputHelp" />
+                    <label>Percentage*</label>
+                    <div class="form-text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#">Add grade category</a>
+    </div>
+</form>

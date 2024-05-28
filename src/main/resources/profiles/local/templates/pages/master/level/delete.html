@@ -1,0 +1,43 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-level" th:action="@{~/master/level/remove}"
+      th:method="post" th:object="${level}">
+    <input type="hidden" name="id" th:value="${level.id}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Delete Level</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="namaLembaga" class="form-label">Lembaga</label>
+                    <input type="text" id="namaLembaga" name="namaLembaga" class="form-control" th:value="${level.namaLembaga}" readonly />
+                    <input type="hidden" name="idLembaga" th:value="${level.idLembaga}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="kode" class="form-label">Kode Level</label>
+                    <input type="text" id="kode" name="kode" th:value="${level.kode}" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="nama" class="form-label">Nama Level</label>
+                    <input type="text" id="nama" name="nama" th:value="${level.nama}" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="noUrut" class="form-label">No Urut</label>
+                    <input type="text" id="noUrut" name="noUrut" th:value="${level.noUrut}" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+        </div>
+    </div>
+</form>

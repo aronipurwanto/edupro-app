@@ -1,0 +1,46 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-tahun" th:action="@{~/master/ta/save}"
+      th:method="post" th:object="${tahunAjaran}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Tambah Tahun Ajaran</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+<!--            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">-->
+<!--                <ul>-->
+<!--                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
+<!--                </ul>-->
+<!--            </div>-->
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" id="nama" name="nama" th:value="${tahunAjaran.nama}"
+                           th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="Nama" />
+                    <div th:if="${#fields.hasErrors('nama')}" class="invalid-feedback">
+                        <span th:errors="*{nama}"></span>
+                    </div>
+                </div>
+                <div class="col mb-0">
+                    <label for="kurikulumId" class="form-label">Kode Kurikulum</label>
+                    <select id="kurikulumId" name="kurikulumId" th:value="${tahunAjaran.kurikulumId}" data-allow-clear="true"
+                            th:class="${#fields.hasErrors('kurikulumId')}? 'form-select select2 is-invalid': 'form-select select2'">
+                        <option value="">Pilih Kurikulum</option>
+                        <option th:each="item : ${dataKurikulum}" th:value="${item.id}" th:text="${item.nama}"
+                                th:selected="${item.id == tahunAjaran.kurikulumId}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('kurikulumId')}" class="invalid-feedback">
+                        <span th:errors="*{kurikulumId}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer input-group">
+            <button type="submit" class="btn btn-success">
+                Save
+            </button>
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,38 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-level" th:action="@{~/master/ekskul/remove}" th:method="post">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Delete Ekstra</h5>
+            <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="nama" class="form-label">Nama Ekstra</label>
+                    <input type="text" id="nama" name="nama" class="form-control" placeholder="Nama Ekstra" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="singkatan" class="form-label">Singkatan (Kode Ekstra)</label>
+                    <input type="text" id="singkatan" name="singkatan" class="form-control" placeholder="Singkatan">
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="jadwal" class="form-label">Jdwl.Pelajaran</label>
+                    <input type="text" id="jadwal" name="jadwal" class="form-control" placeholder="jadwal">
+                </div>
+                <div class="col mb-0">
+                    <label for="status" class="form-label">Status</label>
+                    <input type="text" id="status" name="status" class="form-control" placeholder="Status">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,32 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-tahun" th:action="@{~/master/ta/remove}"
+      th:method="post" th:object="${tahunAjaran}">
+    <input type="hidden" name="id" th:value="${tahunAjaran.id}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Delete Data Siswa</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" id="nama" name="nama" th:value="${tahunAjaran.nama}" class="form-control" readonly/>
+                </div>
+                <div class="col mb-3">
+                    <label for="kodeKurikulum" class="form-label">Nama</label>
+                    <input type="text" id="kodeKurikulum" name="kodeKurikulum" th:value="${tahunAjaran.kodeKurikulum}" class="form-control" readonly />
+                    <input type="hidden" name="kurikulumId" th:value="${tahunAjaran.kurikulumId}">
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div class="modal-footer input-group">
+            <button type="submit" class="btn btn-danger">
+                Delete
+            </button>
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+        </div>
+    </div>
+</form>

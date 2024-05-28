@@ -1,0 +1,46 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-level" th:action="@{~/master/level/save}" th:method="post">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Tambah Level</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="kode" class="form-label">Kode Level</label>
+                    <input type="text" id="kode" name="kode" class="form-control" placeholder="Kode Level" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="nama" class="form-label">Nama Level</label>
+                    <input type="text" id="nama" name="kode" class="form-control" placeholder="Nama Level" />
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="status" class="form-label">Status</label>
+                    <select id="status" name="status" class="form-select">
+                        <option value="">Pilih Status</option>
+                        <option value="1">Aktif</option>
+                        <option value="0">Non Aktif</option>
+                    </select>
+                </div>
+                <div class="col mb-0">
+                    <label for="riwayat" class="form-label">Status Riwayat</label>
+                    <select id="riwayat" name="riwayat" class="form-select">
+                        <option value="">Pilih Riwayat</option>
+                        <option value="1">Aktif</option>
+                        <option value="0">Non Aktif</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+</form>

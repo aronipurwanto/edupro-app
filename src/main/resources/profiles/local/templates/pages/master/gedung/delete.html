@@ -1,0 +1,30 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-gedung" th:action="@{~/master/gedung/remove}"
+      th:method="post" th:object="${gedung}">
+    <input type="hidden" name="id" th:value="${gedung.id}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Delete Gedung</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="kode" class="form-label">Kode</label>
+                    <input type="text" id="kode" name="kode" th:value="${gedung.kode}" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" id="nama" name="nama" th:value="${gedung.nama}" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer input-group">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+        </div>
+    </div>
+</form>

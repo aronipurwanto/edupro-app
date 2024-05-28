@@ -1,0 +1,85 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-course" th:action="@{~/master/course/remove}"
+      th:method="post" th:object="${course}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Delete Course</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <input type="hidden" name="id" th:value="${course.id}">
+        </div>
+        <div class="modal-body">
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name" class="form-control" th:value="${course.name}" readonly />
+                </div>
+                <div class="col mb-0">
+                    <label for="shortName" class="form-label">Short Name</label>
+                    <input type="text" id="shortName" name="shortName" class="form-control" th:value="${course.shortName}" readonly />
+                </div>
+                <div class="col mb-0">
+                    <label for="shown" class="form-label">Shown</label>
+                    <input type="text" id="shown" name="shown" class="form-control" th:value="${course.shown}" readonly />
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="startDate" class="form-label">Start Date</label>
+                    <input type="text" id="startDate" name="startDate" class="form-control" th:value="${course.startDate}" readonly />
+                </div>
+                <div class="col mb-0">
+                    <label for="endDate" class="form-label">End Date</label>
+                    <input type="text" id="endDate" name="endDate" class="form-control" th:value="${course.endDate}" readonly />
+                </div>
+                <div class="col mb-0">
+                    <label for="summary" class="form-label">Summary</label>
+                    <input type="text" id="summary" name="summary" class="form-control" th:value="${course.summary}" readonly />
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="imageId" class="form-label">Image Id</label>
+                    <input type="text" id="imageId" name="imageId" class="form-control" th:value="${course.imageId}" readonly />
+                </div>
+                <div class="col mb-0">
+                    <label for="format" class="form-label">Format</label>
+                    <input type="text" id="format" name="format" class="form-control" th:value="${course.format}" readonly />
+                </div>
+                <div class="col mb-0">
+                    <label for="hiddenSection" class="form-label">Hidden Section</label>
+                    <input type="text" id="hiddenSection" name="hiddenSection" class="form-control" th:value="${course.hiddenSection}" readonly />
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="layout" class="form-label">Layout</label>
+                    <input type="text" id="layout" name="layout" class="form-control" th:value="${course.layout}" readonly />
+                </div>
+                <div class="col mb-0">
+                    <label for="completionTracking" class="form-label">Completion Tracking</label>
+                    <input type="text" id="completionTracking" name="completionTracking" class="form-control" th:value="${course.completionTracking}" />
+                </div>
+                <div class="col mb-0">
+                    <label for="kodeLevel" class="form-label">Kode Level</label>
+                    <input type="text" id="kodeLevel" name="kodeLevel" class="form-control" th:value="${course.kodeLevel}" readonly />
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="kodeMapel" class="form-label">Mapel</label>
+                    <input id="kodeMapel" name="kodeMapel" class="form-control" th:value="${course.kodeMapel}" readonly />
+                    <input type="hidden" name="mapelId" th:value="${course.mapelId}">
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div class="modal-footer input-group">
+            <button type="submit" class="btn btn-danger">
+                <i class="ti ti-check"></i>
+                Delete
+            </button>
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+        </div>
+    </div>
+</form>
