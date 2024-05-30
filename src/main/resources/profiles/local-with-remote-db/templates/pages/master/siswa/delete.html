@@ -1,0 +1,87 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-siswa" th:action="@{~/master/siswa/remove}"
+      th:method="post" th:object="${siswa}">
+    <input type="hidden" name="id" th:value="${siswa.id}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Delete Data Siswa</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="nisn" class="form-label">Nisn</label>
+                    <input type="text" id="nisn" name="nisn" th:value="${siswa.nisn}" class="form-control" readonly/>
+                </div>
+                <div class="col mb-3">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" id="nama" name="nama" th:value="${siswa.nama}" class="form-control" readonly />
+                 </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="kotaTempatLahir" class="form-label">Kota TempatLahir</label>
+                    <input type="text" id="kotaTempatLahir" name="kotaTempatLahir"
+                           th:value="${siswa.kotaTempatLahir}" class="form-control" readonly />
+                </div>
+                <div class="col mb-3">
+                    <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
+                    <input type="date" id="tanggalLahir" name="tanggalLahir"
+                           th:value="${siswa.tanggalLahir}" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="gender" class="form-label">Gender</label>
+                    <input type="text" id="gender" name="gender"
+                        th:value="${siswa.gender}" class="form-control" readonly />
+                    <div th:if="${#fields.hasErrors('gender')}" class="invalid-feedback">
+                        <span th:errors="*{gender}"></span>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label for="agama" class="form-label">Agama</label>
+                    <input type="text" id="agama" name="agama"
+                           th:value="${siswa.agama}" class="form-control" readonly />
+                    <div th:if="${#fields.hasErrors('agama')}" class="invalid-feedback">
+                        <span th:errors="*{agama}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="golDarah" class="form-label">Gol Darah</label>
+                    <input type="text" id="golDarah" name="golDarah"
+                           th:value="${siswa.golDarah}" class="form-control" readonly />
+                    <div th:if="${#fields.hasErrors('golDarah')}" class="invalid-feedback">
+                        <span th:errors="*{golDarah}"></span>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label for="noTelp" class="form-label">No Telp.</label>
+                    <input type="text" id="noTelp" name="noTelp"
+                           th:value="${siswa.noTelp}" th:class="${#fields.hasErrors('noTelp')}? 'form-control is-invalid': 'form-control'" placeholder="No Telp" />
+                    <div th:if="${#fields.hasErrors('noTelp')}" class="invalid-feedback">
+                        <span th:errors="*{noTelp}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-0">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" th:value="${siswa.email}" th:class="${#fields.hasErrors('email')}? 'form-control is-invalid': 'form-control'" placeholder="Email" />
+                <div th:if="${#fields.hasErrors('email')}" class="invalid-feedback">
+                    <span th:errors="*{email}"></span>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <div class="modal-footer input-group">
+            <button type="submit" class="btn btn-danger">
+                Delete
+            </button>
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+        </div>
+    </div>
+</form>

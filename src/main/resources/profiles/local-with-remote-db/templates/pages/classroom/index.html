@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+    <meta charset="UTF-8">
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{~/vendor/css/pages/app-academy.css}" />
+    </th:block>
+    <title>Title</title>
+</head>
+<body>
+<div class="container-xxl flex-grow-1 container-p-y" layout:fragment="content">
+    <!--breadcrumb -->
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Classroom /</span> Profile</h4>
+    <!-- end breadcrumb -->
+
+    <!-- Navbar pills -->
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-pills flex-column flex-sm-row mb-4">
+                <li class="nav-item">
+                    <div class="btn-group" id="dropdown-icon">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="ti ti-plus"></i> &nbsp; Create
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a th:href="@{~/classroom/new}" id="btn-classroom-new" class="dropdown-item d-flex align-content-lg-between">
+                                    <i class="fa-regular fa-clipboard"></i> &nbsp; Classroom
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" class="dropdown-item d-flex align-items-center">
+                                    <i class="fa-solid fa-clipboard"></i> &nbsp; Join Class
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--/ Navbar pills -->
+
+    <input type="hidden" id="classroom-item-url" th:href="@{~/classroom/items}">
+    <div class="app-academy">
+        <div class="card mb-4">
+            <div class="card-header d-flex flex-wrap justify-content-between gap-3">
+                <div class="card-title mb-0 me-1">
+                    <h5 class="card-title mb-1" id="level-title">My Courses</h5>
+                </div>
+            </div>
+            <div class="card-body" id="classroom-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+    <script th:src="@{~/scripts/classroom.js}"></script>
+</th:block>
+</body>
+</html>

@@ -136,6 +136,20 @@
 				</resources>
 			</build>
 		</profile>
+		<profile>
+			<id>local-with-remote-db</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<filtering>false</filtering>
+						<directory>src/main/resources/profiles/local-with-remote-db</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
 	</profiles>
 
     <build>

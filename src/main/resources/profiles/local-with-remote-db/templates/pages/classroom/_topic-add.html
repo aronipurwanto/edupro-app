@@ -1,0 +1,37 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-topic"
+      th:action="@{~/classroom/section/save}"  th:method="post" th:object="${section}">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel4">Topic</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <input type="hidden" th:field="*{courseId}">
+        <input type="hidden" th:field="*{sectionType}">
+    </div>
+    <div class="modal-body">
+        <div class="row g-3">
+            <div class="col-12">
+                <label for="name" class="form-label">Topic</label>
+                <input type="text" id="name" th:field="*{name}" th:class="${#fields.hasErrors('name')}? 'form-control is-invalid': 'form-control'" />
+                <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                    <span th:errors="*{name}"></span>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label for="description" class="form-label">Description</label>
+                <input type="text" id="description" th:field="*{description}" th:class="${#fields.hasErrors('description')}? 'form-control is-invalid': 'form-control'" />
+                <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
+                    <span th:errors="*{description}"></span>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary me-sm-3 me-1">
+                    <i class="ti ti-check"></i>Submit
+                </button>
+                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
