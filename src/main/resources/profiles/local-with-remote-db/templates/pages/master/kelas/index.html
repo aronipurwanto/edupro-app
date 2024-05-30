@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y" layout:fragment="content">
+
+    <!-- Content -->
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex align-items-md-end justify-content-md-between">
+                <h5 class="card-title mb-0" id="kelas-title" th:href="@{~/master/kelas/data}">DAFTAR KELAS</h5>
+                <button class="btn rounded-pill btn-success btn-sm" id="btn-add" th:href="@{~/master/kelas/add}">
+                    <i class="ti ti-check"></i> &nbsp;
+                    Tambah Kelas
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-striped" id="table-kelas">
+                    <thead class="table-light">
+                    <tr>
+                        <th>No</th>
+                        <th>Kode</th>
+                        <th>Kelas</th>
+                        <th>Kode Ruangan</th>
+                        <th>Lembaga</th>
+                        <th>Tahun Ajaran</th>
+                        <th>Level</th>
+                        <th>Semester</th>
+                        <th>Wali Kelas</th>
+                        <th>Status</th>
+                        <th class="cell-fit">Actions</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / Content -->
+<th:block layout:fragment="script">
+    <script th:src="@{~/scripts/master-kelas.js}"></script>
+</th:block>
+</body>
+</html>

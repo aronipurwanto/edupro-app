@@ -1,0 +1,76 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-person" th:action="@{~/master/person/remove}"
+      th:method="post" th:object="${person}">
+    <input type="hidden" name="id" th:value="${person.id}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Delete Person</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="userId" class="form-label">User Id</label>
+                    <input type="text" id="userId" name="userId" th:value="${person.userId}" class="form-control" readonly/>
+                </div>
+                <div class="col mb-3">
+                    <label for="nomor" class="form-label">Nomor</label>
+                    <input type="text" id="nomor" name="nomor" th:value="${person.nomor}" class="form-control" readonly />
+                </div>
+                <div class="col mb-3">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" id="nama" name="nama" th:value="${person.nama}" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="alamatTinggal" class="form-label">Alamat Tinggal</label>
+                    <input type="text" id="alamatTinggal" name="alamatTinggal" th:value="${person.alamatTinggal}" class="form-control" readonly/>
+                </div>
+                <div class="col mb-3">
+                    <label for="nik" class="form-label">NIK</label>
+                    <input type="text" id="nik" name="nik" th:value="${person.nik}" class="form-control" readonly />
+                </div>
+                <div class="col mb-3">
+                    <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
+                    <input type="text" id="tanggalLahir" name="tanggalLahir" th:value="${person.tanggalLahir}" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="tempatLahir" class="form-label">Tempat Lahir</label>
+                    <input type="text" id="tempatLahir" name="tempatLahir" th:value="${person.tempatLahir}" class="form-control" readonly/>
+                </div>
+                <div class="col mb-3">
+                    <label for="gender" class="form-label">Gender</label>
+                    <input type="text" id="gender" name="gender" th:value="${person.gender}" class="form-control" readonly />
+                </div>
+                <div class="col mb-3">
+                    <label for="agama" class="form-label">Agama</label>
+                    <input type="text" id="agama" name="agama" th:value="${person.agama}" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="golDarah" class="form-label">Gol-Darah</label>
+                    <input type="text" id="golDarah" name="golDarah" th:value="${person.golDarah}" class="form-control" readonly/>
+                </div>
+                <div class="col mb-3">
+                    <label for="noTelp" class="form-label">No-Telp</label>
+                    <input type="text" id="noTelp" name="noTelp" th:value="${person.noTelp}" class="form-control" readonly />
+                </div>
+                <div class="col mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" th:value="${person.email}" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer input-group">
+            <button type="submit" class="btn btn-danger">
+                Delete
+            </button>
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+        </div>
+    </div>
+</form>

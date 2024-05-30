@@ -1,0 +1,52 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-kelompok" th:action="@{~/master/kelompok/update}"
+      th:method="post" th:object="${kelompok}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel4">Edit Kelompok</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger errors" role="alert">
+                <ul>
+                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                </ul>
+            </div>
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="idLembaga" class="form-label">ID Lembaga</label>
+                    <input type="text" id="idLembaga" name="idLembaga" th:value="${kelompok.idLembaga}"
+                           th:class="${#fields.hasErrors('idLembaga')} ? 'form-control is-invalid' : 'form-control'" placeholder="ID Lembaga" />
+                    <div th:if="${#fields.hasErrors('idLembaga')}" class="invalid-feedback">
+                        <span th:errors="*{idLembaga}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="kode" class="form-label">Kode Kelompok</label>
+                    <input type="text" name="kode" id="kode" th:value="${kelompok.kode}"
+                           th:class="${#fields.hasErrors('kode')} ? 'form-control is-invalid': 'form-control'" placeholder="Kode Kelompok" />
+                    <div th:if="${#fields.hasErrors('kode')}" class="invalid-feedback">
+                        <span th:errors="*{kode}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col mb-0">
+                    <label for="nama" class="form-label">Nama Kelompok</label>
+                    <input type="text" id="nama" name="nama" th:value="${kelompok.nama}"
+                           th:class="${#fields.hasErrors('nama')} ? 'form-control is-invalid' : 'form-control'" placeholder="Nama Kelompok" />
+                    <div th:if="${#fields.hasErrors('nama')}" class="invalid-feedback">
+                        <span th:errors="*{nama}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                Close
+            </button>
+            <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
+        </div>
+    </div>
+</form>
