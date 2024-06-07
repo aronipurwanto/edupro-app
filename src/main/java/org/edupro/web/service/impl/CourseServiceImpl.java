@@ -2,6 +2,8 @@ package org.edupro.web.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.apache.logging.log4j.util.Strings;
 import org.edupro.web.constant.BackEndUrl;
 import org.edupro.web.constant.CommonConstant;
@@ -27,6 +29,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CourseServiceImpl extends BaseService implements CourseService {
@@ -67,7 +70,7 @@ public class CourseServiceImpl extends BaseService implements CourseService {
         try {
             var url = backEndUrl.courseUrl()+"/user";
             return getCourseResponses(url);
-        }catch (RestClientException e){
+        } catch (RestClientException e){
             var errors = this.readError(e);
             throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
         } catch (IOException e) {

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y" layout:fragment="content">
+    <!-- Content
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Level Kelas /</span> List</h4>
+    -->
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex align-items-md-end justify-content-md-between">
+                <h5 class="card-title mb-0" id="mapel-title" th:href="@{~/master/mapel/data}">Daftar Mata Pelajaran</h5>
+                <div class="fa-pull-right">
+                    <div class="input-group rounded-pill">
+                        <button type="button" class="btn btn-sm btn-info" id="btn-add" th:href="@{~/master/mapel/add}">
+                            <i class="ti ti-circle-plus"></i> &nbsp;
+                            Buat Mapel
+                        </button>
+                        <button type="button" class="btn btn-sm btn-info">
+                            <span class="ti ti-upload"></span>Impport Mapel
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary">
+                            <span class="ti ti-window"></span>Kelompok
+                        </button>
+                        <button type="button" class="btn btn-sm btn-warning">
+                            <span class="ti ti-arrow-back"></span>kembali
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table id="table-mapel" class="table table-striped">
+                    <thead class="table-light">
+                    <tr>
+                        <th>No</th>
+                        <th>Kode</th>
+                        <th>Nama</th>
+                        <th>Status</th>
+                        <th class="cell-fit">Actions</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script th:src="@{~/scripts/master-mapel.js}"></script>
+</th:block>
+</body>
+</html>
