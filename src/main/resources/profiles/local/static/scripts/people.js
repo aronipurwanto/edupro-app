@@ -228,10 +228,19 @@ $(document).ready(function (){
         showModal(url, ' ');
     });
 
+    // btn add click student
     $("#btn-people-student").click(function (event) {
         event.preventDefault();
 
         var url = $(this).attr('href');
         showModal(url, ' ');
-    })
+    });
+
+    // form submit student
+    $('#main-modal').on('submit', '#form-people-student', function (e){
+        e.preventDefault();
+        var ajaxUrl = $(this).attr('action');
+        const data = convertFormToJSON($(this));
+        ajaxSubmit(ajaxUrl, data, dt_student);
+    });
 });

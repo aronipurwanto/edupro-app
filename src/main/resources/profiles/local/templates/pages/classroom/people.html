@@ -34,7 +34,7 @@
     <!--/ Navbar pills -->
 
     <div class="card mb-5">
-        <div class="card-body">
+        <div class="card-body" th:object="${people}">
             <div class="row mb-3">
                 <div class="col-md-6">
                     <h4 class="card-title mb-0" id="teacher-title" th:href="@{~/classroom/data-teacher}">Teachers</h4>
@@ -56,6 +56,12 @@
                             <th class="cell-fit">Actions</th>
                         </tr>
                         </thead>
+                        <tbody>
+                            <tr th:each="item : ${people}">
+                                <td th:text="${item.courseId}"></td>
+                                <td th:text="${item.teachers}"></td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -69,22 +75,25 @@
                     <h4 class="card-title mb-0" id="student-title" th:href="@{~/classroom/data-student}">Students</h4>
                 </div>
                 <div class="col-md-6">
-                    <a id="btn-people-student" th:href="@{~/classroom/people-student}">
+                    <a id="btn-people-student" th:href="@{~/classroom/{id}/people-student(id=${people.courseId})}">
                         <i class="fa fa-xl fa-user-plus fa-pull-right"></i>
                     </a>
                 </div>
                 <div class="table-responsive text-nowrap">
-                    <table id="table-student" class="table table-striped">
+                    <table class="table table-striped">
                         <thead class="table-light">
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
-                            <th>NISN</th>
-                            <th>Gender</th>
-                            <th>Status</th>
                             <th class="cell-fit">Actions</th>
                         </tr>
                         </thead>
+                        <tbody>
+                            <tr th:each="item : ${people}">
+                                <td th:text="${item.courseId}"></td>
+                                <td th:text="${item.students}"></td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
