@@ -171,6 +171,7 @@
 
      @ExceptionHandler(value = {EduProWebException.class})
      public ResponseEntity<Response> handleException(EduProWebException e) {
+    	 log.error(e.getMessage(), e);
          if(e.getErrors() == null) {
              return ResponseEntity.status(e.getStatus()).body(Response.builder()
                      .statusCode(e.getStatus().value())
