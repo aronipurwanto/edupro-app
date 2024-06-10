@@ -2,10 +2,7 @@ package org.edupro.web.controller;
 
 import jakarta.validation.Valid;
 import org.edupro.web.exception.EduProWebException;
-import org.edupro.web.model.request.CoursePersonRequest;
-import org.edupro.web.model.request.CourseRequest;
-import org.edupro.web.model.request.CourseSectionReq;
-import org.edupro.web.model.request.CourseSiswaRequest;
+import org.edupro.web.model.request.*;
 import org.edupro.web.model.response.*;
 import org.edupro.web.service.CourseService;
 import org.edupro.web.service.MasterPersonService;
@@ -20,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/classroom")
@@ -120,7 +116,10 @@ public class ClassroomController extends BaseController {
 
     @GetMapping("/add/material")
     public ModelAndView material() {
-        return new ModelAndView("pages/classroom/_page-material");
+        ModelAndView view =  new ModelAndView("pages/classroom/_page-material");
+        view.addObject("sectionList", new CourseSectionRequest());
+        addObjectSection(view);
+        return view;
     }
 
     @GetMapping("/items")
@@ -143,6 +142,11 @@ public class ClassroomController extends BaseController {
         view.addObject("sections", sections);
         view.addObject("noUrutComparator", Comparator.comparing(CourseSectionRes::getNoUrut));
         return view;
+    }
+
+    public void addObjectSection(ModelAndView view){
+        List<CourseSectionRes> sectionRes = this.courseService.getSectionByCourseId("");
+        view.addObject("sectionData", sectionRes );
     }
 
     @GetMapping("/{id}/topic/add")

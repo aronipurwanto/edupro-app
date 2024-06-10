@@ -70,7 +70,7 @@ public class CourseServiceImpl extends BaseService implements CourseService {
         try {
             var url = backEndUrl.courseUrl()+"/user";
             return getCourseResponses(url);
-        } catch (RestClientException e){
+        }catch (RestClientException e){
             var errors = this.readError(e);
             throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
         } catch (IOException e) {
