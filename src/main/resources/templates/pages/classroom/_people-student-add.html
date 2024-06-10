@@ -1,0 +1,29 @@
+<form xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      th:id="form-people-student" th:action="@{~/classroom/people-student/save}"
+      th:method="post" th:object="${student}">
+    <div class="modal-body">
+        <h5 class="modal-title" >
+            <i class="fa-regular fa-user"></i>
+            &nbsp; Invite Student</h5>
+        <input type="hidden" th:field="*{courseId}">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="row">
+            <div class="col ms-auto mb-2">
+                <label for="siswaId" class="form-label"></label>
+                <select id="siswaId" name="siswaId" class="form-control" th:field="*{siswaId}" data-allow-clear="true">
+                    <option value="">Please Select a Student . . .</option>
+                    <option th:each="item : ${studentList}" th:value="${item.id}" th:text="${item.nama}" th:selected="${item.id == student.siswaId}">
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer input-group ">
+        <button type="submit" class="btn btn-primary">
+            Invite
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+        </button>
+    </div>
+</form>

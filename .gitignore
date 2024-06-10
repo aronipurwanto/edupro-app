@@ -2,3 +2,6 @@
 /mvnw
 /.idea/
 #/src/main/resources/application.yaml
+/.project
+/.classpath
+/.factorypath

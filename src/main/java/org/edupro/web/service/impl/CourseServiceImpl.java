@@ -2,14 +2,16 @@ package org.edupro.web.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.apache.logging.log4j.util.Strings;
 import org.edupro.web.constant.BackEndUrl;
 import org.edupro.web.constant.CommonConstant;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.model.request.CourseRequest;
-import org.edupro.web.model.response.CourseResponse;
-import org.edupro.web.model.response.CourseSectionRes;
-import org.edupro.web.model.response.Response;
+import org.edupro.web.model.request.CourseSectionReq;
+import org.edupro.web.model.request.CourseSiswaRequest;
+import org.edupro.web.model.response.*;
 import org.edupro.web.service.CourseService;
 import org.edupro.web.util.CommonUtil;
 import org.springframework.http.HttpEntity;
@@ -27,6 +29,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CourseServiceImpl extends BaseService implements CourseService {
@@ -39,15 +42,6 @@ public class CourseServiceImpl extends BaseService implements CourseService {
         if (response.getStatusCode() == HttpStatus.OK){
             String json = objectMapper.writeValueAsString(Objects.requireNonNull(response.getBody()).getData());
             return CommonUtil.jsonArrayToList(json, CourseResponse.class);
-        }
-        return Collections.emptyList();
-    }
-
-    private List<CourseSectionRes> getCourseSecResponses(String url) throws IOException {
-        ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
-        if (response.getStatusCode() == HttpStatus.OK){
-            String json = objectMapper.writeValueAsString(Objects.requireNonNull(response.getBody()).getData());
-            return CommonUtil.jsonArrayToList(json, CourseSectionRes.class);
         }
         return Collections.emptyList();
     }
@@ -66,16 +60,9 @@ public class CourseServiceImpl extends BaseService implements CourseService {
     }
 
     @Override
-    public List<CourseSectionRes> getAllSection() throws EduProWebException {
-        try {
-            var url = backEndUrl.sectionUrl();
-            return getCourseSecResponses(url);
-        } catch (RestClientException e) {
-            var errors = this.readError(e);
-            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
-        }catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public Optional<CoursePeopleResponse> getPeople(String id) {
+            var url = backEndUrl.courseUrl()+"/"+id+"/people";
+            return getCoursePeople(url);
     }
 
     @Override
@@ -92,9 +79,63 @@ public class CourseServiceImpl extends BaseService implements CourseService {
     }
 
     @Override
+    public List<CourseSectionRes> getTopicByCourseId(String courseId) throws EduProWebException {
+        var url = backEndUrl.courseUrl()+"/"+courseId+"/topic";
+        return getSection(url);
+    }
+
+    @Override
     public List<CourseSectionRes> getSectionByCourseId(String courseId) throws EduProWebException {
+        var url = backEndUrl.courseUrl()+"/"+courseId+"/section";
+        return getSection(url);
+    }
+
+    @Override
+    public Optional<CourseSectionRes> saveSection(CourseSectionReq request) throws EduProWebException {
         try {
-            var url = backEndUrl.courseUrl()+"/"+courseId+"/section";
+            var url = backEndUrl.courseUrl()+"/"+request.getCourseId()+"/section";
+            HttpEntity<CourseSectionReq> httpEntity = new HttpEntity<>(request, getHeader());
+            ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
+            if (response.getStatusCode() == HttpStatus.OK){
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                CourseSectionRes result = objectMapper.readValue(json, CourseSectionRes.class);
+                return Optional.of(result);
+            }
+
+            return Optional.empty();
+        }catch (RestClientException e){
+            var errors = this.readError(e);
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        }catch (IOException e) {
+            List<FieldError> errors = List.of(new FieldError("id", "id", e.getMessage()));
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        }
+    }
+
+    @Override
+    public Optional<CourseSiswaResponse> saveSiswa(CourseSiswaRequest request) {
+        try {
+            var url = backEndUrl.courseUrl()+"/"+request.getCourseId()+"/siswa";
+            HttpEntity<CourseSiswaRequest> httpEntity = new HttpEntity<>(request, getHeader());
+            ResponseEntity<Response> response = restTemplate.postForEntity(url, httpEntity, Response.class);
+            if (response.getStatusCode() == HttpStatus.OK){
+                byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
+                CourseSiswaResponse result = objectMapper.readValue(json, CourseSiswaResponse.class);
+                return Optional.of(result);
+            }
+
+            return Optional.empty();
+        }catch (RestClientException e){
+            var errors = this.readError(e);
+            throw  new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        }catch (IOException e){
+            List<FieldError> errors = List.of(new FieldError("id", "id", e.getMessage()));
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        }
+    }
+
+    private List<CourseSectionRes> getSection(String url) throws EduProWebException {
+        try {
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK){
                 String json = objectMapper.writeValueAsString(Objects.requireNonNull(response.getBody()).getData());
@@ -102,6 +143,23 @@ public class CourseServiceImpl extends BaseService implements CourseService {
                 return result;
             }
             return Collections.emptyList();
+        }catch (RestClientException e){
+            var errors = this.readError(e);
+            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Optional<CoursePeopleResponse> getCoursePeople(String url) throws EduProWebException {
+        try {
+            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
+            if (response.getStatusCode() == HttpStatus.OK){
+                String json = objectMapper.writeValueAsString(Objects.requireNonNull(response.getBody()).getData());
+                CoursePeopleResponse result = objectMapper.readValue(json, CoursePeopleResponse.class);
+                return Optional.of(result);
+            }
+            return Optional.empty();
         }catch (RestClientException e){
             var errors = this.readError(e);
             throw new EduProWebException(CommonConstant.Error.ERR_API, errors);

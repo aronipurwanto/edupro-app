@@ -17,6 +17,15 @@ $(document).ready(function () {
         showModal(url, ' ');
     });
 
+    // save topic
+    $('#main-modal').on('submit', '#form-topic', function (e){
+        e.preventDefault();
+        var ajaxUrl = $(this).attr('action');
+        const data = convertFormToJSON($(this));
+        ajaxSubmit(ajaxUrl, data, null);
+        window.location.reload();
+    });
+
     $("#btn-people-add").click(function (event) {
         event.preventDefault();
 
