@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/classroom")
@@ -68,22 +69,48 @@ public class ClassroomController extends BaseController {
     public ModelAndView addPeopleTeacher() {
         ModelAndView view = new ModelAndView("pages/classroom/_people-teacher-add");
         view.addObject("teacher", new CoursePersonRequest());
-        addObject(view);
+        addObjectPeople(view);
         return view;
     }
 
-    @GetMapping("/people-student")
-    public ModelAndView addPeopleStudent() {
+    @GetMapping("/{id}/people-student")
+    public ModelAndView addPeopleStudent(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/classroom/_people-student-add");
-        view.addObject("student", new CourseSiswaRequest());
-        addObject(view);
+        view.addObject("student", new CourseSiswaRequest(id));
+        addObjectPeople(view);
         return view;
     }
-  
-    @GetMapping("/people")
-    public ModelAndView people() {
-        var view = new ModelAndView("pages/classroom/people");
+
+    @GetMapping("/{id}/people")
+    public ModelAndView people(@PathVariable("id") String id) {
+        ModelAndView view = new ModelAndView("pages/classroom/people");
+        CoursePeopleResponse people = courseService.getPeople(id).orElse(null);
+        view.addObject("people", people);
         return view;
+    }
+
+    @PostMapping("/people-student/save")
+    public ModelAndView studentSave(@Valid @ModelAttribute("student") CourseSiswaRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/classroom/_people-student-add");
+        if (result.hasErrors()){
+            addObjectStudent(view, request);
+            return view;
+        }
+
+        try {
+            CourseSiswaResponse courseSiswaRes = courseService.saveSiswa(request).orElse(null);
+            if (courseSiswaRes == null){
+                result.addError(new FieldError("student", "id", "Course siswa is null"));
+                addObjectStudent(view, request);
+                return view;
+            }
+            addObjectStudent(view, new CourseSiswaRequest(request.getCourseId(), request.getSiswaId()));
+            return view;
+        }catch (EduProWebException e){
+            result.addError(new FieldError("student", "id", "Course siswa is null"));
+            addObjectStudent(view, request);
+            return view;
+        }
     }
 
     @GetMapping("/grades")
@@ -149,12 +176,17 @@ public class ClassroomController extends BaseController {
             return view;
         }
     }
+
     private void addObjectTopic(ModelAndView view, CourseSectionReq request){
         view.addObject("section", request);
     }
 
+    private void addObjectStudent(ModelAndView view, CourseSiswaRequest request){
+        view.addObject("student", request);
+    }
 
-    private void addObject(ModelAndView view){
+
+    private void addObjectPeople(ModelAndView view){
         view.addObject("studentList", siswaService.get());
         view.addObject("teacherList", personService.get());
     }

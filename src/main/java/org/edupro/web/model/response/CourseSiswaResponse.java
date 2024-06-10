@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class CourseSiswaResponse {
     private String courseId;
     private String siswaId;
-    private String siswaName;}
+    private String siswaName;
+}
