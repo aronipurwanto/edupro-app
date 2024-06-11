@@ -61,10 +61,10 @@ public class ClassroomController extends BaseController {
         }
     }
 
-    @GetMapping("/people-teacher")
-    public ModelAndView addPeopleTeacher() {
+    @GetMapping("/{id}/people-teacher")
+    public ModelAndView addPeopleTeacher(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/classroom/_people-teacher-add");
-        view.addObject("teacher", new CoursePersonRequest());
+        view.addObject("teacher", new CoursePersonRequest(id));
         addObjectPeople(view);
         return view;
     }
