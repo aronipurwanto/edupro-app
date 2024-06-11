@@ -124,10 +124,12 @@ public class ClassroomController extends BaseController {
         return new ModelAndView("pages/classroom/_page-grade");
     }
 
-    @GetMapping("/add/material")
-    public ModelAndView material() {
+    @GetMapping("/{id}/material/add")
+    public ModelAndView material(@PathVariable("id") String id) {
         ModelAndView view =  new ModelAndView("pages/classroom/_page-material");
+        CourseSectionReq section = new CourseSectionReq(id, "MATERIAL");
         view.addObject("sectionList", new CourseSectionRequest());
+        view.addObject("section", section);
         addObjectSection(view);
         return view;
     }
@@ -163,6 +165,14 @@ public class ClassroomController extends BaseController {
     public ModelAndView addTopic(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/classroom/_topic-add");
         CourseSectionReq section = new CourseSectionReq(id, "TOPIC");
+        view.addObject("section", section);
+        return view;
+    }
+
+    @GetMapping("/{id}/quiz/add")
+    public ModelAndView addQuiz(@PathVariable("id") String id) {
+        ModelAndView view = new ModelAndView("pages/classroom/_topic-quiz");
+        CourseSectionReq section = new CourseSectionReq(id, "QUIZ");
         view.addObject("section", section);
         return view;
     }
