@@ -9,4 +9,6 @@ $(document).ready(function (){
         var url = $(this).attr('href');
         loadPage(url, '#dashboard-content');
     });
+
+    getActiveMenu();
 });

@@ -70,3 +70,14 @@ function ajaxSubmit(url, data, dataTable = null){
         }
     });
 }
+
+function getActiveMenu(){
+    var currentUrl = window.location.pathname;
+
+    $('.menu-item .menu-link').each(function (){
+        var href = $(this).attr('href');
+        if (currentUrl.includes(href)) {
+            $(this).closest('.menu-item').addClass('active');
+        }
+    });
+}

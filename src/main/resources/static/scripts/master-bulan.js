@@ -125,4 +125,6 @@ $(document).ready(function () {
         $('.dataTables_length').addClass('mt-2 mt-sm-0 mt-md-3 me-2');
         $('.dt-buttons').addClass('d-flex flex-wrap');
     }
+
+    getActiveMenu();
 });

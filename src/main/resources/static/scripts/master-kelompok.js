@@ -152,4 +152,6 @@ $(document).ready(function (){
        var url = $(this).attr('href');
        showModal(url, '');
     });
+
+    getActiveMenu();
 });

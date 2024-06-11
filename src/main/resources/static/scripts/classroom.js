@@ -37,4 +37,6 @@ $(document).ready(function (){
         const  data = convertFormToJSON($(this));
         ajaxSubmit(ajaxUrl, data )
     });
+
+    getActiveMenu();
 });

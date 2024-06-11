@@ -243,4 +243,6 @@ $(document).ready(function (){
         const data = convertFormToJSON($(this));
         ajaxSubmit(ajaxUrl, data, dt_student);
     });
+
+    getActiveMenu();
 });

@@ -147,4 +147,6 @@ if (dt_lookup_table.length > 0) {
         var url = $(this).attr('href');
         showModal(url,' ');
     });
+
+    getActiveMenu();
 });
