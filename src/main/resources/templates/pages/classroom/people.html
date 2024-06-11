@@ -48,15 +48,18 @@
                     <table class="table table-striped">
                         <thead class="table-light">
                         <tr>
-                            <th>Course Name</th>
+                            <th>Course Id</th>
+                            <th>Teacher Id</th>
                             <th>Teacher's Name</th>
                             <th class="cell-fit">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="item : ${people}">
+                            <tr th:each="item : ${people.teachers}">
                                 <td th:text="${item.courseId}"></td>
-                                <td th:text="${item.teachers}"></td>
+                                <td th:text="${item.personId}"></td>
+                                <td th:text="${item.personName}"></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
@@ -81,14 +84,17 @@
                         <thead class="table-light">
                         <tr>
                             <th>Course Name</th>
+                            <th>Student Id</th>
                             <th>Student's Name</th>
                             <th class="cell-fit">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="item : ${people}">
+                            <tr th:each="item : ${people.students}">
                                 <td th:text="${item.courseId}"></td>
-                                <td th:text="${item.students}"></td>
+                                <td th:text="${item.siswaId}"></td>
+                                <td th:text="${item.siswaName}"></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>

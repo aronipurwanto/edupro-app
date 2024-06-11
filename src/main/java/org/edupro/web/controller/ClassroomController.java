@@ -69,6 +69,16 @@ public class ClassroomController extends BaseController {
         return view;
     }
 
+    @PostMapping("/teacher/save")
+    public ModelAndView savePeople(@ModelAttribute("teacher") @Valid CoursePersonRequest request, BindingResult result){
+        ModelAndView view = new ModelAndView("pages/classroom/_people-teacher-add");
+        view.addObject("teacher", request);
+        if (result.hasErrors()){
+            return view;
+        }
+        return new ModelAndView("redirect:/classrom/"+request.getCourseId()+"/people");
+    }
+
     @GetMapping("/{id}/people-student")
     public ModelAndView addPeopleStudent(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/classroom/_people-student-add");

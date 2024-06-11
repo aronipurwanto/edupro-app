@@ -1,15 +1,14 @@
 <form xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
-      th:id="form-people-teacher" th:action="@{~/people-teacher/save}"
+      th:id="form-people-teacher" th:action="@{~/classroom/teacher/save}"
       th:method="post" th:object="${teacher}">
     <div class="modal-body">
-        <h5 class="modal-title" >
-            <i class="fa-regular fa-user"></i>
-            &nbsp; Invite Teacher</h5>
+        <input type="hidden" th:field="*{courseId}">
+        <h5 class="modal-title" ><i class="fa-regular fa-user"></i>&nbsp; Invite Teacher</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         <div class="row">
             <div class="col ms-auto mb-2">
-                <label for="teacherList" class="form-label"></label>
-                <select id="teacherList" name="teacherList" class="form-control" th:value="${teacher.personId}" data-allow-clear="true">
+                <label for="personId" class="form-label"></label>
+                <select id="personId" name="personId" class="form-control" th:value="${teacher.personId}" data-allow-clear="true">
                     <option value="">Please Select a Teacher . . .</option>
                     <option th:each="item : ${teacherList}" th:value="${item.id}" th:text="${item.nama}" th:selected="${item.id == teacher.personId}">
                     </option>
