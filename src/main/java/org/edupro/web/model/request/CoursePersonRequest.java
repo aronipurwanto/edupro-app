@@ -10,4 +10,8 @@ import lombok.NoArgsConstructor;
 public class CoursePersonRequest {
     private String courseId;
     private String personId;
+
+    public CoursePersonRequest(String courseId) {
+        this.courseId = courseId;
+    }
 }

@@ -5,3 +5,4 @@
 /.project
 /.classpath
 /.factorypath
+/src/main/resources/application-test.properties
