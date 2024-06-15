@@ -1,7 +1,7 @@
 package org.edupro.web.controller;
 
 import com.google.gson.Gson;
-import org.edupro.web.model.response.ResponseError;
+import org.edupro.web.base.model.ResponseError;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

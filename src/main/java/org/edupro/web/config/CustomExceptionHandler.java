@@ -7,7 +7,7 @@
  import org.edupro.web.constant.CommonConstant;
  import org.edupro.web.exception.EduProWebException;
  import org.edupro.web.exception.EmptyResponseBodyException;
- import org.edupro.web.model.response.Response;
+ import org.edupro.web.base.model.Response;
  import org.edupro.web.util.CommonUtil;
  import org.springframework.http.HttpStatus;
  import org.springframework.http.ResponseEntity;
