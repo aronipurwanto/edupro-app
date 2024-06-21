@@ -39,11 +39,11 @@ $(document).ready(function () {
             ajax: ajaxUrl,
             columns: [
                 { data: 'id'},
-                { data: 'kode'},
-                { data: 'nama'},
-                { data: 'kapasitas'},
-                { data: 'kodeGedung'},
-                { data: 'namaGedung'},
+                { data: 'code'},
+                { data: 'name'},
+                { data: 'capacity'},
+                { data: 'buildingCode'},
+                { data: 'buildingName'},
                 { data: 'status'},
                 { data: ' '}
             ],
@@ -64,7 +64,7 @@ $(document).ready(function () {
                         searchable: true,
                         orderable: true,
                         render: (data, type, full, meta) => {
-                            var $item = full['kode'];
+                            var $item = full['code'];
                             return '<span>' + $item + '</span>';
                         }
                     },
@@ -73,7 +73,7 @@ $(document).ready(function () {
                         searchable: true,
                         orderable: true,
                         render: (data, type, full, meta) => {
-                            var $item = full['nama'];
+                            var $item = full['name'];
                             return '<span>' +$item + '</span>';
                         }
                     },
@@ -82,7 +82,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kapasitas'];
+                        var $item = full['capacity'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -91,7 +91,7 @@ $(document).ready(function () {
                         searchable: true,
                         orderable: true,
                         render: (data, type, full, meta) => {
-                            var $item = full['kodeGedung'];
+                            var $item = full['buildingCode'];
                             return '<span>' +$item + '</span>';
                         }
                     },
@@ -100,7 +100,7 @@ $(document).ready(function () {
                         searchable: true,
                         orderable: true,
                         render: (data, type, full, meta) => {
-                            var $item = full['namaGedung'];
+                            var $item = full['buildingName'];
                             return '<span>' +$item + '</span>';
                         }
                     },

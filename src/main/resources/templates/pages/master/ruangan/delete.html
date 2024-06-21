@@ -1,7 +1,6 @@
 <form xmlns:th="http://www.thymeleaf.org" th:id="form-ruangan" th:action="@{~/master/ruangan/remove}"
       th:method="post" th:object="${ruangan}">
     <input type="hidden" name="id" th:value="${ruangan.id}">
-    <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Delete Ruangan</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -9,23 +8,23 @@
         <div class="modal-body">
             <div class="row g-2">
                 <div class="col mb-0">
-                    <label for="namaGedung" class="form-label">Gedung</label>
-                    <input type="text" id="namaGedung" name="namaGedung" class="form-control" th:value="${ruangan.namaGedung}" readonly>
-                    <input type="hidden" name="gedungId" th:value="${ruangan.gedungId}">
+                    <label for="buildingName" class="form-label">Gedung</label>
+                    <input type="text" id="buildingName" name="buildingName" class="form-control" th:value="${ruangan.buildingName}" readonly>
+                    <input type="hidden" name="buildingId" th:value="${ruangan.buildingId}">
                 </div>
                 <div class="col mb-0">
-                    <label for="kode" class="form-label">Kode</label>
-                    <input type="text" id="kode" name="kode" class="form-control" th:value="${ruangan.kode}" readonly>
+                    <label for="code" class="form-label">Kode</label>
+                    <input type="text" id="code" name="code" class="form-control" th:value="${ruangan.code}" readonly>
                 </div>
             </div>
             <div class="row">
                 <div class="col mb-0">
-                    <label for="nama" class="form-label">Nama</label>
-                    <input type="text" id="nama" name="nama" class="form-control" th:value="${ruangan.nama}" readonly>
+                    <label for="name" class="form-label">Nama</label>
+                    <input type="text" id="name" name="name" class="form-control" th:value="${ruangan.name}" readonly>
                 </div>
                 <div class="col mb-0">
-                    <label for="kapasitas" class="form-label">Kapasitas</label>
-                    <input type="text" id="kapasitas" name="kapasitas" class="form-control" th:value="${ruangan.kapasitas}" readonly>
+                    <label for="capacity" class="form-label">Kapasitas</label>
+                    <input type="text" id="capacity" name="capacity" class="form-control" th:value="${ruangan.capacity}" readonly>
                 </div>
             </div>
         </div>
@@ -35,5 +34,4 @@
                 Close
             </button>
         </div>
-    </div>
 </form>
