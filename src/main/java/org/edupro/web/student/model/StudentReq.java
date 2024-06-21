@@ -25,23 +25,23 @@ public class StudentReq {
 
     @NotEmpty( message = "Nama wajib di isi")
     @Size(max = 200)
-    private String nama;
+    private String name;
 
-    @NotEmpty(message = "tempat lahir wajib di isi")
-    @Size(max = 20)
-    private String kotaTempatLahir;
+    @NotEmpty(message = "pob wajib di isi")
+    @Size(min = 4, max = 100, message = "pob minimal 4 maximal 100")
+    private String pob;
 
-    @NotNull(message = "tanggal lahir wajib di isi")
-    private LocalDate tanggalLahir;
+    @NotNull(message = "dob wajib di isi")
+    private LocalDate dob;
 
     @NotEmpty(message = "Jenis Kelamin tidak boleh kosong")
     private String gender;
 
     @NotEmpty(message = "Agama tidak boleh kosong")
-    private String agama;
+    private String religion;
 
     @NotEmpty(message = "Golongan Darah tidak boleh kosong")
-    private String golDarah;
+    private String bloodType;
 
     @NotEmpty(message = "No Telepon tidak boleh kosong")
     private String noTelp;

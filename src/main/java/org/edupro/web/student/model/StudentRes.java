@@ -12,12 +12,12 @@ import lombok.Setter;
 public class StudentRes {
     private String id;
     private String nisn;
-    private String nama;
-    private String kotaTempatLahir;
-    private String tanggalLahir;
+    private String name;
+    private String pob;
+    private String dob;
     private String gender;
-    private String agama;
-    private String golDarah;
+    private String religion;
+    private String bloodType;
     private String noTelp;
     private String email;
     private String status;

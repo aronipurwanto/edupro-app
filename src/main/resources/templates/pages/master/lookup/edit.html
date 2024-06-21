@@ -18,34 +18,34 @@
                     <select id="group" name="group" th:value="${lookup.group}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('group')}? 'form-select select2 is-invalid': 'form-select select2'">
                         <option value="">Pilih Group</option>
-                        <option th:each="item : ${groups}" th:value="${item.kode}" th:text="${item.nama}" th:selected="${item.kode == lookup.group}"></option>
+                        <option th:each="item : ${groups}" th:value="${item.code}" th:text="${item.name}" th:selected="${item.code == lookup.group}"></option>
                     </select>
                     <div th:if="${#fields.hasErrors('group')}" class="invalid-feedback">
                         <span th:errors="*{group}"></span>
                     </div>
                 </div>
                 <div class="col mb-0">
-                    <label for="kode" class="form-label">Kode</label>
-                    <input type="text" id="kode" name="kode"  th:value="${lookup.kode}"th:class="${#fields.hasErrors('kode')}? 'form-control is-invalid': 'form-control'" placeholder="Kode" />
-                    <div th:if="${#fields.hasErrors('kode')}" class="invalid-feedback">
-                        <span th:errors="*{kode}"></span>
+                    <label for="code" class="form-label">code</label>
+                    <input type="text" id="code" name="code"  th:value="${lookup.code}"th:class="${#fields.hasErrors('code')}? 'form-control is-invalid': 'form-control'" placeholder="code" />
+                    <div th:if="${#fields.hasErrors('code')}" class="invalid-feedback">
+                        <span th:errors="*{code}"></span>
                     </div>
                 </div>
             </div>
 
             <div class="row g-2">
                 <div class="col mb-0">
-                    <label for="nama" class="form-label">Nama</label>
-                    <input type="text" id="nama" name="nama" th:value="${lookup.nama}" th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="Nama" />
-                    <div th:if="${#fields.hasErrors('nama')}" class="invalid-feedback">
-                        <span th:errors="*{nama}"></span>
+                    <label for="name" class="form-label">name</label>
+                    <input type="text" id="name" name="name" th:value="${lookup.name}" th:class="${#fields.hasErrors('name')}? 'form-control is-invalid': 'form-control'" placeholder="name" />
+                    <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                        <span th:errors="*{name}"></span>
                     </div>
                 </div>
                 <div class="col mb-0">
-                    <label for="urutan" class="form-label">Urutan</label>
-                    <input type="text" id="urutan" name="urutan" th:value="${lookup.urutan}" th:class="${#fields.hasErrors('urutan')}? 'form-control is-invalid': 'form-control'" placeholder="Urutan" />
-                    <div th:if="${#fields.hasErrors('urutan')}" class="invalid-feedback">
-                        <span th:errors="*{urutan}"></span>
+                    <label for="position" class="form-label">position</label>
+                    <input type="text" id="position" name="position" th:value="${lookup.position}" th:class="${#fields.hasErrors('position')}? 'form-control is-invalid': 'form-control'" placeholder="position" />
+                    <div th:if="${#fields.hasErrors('position')}" class="invalid-feedback">
+                        <span th:errors="*{position}"></span>
                     </div>
                 </div>
             </div>
