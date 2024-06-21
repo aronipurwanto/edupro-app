@@ -33,8 +33,8 @@ public class BackEndUrl {
         return Strings.concat(baseUrl,"/ruangan");
     }
 
-    public String gedungUrl(){
-        return Strings.concat(baseUrl,"/gedung");
+    public String buildingUrl(){
+        return Strings.concat(baseUrl,"/building");
     }
 
     public String kurikulumUrl(){
