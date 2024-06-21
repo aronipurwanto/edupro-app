@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/ruangan")
@@ -52,19 +53,25 @@ public class RoomController extends BaseController<RoomRes> {
     public ModelAndView save(@ModelAttribute("ruangan") @Valid RoomReq request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/ruangan/add");
         view.addObject("ruangan", request);
-
         if (result.hasErrors()){
             addObject(view);
             return view;
         }
-
+        Optional<RoomRes> res;
         try {
-            var response = service.save(request);
-            return new ModelAndView("redirect:/master/ruangan");
+            res = service.save(request);
         } catch (EduProWebException e){
             addError("ruangan", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if(res.isPresent()){
+            view.addObject("ruangan", new RoomReq());
+            view.addObject("dataGedung", gedungService.get());
+        }else {
+            addError("ruangan", result,Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/edit/{id}")
@@ -95,19 +102,25 @@ public class RoomController extends BaseController<RoomRes> {
     public ModelAndView update(@ModelAttribute("ruangan") @Valid RoomReq request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/ruangan/edit");
         view.addObject("ruangan", request);
-
         if (result.hasErrors()) {
             addObject(view);
             return view;
         }
-
+        Optional<RoomRes> res;
         try {
-            var response = service.update(request, request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/ruangan");
+            res = service.update(request, request.getId());
         } catch (EduProWebException e){
             addError("ruangan", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if(res.isPresent()){
+            view.addObject("ruangan", new RoomReq());
+            view.addObject("dataGedung", gedungService.get());
+        }else {
+            addError("ruangan", result,Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/delete/{id}")
@@ -120,19 +133,24 @@ public class RoomController extends BaseController<RoomRes> {
     public ModelAndView remove(@ModelAttribute("ruangan") @Valid RoomReq request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/ruangan/delete");
         view.addObject("ruangan", request);
-
         if (result.hasErrors()) {
             addObject(view);
             return view;
         }
-
+        Optional<RoomRes> res;
         try {
-            service.delete(request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/ruangan");
+            res = service.delete(request.getId());
         } catch (EduProWebException e){
             addError("ruangan", result,(List<FieldError>)e.getErrors());
             return view;
         }
+        if(res.isPresent()){
+            view.addObject("ruangan", new RoomReq());
+            view.addObject("dataGedung", gedungService.get());
+        }else {
+            addError("ruangan", result,Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/data")

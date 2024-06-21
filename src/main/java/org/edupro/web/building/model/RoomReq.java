@@ -18,16 +18,18 @@ public class RoomReq {
 
     @NotEmpty(message = "kode wajib diisi")
     @Size(min = 5, max = 10, message = "kode minimal 4 dan maksimal 10")
-    private String kode;
+    private String code;
 
     @NotEmpty(message = "nama tidak boleh kosong")
     @Size(min = 5, max = 100, message = "nama minimal 4 dan maksimal 10")
-    private String nama;
+    private String name;
 
     @NotNull(message = "kapasitas tidak boleh kosong")
-    private Integer kapasitas;
+    private Integer capacity;
 
     @NotEmpty(message = "kode gedung tidak boleh kosong")
-    private String gedungId;
+    private String buildingId;
+
+    private String buildingName;
 
 }

@@ -30,7 +30,7 @@ public class BackEndUrl {
     }
 
     public String ruanganUrl(){
-        return Strings.concat(baseUrl,"/ruangan");
+        return Strings.concat(baseUrl,"/room");
     }
 
     public String buildingUrl(){
