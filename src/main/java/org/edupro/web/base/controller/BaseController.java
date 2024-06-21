@@ -36,13 +36,13 @@ public class BaseController<T> {
 
     protected static void addObject(ModelAndView view, LookupService lookupService) {
         List<LookupRes> agama = lookupService.getByGroup(CommonConstant.GROUP_AGAMA);
-        view.addObject("agama", agama);
+        view.addObject("religion", agama);
 
         List<LookupRes> gender = lookupService.getByGroup(CommonConstant.GROUP_GENDER);
         view.addObject("gender", gender);
 
         List<LookupRes> golDarah = lookupService.getByGroup(CommonConstant.GROUP_GOL_DARAH);
-        view.addObject("golDarah", golDarah);
+        view.addObject("bloodType", golDarah);
     }
 
     public ResponseEntity<Response> getResponse(List<T> result){

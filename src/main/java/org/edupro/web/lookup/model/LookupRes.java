@@ -12,8 +12,8 @@ import lombok.Setter;
 public class LookupRes {
     private String id;
     private String group;
-    private String kode;
-    private String nama;
-    private Integer urutan;
+    private String code;
+    private String name;
+    private Integer position;
     private String status;
 }

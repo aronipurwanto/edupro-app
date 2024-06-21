@@ -27,12 +27,12 @@ $(document).ready(function (){
             columns: [
                 { data: 'id' },
                 { data: 'nisn' },
-                { data: 'nama' },
-                { data: 'kotaTempatLahir' },
-                { data: 'tanggalLahir' },
+                { data: 'name' },
+                { data: 'pob' },
+                { data: 'dob' },
                 { data: 'gender' },
-                { data: 'agama' },
-                { data: 'golDarah' },
+                { data: 'religion' },
+                { data: 'bloodType' },
                 { data: 'noTelp' },
                 { data: 'email' },
                 { data: 'status' },
@@ -60,7 +60,7 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['nama'];
+                        var $item = full['name'];
                         return '<span>'+$item +'</span>';
                     }
                 },
@@ -69,7 +69,7 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kotaTempatLahir'];
+                        var $item = full['pob'];
                         return '<span>'+$item +'</span>';
                     }
                 },
@@ -78,7 +78,7 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['tanggalLahir'];
+                        var $item = full['dob'];
                         return '<span>'+$item +'</span>';
                     }
                 },{
@@ -94,7 +94,7 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['agama'];
+                        var $item = full['religion'];
                         return '<span>'+$item +'</span>';
                     }
                 },{
@@ -102,7 +102,7 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['golDarah'];
+                        var $item = full['bloodType'];
                         return '<span>'+$item +'</span>';
                     }
                 },{

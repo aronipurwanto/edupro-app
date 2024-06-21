@@ -38,9 +38,9 @@ if (dt_lookup_table.length > 0) {
         columns: [
             {data: 'id'},
             {data: 'group'},
-            {data: 'kode'},
-            {data: 'nama'},
-            {data: 'urutan'},
+            {data: 'code'},
+            {data: 'name'},
+            {data: 'position'},
             {data: ''}
         ],
         columnDefs: [
@@ -65,7 +65,7 @@ if (dt_lookup_table.length > 0) {
                 searchable: true,
                 orderable: true,
                 render: (data, type, full, meta) => {
-                    var $item = full['kode'];
+                    var $item = full['code'];
                     return '<span>' + $item + '</span>';
                 }
             },
@@ -74,7 +74,7 @@ if (dt_lookup_table.length > 0) {
                 searchable: true,
                 orderable: true,
                 render: (data, type, full, meta) => {
-                    var $item = full['nama'];
+                    var $item = full['name'];
                     return '<span>' + $item + '</span>';
                 }
             },
@@ -83,7 +83,7 @@ if (dt_lookup_table.length > 0) {
                 searchable: true,
                 orderable: true,
                 render: (data, type, full, meta) => {
-                    var $item = full['urutan'];
+                    var $item = full['position'];
                     return '<span>' + $item + '</span>';
                 }
             },

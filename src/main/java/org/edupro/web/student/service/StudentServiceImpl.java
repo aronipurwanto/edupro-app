@@ -73,7 +73,7 @@ public class StudentServiceImpl extends BaseService implements StudentService {
     public Optional<StudentRes> save(StudentReq request) throws EduProWebException {
          try {
              var url = backEndUrl.siswaUrl();
-             HttpEntity<StudentReq> httpEntity = new HttpEntity<>(request, this.getHeader());
+             HttpEntity<StudentReq> httpEntity = new HttpEntity<>(request, getHeader());
              ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.POST, httpEntity, Response.class);
              if (response.getStatusCode() == HttpStatus.OK) {
                  byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
