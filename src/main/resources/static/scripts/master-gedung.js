@@ -27,8 +27,8 @@ $(document).ready(function () {
             ajax: ajaxUrl,
             columns: [
                 { data: 'id'},
-                { data: 'kode'},
-                { data: 'nama'},
+                { data: 'code'},
+                { data: 'name'},
                 { data: 'status'},
                 { data: ' '}
             ],
@@ -45,7 +45,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kode'];
+                        var $item = full['code'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -54,7 +54,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['nama'];
+                        var $item = full['name'];
                         return '<span>' + $item + '</span>';
                     }
                 },

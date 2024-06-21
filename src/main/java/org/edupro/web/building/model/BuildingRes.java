@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class BuildingRes {
     private String id;
-    private String kode;
-    private String nama;
+    private String code;
+    private String name;
     private String status;
 }

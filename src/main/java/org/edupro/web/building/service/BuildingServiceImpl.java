@@ -34,7 +34,7 @@ public class BuildingServiceImpl extends BaseService implements BuildingService 
     @Override
     public List<BuildingRes> get() {
         try {
-            var url = backEndUrl.gedungUrl();
+            var url = backEndUrl.buildingUrl();
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 return (List<BuildingRes>) response.getBody().getData();
@@ -49,7 +49,7 @@ public class BuildingServiceImpl extends BaseService implements BuildingService 
     @Override
     public Optional<BuildingRes> getById(String id) {
         try {
-            var url = Strings.concat(backEndUrl.gedungUrl(), "/"+ id);
+            var url = Strings.concat(backEndUrl.buildingUrl(), "/"+ id);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());
@@ -71,7 +71,7 @@ public class BuildingServiceImpl extends BaseService implements BuildingService 
     @Override
     public Optional<BuildingRes> save(BuildingReq request) {
         try {
-            var url = backEndUrl.gedungUrl();
+            var url = backEndUrl.buildingUrl();
             HttpEntity<BuildingReq> httpEntity = new HttpEntity<>(request, getHeader());
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.POST, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
@@ -94,7 +94,7 @@ public class BuildingServiceImpl extends BaseService implements BuildingService 
     @Override
     public Optional<BuildingRes> update(BuildingReq request, String id) {
         try {
-            var url = Strings.concat(backEndUrl.gedungUrl(),"/"+ id);
+            var url = Strings.concat(backEndUrl.buildingUrl(),"/"+ id);
             HttpEntity<BuildingReq> httpEntity = new HttpEntity<>(request, getHeader());
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.PUT, httpEntity, Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
@@ -116,7 +116,7 @@ public class BuildingServiceImpl extends BaseService implements BuildingService 
     @Override
     public Optional<BuildingRes> delete(String id) {
         try {
-            var url = Strings.concat(backEndUrl.gedungUrl(),"/"+ id);
+            var url = Strings.concat(backEndUrl.buildingUrl(),"/"+ id);
             ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.DELETE, this.getHttpEntity(), Response.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 byte[] json = objectMapper.writeValueAsBytes(Objects.requireNonNull(response.getBody()).getData());

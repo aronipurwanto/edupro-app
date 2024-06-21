@@ -15,8 +15,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/gedung")
@@ -45,13 +47,20 @@ public class BuildingController extends BaseController<BuildingRes> {
         if (result.hasErrors()) {
             return view;
         }
+        Optional<BuildingRes> res;
         try {
-            service.save(request);
-            return new ModelAndView("redirect:/master/gedung");
+             res = service.save(request);
         }catch (EduProWebException e){
             addError("gedung", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if (res.isPresent()) {
+            view.addObject("gedung", new BuildingReq());
+        }else {
+            addError("gedung", result, Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/edit/{id}")
@@ -83,14 +92,19 @@ public class BuildingController extends BaseController<BuildingRes> {
         if (result.hasErrors()) {
             return view;
         }
-
+        Optional<BuildingRes> res;
         try {
-            service.update(request, request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/gedung");
+            res = service.update(request, request.getId());
         }catch (EduProWebException e){
             addError("gedung", result,(List<FieldError>)e.getErrors());
             return view;
         }
+        if (res.isPresent()) {
+            view.addObject("gedung", new BuildingReq());
+        }else {
+            addError("gedung", result, Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/delete/{id}")
@@ -107,13 +121,19 @@ public class BuildingController extends BaseController<BuildingRes> {
         if (result.hasErrors()) {
             return view;
         }
+        Optional<BuildingRes> res;
         try {
-            service.delete(request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/gedung");
+            res = service.delete(request.getId());
         }catch (EduProWebException e){
             addError("gedung", result,(List<FieldError>)e.getErrors());
             return view;
         }
+        if (res.isPresent()) {
+            view.addObject("gedung", new BuildingReq());
+        }else {
+            addError("gedung", result, Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/data")
