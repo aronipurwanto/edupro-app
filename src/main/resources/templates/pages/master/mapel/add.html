@@ -1,6 +1,5 @@
 <form xmlns:th="http://www.thymeleaf.org" th:id="form-mapel" th:action="@{~/master/mapel/save}"
       th:method="post" th:object="${mapel}">
-    <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Tambah Mapel</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -13,19 +12,28 @@
 <!--            </div>-->
             <div class="row">
                 <div class="col mb-3">
-                    <label for="kode" class="form-label">Kode</label>
-                    <input type="text" id="kode" name="kode" th:value="${mapel.kode}" th:class="${#fields.hasErrors('kode')}? 'form-control is-invalid': 'form-control'" placeholder="Kode" />
-                    <div th:if="${#fields.hasErrors('kode')}" class="invalid-feedback">
-                        <span th:errors="*{kode}"></span>
+                    <label for="code" class="form-label">Kode</label>
+                    <input type="text" id="code" name="code" th:value="${mapel.code}" th:class="${#fields.hasErrors('code')}? 'form-control is-invalid': 'form-control'" placeholder="Kode" />
+                    <div th:if="${#fields.hasErrors('code')}" class="invalid-feedback">
+                        <span th:errors="*{code}"></span>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col mb-3">
-                    <label for="nama" class="form-label">Nama</label>
-                    <input type="text" id="nama" name="nama" th:value="${mapel.nama}" th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="Nama" />
-                    <div th:if="${#fields.hasErrors('nama')}" class="invalid-feedback">
-                        <span th:errors="*{nama}"></span>
+                    <label for="name" class="form-label">Nama</label>
+                    <input type="text" id="name" name="name" th:value="${mapel.name}" th:class="${#fields.hasErrors('name')}? 'form-control is-invalid': 'form-control'" placeholder="Nama" />
+                    <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                        <span th:errors="*{name}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="types" class="form-label">Types</label>
+                    <input type="text" id="types" name="types" th:value="${mapel.types}" th:class="${#fields.hasErrors('types')}? 'form-control is-invalid': 'form-control'" placeholder="Types" />
+                    <div th:if="${#fields.hasErrors('types')}" class="invalid-feedback">
+                        <span th:errors="*{types}"></span>
                     </div>
                 </div>
             </div>
@@ -40,5 +48,4 @@
                 Close
             </button>
         </div>
-    </div>
 </form>

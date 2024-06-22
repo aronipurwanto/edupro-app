@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/mapel")
@@ -48,13 +49,21 @@ public class SubjectController extends BaseController<SubjectRes> {
             return view;
         }
 
+        Optional<SubjectRes> res;
         try {
-            service.save(request);
-            return new ModelAndView("redirect:/master/mapel");
+            res = service.save(request);
         } catch (EduProWebException e){
             addError("mapel", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if(res.isPresent()){
+            view.addObject("mapel", new SubjectReq());
+        }else {
+            addError("mapel", result,Collections.emptyList());
+        }
+
+        return view;
     }
 
     @GetMapping("/edit/{id}")
@@ -72,13 +81,22 @@ public class SubjectController extends BaseController<SubjectRes> {
             return view;
         }
 
+        Optional<SubjectRes> res;
         try {
-            service.update(request, request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/mapel");
+            res = service.update(request, request.getId());
+
         } catch (EduProWebException e){
             addError("siswa", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if(res.isPresent()){
+            view.addObject("mapel", new SubjectReq());
+        }else {
+            addError("siswa", result,Collections.emptyList());
+        }
+
+        return view;
     }
 
 
@@ -112,13 +130,22 @@ public class SubjectController extends BaseController<SubjectRes> {
             return view;
         }
 
+        Optional<SubjectRes> res;
         try {
-            service.delete(request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/mapel");
+            res = service.delete(request.getId());
+
         } catch (EduProWebException e){
             addError("mapel", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if(res.isPresent()){
+            view.addObject("mapel", new SubjectReq());
+        }else {
+            addError("mapel", result,Collections.emptyList());
+        }
+
+        return view;
     }
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
