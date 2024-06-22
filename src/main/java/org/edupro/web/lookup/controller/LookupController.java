@@ -3,8 +3,8 @@ package org.edupro.web.lookup.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.base.controller.BaseController;
-import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.base.model.Response;
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.lookup.model.LookupReq;
 import org.edupro.web.lookup.model.LookupRes;
 import org.edupro.web.lookup.service.LookupService;
@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/lookup")
@@ -43,19 +45,25 @@ public class LookupController extends BaseController<LookupRes> {
     public ModelAndView save(@ModelAttribute("lookup") @Valid LookupReq request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/lookup/add");
         view.addObject("lookup", request);
+        addObject(view);
 
         if(result.hasErrors()){
-            addObject(view);
             return view;
         }
 
+        Optional<LookupRes> res;
+
         try {
-            service.save(request);
-            return new ModelAndView("redirect:/master/lookup");
+            res = service.save(request);
         } catch (EduProWebException e){
             addError("lookup", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if(res.isEmpty()){
+            addError("lookup", result, Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/edit/{id}")
@@ -84,25 +92,32 @@ public class LookupController extends BaseController<LookupRes> {
 
     private void addObject(ModelAndView view){
         view.addObject("groups", service.getGroup());
+        view.addObject("positionComparator", Comparator.comparing(LookupRes::getPosition));
     }
 
     @PostMapping("/update")
     public ModelAndView update(@ModelAttribute("lookup") @Valid LookupReq request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/lookup/edit");
         view.addObject("lookup", request);
+        addObject(view);
 
         if(result.hasErrors()){
-            addObject(view);
             return view;
         }
 
+        Optional<LookupRes> res;
+
         try {
-            service.update(request, request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/lookup");
+            res = service.update(request, request.getId());
         } catch (EduProWebException e){
             addError("lookup", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if(res.isEmpty()){
+            addError("lookup", result, Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/delete/{id}")
@@ -115,18 +130,24 @@ public class LookupController extends BaseController<LookupRes> {
     public ModelAndView remove(@ModelAttribute("lookup") @Valid LookupReq request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/lookup/delete");
         view.addObject("lookup", request);
+        addObject(view);
+
         if (result.hasErrors()){
-            addObject(view);
             return view;
         }
 
+        Optional<LookupRes> res;
         try {
-            service.delete(request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/lookup");
+            res = service.delete(request.getId());
         } catch (EduProWebException e){
             addError("lookup", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if(res.isEmpty()){
+            addError("lookup", result, Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/data")

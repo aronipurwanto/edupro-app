@@ -1,5 +1,6 @@
 package org.edupro.web.base.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.FieldError;
 import org.springframework.web.client.RestClientException;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -48,6 +50,13 @@ public class BaseService {
 
     public HttpEntity<String> getHttpEntity(){
         return new HttpEntity<>(null, getHeader());
+    }
+
+    protected List<FieldError> readError(IOException e) {
+        return List.of(new FieldError("error", "error", e.getMessage()));
+    }
+    protected List<FieldError> readError(JsonProcessingException e) {
+        return List.of(new FieldError("error", "error", e.getMessage()));
     }
 
     protected List<FieldError> readError(RestClientException e){

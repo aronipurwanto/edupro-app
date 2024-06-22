@@ -3,14 +3,14 @@ package org.edupro.web.lookup.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
+import org.edupro.web.base.model.Response;
+import org.edupro.web.base.service.BaseService;
 import org.edupro.web.constant.BackEndUrl;
 import org.edupro.web.constant.CommonConstant;
 import org.edupro.web.exception.EduProWebException;
-import org.edupro.web.base.model.CommonResponse;
-import org.edupro.web.base.model.Response;
-import org.edupro.web.base.service.BaseService;
 import org.edupro.web.lookup.model.LookupReq;
 import org.edupro.web.lookup.model.LookupRes;
+import org.edupro.web.util.CommonUtil;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -33,54 +33,35 @@ public class LookupServiceImpl extends BaseService implements LookupService {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
+    public List<LookupRes> getLookupData(String urlSuffix) {
+        try {
+            String url = backEndUrl.lookupUrl() + urlSuffix;
+            ResponseEntity<Response> response = restTemplate.exchange(url, HttpMethod.GET, getHttpEntity(), Response.class);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                String json = objectMapper.writeValueAsString(response.getBody().getData());
+                return CommonUtil.jsonArrayToList(json, LookupRes.class);
+            }
+            return Collections.emptyList();
+        } catch (Exception e) {
+            // Handle all exceptions in a single catch block
+            // Consider logging the error for debugging purposes
+            throw new EduProWebException(CommonConstant.Error.ERR_API, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @Override
     public List<LookupRes> get() {
-        var httpEntity = this.getHttpEntity();
-
-        try {
-            var url = backEndUrl.lookupUrl();
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, httpEntity, Response.class);
-            if(response.getStatusCode() == HttpStatus.OK) {
-                return (List<LookupRes>) response.getBody().getData();
-            }
-
-            return Collections.emptyList();
-        }catch (RestClientException e){
-            var errors = this.readError(e);
-            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
-        }
+        return getLookupData("");
     }
 
     @Override
     public List<LookupRes> getByGroup(String group) {
-        try {
-            var url = Strings.concat(backEndUrl.lookupUrl(),"/group/"+group);
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
-            if(response.getStatusCode() == HttpStatus.OK) {
-                return (List<LookupRes>) response.getBody().getData();
-            }
-
-            return Collections.emptyList();
-        }catch (RestClientException e){
-            var errors = this.readError(e);
-            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
-        }
+        return getLookupData("/group/" + group);
     }
 
     @Override
-    public List<CommonResponse> getGroup() {
-        try {
-            var url = Strings.concat(backEndUrl.lookupUrl(),"/group");
-            ResponseEntity<Response> response = restTemplate.exchange( url, HttpMethod.GET, this.getHttpEntity(), Response.class);
-            if(response.getStatusCode() == HttpStatus.OK) {
-                return (List<CommonResponse>) response.getBody().getData();
-            }
-
-            return Collections.emptyList();
-        }catch (RestClientException e){
-            var errors = this.readError(e);
-            throw new EduProWebException(CommonConstant.Error.ERR_API, errors);
-        }
+    public List<LookupRes> getGroup() {
+        return getLookupData("/group");
     }
 
     @Override
