@@ -3,11 +3,11 @@ package org.edupro.web.building.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.base.controller.BaseController;
+import org.edupro.web.base.model.Response;
 import org.edupro.web.building.model.BuildingReq;
 import org.edupro.web.building.model.BuildingRes;
 import org.edupro.web.building.service.BuildingService;
 import org.edupro.web.exception.EduProWebException;
-import org.edupro.web.base.model.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -15,7 +15,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -55,9 +54,7 @@ public class BuildingController extends BaseController<BuildingRes> {
             return view;
         }
 
-        if (res.isPresent()) {
-            view.addObject("gedung", new BuildingReq());
-        }else {
+        if (res.isEmpty()) {
             addError("gedung", result, Collections.emptyList());
         }
         return view;
@@ -99,9 +96,8 @@ public class BuildingController extends BaseController<BuildingRes> {
             addError("gedung", result,(List<FieldError>)e.getErrors());
             return view;
         }
-        if (res.isPresent()) {
-            view.addObject("gedung", new BuildingReq());
-        }else {
+
+        if (res.isEmpty()) {
             addError("gedung", result, Collections.emptyList());
         }
         return view;
@@ -128,9 +124,8 @@ public class BuildingController extends BaseController<BuildingRes> {
             addError("gedung", result,(List<FieldError>)e.getErrors());
             return view;
         }
-        if (res.isPresent()) {
-            view.addObject("gedung", new BuildingReq());
-        }else {
+
+        if (res.isEmpty()) {
             addError("gedung", result, Collections.emptyList());
         }
         return view;

@@ -53,8 +53,9 @@ public class RoomController extends BaseController<RoomRes> {
     public ModelAndView save(@ModelAttribute("ruangan") @Valid RoomReq request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/ruangan/add");
         view.addObject("ruangan", request);
+        addObject(view);
+
         if (result.hasErrors()){
-            addObject(view);
             return view;
         }
         Optional<RoomRes> res;
@@ -65,10 +66,7 @@ public class RoomController extends BaseController<RoomRes> {
             return view;
         }
 
-        if(res.isPresent()){
-            view.addObject("ruangan", new RoomReq());
-            view.addObject("dataGedung", gedungService.get());
-        }else {
+        if(res.isEmpty()){
             addError("ruangan", result,Collections.emptyList());
         }
         return view;
@@ -102,10 +100,12 @@ public class RoomController extends BaseController<RoomRes> {
     public ModelAndView update(@ModelAttribute("ruangan") @Valid RoomReq request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/ruangan/edit");
         view.addObject("ruangan", request);
+        addObject(view);
+
         if (result.hasErrors()) {
-            addObject(view);
             return view;
         }
+
         Optional<RoomRes> res;
         try {
             res = service.update(request, request.getId());
@@ -114,10 +114,7 @@ public class RoomController extends BaseController<RoomRes> {
             return view;
         }
 
-        if(res.isPresent()){
-            view.addObject("ruangan", new RoomReq());
-            view.addObject("dataGedung", gedungService.get());
-        }else {
+        if(res.isEmpty()){
             addError("ruangan", result,Collections.emptyList());
         }
         return view;
@@ -133,8 +130,9 @@ public class RoomController extends BaseController<RoomRes> {
     public ModelAndView remove(@ModelAttribute("ruangan") @Valid RoomReq request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/ruangan/delete");
         view.addObject("ruangan", request);
+        addObject(view);
+
         if (result.hasErrors()) {
-            addObject(view);
             return view;
         }
         Optional<RoomRes> res;
@@ -144,10 +142,7 @@ public class RoomController extends BaseController<RoomRes> {
             addError("ruangan", result,(List<FieldError>)e.getErrors());
             return view;
         }
-        if(res.isPresent()){
-            view.addObject("ruangan", new RoomReq());
-            view.addObject("dataGedung", gedungService.get());
-        }else {
+        if(res.isEmpty()){
             addError("ruangan", result,Collections.emptyList());
         }
         return view;
