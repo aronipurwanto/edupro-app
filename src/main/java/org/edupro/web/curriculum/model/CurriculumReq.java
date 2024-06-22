@@ -16,9 +16,9 @@ public class CurriculumReq {
     private String id;
     @NotEmpty(message = "kode wajib di isi")
     @Size(min = 1, max = 20, message = "minimal 1 dan maximal 10")
-    private String kode;
+    private String code;
     @Size(min = 5, max = 100, message = "minimal 5 dan maximal 100")
-    private String nama;
+    private String name;
     @NotNull(message = "no urut wajib di isi")
-    private Integer noUrut;
+    private Integer position;
 }
