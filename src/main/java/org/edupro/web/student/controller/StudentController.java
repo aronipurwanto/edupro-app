@@ -55,7 +55,6 @@ public class StudentController extends BaseController<StudentRes> {
         }
 
         Optional<StudentRes> res;
-
         try {
             res = service.save(request);
         }catch (EduProWebException e){
@@ -64,9 +63,7 @@ public class StudentController extends BaseController<StudentRes> {
             return view;
         }
 
-        if(res.isPresent()){
-            view.addObject("siswa", new StudentReq());
-        }else {
+        if(res.isEmpty()){
             addError("siswa", result,Collections.emptyList());
         }
 
@@ -115,9 +112,7 @@ public class StudentController extends BaseController<StudentRes> {
             return view;
         }
 
-        if (res.isPresent()){
-            view.addObject("siswa", new StudentReq());
-        }else {
+        if (res.isEmpty()){
             addError("siswa", result,Collections.emptyList());
         }
 
@@ -142,7 +137,6 @@ public class StudentController extends BaseController<StudentRes> {
         }
 
         Optional<StudentRes> res;
-
         try {
             res = service.delete(request.getId());
         }catch (EduProWebException e){
@@ -151,9 +145,7 @@ public class StudentController extends BaseController<StudentRes> {
             return view;
         }
 
-        if (res.isPresent()){
-            view.addObject("siswa", new StudentReq());
-        }else {
+        if (res.isEmpty()){
             addError("siswa", result,Collections.emptyList());
         }
 

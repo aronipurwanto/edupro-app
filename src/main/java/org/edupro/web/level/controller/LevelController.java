@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/level")
@@ -59,13 +60,18 @@ public class LevelController extends BaseController<LevelRes> {
             return view;
         }
 
+        Optional<LevelRes> res;
         try {
-            service.save(request);
-            return new ModelAndView("redirect:/master/level");
+            res = service.save(request);
         } catch (EduProWebException e){
             addError("level", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if (res.isEmpty()){
+            addError("level", result,Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/edit/{id}")
@@ -101,13 +107,18 @@ public class LevelController extends BaseController<LevelRes> {
             return view;
         }
 
+        Optional<LevelRes> res;
         try {
-            service.update(request, request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/level");
+            res = service.update(request, request.getId());
         } catch (EduProWebException e){
             addError("level", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if (res.isEmpty()){
+            addError("level", result,Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/delete/{id}")
@@ -126,13 +137,18 @@ public class LevelController extends BaseController<LevelRes> {
             return view;
         }
 
+        Optional<LevelRes> res;
         try {
-            service.delete(request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/level");
+            res = service.delete(request.getId());
         } catch (EduProWebException e){
             addError("level", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if (res.isEmpty()){
+            addError("level", result,Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/data")

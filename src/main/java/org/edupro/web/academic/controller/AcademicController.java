@@ -3,14 +3,14 @@ package org.edupro.web.academic.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.edupro.web.academic.service.AcademicService;
 import org.edupro.web.academic.model.AcademicYearReq;
 import org.edupro.web.academic.model.AcademicYearRes;
+import org.edupro.web.academic.service.AcademicService;
 import org.edupro.web.base.controller.BaseController;
-import org.edupro.web.exception.EduProWebException;
-import org.edupro.web.curriculum.model.CurriculumRes;
 import org.edupro.web.base.model.Response;
+import org.edupro.web.curriculum.model.CurriculumRes;
 import org.edupro.web.curriculum.service.CurriculumService;
+import org.edupro.web.exception.EduProWebException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/ta")
@@ -59,13 +60,18 @@ public class AcademicController extends BaseController<AcademicYearRes> {
             return view;
         }
 
+        Optional<AcademicYearRes> res;
         try {
-            service.save(request);
-            return new ModelAndView("redirect:/master/ta");
+            res = service.save(request);
         } catch (EduProWebException e){
             addError("tahun", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if (res.isEmpty()){
+            addError("tahun", result,Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/edit/{id}")
@@ -102,13 +108,18 @@ public class AcademicController extends BaseController<AcademicYearRes> {
             return view;
         }
 
+        Optional<AcademicYearRes> res;
         try {
-            service.update(request, request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/ta");
+            res = service.update(request, request.getId());
         } catch (EduProWebException e){
             addError("tahun", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if (res.isEmpty()){
+            addError("tahun", result,Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/delete/{id}")
@@ -128,13 +139,18 @@ public class AcademicController extends BaseController<AcademicYearRes> {
             return view;
         }
 
+        Optional<AcademicYearRes> res;
         try {
-            service.delete(request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/ta");
+            res =service.delete(request.getId());
         } catch (EduProWebException e){
             addError("tahun", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if (res.isEmpty()){
+            addError("tahun", result,Collections.emptyList());
+        }
+        return view;
     }
 
     @GetMapping("/data")

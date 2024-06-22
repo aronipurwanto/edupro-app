@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CourseRequest {
+public class CourseReq {
     private String id;
 
     @NotEmpty(message = "Nama tidak boleh kosong")

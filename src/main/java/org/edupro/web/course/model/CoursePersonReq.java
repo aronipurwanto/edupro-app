@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CoursePersonRequest {
+public class CoursePersonReq {
     private String courseId;
     private String personId;
 
-    public CoursePersonRequest(String courseId) {
+    public CoursePersonReq(String courseId) {
         this.courseId = courseId;
     }
 }

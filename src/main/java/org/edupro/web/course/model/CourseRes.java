@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class CourseResponse {
+public class CourseRes {
     private String id;
     private String name;
     private String description;

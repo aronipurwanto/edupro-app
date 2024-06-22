@@ -42,13 +42,13 @@ public class ClassroomController extends BaseController {
     @GetMapping("/new")
     public ModelAndView newClassroom() {
         ModelAndView view = new ModelAndView("pages/classroom/_classroom-add");
-        CourseRequest course = new CourseRequest();
+        CourseReq course = new CourseReq();
         view.addObject("course", course);
         return view;
     }
 
     @PostMapping("/save")
-    public ModelAndView save(@ModelAttribute("course") @Valid CourseRequest request, BindingResult result){
+    public ModelAndView save(@ModelAttribute("course") @Valid CourseReq request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/classroom/_classroom-add");
         view.addObject("course", request);
         if (result.hasErrors()){
@@ -67,13 +67,13 @@ public class ClassroomController extends BaseController {
     @GetMapping("/{id}/people-teacher")
     public ModelAndView addPeopleTeacher(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/classroom/_people-teacher-add");
-        view.addObject("teacher", new CoursePersonRequest(id));
+        view.addObject("teacher", new CoursePersonReq(id));
         addObjectPeople(view);
         return view;
     }
 
     @PostMapping("/teacher/save")
-    public ModelAndView savePeople(@ModelAttribute("teacher") @Valid CoursePersonRequest request, BindingResult result){
+    public ModelAndView savePeople(@ModelAttribute("teacher") @Valid CoursePersonReq request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/classroom/_people-teacher-add");
         view.addObject("teacher", request);
         if (result.hasErrors()){
@@ -93,7 +93,7 @@ public class ClassroomController extends BaseController {
     @GetMapping("/{id}/people")
     public ModelAndView people(@PathVariable("id") String id) {
         ModelAndView view = new ModelAndView("pages/classroom/people");
-        CoursePeopleResponse people = courseService.getPeople(id).orElse(null);
+        CoursePeopleRes people = courseService.getPeople(id).orElse(null);
         view.addObject("people", people);
         return view;
     }

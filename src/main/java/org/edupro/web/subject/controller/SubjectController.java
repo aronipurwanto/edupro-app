@@ -57,9 +57,7 @@ public class SubjectController extends BaseController<SubjectRes> {
             return view;
         }
 
-        if(res.isPresent()){
-            view.addObject("mapel", new SubjectReq());
-        }else {
+        if(res.isEmpty()){
             addError("mapel", result,Collections.emptyList());
         }
 
@@ -90,9 +88,7 @@ public class SubjectController extends BaseController<SubjectRes> {
             return view;
         }
 
-        if(res.isPresent()){
-            view.addObject("mapel", new SubjectReq());
-        }else {
+        if(res.isEmpty()){
             addError("siswa", result,Collections.emptyList());
         }
 
@@ -139,9 +135,7 @@ public class SubjectController extends BaseController<SubjectRes> {
             return view;
         }
 
-        if(res.isPresent()){
-            view.addObject("mapel", new SubjectReq());
-        }else {
+        if(res.isEmpty()){
             addError("mapel", result,Collections.emptyList());
         }
 

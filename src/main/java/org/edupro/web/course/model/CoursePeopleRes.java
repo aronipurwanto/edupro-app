@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CoursePersonResponse {
+public class CoursePeopleRes {
     private String courseId;
-    private String personId;
-    private String personName;
+    private List<CoursePersonRes> teachers;
+    private List<CourseSiswaResponse> students;
 }

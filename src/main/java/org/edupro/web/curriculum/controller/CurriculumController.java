@@ -55,9 +55,7 @@ public class CurriculumController extends BaseController<CurriculumRes> {
             return view;
         }
 
-        if (res.isPresent()) {
-            view.addObject("kurikulum", new CurriculumReq());
-        }else {
+        if (res.isEmpty()) {
             addError("kurikulum", result,Collections.emptyList());
         }
 
@@ -103,9 +101,7 @@ public class CurriculumController extends BaseController<CurriculumRes> {
             return view;
         }
 
-        if (res.isPresent()) {
-            view.addObject("kurikulum", new CurriculumReq());
-        }else {
+        if (res.isEmpty()) {
             addError("kurikulum", result,Collections.emptyList());
         }
 
@@ -135,9 +131,7 @@ public class CurriculumController extends BaseController<CurriculumRes> {
             return view;
         }
 
-        if (res.isPresent()) {
-            view.addObject("kurikulum", new CurriculumReq());
-        }else {
+        if (res.isEmpty()) {
             addError("kurikulum", result,Collections.emptyList());
         }
 
