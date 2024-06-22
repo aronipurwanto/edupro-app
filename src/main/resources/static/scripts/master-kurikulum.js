@@ -26,10 +26,10 @@ $(document).ready(function () {
         var dt_kurikulum = dt_kurikulum_table.DataTable({
             ajax: ajaxUrl,
             columns: [
-                { data: 'kode'},
-                { data: 'kode'},
-                { data: 'nama'},
-                { data: 'noUrut'},
+                { data: 'id'},
+                { data: 'code'},
+                { data: 'name'},
+                { data: 'position'},
                 { data: 'status'},
                 { data: ' '}
             ],
@@ -46,7 +46,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kode'];
+                        var $item = full['code'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -55,7 +55,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['nama'];
+                        var $item = full['name'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -64,7 +64,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['noUrut'];
+                        var $item = full['position'];
                         return '<span>' + $item + '</span>';
                     }
                 },

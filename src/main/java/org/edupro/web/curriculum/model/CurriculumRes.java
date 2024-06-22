@@ -11,8 +11,8 @@ import lombok.Setter;
 @Setter
 public class CurriculumRes {
     private String id;
-    private String kode;
-    private String nama;
-    private Integer noUrut;
+    private String code;
+    private String name;
+    private Integer position;
     private String status;
 }
