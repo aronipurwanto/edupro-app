@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.edupro.web.base.service.BaseService;
 import org.edupro.web.building.model.RoomReq;
 import org.edupro.web.building.model.RoomRes;
+import org.edupro.web.constant.BaseApiUrl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class RoomServiceImpl extends BaseService<RoomRes, RoomReq> implements RoomService {
 
     public RoomServiceImpl(String backEndUrl, RestTemplate restTemplate, ObjectMapper objectMapper) {
-        super(backEndUrl, restTemplate, objectMapper);
+        super(backEndUrl+ BaseApiUrl.ROOM_URL, restTemplate, objectMapper);
     }
 
     @Override

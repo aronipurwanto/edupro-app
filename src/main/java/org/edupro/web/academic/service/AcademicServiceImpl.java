@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.edupro.web.academic.model.AcademicYearReq;
 import org.edupro.web.academic.model.AcademicYearRes;
 import org.edupro.web.base.service.BaseService;
+import org.edupro.web.constant.BaseApiUrl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class AcademicServiceImpl extends BaseService<AcademicYearRes,AcademicYearReq> implements AcademicService {
 
     public AcademicServiceImpl(String backEndUrl, RestTemplate restTemplate, ObjectMapper objectMapper) {
-        super(backEndUrl, restTemplate, objectMapper);
+        super(backEndUrl+ BaseApiUrl.ACADEMIC_YEAR_URL, restTemplate, objectMapper);
     }
 
     @Override

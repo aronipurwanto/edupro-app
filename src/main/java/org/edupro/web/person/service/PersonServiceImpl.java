@@ -2,7 +2,7 @@ package org.edupro.web.person.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.edupro.web.base.service.BaseService;
-import org.edupro.web.constant.EduProApiUrl;
+import org.edupro.web.constant.BaseApiUrl;
 import org.edupro.web.person.model.PersonReq;
 import org.edupro.web.person.model.PersonRes;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class PersonServiceImpl extends BaseService<PersonRes,PersonReq> implements PersonService {
     public PersonServiceImpl(String backEndUrl, RestTemplate restTemplate, ObjectMapper objectMapper) {
-        super(backEndUrl+EduProApiUrl.PERSON_URL, restTemplate, objectMapper);
+        super(backEndUrl+ BaseApiUrl.PERSON_URL, restTemplate, objectMapper);
     }
 
     @Override

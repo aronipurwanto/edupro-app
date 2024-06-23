@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.edupro.web.base.service.BaseService;
 import org.edupro.web.classroom.model.ClassReq;
 import org.edupro.web.classroom.model.ClassRes;
+import org.edupro.web.constant.BaseApiUrl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class ClassServiceImpl extends BaseService<ClassRes,ClassReq> implements ClassService {
 
     public ClassServiceImpl(String backEndUrl, RestTemplate restTemplate, ObjectMapper objectMapper) {
-        super(backEndUrl, restTemplate, objectMapper);
+        super(backEndUrl+ BaseApiUrl.CLASS_URL, restTemplate, objectMapper);
     }
 
     @Override

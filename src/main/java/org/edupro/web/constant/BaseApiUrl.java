@@ -1,12 +1,6 @@
 package org.edupro.web.constant;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-public class EduProApiUrl {
-
+public class BaseApiUrl {
     public static final String LEVEL_URL="/level";
     public static final String LOOKUP_URL="/lookup";
     public static final String SESSION_URL="/session";

@@ -2,6 +2,7 @@ package org.edupro.web.lookup.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.edupro.web.base.service.BaseService;
+import org.edupro.web.constant.BaseApiUrl;
 import org.edupro.web.lookup.model.LookupReq;
 import org.edupro.web.lookup.model.LookupRes;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class LookupServiceImpl extends BaseService<LookupRes, LookupReq> implements LookupService {
 
     public LookupServiceImpl(String backEndUrl, RestTemplate restTemplate, ObjectMapper objectMapper) {
-        super(backEndUrl, restTemplate, objectMapper);
+        super(backEndUrl+ BaseApiUrl.LOOKUP_URL, restTemplate, objectMapper);
     }
 
     @Override

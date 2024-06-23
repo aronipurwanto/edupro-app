@@ -2,6 +2,7 @@ package org.edupro.web.subject.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.edupro.web.base.service.BaseService;
+import org.edupro.web.constant.BaseApiUrl;
 import org.edupro.web.subject.model.SubjectReq;
 import org.edupro.web.subject.model.SubjectRes;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class SubjectServiceImpl extends BaseService<SubjectRes, SubjectReq> implements SubjectService {
 
     public SubjectServiceImpl(String backEndUrl, RestTemplate restTemplate, ObjectMapper objectMapper) {
-        super(backEndUrl, restTemplate, objectMapper);
+        super(backEndUrl+ BaseApiUrl.SUBJECT_URL, restTemplate, objectMapper);
     }
 
     @Override

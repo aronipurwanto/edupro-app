@@ -2,6 +2,7 @@ package org.edupro.web.student.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.edupro.web.base.service.BaseService;
+import org.edupro.web.constant.BaseApiUrl;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.student.model.StudentReq;
 import org.edupro.web.student.model.StudentRes;
@@ -14,7 +15,7 @@ import java.util.Optional;
 @Service
 public class StudentServiceImpl extends BaseService<StudentRes, StudentReq> implements StudentService {
     public StudentServiceImpl(String backEndUrl, RestTemplate restTemplate, ObjectMapper objectMapper) {
-        super(backEndUrl, restTemplate, objectMapper);
+        super(backEndUrl+ BaseApiUrl.STUDENT_URL, restTemplate, objectMapper);
     }
 
     @Override

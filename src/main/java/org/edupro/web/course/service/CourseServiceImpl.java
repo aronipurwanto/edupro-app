@@ -3,6 +3,7 @@ package org.edupro.web.course.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.edupro.web.base.service.BaseService;
+import org.edupro.web.constant.BaseApiUrl;
 import org.edupro.web.course.model.CourseReq;
 import org.edupro.web.course.model.CourseRes;
 import org.edupro.web.exception.EduProWebException;
@@ -17,7 +18,7 @@ import java.util.Optional;
 public class CourseServiceImpl extends BaseService<CourseRes, CourseReq> implements CourseService {
 
     public CourseServiceImpl(String backEndUrl, RestTemplate restTemplate, ObjectMapper objectMapper) {
-        super(backEndUrl, restTemplate, objectMapper);
+        super(backEndUrl+ BaseApiUrl.COURSE_URL, restTemplate, objectMapper);
     }
 
     @Override

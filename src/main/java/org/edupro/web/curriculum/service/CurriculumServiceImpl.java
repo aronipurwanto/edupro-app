@@ -2,6 +2,7 @@ package org.edupro.web.curriculum.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.edupro.web.base.service.BaseService;
+import org.edupro.web.constant.BaseApiUrl;
 import org.edupro.web.curriculum.model.CurriculumReq;
 import org.edupro.web.curriculum.model.CurriculumRes;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class CurriculumServiceImpl extends BaseService<CurriculumRes, CurriculumReq> implements CurriculumService {
 
     public CurriculumServiceImpl(String backEndUrl, RestTemplate restTemplate, ObjectMapper objectMapper) {
-        super(backEndUrl, restTemplate, objectMapper);
+        super(backEndUrl+ BaseApiUrl.CURRICULUM_URL, restTemplate, objectMapper);
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.edupro.web.institution.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.edupro.web.base.service.BaseService;
+import org.edupro.web.constant.BaseApiUrl;
 import org.edupro.web.institution.model.InstitutionReq;
 import org.edupro.web.institution.model.InstitutionRes;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Service
 public class InstitutionServiceImpl extends BaseService<InstitutionRes, InstitutionReq> implements InstitutionService {
     public InstitutionServiceImpl(String backEndUrl, RestTemplate restTemplate, ObjectMapper objectMapper) {
-        super(backEndUrl, restTemplate, objectMapper);
+        super(backEndUrl+ BaseApiUrl.INSTITUTION_URL, restTemplate, objectMapper);
     }
 
     @Override

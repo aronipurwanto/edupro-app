@@ -2,6 +2,7 @@ package org.edupro.web.level.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.edupro.web.base.service.BaseService;
+import org.edupro.web.constant.BaseApiUrl;
 import org.edupro.web.level.model.LevelReq;
 import org.edupro.web.level.model.LevelRes;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Service
 public class LevelServiceImpl extends BaseService<LevelRes, LevelReq> implements LevelService {
     public LevelServiceImpl(String backEndUrl, RestTemplate restTemplate, ObjectMapper objectMapper) {
-        super(backEndUrl, restTemplate, objectMapper);
+        super(backEndUrl+ BaseApiUrl.LEVEL_URL, restTemplate, objectMapper);
     }
 
     @Override

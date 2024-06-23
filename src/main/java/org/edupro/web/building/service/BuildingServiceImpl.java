@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.edupro.web.base.service.BaseService;
 import org.edupro.web.building.model.BuildingReq;
 import org.edupro.web.building.model.BuildingRes;
+import org.edupro.web.constant.BaseApiUrl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Service
 public class BuildingServiceImpl extends BaseService<BuildingRes, BuildingReq> implements BuildingService {
     public BuildingServiceImpl(String backEndUrl, RestTemplate restTemplate, ObjectMapper objectMapper) {
-        super(backEndUrl, restTemplate, objectMapper);
+        super(backEndUrl+ BaseApiUrl.BUILDING_URL, restTemplate, objectMapper);
     }
 
     @Override
