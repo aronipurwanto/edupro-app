@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseSiswaRequest {
+public class CourseStudentReq {
     private String courseId;
     private String siswaId;
 
-    public CourseSiswaRequest(String courseId) {
+    public CourseStudentReq(String courseId) {
         this.courseId = courseId;
     }
 }

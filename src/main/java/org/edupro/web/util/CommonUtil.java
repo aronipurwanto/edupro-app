@@ -1,5 +1,6 @@
 package org.edupro.web.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import lombok.extern.slf4j.Slf4j;
@@ -28,9 +29,23 @@ public class CommonUtil {
 
     public static <T> List<T> jsonArrayToList(String json, Class<T> elementClass) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        CollectionType listType =
-                objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, elementClass);
-        return objectMapper.readValue(json, listType);
+        try {
+            CollectionType listType = objectMapper.getTypeFactory()
+                    .constructCollectionType(ArrayList.class, elementClass);
+            return objectMapper.readValue(json, listType);
+        }catch (JsonProcessingException e) {
+            return Collections.emptyList();
+        }
+    }
+
+    public static <T> Optional<T> jsonToObject(String json, Class<T> elementClass) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            T object = objectMapper.readValue(json, elementClass);
+            return Optional.of(object);
+        } catch (JsonProcessingException e) {
+            return Optional.empty();
+        }
     }
 
     public String getAlphaNumericString(int n) {

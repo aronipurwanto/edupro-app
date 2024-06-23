@@ -1,4 +1,4 @@
-package org.edupro.web.base;
+package org.edupro.web.course.model;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class EkskulResponse {
+public class EkskulRes {
     private Integer id;
     private String nama;
     private String singkatan;

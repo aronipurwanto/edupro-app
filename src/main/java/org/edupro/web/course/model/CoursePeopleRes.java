@@ -12,5 +12,5 @@ import java.util.List;
 public class CoursePeopleRes {
     private String courseId;
     private List<CoursePersonRes> teachers;
-    private List<CourseSiswaResponse> students;
+    private List<CourseStudentRes> students;
 }

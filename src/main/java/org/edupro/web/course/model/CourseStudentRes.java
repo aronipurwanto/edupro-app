@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseSiswaResponse {
+public class CourseStudentRes {
     private String courseId;
     private String siswaId;
     private String siswaName;

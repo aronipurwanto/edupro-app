@@ -4,7 +4,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.base.model.Response;
 import org.edupro.web.course.model.EkskulRequest;
-import org.edupro.web.course.service.MasterEkskulService;
+import org.edupro.web.course.model.EkskulRes;
+import org.edupro.web.classroom.service.MasterEkskulService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -46,7 +47,7 @@ public class MasterEkskulController {
 
     @GetMapping("/data")
     public ResponseEntity<Response> getData(){
-        List<EkskulResponse> result = service.get();
+        List<EkskulRes> result = service.get();
         return ResponseEntity.ok().body(
                 Response.builder()
                         .statusCode(HttpStatus.OK.value())
@@ -77,7 +78,7 @@ public class MasterEkskulController {
         return getResponse(result);
     }
 
-    private ResponseEntity<Response> getResponse(Optional<EkskulResponse> result ){
+    private ResponseEntity<Response> getResponse(Optional<EkskulRes> result ){
         return result.isEmpty() ? ResponseEntity.badRequest().body(
                 Response.builder()
                         .statusCode(HttpStatus.BAD_REQUEST.value())
