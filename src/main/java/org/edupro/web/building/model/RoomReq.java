@@ -17,11 +17,11 @@ public class RoomReq {
     private String id;
 
     @NotEmpty(message = "kode wajib diisi")
-    @Size(min = 5, max = 10, message = "kode minimal 4 dan maksimal 10")
+    @Size(min = 5, max = 10, message = "kode minimal 5 dan maksimal 10")
     private String code;
 
     @NotEmpty(message = "nama tidak boleh kosong")
-    @Size(min = 5, max = 100, message = "nama minimal 4 dan maksimal 10")
+    @Size(min = 5, max = 100, message = "nama minimal 5 dan maksimal 100")
     private String name;
 
     @NotNull(message = "kapasitas tidak boleh kosong")
