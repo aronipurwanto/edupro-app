@@ -10,7 +10,7 @@ public class BaseApiUrl {
     public static final String CURRICULUM_URL="/curriculum";
     public static final String SUBJECT_GROUP_URL="/subject/group";
     public static final String STUDENT_URL="/student";
-    public static final String ACADEMIC_YEAR_URL="/ta";
+    public static final String ACADEMIC_YEAR_URL="/academic";
     public static final String COURSE_URL="/course";
     public static final String SECTION_URL="/course/{courseId}/section";
     public static final String PERSON_URL="/person";

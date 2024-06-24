@@ -1,6 +1,5 @@
 <form xmlns:th="http://www.thymeleaf.org" th:id="form-tahun" th:action="@{~/master/ta/save}"
       th:method="post" th:object="${tahunAjaran}">
-    <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Tambah Tahun Ajaran</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -12,24 +11,42 @@
 <!--                </ul>-->
 <!--            </div>-->
             <div class="row g-2">
+                <div class="col mb-3">
+                    <label for="name" class="form-label">Nama</label>
+                    <input type="text" id="name" name="name" th:value="${tahunAjaran.name}"
+                           th:class="${#fields.hasErrors('name')}? 'form-control is-invalid': 'form-control'" placeholder="Nama" />
+                    <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                        <span th:errors="*{name}"></span>
+                    </div>
+                </div>
+                <div class="col mb-3">
+                    <label for="curriculumId" class="form-label">Kode Kurikulum</label>
+                    <select id="curriculumId" name="curriculumId" th:value="${tahunAjaran.curriculumId}" data-allow-clear="true"
+                            th:class="${#fields.hasErrors('curriculumId')}? 'form-select select2 is-invalid': 'form-select select2'">
+                        <option value="">Pilih Kurikulum</option>
+                        <option th:each="item : ${dataKurikulum}" th:value="${item.id}" th:text="${item.name}"
+                                th:selected="${item.id == tahunAjaran.curriculumId}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('curriculumId')}" class="invalid-feedback">
+                        <span th:errors="*{curriculumId}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-2">
                 <div class="col mb-0">
-                    <label for="nama" class="form-label">Nama</label>
-                    <input type="text" id="nama" name="nama" th:value="${tahunAjaran.nama}"
-                           th:class="${#fields.hasErrors('nama')}? 'form-control is-invalid': 'form-control'" placeholder="Nama" />
-                    <div th:if="${#fields.hasErrors('nama')}" class="invalid-feedback">
-                        <span th:errors="*{nama}"></span>
+                    <label for="startDate" class="form-label">Tanggal Mulai</label>
+                    <input type="date" id="startDate" name="startDate" th:value="${tahunAjaran.startDate}"
+                           th:class="${#fields.hasErrors('startDate')}? 'form-control is-invalid': 'form-control'" placeholder="Start Date" />
+                    <div th:if="${#fields.hasErrors('startDate')}" th:class="invalid-feedback">
+                        <span th:errors="*{startDate}"></span>
                     </div>
                 </div>
                 <div class="col mb-0">
-                    <label for="kurikulumId" class="form-label">Kode Kurikulum</label>
-                    <select id="kurikulumId" name="kurikulumId" th:value="${tahunAjaran.kurikulumId}" data-allow-clear="true"
-                            th:class="${#fields.hasErrors('kurikulumId')}? 'form-select select2 is-invalid': 'form-select select2'">
-                        <option value="">Pilih Kurikulum</option>
-                        <option th:each="item : ${dataKurikulum}" th:value="${item.id}" th:text="${item.nama}"
-                                th:selected="${item.id == tahunAjaran.kurikulumId}"></option>
-                    </select>
-                    <div th:if="${#fields.hasErrors('kurikulumId')}" class="invalid-feedback">
-                        <span th:errors="*{kurikulumId}"></span>
+                    <label for="endDate" class="form-label">Tanggal Akhir</label>
+                    <input type="date" id="endDate" name="endDate" th:value="${tahunAjaran.endDate}"
+                           th:class="${#fields.hasErrors('endDate')}? 'form-control is-invalid': 'form-control'" placeholder="End Date" />
+                    <div th:if="${#fields.hasErrors('endDate')}" th:class="invalid-feedback">
+                        <span th:errors="*{endDate}"></span>
                     </div>
                 </div>
             </div>
@@ -42,5 +59,4 @@
                 Close
             </button>
         </div>
-    </div>
 </form>

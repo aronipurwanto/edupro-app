@@ -9,8 +9,11 @@ import lombok.*;
 @Builder
 public class AcademicYearRes {
     private String id;
-    private String nama;
-    private String kurikulumId;
-    private String kodeKurikulum;
+    private String name;
+    private String curriculumId;
+    private String curriculumCode;
+    private String curriculumName;
+    private String startDate;
+    private String endDate;
     private String status;
 }
