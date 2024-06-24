@@ -1,7 +1,6 @@
 <form xmlns:th="http://www.thymeleaf.org" th:id="form-person" th:action="@{~/master/person/remove}"
       th:method="post" th:object="${person}">
     <input type="hidden" name="id" th:value="${person.id}">
-    <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Delete Person</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -13,50 +12,50 @@
                     <input type="text" id="userId" name="userId" th:value="${person.userId}" class="form-control" readonly/>
                 </div>
                 <div class="col mb-3">
-                    <label for="nomor" class="form-label">Nomor</label>
-                    <input type="text" id="nomor" name="nomor" th:value="${person.nomor}" class="form-control" readonly />
-                </div>
-                <div class="col mb-3">
-                    <label for="nama" class="form-label">Nama</label>
-                    <input type="text" id="nama" name="nama" th:value="${person.nama}" class="form-control" readonly />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col mb-3">
-                    <label for="alamatTinggal" class="form-label">Alamat Tinggal</label>
-                    <input type="text" id="alamatTinggal" name="alamatTinggal" th:value="${person.alamatTinggal}" class="form-control" readonly/>
-                </div>
-                <div class="col mb-3">
                     <label for="nik" class="form-label">NIK</label>
                     <input type="text" id="nik" name="nik" th:value="${person.nik}" class="form-control" readonly />
                 </div>
                 <div class="col mb-3">
-                    <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
-                    <input type="text" id="tanggalLahir" name="tanggalLahir" th:value="${person.tanggalLahir}" class="form-control" readonly />
+                    <label for="personNo" class="form-label">personNo</label>
+                    <input type="text" id="personNo" name="personNo" th:value="${person.personNo}" class="form-control" readonly />
+                </div>
+                <div class="col mb-3">
+                    <label for="fullName" class="form-label">Nama</label>
+                    <input type="text" id="fullName" name="fullName" th:value="${person.fullName}" class="form-control" readonly />
                 </div>
             </div>
             <div class="row">
                 <div class="col mb-3">
-                    <label for="tempatLahir" class="form-label">Tempat Lahir</label>
-                    <input type="text" id="tempatLahir" name="tempatLahir" th:value="${person.tempatLahir}" class="form-control" readonly/>
+                    <label for="address" class="form-label">Alamat Tinggal</label>
+                    <input type="text" id="address" name="address" th:value="${person.address}" class="form-control" readonly/>
+                </div>
+                <div class="col mb-3">
+                    <label for="dob" class="form-label">Tanggal Lahir</label>
+                    <input type="text" id="dob" name="dob" th:value="${person.dob}" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="pob" class="form-label">Tempat Lahir</label>
+                    <input type="text" id="pob" name="pob" th:value="${person.pob}" class="form-control" readonly/>
                 </div>
                 <div class="col mb-3">
                     <label for="gender" class="form-label">Gender</label>
                     <input type="text" id="gender" name="gender" th:value="${person.gender}" class="form-control" readonly />
                 </div>
                 <div class="col mb-3">
-                    <label for="agama" class="form-label">Agama</label>
-                    <input type="text" id="agama" name="agama" th:value="${person.agama}" class="form-control" readonly />
+                    <label for="religion" class="form-label">religion</label>
+                    <input type="text" id="religion" name="religion" th:value="${person.religion}" class="form-control" readonly />
                 </div>
             </div>
             <div class="row">
                 <div class="col mb-3">
-                    <label for="golDarah" class="form-label">Gol-Darah</label>
-                    <input type="text" id="golDarah" name="golDarah" th:value="${person.golDarah}" class="form-control" readonly/>
+                    <label for="bloodType" class="form-label">Gol-Darah</label>
+                    <input type="text" id="bloodType" name="bloodType" th:value="${person.bloodType}" class="form-control" readonly/>
                 </div>
                 <div class="col mb-3">
-                    <label for="noTelp" class="form-label">No-Telp</label>
-                    <input type="text" id="noTelp" name="noTelp" th:value="${person.noTelp}" class="form-control" readonly />
+                    <label for="telephone" class="form-label">No-Telp</label>
+                    <input type="text" id="telephone" name="telephone" th:value="${person.telephone}" class="form-control" readonly />
                 </div>
                 <div class="col mb-3">
                     <label for="email" class="form-label">Email</label>
@@ -72,5 +71,4 @@
                 Close
             </button>
         </div>
-    </div>
 </form>

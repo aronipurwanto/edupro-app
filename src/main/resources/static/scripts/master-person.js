@@ -40,16 +40,16 @@ $(document).ready(function () {
             columns: [
                 { data: 'id'},
                 { data: 'userId'},
-                { data: 'nomor'},
-                { data: 'nama'},
-                { data: 'alamatTinggal'},
                 { data: 'nik'},
-                { data: 'tanggalLahir'},
-                { data: 'tempatLahir'},
+                { data: 'personNo'},
+                { data: 'fullName'},
+                { data: 'address'},
+                { data: 'dob'},
+                { data: 'pob'},
                 { data: 'gender'},
-                { data: 'agama'},
-                { data: 'golDarah'},
-                { data: 'noTelp'},
+                { data: 'religion'},
+                { data: 'bloodType'},
+                { data: 'telephone'},
                 { data: 'email'},
                 { data: 'status'},
                 { data: ' '}
@@ -76,7 +76,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['nomor'];
+                        var $item = full['nik'];
                         return '<span>' +$item + '</span>';
                     }
                 },
@@ -85,7 +85,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['nama'];
+                        var $item = full['personNo'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -94,7 +94,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['alamatTinggal'];
+                        var $item = full['fullName'];
                         return '<span>' +$item + '</span>';
                     }
                 },
@@ -103,7 +103,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['nik'];
+                        var $item = full['address'];
                         return '<span>' +$item + '</span>';
                     }
                 },
@@ -112,7 +112,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['tanggalLahir'];
+                        var $item = full['pob'];
                         return '<span>' +$item + '</span>';
                     }
                 },
@@ -121,7 +121,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['tempatLahir'];
+                        var $item = full['dob'];
                         return '<span>' +$item + '</span>';
                     }
                 },
@@ -139,7 +139,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['agama'];
+                        var $item = full['religion'];
                         return '<span>' +$item + '</span>';
                     }
                 },
@@ -148,7 +148,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['golDarah'];
+                        var $item = full['bloodType'];
                         return '<span>' +$item + '</span>';
                     }
                 },
@@ -157,7 +157,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['noTelp'];
+                        var $item = full['telephone'];
                         return '<span>' +$item + '</span>';
                     }
                 },

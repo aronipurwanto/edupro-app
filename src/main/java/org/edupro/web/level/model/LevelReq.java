@@ -17,16 +17,16 @@ public class LevelReq {
     private String id;
 
     @NotEmpty(message = "Lembaga Tidak Boleh Kosong")
-    private String idLembaga;
+    private String institutionId;
 
     @NotEmpty(message = "Kode Tidak Boleh Kosong")
     @Size(min = 1, max = 10, message = "Kode Minimal 1 dan Maksimal 10")
-    private String kode;
+    private String code;
 
     @NotEmpty(message = "Nama Tidak Boleh Kosong")
     @Size(min = 2, max = 100, message = "Nama Minimal 2 dan Maksimal 100")
-    private String nama;
+    private String name;
 
     @NotNull(message = "No-Urut Tidak Boleh Kosong")
-    private Integer noUrut;
+    private Integer position;
 }

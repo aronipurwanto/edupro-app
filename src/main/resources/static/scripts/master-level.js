@@ -37,10 +37,10 @@ $(document).ready(function () {
             ajax: ajaxUrl,
             columns: [
                 {data: 'id'},
-                {data: 'namaLembaga'},
-                {data: 'kode'},
-                {data: 'nama'},
-                {data: 'noUrut'},
+                {data: 'institutionName'},
+                {data: 'code'},
+                {data: 'name'},
+                {data: 'position'},
                 {data: 'status'},
                 {data: ' '}
             ],
@@ -57,7 +57,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['namaLembaga'];
+                        var $item = full['institutionName'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -66,7 +66,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kode'];
+                        var $item = full['code'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -75,7 +75,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['nama'];
+                        var $item = full['name'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -84,7 +84,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['noUrut'];
+                        var $item = full['position'];
                         return '<span>' + $item + '</span>';
                     }
                 },

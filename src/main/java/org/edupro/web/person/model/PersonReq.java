@@ -21,36 +21,36 @@ public class PersonReq {
     @NotEmpty(message = "Id Tidak Boleh Kosong")
     private String userId;
 
-    @NotEmpty(message = "Nomor Tidak Boleh Kosong")
-    private String nomor;
-
-    @NotEmpty(message = "Nama Tidak Boleh Kosong")
-    @Size(min = 2, max = 100, message = "Nama Minimal 2 Maksimal 100")
-    private String nama;
-
-    @NotEmpty(message = "Alamat Tinggal Tidak Boleh Kosong")
-    private String alamatTinggal;
-
     @NotEmpty(message = "NIK Tidak Boleh Kosong")
     private String nik;
 
+    @NotEmpty(message = "Nomor Tidak Boleh Kosong")
+    private String personNo;
+
+    @NotEmpty(message = "Nama Tidak Boleh Kosong")
+    @Size(min = 2, max = 100, message = "Nama Minimal 2 Maksimal 100")
+    private String fullName;
+
+    @NotEmpty(message = "Alamat Tinggal Tidak Boleh Kosong")
+    private String address;
+
     @NotNull(message = "Tanggal Lahir Tidak Boleh Kosong")
-    private LocalDate tanggalLahir;
+    private LocalDate dob;
 
     @NotEmpty(message = "Tempat Lahir Tidak Boleh Kosong")
-    private String tempatLahir;
+    private String pob;
 
     @NotEmpty(message = "Jenis Kelamin Tidak Boleh Kosong")
     private String gender;
 
     @NotEmpty(message = "Agama Tidak Boleh Kosong")
-    private String agama;
+    private String religion;
 
     @NotEmpty(message = "Golongan Darah Tidak Boleh Kosong")
-    private String golDarah;
+    private String bloodType;
 
     @NotEmpty(message = "No Telp Wajib Diisi")
-    private String noTelp;
+    private String telephone;
 
     @NotEmpty(message = "Email Tidak Boleh Kosong")
     private String email;
