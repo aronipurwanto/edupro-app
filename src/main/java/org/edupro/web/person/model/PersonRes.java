@@ -12,16 +12,16 @@ import java.time.LocalDate;
 public class PersonRes {
     private String id;
     private String userId;
-    private String nomor;
-    private String nama;
-    private String alamatTinggal;
-    private String nik;
-    private LocalDate tanggalLahir;
-    private String tempatLahir;
+    private String nik; // NIK KTP
+    private String personNo;
+    private String fullName;
+    private String address;
+    private String dob;
+    private String pob;
     private String gender;
-    private String agama;
-    private String golDarah;
-    private String noTelp;
+    private String religion;
+    private String bloodType;
+    private String telephone;
     private String email;
     private String status;
 }

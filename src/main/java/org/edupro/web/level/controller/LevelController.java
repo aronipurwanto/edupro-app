@@ -128,7 +128,7 @@ public class LevelController extends BaseController<LevelRes> {
     }
 
     @PostMapping("/remove")
-    public ModelAndView delete(@ModelAttribute("level") @Valid LevelReq request, BindingResult result){
+    public ModelAndView delete(@ModelAttribute("level") @Valid LevelRes request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/level/delete");
         view.addObject("level", request);
 

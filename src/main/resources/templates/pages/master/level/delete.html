@@ -1,7 +1,6 @@
 <form xmlns:th="http://www.thymeleaf.org" th:id="form-level" th:action="@{~/master/level/remove}"
       th:method="post" th:object="${level}">
     <input type="hidden" name="id" th:value="${level.id}">
-    <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Delete Level</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -9,27 +8,27 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col mb-3">
-                    <label for="namaLembaga" class="form-label">Lembaga</label>
-                    <input type="text" id="namaLembaga" name="namaLembaga" class="form-control" th:value="${level.namaLembaga}" readonly />
-                    <input type="hidden" name="idLembaga" th:value="${level.idLembaga}">
+                    <label for="institutionName" class="form-label">Lembaga</label>
+                    <input type="text" id="institutionName" name="institutionName" class="form-control" th:value="${level.institutionName}" readonly />
+                    <input type="hidden" name="institutionId" th:value="${level.institutionId}">
                 </div>
             </div>
             <div class="row">
                 <div class="col mb-3">
-                    <label for="kode" class="form-label">Kode Level</label>
-                    <input type="text" id="kode" name="kode" th:value="${level.kode}" class="form-control" readonly />
+                    <label for="code" class="form-label">code Level</label>
+                    <input type="text" id="code" name="code" th:value="${level.code}" class="form-control" readonly />
                 </div>
             </div>
             <div class="row">
                 <div class="col mb-3">
-                    <label for="nama" class="form-label">Nama Level</label>
-                    <input type="text" id="nama" name="nama" th:value="${level.nama}" class="form-control" readonly />
+                    <label for="name" class="form-label">Nama Level</label>
+                    <input type="text" id="name" name="name" th:value="${level.name}" class="form-control" readonly />
                 </div>
             </div>
             <div class="row">
                 <div class="col mb-3">
-                    <label for="noUrut" class="form-label">No Urut</label>
-                    <input type="text" id="noUrut" name="noUrut" th:value="${level.noUrut}" class="form-control" readonly />
+                    <label for="position" class="form-label">No Urut</label>
+                    <input type="text" id="position" name="position" th:value="${level.position}" class="form-control" readonly />
                 </div>
             </div>
         </div>
@@ -39,5 +38,4 @@
                 Close
             </button>
         </div>
-    </div>
 </form>
