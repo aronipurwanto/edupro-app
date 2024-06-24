@@ -39,8 +39,11 @@ $(document).ready(function () {
             ajax: ajaxUrl,
             columns: [
                 { data: 'id'},
-                { data: 'nama'},
-                { data: 'kodeKurikulum'},
+                { data: 'name'},
+                { data: 'curriculumCode'},
+                { data: 'curriculumName'},
+                { data: 'startDate'},
+                { data: 'endDate'},
                 { data: 'status'},
                 { data: ' '}
             ],
@@ -61,20 +64,48 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['nama'];
+                        var $item = full['name'];
                         return '<span>' + $item + '</span>';
                     }
-                },{
+                },
+                {
                     targets: 2,
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kodeKurikulum'];
+                        var $item = full['curriculumCode'];
                         return '<span>' + $item + '</span>';
                     }
                 },
                 {
                     targets: 3,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['curriculumName'];
+                        return '<span>' + $item + '</span>';
+                    }
+                },
+                {
+                    targets: 4,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['startDate'];
+                        return '<span>' + $item + '</span>';
+                    }
+                },
+                {
+                    targets: 5,
+                    searchable: true,
+                    orderable: true,
+                    render: (data, type, full, meta) => {
+                        var $item = full['endDate'];
+                        return '<span>' + $item + '</span>';
+                    }
+                },
+                {
+                    targets: 6,
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {

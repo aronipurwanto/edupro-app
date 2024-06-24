@@ -46,8 +46,8 @@ public class AcademicController extends BaseController<AcademicYearRes> {
     }
 
     public void addObject(ModelAndView view){
-        List<CurriculumRes> gedung = this.kurikulumService.get();
-        view.addObject("dataKurikulum", gedung);
+        List<CurriculumRes> curriculum = this.kurikulumService.get();
+        view.addObject("dataKurikulum", curriculum);
     }
 
     @PostMapping("/save")
@@ -64,12 +64,12 @@ public class AcademicController extends BaseController<AcademicYearRes> {
         try {
             res = service.save(request);
         } catch (EduProWebException e){
-            addError("tahun", result,(List<FieldError>)e.getErrors());
+            addError("tahunAjaran", result,(List<FieldError>)e.getErrors());
             return view;
         }
 
         if (res.isEmpty()){
-            addError("tahun", result,Collections.emptyList());
+            addError("tahunAjaran", result,Collections.emptyList());
         }
         return view;
     }
@@ -93,7 +93,7 @@ public class AcademicController extends BaseController<AcademicYearRes> {
             return new ModelAndView("pages/error/modal-not-found");
         }
 
-        view.addObject("tahun", result);
+        view.addObject("tahunAjaran", result);
         addObject(view);
         return view;
     }
@@ -112,12 +112,12 @@ public class AcademicController extends BaseController<AcademicYearRes> {
         try {
             res = service.update(request, request.getId());
         } catch (EduProWebException e){
-            addError("tahun", result,(List<FieldError>)e.getErrors());
+            addError("tahunAjaran", result,(List<FieldError>)e.getErrors());
             return view;
         }
 
         if (res.isEmpty()){
-            addError("tahun", result,Collections.emptyList());
+            addError("tahunAjaran", result,Collections.emptyList());
         }
         return view;
     }
@@ -143,12 +143,12 @@ public class AcademicController extends BaseController<AcademicYearRes> {
         try {
             res =service.delete(request.getId());
         } catch (EduProWebException e){
-            addError("tahun", result,(List<FieldError>)e.getErrors());
+            addError("tahunAjaran", result,(List<FieldError>)e.getErrors());
             return view;
         }
 
         if (res.isEmpty()){
-            addError("tahun", result,Collections.emptyList());
+            addError("tahunAjaran", result,Collections.emptyList());
         }
         return view;
     }
