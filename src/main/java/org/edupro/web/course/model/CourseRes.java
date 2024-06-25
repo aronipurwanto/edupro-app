@@ -17,16 +17,18 @@ public class CourseRes {
     private String description;
     private String shortName;
     private Boolean shown;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private String startDate;
+    private String endDate;
     private String summary;
     private Long imageId;
     private Integer format;
     private Integer hiddenSection;
     private Integer layout;
     private Boolean completionTracking;
-    private String mapelId;
-    private String kodeMapel;
-    private String kodeLevel;
+    private String subjectId;
+    private String subjectName;
+    private String levelId;
+    private String levelName;
+    private String status;
     private List<CourseSectionRes> sections = new ArrayList<>();
 }

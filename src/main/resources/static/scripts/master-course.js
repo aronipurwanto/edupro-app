@@ -39,6 +39,7 @@ $(document).ready(function (){
             columns : [
                 { data: 'id'},
                 { data: 'name'},
+                { data: 'description'},
                 { data: 'shortName'},
                 { data: 'shown'},
                 { data: 'startDate'},
@@ -49,8 +50,8 @@ $(document).ready(function (){
                 { data: 'hiddenSection'},
                 { data: 'layout'},
                 { data: 'completionTracking'},
-                { data: 'kodeMapel'},
-                { data: 'kodeLevel'},
+                { data: 'subjectName'},
+                { data: 'levelName'},
                 { data: 'status'},
                 { data: ' '}
             ],
@@ -80,7 +81,7 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: function (data, type, full, meta){
-                        var $item = full['shortName'];
+                        var $item = full['description'];
                         return '<span>'+ $item + '</span>';
                     }
                 },
@@ -89,8 +90,8 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: function (data, type, full, meta){
-                        var $item = full['shown'];
-                        return '<span>' + $item + '</span>';
+                        var $item = full['shortName'];
+                        return '<span>'+ $item + '</span>';
                     }
                 },
                 {
@@ -98,7 +99,7 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: function (data, type, full, meta){
-                        var $item = full['startDate'];
+                        var $item = full['shown'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -107,7 +108,7 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: function (data, type, full, meta){
-                        var $item = full['endDate'];
+                        var $item = full['startDate'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -116,7 +117,7 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: function (data, type, full, meta){
-                        var $item = full['summary'];
+                        var $item = full['endDate'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -125,7 +126,7 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: function (data, type, full, meta){
-                        var $item = full['imageId'];
+                        var $item = full['summary'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -134,7 +135,7 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: function (data, type, full, meta){
-                        var $item = full['format'];
+                        var $item = full['imageId'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -143,12 +144,21 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: function (data, type, full, meta){
+                        var $item = full['format'];
+                        return '<span>' + $item + '</span>';
+                    }
+                },
+                {
+                    targets: 10,
+                    searchable: true,
+                    orderable: true,
+                    render: function (data, type, full, meta){
                         var $item = full['hiddenSection'];
                         return '<span>' +$item + '</span>';
                     }
                 },
                 {
-                    targets: 10,
+                    targets: 11,
                     searchable: true,
                     orderable: true,
                     render: function (data, type, full, meta){
@@ -157,7 +167,7 @@ $(document).ready(function (){
                     }
                 },
                 {
-                    targets: 11,
+                    targets: 12,
                     searchable: true,
                     orderable: true,
                     render: function (data, type, full, meta){
@@ -166,25 +176,25 @@ $(document).ready(function (){
                     }
                 },
                 {
-                    targets: 12,
-                    searchable: true,
-                    orderable: true,
-                    render: function (data, type, full, meta){
-                        var $item = full['kodeMapel'];
-                        return '<span>' + $item + '</span>';
-                    }
-                },
-                {
                     targets: 13,
                     searchable: true,
                     orderable: true,
                     render: function (data, type, full, meta){
-                        var $item = full['kodeLevel'];
+                        var $item = full['subjectName'];
                         return '<span>' + $item + '</span>';
                     }
                 },
                 {
                     targets: 14,
+                    searchable: true,
+                    orderable: true,
+                    render: function (data, type, full, meta){
+                        var $item = full['levelName'];
+                        return '<span>' + $item + '</span>';
+                    }
+                },
+                {
+                    targets: 15,
                     searchable: true,
                     orderable: true,
                     render: function (data, type, full, meta){

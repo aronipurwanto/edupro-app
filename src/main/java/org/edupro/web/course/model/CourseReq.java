@@ -20,6 +20,9 @@ public class CourseReq {
     @NotEmpty(message = "Nama tidak boleh kosong")
     private String name;
 
+    @NotEmpty(message = "Description tidak boleh kosong")
+    private String description;
+
     @NotEmpty(message = "shortName tidak boleh kosong")
     private String shortName;
 
@@ -51,8 +54,8 @@ public class CourseReq {
     private Boolean completionTracking;
 
     //@NotEmpty (message = "mapel tidak boleh kosong")
-    private String mapelId;
+    private String subjectId;
 
     //@NotEmpty(message = "kode level tidak boleh kosong")
-    private String kodeLevel;
+    private String levelId;
 }
