@@ -12,12 +12,11 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex align-items-md-end justify-content-md-between">
-                <h5 class="card-title mb-0" id="sesi-title" th:href="@{~/master/sesi/data}">Sesi Atau Kelompok</h5>
+                <h5 class="card-title mb-0" id="sesi-title" th:href="@{~/master/sesi/data}">Sesi</h5>
                 <button class="btn btn-success btn-sm rounded-pill" id="btn-add" th:href="@{~/master/sesi/add}">
                     <i class="ti ti-check"></i> &nbsp;
-                    Tambah Kelompok
+                    Tambah Sesi
                 </button>
-                <input id="ta-url" type="hidden" th:href="@{~/master/ta/kurikulum}">
             </div>
             <div class="demo-inline-spacing d-flex align-items-start justify-content-start">
                 <button class="btn btn-sm btn-secondary">Copy</button>
@@ -34,9 +33,9 @@
                     <tr>
                         <th>No.</th>
                         <th>Tahun Pelajaran</th>
-                        <th>Kode Kurikulum</th>
-                        <th>Kurikulum Name</th>
                         <th>Semester</th>
+                        <th>Tanggal Di Mulai</th>
+                        <th>Tanggal Berakhir</th>
                         <th>Status</th>
                         <th class="cell-fit">Actions</th>
                     </tr>

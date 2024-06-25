@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -16,17 +18,16 @@ public class AcademicSessionReq {
     private String id;
 
     @NotNull(message = "Tahun Ajaran Id wajib diisi")
-    @Size(min = 36, max = 36, message = "Tahun Ajaran Id minimal 36 dan maksimal 36")
-    private String tahunAjaranId;
+    @Size(min = 32, max = 36, message = "Tahun Ajaran Id minimal 32 dan maksimal 36")
+    private String academicYearId;
+    private String academicYearName;
 
     @NotNull(message = "Semester wajid diisi")
     private Integer semester;
 
-    @NotNull(message = "Kurikulum Id wajid diisi")
-    @Size(min = 36, max = 36, message = "Kurikulum Id minimal 36 dan maksimal 36")
-    private String kurikulumId;
+    @NotNull(message = "startDate tidak bolek kosong")
+    private LocalDate startDate;
 
-    @NotEmpty(message = "Kode Kurikulum wajid diisi")
-    @Size(min = 2, max = 20, message = "Kode kurikulum minimal 2 dan maksimal 20")
-    private String kodeKurikulum;
+    @NotNull(message = "endDate tidak boleh kosong")
+    private LocalDate endDate;
 }

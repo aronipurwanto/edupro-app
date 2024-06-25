@@ -1,4 +1,4 @@
-$(document).ready(function (){
+$(document).ready(function () {
     if (isDarkStyle) {
         borderColor = config.colors_dark.borderColor;
         bodyBg = config.colors_dark.bodyBg;
@@ -7,6 +7,17 @@ $(document).ready(function (){
         borderColor = config.colors.borderColor;
         bodyBg = config.colors.bodyBg;
         headingColor = config.colors.headingColor;
+    }
+
+    const formSelect2 = $('#main-modal').find('.select2');
+    // Select2 (Gedung)
+    if (formSelect2.length) {
+        formSelect2.wrap('<div class="position-relative"></div>');
+        formSelect2
+            .select2({
+                placeholder: 'Pilih Gedung',
+                dropdownParent: formSelect2.parent()
+            });
     }
 
     // datatable declaration
@@ -20,19 +31,20 @@ $(document).ready(function (){
             1: {title: "Aktif"},
         };
 
-    if(dt_sesi_table.length > 0) {
+    if (dt_sesi_table.length > 0) {
+        // datatable declaration
 
         var ajaxUrl = $('#sesi-title').attr('href');
-        var dt_sesi = dt_sesi_table.DataTable({
+        var dt_table = dt_sesi_table.DataTable({
             ajax: ajaxUrl,
             columns: [
                 { data: 'id'},
-                { data: 'tahunAjaranName'},
-                { data: 'kodeKurikulum'},
-                { data: 'kuriKulumName' },
+                { data: 'academicYearName'},
                 { data: 'semester'},
-                { data: 'status' },
-                { data: '' }
+                { data: 'startDate'},
+                { data: 'endDate'},
+                { data: 'status'},
+                { data: ' '}
             ],
             columnDefs: [
                 {
@@ -40,15 +52,19 @@ $(document).ready(function (){
                     searchable: false,
                     orderable: false,
                     responsivePriority: 2,
-                    targets: 0
+                    targets: 0,
+                    render: function (data, type, full, meta) {
+                        var $item = full['id'];
+                        return '<span>'+$item +'</span>';
+                    }
                 },
                 {
                     targets: 1,
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['tahunAjaranName'];
-                        return '<span>'+$item +'</span>';
+                        var $item = full['academicYearName'];
+                        return '<span>' + $item + '</span>';
                     }
                 },
                 {
@@ -56,8 +72,8 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kodeKurikulum'];
-                        return '<span>'+$item +'</span>';
+                        var $item = full['semester'];
+                        return '<span>' +$item + '</span>';
                     }
                 },
                 {
@@ -65,8 +81,8 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kurikulumName'];
-                        return '<span>'+$item +'</span>';
+                        var $item = full['startDate'];
+                        return '<span>' + $item + '</span>';
                     }
                 },
                 {
@@ -74,8 +90,8 @@ $(document).ready(function (){
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['semester'];
-                        return '<span>'+$item +'</span>';
+                        var $item = full['endDate'];
+                        return '<span>' +$item + '</span>';
                     }
                 },
                 {
@@ -84,7 +100,7 @@ $(document).ready(function (){
                     orderable: true,
                     render: (data, type, full, meta) => {
                         var $item = full['status'];
-                        return '<span>'+$item +'</span>';
+                        return '<span>' +$item + '</span>';
                     }
                 },
                 {
@@ -94,12 +110,12 @@ $(document).ready(function (){
                     orderable: false,
                     render: function (data, type, full, meta) {
                         var id = full['id'];
-                        var editUrl = ajaxUrl.replace('data','edit') +'/'+ id;
-                        var deleteUrl = ajaxUrl.replace('data','delete')+'/'+ id;
+                        var editUrl = ajaxUrl.replace('data','edit') + '/' + id;
+                        var deleteUrl = ajaxUrl.replace('data','delete') + '/' + id ;
                         return (
-                            '<div class="d-inline-block text-nowrap">' +
-                            '<button class="btn btn-xs btn-primary btn-edit" href="'+ editUrl +'"><i class="ti ti-edit"></i> Edit</button> &nbsp;' +
-                            '<button class="btn btn-xs btn-danger btn-delete" href="'+ deleteUrl +'"><i class="ti ti-trash"></i></button>' +
+                            '<div class="d-inline-block text-nowrap">'+
+                            '<button class="btn btn-xs btn-primary btn-edit" href="'+ editUrl + '"><i class="ti ti-edit"></i> Edit </button> &nbsp;' +
+                            '<button class="btn btn-xs btn-danger btn-delete" href="'+ deleteUrl + '"><i class="ti ti-trash"></i></button>' +
                             '</div>'
                         );
                     }
@@ -108,10 +124,10 @@ $(document).ready(function (){
             lengthMenu: [5, 10, 20, 50, 70, 100]
         });
 
-        dt_sesi.on('order.dt search.dt', function () {
+        dt_table.on('order.dt search.dt', function () {
             let i = 1;
 
-            dt_sesi.cells(null, 0, { search: 'applied', order: 'applied' })
+            dt_table.cells(null, 0, { search: 'applied', order: 'applied'})
                 .every(function (cell) {
                     this.data(i++);
                 });
@@ -122,50 +138,30 @@ $(document).ready(function (){
     $('.dt-buttons').addClass('d-flex flex-wrap');
 
     // btn add click
-    $("#btn-add").click(function (){
+    $("#btn-add").click(function () {
         var url = $(this).attr('href');
-        showModal(url,'');
+        showModal(url, ' ');
     });
 
-    // from submit
-    $('#main-modal').on('submit','#form-sesi', function (e){
+    // form submit
+    $('#main-modal').on('submit', '#form-sesi', function (e) {
         e.preventDefault();
         var ajaxUrl = $(this).attr('action');
         const data = convertFormToJSON($(this));
-        ajaxSubmit(ajaxUrl, data, dt_sesi);
-    }).on('change','#kurikulumId', function (e){
-        var kurikulumId = $(this).value;
-        var ajaxUrl = $("#ta-url").attr('href')+'/'+kurikulumId;
-        console.log(data);
-        $.ajax({
-            url: ajaxUrl,
-            type: 'GET',
-            dataType: 'JSON',
-            headers: {
-                'X-CSRF-TOKEN' : token
-            },
-            contentType: 'application/json',
-            success: function (result){
-                var $option =$("#main-modal").find("#tahunAjaranId");
-                $option.empty();
-                $option.append('<option value="">Pilih Tahun Ajaran</option>');
-                $option.append('<option value="test">Test</option>')
-            }
-        });
+        ajaxSubmit(ajaxUrl, data, dt_table);
     });
 
     // edit data
-    $("#table-sesi").on('click','.btn-edit', function (){
+    $("#table-sesi").on('click', '.btn-edit', function () {
         var url = $(this).attr('href');
-        showModal(url,' ');
+        showModal(url, ' ');
     });
 
     // delete data
-    $("#table-sesi").on('click','.btn-delete', function (){
+    $("#table-sesi").on('click', '.btn-delete', function () {
         var url = $(this).attr('href');
-        showModal(url,' ');
+        showModal(url, ' ')
     });
 
     getActiveMenu();
 });
-
