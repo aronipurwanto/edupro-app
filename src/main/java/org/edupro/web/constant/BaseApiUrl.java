@@ -15,5 +15,5 @@ public class BaseApiUrl {
     public static final String SECTION_URL="/course/{courseId}/section";
     public static final String PERSON_URL="/person";
     public static final String INSTITUTION_URL="/institution";
-    public static final String CLASS_URL="/classes";
+    public static final String CLASS_URL="/class";
 }
