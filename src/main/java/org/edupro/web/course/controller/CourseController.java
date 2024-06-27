@@ -6,6 +6,8 @@ import org.edupro.web.base.controller.BaseController;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.course.model.CourseReq;
 import org.edupro.web.course.model.CourseRes;
+import org.edupro.web.level.model.LevelRes;
+import org.edupro.web.level.service.LevelService;
 import org.edupro.web.subject.model.SubjectRes;
 import org.edupro.web.base.model.Response;
 import org.edupro.web.course.service.CourseService;
@@ -28,6 +30,7 @@ public class CourseController extends BaseController<CourseRes> {
 
     private final CourseService service;
     private final SubjectService mapelService;
+    private final LevelService levelService;
 
     @GetMapping
     public ModelAndView index(){
@@ -47,6 +50,9 @@ public class CourseController extends BaseController<CourseRes> {
     public void addObject(ModelAndView view){
         List<SubjectRes> subjectRes = this.mapelService.get();
         view.addObject("dataMapel", subjectRes);
+
+        List<LevelRes> levelRes = this.levelService.get();
+        view.addObject("dataLevel", levelRes);
     }
 
     @PostMapping("/save")
