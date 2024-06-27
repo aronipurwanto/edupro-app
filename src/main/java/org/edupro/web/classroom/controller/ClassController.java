@@ -146,16 +146,16 @@ public class ClassController extends BaseController<ClassRes> {
     }
 
     @PostMapping("/remove")
-    public ModelAndView remove(@ModelAttribute("kelas") @Valid ClassReq request, BindingResult result){
+    public ModelAndView remove(@ModelAttribute("kelas") @Valid ClassRes response, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/kelas/delete");
-        view.addObject("kelas", request);
+        view.addObject("kelas", response);
         if(result.hasErrors()){
             addObject(view);
             return view;
         }
 
         try {
-            service.delete(request.getId()).orElse(null);
+            service.delete(response.getId()).orElse(null);
             return new ModelAndView("redirect:/master/kelas");
         }catch (EduProWebException e){
             addError("kelas", result,(List<FieldError>)e.getErrors());

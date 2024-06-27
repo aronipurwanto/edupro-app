@@ -9,19 +9,26 @@ import lombok.*;
 @Builder
 public class ClassRes {
     private String id;
-    private String kode;
-    private String nama;
-    private String ruangId;
-    private String kodeRuangan;
-    private String lembagaId;
-    private String namaLembaga;
-    private String tahunAjaranId;
-    private String namaTahunAjaran;
+    private String code;
+    private String name;
+
+    private String roomId;
+    private String roomCode;
+
+    private String institutionId;
+    private String institutionName;
+
+    private String academicYearId;
+    private String academicYearName;
+
     private String levelId;
-    private String namaLevel;
-    private String sesiAkademikId;
+    private String levelName;
+
+    private String academicSessionId;
     private String semester;
-    private String waliKelasId;
-    private String namaWaliKelas;
+
+    private String homeroomTeacherId;
+    private String homeroomTeacherName;
+
     private String status;
 }
