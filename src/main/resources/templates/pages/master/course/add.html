@@ -66,11 +66,9 @@
                         <span th:errors="*{summary}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row g-2 mb-2">
                 <div class="col mb-0">
                     <label for="imageId" class="form-label">Image Id</label>
-                    <input type="text" id="imageId" name="imageId" th:value="${course.summary}"
+                    <input type="text" id="imageId" name="imageId" th:value="${course.imageId}"
                            th:class="${#fields.hasErrors('imageId')} ? 'form-control is-invalid': 'form-control'" placeholder="Image Id"/>
                     <div th:if="${#fields.hasErrors('imageId')}" class="invalid-feedback">
                         <span th:errors="*{imageId}"></span>
@@ -84,6 +82,8 @@
                         <span th:errors="*{format}"></span>
                     </div>
                 </div>
+            </div>
+            <div class="row g-2 mb-2">
                 <div class="col mb-0">
                     <label for="hiddenSection" class="form-label">Hidden Section</label>
                     <input type="text" id="hiddenSection" name="hiddenSection" th:value="${course.hiddenSection}"
@@ -92,8 +92,6 @@
                         <span th:errors="*{hiddenSection}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row g-2 mb-2">
                 <div class="col mb-0">
                     <label for="layout" class="form-label">Layout</label>
                     <input type="text" id="layout" name="layout" th:value="${course.layout}"
@@ -111,32 +109,32 @@
                     </div>
                 </div>
             </div>
-                <div class="row g-2 mb-2">
-                    <div class="col mb-0">
-                        <label for="subjectId" class="form-label">Mapel</label>
-                        <select id="subjectId" name="subjectId" th:value="${course.subjectId}" data-allow-clear="true"
-                                th:class="${#fields.hasErrors('subjectId')} ? 'form-select is-invalid': 'form-select'">
-                            <option value="">Pilih Mapel</option>
-                            <option th:each="item : ${dataMapel}" th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${item.id == course.subjectId}"></option>
-                        </select>
-                        <div th:if="${#fields.hasErrors('subjectId')}" class="invalid-feedback">
-                            <span th:errors="*{subjectId}"></span>
-                        </div>
-                    </div>
-                    <div class="col mb-0">
-                        <label for="levelId" class="form-label">Level</label>
-                        <select id="levelId" name="levelId" th:value="${course.levelId}" data-allow-clear="true"
-                                th:class="${#fields.hasErrors('levelId')} ? 'form-select is-invalid': 'form-select'">
-                            <option value="">Pilih Level</option>
-                            <option th:each="item : ${dataLevel}" th:value="${item.id}" th:text="${item.name}"
-                                    th:selected="${item.id == course.levelId}"></option>
-                        </select>
-                        <div th:if="${#fields.hasErrors('levelId')}" class="invalid-feedback">
-                            <span th:errors="*{levelId}"></span>
-                        </div>
+            <div class="row g-2 mb-2">
+                <div class="col mb-0">
+                    <label for="subjectId" class="form-label">Mapel</label>
+                    <select id="subjectId" name="subjectId" th:value="${course.subjectId}" data-allow-clear="true"
+                            th:class="${#fields.hasErrors('subjectId')} ? 'form-select is-invalid': 'form-select'">
+                        <option value="">Pilih Mapel</option>
+                        <option th:each="item : ${dataMapel}" th:value="${item.id}" th:text="${item.name}"
+                                th:selected="${item.id == course.subjectId}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('subjectId')}" class="invalid-feedback">
+                        <span th:errors="*{subjectId}"></span>
                     </div>
                 </div>
+                <div class="col mb-0">
+                    <label for="levelId" class="form-label">Level</label>
+                    <select id="levelId" name="levelId" th:value="${course.levelId}" data-allow-clear="true"
+                            th:class="${#fields.hasErrors('levelId')} ? 'form-select is-invalid': 'form-select'">
+                        <option value="">Pilih Level</option>
+                        <option th:each="item : ${dataLevel}" th:value="${item.id}" th:text="${item.name}"
+                                th:selected="${item.id == course.levelId}"></option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('levelId')}" class="invalid-feedback">
+                        <span th:errors="*{levelId}"></span>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- footer -->
         <div class="modal-footer input-group">

@@ -131,7 +131,7 @@ public class CourseController extends BaseController<CourseRes> {
     }
 
     @PostMapping("/remove")
-    public ModelAndView remove(@ModelAttribute("course")@Valid CourseReq request, BindingResult result){
+    public ModelAndView remove(@ModelAttribute("course")@Valid CourseRes request, BindingResult result){
         ModelAndView view = new ModelAndView("pages/master/course/delete");
         view.addObject("course", request);
         if (result.hasErrors()){
