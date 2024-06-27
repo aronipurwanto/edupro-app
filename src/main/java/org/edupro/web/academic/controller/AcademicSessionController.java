@@ -24,20 +24,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/master/sesi")
 @RequiredArgsConstructor
 public class AcademicSessionController extends BaseController<AcademicSessionRes> {
     private final AcademicSessionService service;
-    private final AcademicService taService;
-    private final CurriculumService kurikulumService;
-    private final LookupService lookupService;
+    private final AcademicService academicService;
 
     @GetMapping
     public ModelAndView index(){
         var view = new ModelAndView("pages/master/sesi/index");
-        view.addObject("data", service.get());
         return view;
     }
 
@@ -51,14 +49,8 @@ public class AcademicSessionController extends BaseController<AcademicSessionRes
     }
 
     private void addObject(ModelAndView view){
-        List<AcademicYearRes> tahunAjaran = this.taService.get();
+        List<AcademicYearRes> tahunAjaran = this.academicService.get();
         view.addObject("dataTa", tahunAjaran);
-
-        List<CurriculumRes> kurikulum = this.kurikulumService.get();
-        view.addObject("kurikulum", kurikulum);
-
-        List<LookupRes> lookup = this.lookupService.getByGroup(CommonConstant.GROUP_SEMESTER);
-        view.addObject("semester", lookup);
     }
 
     @PostMapping("/save")
@@ -67,18 +59,23 @@ public class AcademicSessionController extends BaseController<AcademicSessionRes
         view.addObject("sesi", request);
 
         if (result.hasErrors()){
-            addObject(view);
-
             return view;
         }
 
+        Optional<AcademicSessionRes> res;
         try {
-            service.save(request);
-            return new ModelAndView("redirect:/master/sesi");
+            res = service.save(request);
+
         } catch (EduProWebException e){
             addError("sesi", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if (res.isEmpty()){
+            addError("sesi", result,Collections.emptyList());
+        }
+
+        return view;
     }
 
     @GetMapping("/edit/{id}")
@@ -111,17 +108,23 @@ public class AcademicSessionController extends BaseController<AcademicSessionRes
         view.addObject("sesi", request);
 
         if (result.hasErrors()){
-            addObject(view);
             return view;
         }
 
+        Optional<AcademicSessionRes> res;
         try {
-            service.update(request, request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/sesi");
+            res = service.update(request, request.getId());
+
         } catch (EduProWebException e){
             addError("sesi", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if (res.isEmpty()){
+            addError("sesi", result,Collections.emptyList());
+        }
+
+        return view;
     }
 
     @GetMapping("/delete/{id}")
@@ -136,17 +139,23 @@ public class AcademicSessionController extends BaseController<AcademicSessionRes
         view.addObject("sesi", request);
 
         if (result.hasErrors()) {
-            addObject(view);
             return view;
         }
 
+        Optional<AcademicSessionRes> res;
         try {
-            service.delete(request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/sesi");
+            res = service.delete(request.getId());
+
         } catch (EduProWebException e){
             addError("sesi", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if (res.isEmpty()){
+            addError("sesi", result,Collections.emptyList());
+        }
+
+        return view;
     }
 
     @GetMapping("/data")

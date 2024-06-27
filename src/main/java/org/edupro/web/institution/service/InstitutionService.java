@@ -1,5 +1,6 @@
 package org.edupro.web.institution.service;
 
+import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.institution.model.InstitutionReq;
 import org.edupro.web.institution.model.InstitutionRes;
 

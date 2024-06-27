@@ -13,22 +13,22 @@ public class ClassReq {
 
     @NotEmpty(message = "kode wajib diisi")
     @Size(min = 4, max = 10, message = "minimal 4 dan maximal 10")
-    private String kode;
+    private String code;
 
     @NotEmpty(message = "nama wajib diisi")
     @Size(min = 2, max = 100, message = "minimal 2 dan maximal 100")
-    private String nama;
+    private String name;
 
     @NotEmpty(message = "ruang wajib di isi")
-    private String ruangId;
+    private String roomId;
 
 
     @NotEmpty(message = "lemabag wajib diisi")
-    private String lembagaId;
+    private String institutionId;
 
 
     @NotEmpty(message = "tahun ajaran wajib diisi")
-    private String tahunAjaranId;
+    private String academicYearId;
 
 
     @NotEmpty(message = "level wajib diisi")
@@ -36,10 +36,10 @@ public class ClassReq {
 
 
     @NotEmpty(message = "sesi akademik wajib diisi")
-    private String sesiAkademikId;
+    private String academicSessionId;
 
 
     @NotEmpty(message = "wali kelas wajib diisi")
-    private String waliKelasId;
+    private String homeroomTeacherId;
 
 }

@@ -53,8 +53,8 @@
                 <select id="gender" name="gender" th:value="${siswa.gender}" data-allow-clear="true"
                         th:class="${#fields.hasErrors('gender')}? 'form-select select2 is-invalid': 'form-select select2'">
                     <option value="">Pilih Gender</option>
-                    <option th:each="item : ${gender}" th:value="${item.kode}" th:text="${item.name}"
-                            th:selected="${item.kode == siswa.gender}"></option>
+                    <option th:each="item : ${gender}" th:value="${item.code}" th:text="${item.name}"
+                            th:selected="${item.code == siswa.gender}"></option>
                 </select>
                 <div th:if="${#fields.hasErrors('gender')}" class="invalid-feedback">
                     <span th:errors="*{gender}"></span>
@@ -62,12 +62,12 @@
             </div>
 
             <div class="col mb-3">
-                <label for="religion" class="form-label">religion</label>
+                <label for="religion" class="form-label">Religion</label>
                 <select id="religion" name="religion" th:value="${siswa.religion}" data-allow-clear="true"
                         th:class="${#fields.hasErrors('religion')}? 'form-select select2 is-invalid': 'form-select select2'">
                     <option value="">Pilih religion</option>
-                    <option th:each="item : ${religion}" th:value="${item.kode}" th:text="${item.name}"
-                            th:selected="${item.kode == siswa.religion}"></option>
+                    <option th:each="item : ${religion}" th:value="${item.code}" th:text="${item.name}"
+                            th:selected="${item.code == siswa.religion}"></option>
                 </select>
                 <div th:if="${#fields.hasErrors('religion')}" class="invalid-feedback">
                     <span th:errors="*{religion}"></span>
@@ -81,8 +81,8 @@
                 <select id="bloodType" name="bloodType" th:value="${siswa.bloodType}" data-allow-clear="true"
                         th:class="${#fields.hasErrors('bloodType')}? 'form-select select2 is-invalid': 'form-select select2'">
                     <option value="">Pilih Gol Darah</option>
-                    <option th:each="item : ${bloodType}" th:value="${item.kode}" th:text="${item.name}"
-                            th:selected="${item.kode == siswa.bloodType}"></option>
+                    <option th:each="item : ${bloodType}" th:value="${item.code}" th:text="${item.name}"
+                            th:selected="${item.code == siswa.bloodType}"></option>
                 </select>
                 <div th:if="${#fields.hasErrors('bloodType')}" class="invalid-feedback">
                     <span th:errors="*{bloodType}"></span>

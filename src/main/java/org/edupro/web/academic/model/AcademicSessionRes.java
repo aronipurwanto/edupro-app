@@ -2,6 +2,8 @@ package org.edupro.web.academic.model;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -9,11 +11,10 @@ import lombok.*;
 @Builder
 public class AcademicSessionRes {
     private String id;
-    private String tahunAjaranId;
-    private String tahunAjaranName;
-    private String kurikulumId;
-    private String kodeKurikulum;
-    private String kurikulumName;
+    private String academicYearId;
+    private String academicYearName;
     private Integer semester;
+    private String startDate;
+    private String endDate;
     private String status;
 }

@@ -39,14 +39,14 @@ $(document).ready(function () {
             ajax: ajaxUrl,
             columns: [
                 { data: 'id'},
-                { data: 'kode'},
-                { data: 'nama'},
-                { data: 'kodeRuangan'},
-                { data: 'namaLembaga'},
-                { data: 'namaTahunAjaran'},
-                { data: 'namaLevel'},
+                { data: 'code'},
+                { data: 'name'},
+                { data: 'roomCode'},
+                { data: 'institutionName'},
+                { data: 'academicYearName'},
+                { data: 'levelName'},
                 { data: 'semester'},
-                { data: 'namaWaliKelas'},
+                { data: 'homeroomTeacherName'},
                 { data: 'status'},
                 { data: ' '}
             ],
@@ -67,7 +67,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kode'];
+                        var $item = full['code'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -76,7 +76,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['nama'];
+                        var $item = full['name'];
                         return '<span>' +$item + '</span>';
                     }
                 },
@@ -85,7 +85,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['kodeRuangan'];
+                        var $item = full['roomCode'];
                         return '<span>' + $item + '</span>';
                     }
                 },
@@ -94,7 +94,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['namaLembaga'];
+                        var $item = full['institutionName'];
                         return '<span>' +$item + '</span>';
                     }
                 },
@@ -103,7 +103,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['namaTahunAjaran'];
+                        var $item = full['academicYearName'];
                         return '<span>' +$item + '</span>';
                     }
                 },
@@ -112,7 +112,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['namaLevel'];
+                        var $item = full['levelName'];
                         return '<span>' +$item + '</span>';
                     }
                 },
@@ -130,7 +130,7 @@ $(document).ready(function () {
                     searchable: true,
                     orderable: true,
                     render: (data, type, full, meta) => {
-                        var $item = full['namaWaliKelas'];
+                        var $item = full['homeroomTeacherName'];
                         return '<span>' +$item + '</span>';
                     }
                 },

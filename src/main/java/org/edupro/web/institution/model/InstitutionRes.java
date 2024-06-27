@@ -1,9 +1,6 @@
 package org.edupro.web.institution.model;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -12,43 +9,37 @@ import java.time.LocalDate;
 @Builder
 public class InstitutionRes {
     private String id;
-    private String nama;
-    private String namaSingkat;
-    private String nomorInduk;
-    private String kode;
-    @DateTimeFormat(pattern = "YYYY-MM-dd")
-    private LocalDate tanggalAkhirMasaBerlaku;
-    private String kodeJenjangKategori;
-    private String kepala;
-    private String nomorUnik;
-    private String admin;
-    private int maxUserUjian;
-    private int maxUserLMS;
-    private int selisihJamDenganServer;
-    private int hariEfektifSekolah;
-    private String masukAwal;
-    private String masukAkhir;
-    private String pulangAwal;
-    private String pulahgAkhir;
-    private String kodeProvinsi;
-    private String kodeKota;
-    private String kodeKecamatan;
-    private String kodeKelurahan;
-    private String alamat;
-    private String kodePos;
-    private String telpon;
-    private String fax;
+    private String name;
+    private String shortName;
+    private String regNumber;
+    private String code;
+    private String expiredDate;
+    private String levelCategory;
+    private String headmaster;
+    private String uniqueNumber;
+    private String adminName;
+    private int maxExamUser;
+    private int maxLmsUser;
+    private int diffServerTime;
+    private int effectiveDays;
+    private String startedDay;
+    private String endDay;
+    private String endEarly;
+    private String endOfDay;
+    private String provinceId;
+    private String cityId;
+    private String districtId;
+    private String subDistrictId;
+    private String address;
+    private String postalCode;
+    private String phoneNumber;
+    private String faxNumber;
     private String website;
     private String email;
-
-    private Long kopId;
-    private String kopUrl;
-    private Long ttdPimpinanId;
-    private String ttdPimpinanUrl;
-    private Long logoDinasId;
-    private String logoDinasUrl;
-    private Long logoLembagaId;
-    private String logoLembagaUrl;
-    private Long stempelId;
-    private String stempelUrl;
+    private String letterHead;
+    private String headOfSignature;
+    private String serviceLogo;
+    private String institutionLogo;
+    private String stamp;
+    private String status;
 }
