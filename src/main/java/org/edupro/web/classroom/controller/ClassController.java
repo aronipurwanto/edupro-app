@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -88,13 +89,21 @@ public class ClassController extends BaseController<ClassRes> {
             return view;
         }
 
+        Optional<ClassRes> res;
         try {
-            service.save(classReq);
-            return new ModelAndView("redirect:/master/kelas");
+            res = service.save(classReq);
+
         }catch (EduProWebException e){
             addError("kelas", result,(List<FieldError>)e.getErrors());
+            view.addObject("kelas", new ClassReq());
             return view;
         }
+
+        if (res.isEmpty()) {
+            addError("kelas", result, Collections.emptyList());
+        }
+
+        return view;
     }
 
     @GetMapping("/edit/{id}")
@@ -130,13 +139,20 @@ public class ClassController extends BaseController<ClassRes> {
             return view;
         }
 
+        Optional<ClassRes> res;
         try {
-            service.update(request, request.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/kelas");
+            res = service.update(request, request.getId());
+
         }catch (EduProWebException e){
             addError("kelas", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if (res.isEmpty()) {
+            addError("kelas", result, Collections.emptyList());
+        }
+
+        return view;
     }
 
     @GetMapping("/delete/{id}")
@@ -154,13 +170,20 @@ public class ClassController extends BaseController<ClassRes> {
             return view;
         }
 
+        Optional<ClassRes> res;
         try {
-            service.delete(response.getId()).orElse(null);
-            return new ModelAndView("redirect:/master/kelas");
+            res = service.delete(response.getId());
+
         }catch (EduProWebException e){
             addError("kelas", result,(List<FieldError>)e.getErrors());
             return view;
         }
+
+        if (res.isEmpty()) {
+            addError("kelas", result, Collections.emptyList());
+        }
+
+        return view;
     }
 
     @GetMapping("/data")
