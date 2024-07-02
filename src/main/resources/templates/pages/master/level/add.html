@@ -15,7 +15,7 @@
                     <select id="institutionId" name="institutionId" th:value="${level.institutionId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('institutionId')}? 'form-select select2 is-invalid': 'form-select select2'">
                         <option value="">Pilih Lembaga</option>
-                        <option th:each="item : ${dataLembaga}" th:value="${item.id}" th:text="${item.nama}"
+                        <option th:each="item : ${dataLembaga}" th:value="${item.id}" th:text="${item.name}"
                                 th:selected="${item.id == level.institutionId}"></option>
                     </select>
                     <div th:if="${#fields.hasErrors('institutionId')}" class="invalid-feedback">

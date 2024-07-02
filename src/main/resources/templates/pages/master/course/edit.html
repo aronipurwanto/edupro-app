@@ -72,8 +72,6 @@
                         <span th:errors="*{summary}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row g-2 mb-2">
                 <div class="col mb-0">
                     <label for="imageId" class="form-label">Image Id</label>
                     <input type="text" id="imageId" name="imageId" th:value="${course.imageId}"
@@ -90,6 +88,8 @@
                         <span th:errors="*{format}"></span>
                     </div>
                 </div>
+            </div>
+            <div class="row g-2 mb-2">
                 <div class="col mb-0">
                     <label for="hiddenSection" class="form-label">Hidden Section</label>
                     <input type="text" id="hiddenSection" name="hiddenSection" th:value="${course.hiddenSection}"
@@ -98,8 +98,6 @@
                         <span th:errors="*{hiddenSection}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row g-2 mb-2">
                 <div class="col mb-0">
                     <label for="layout" class="form-label">Layout</label>
                     <input type="text" id="layout" name="layout" th:value="${course.layout}"

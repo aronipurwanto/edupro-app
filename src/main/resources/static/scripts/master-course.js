@@ -239,7 +239,7 @@ $(document).ready(function (){
     // btn add click
     $("#btn-add").click(function (){
         var url = $(this).attr('href');
-        showModal(url, ' ');
+        showModal(url, 'large');
     })
 
     // form submit
@@ -253,13 +253,13 @@ $(document).ready(function (){
     // edit data
     $("#table-course").on('click', '.btn-edit', function (){
         var url = $(this).attr('href');
-        showModal(url, ' ');
+        showModal(url, 'large');
     });
 
     // delete data
     $("#table-course").on('click', '.btn-delete', function (){
         var url = $(this).attr('href');
-        showModal(url, ' ');
+        showModal(url, 'large');
     });
 
     getActiveMenu();
