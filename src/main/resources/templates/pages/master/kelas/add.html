@@ -33,7 +33,7 @@
                     <select id="roomId" name="roomId" th:value="${kelas.roomId}" data-allow-clear="true"
                             th:class="${#fields.hasErrors('roomId')}? 'form-select select2 is-invalid': 'form-select select2'">
                         <option value="">Pilih Ruangan</option>
-                        <option th:each="item : ${ruangan}" th:value="${item.id}" th:text="|${item.code} - ${item.name}|"
+                        <option th:each="item : ${ruangan}" th:value="${item.id}" th:text="${item.code}"
                                 th:selected="${item.id == kelas.roomId}"></option>
                     </select>
                     <div th:if="${#fields.hasErrors('roomId')}" class="invalid-feedback">
