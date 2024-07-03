@@ -32,7 +32,10 @@ public class InstitutionController extends BaseController<InstitutionRes> {
 
     @GetMapping("/add")
     public ModelAndView add(){
-        return new ModelAndView("pages/master/institution/add");
+        ModelAndView view =  new ModelAndView("pages/master/institution/add");
+
+        view.addObject("institution", new InstitutionRes());
+        return view;
     }
 
     @GetMapping("/data")

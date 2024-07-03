@@ -402,7 +402,7 @@ $(document).ready(function () {
     // btn add click
     $("#btn-add").click(function () {
         var url = $(this).attr('href');
-        showModal(url, ' ');
+        showModal(url, 'extra-large');
     });
 
     // form submit
