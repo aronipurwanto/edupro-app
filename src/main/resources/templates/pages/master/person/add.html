@@ -35,6 +35,8 @@
                         <span th:errors="*{personNo}"></span>
                     </div>
                 </div>
+            </div>
+            <div class="row mb-3">
                 <div class="col mb-3">
                     <label for="fullName" class="form-label">Nama</label>
                     <input type="text" id="fullName" name="fullName" th:value="${person.fullName}"
@@ -43,8 +45,6 @@
                         <span th:errors="*{fullName}"></span>
                     </div>
                 </div>
-            </div>
-            <div class="row mb-3">
                 <div class="col mb-0">
                     <label for="address" class="form-label">Alamat Tinggal</label>
                     <input type="text" id="address" name="address" th:value="${person.address}"

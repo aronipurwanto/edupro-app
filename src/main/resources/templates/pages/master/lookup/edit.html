@@ -37,7 +37,7 @@
             </div>
             <div class="col mb-0">
                 <label for="position" class="form-label">position</label>
-                <input type="text" id="position" name="position" th:value="${lookup.position}" th:class="${#fields.hasErrors('position')}? 'form-control is-invalid': 'form-control'" placeholder="position" />
+                <input type="number" id="position" name="position" th:value="${lookup.position}" th:class="${#fields.hasErrors('position')}? 'form-control is-invalid': 'form-control'" placeholder="position" />
                 <div th:if="${#fields.hasErrors('position')}" class="invalid-feedback">
                     <span th:errors="*{position}"></span>
                 </div>
