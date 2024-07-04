@@ -60,9 +60,7 @@ public class PeopleController extends BaseController {
         ModelAndView view = new ModelAndView("pages/classroom/people");
         CoursePeopleRes people = peopleService.getPeople(id).orElse(null);
         view.addObject("people", people);
-
-        CourseRes course = courseService.getById(id).orElse(null);
-        view.addObject("course", course);
+        view.addObject("courseId", id);
         return view;
     }
 

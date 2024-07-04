@@ -2,7 +2,6 @@ package org.edupro.web.classroom.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.edupro.web.base.controller.BaseController;
-import org.edupro.web.course.model.CourseRes;
 import org.edupro.web.course.service.CourseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +18,7 @@ public class WorkController extends BaseController {
     @GetMapping("/{id}/work")
     public ModelAndView grade(@PathVariable String id) {
         ModelAndView view = new ModelAndView("pages/classroom/work");
-
-        CourseRes course = courseService.getById(id).orElse(null);
-        view.addObject("course", course);
+        view.addObject("courseId", id);
         return view;
     }
 }
