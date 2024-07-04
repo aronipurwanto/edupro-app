@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+<head>
+    <meta charset="UTF-8">
+    <th:block layout:fragment="pageCss">
+        <link rel="stylesheet" th:href="@{~/vendor/css/pages/app-academy-details.css}" />
+        <link rel="stylesheet" th:href="@{~/vendor/libs/quill/typography.css}" />
+        <link rel="stylesheet" th:href="@{~/vendor/libs/quill/katex.css}" />
+        <link rel="stylesheet" th:href="@{~/vendor/libs/quill/editor.css}" />
+    </th:block>
+    <title>Title</title>
+</head>
+<body>
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y" layout:fragment="content">
+    <!-- Header -->
+    <h4 class="pt-3 mb-4"><span class="text-muted fw-light">Academy /</span> Course Details</h4>
+    <!--/ Header -->
+
+    <!-- Navbar pills -->
+    <div class="row" th:replace="~{fragments/classroom-detail-nav:: classroomDetailNav}"></div>
+    <!--/ Navbar pills -->
+
+    <div class="row g-4">
+        <div class="card g-3 mt-5">
+            <div class="card-body row g-3">
+                <div class="col-lg-8">
+
+                </div>
+                <div class="col-lg-4">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- / Content -->
+
+<th:block layout:fragment="script">
+    <!-- Vendors JS -->
+    <script th:src="@{~/vendor/libs/quill/katex.js}"></script>
+    <script th:src="@{~/vendor/libs/quill/quill.js}"></script>
+
+    <script th:src="@{~/scripts/classroom-detail.js}"></script>
+</th:block>
+</body>
+</html>
