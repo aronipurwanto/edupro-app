@@ -1,0 +1,189 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-institution" th:action="@{~/master/institution/remove}"
+      th:method="post" th:object="${institution}">
+    <input type="hidden" name="id" th:value="${institution.id}">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel4">Delete Institution</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name" th:value="${institution.name}" class="form-control" readonly />
+                </div>
+                <div class="col-md-6">
+                    <label for="shortName" class="form-label">Short Name</label>
+                    <input type="text" id="shortName" name="shortName" th:value="${institution.shortName}" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="regNumber" class="form-label">Reg Number</label>
+                    <input type="text" id="regNumber" name="regNumber" th:value="${institution.regNumber}" class="form-control" readonly />
+                </div>
+                <div class="col-md-6">
+                    <div class="row d-flex">
+                        <div class="col-md-6">
+                            <label for="code" class="form-label">Code</label>
+                            <input type="text" id="code" name="code" th:value="${institution.code}" class="form-control" readonly />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="expiredDate" class="form-label">expiredDate</label>
+                            <input type="date" id="expiredDate" name="expiredDate" th:value="${institution.expiredDate}" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="levelCategory" class="form-label">Level Category</label>
+                    <input type="text" id="levelCategory" name="levelCategory" th:value="${institution.levelCategory}" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <div class="row d-flex">
+                        <div class="col-md-6">
+                            <label for="headmaster" class="form-label">headmaster</label>
+                            <input type="text" id="headmaster" name="headmaster" th:value="${institution.headmaster}" class="form-control" readonly />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="uniqueNumber" class="form-label">uniqueNumber</label>
+                            <input type="text" id="uniqueNumber" name="uniqueNumber" th:value="${institution.uniqueNumber}" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="adminName" class="form-label">Admin Name</label>
+                    <input type="text" id="adminName" name="adminName" th:value="${institution.adminName}" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label for="maxExamUser" class="form-label">maxExamUser</label>
+                    <input type="text" id="maxExamUser" name="maxExamUser" th:value="${institution.maxExamUser}" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row d-flex mb-2">
+                <div class="col-md-6">
+                    <label for="maxLmsUser" class="form-label">maxLmsUser</label>
+                    <input type="text" id="maxLmsUser" name="maxLmsUser" th:value="${institution.maxLmsUser}" class="form-control" readonly />
+                </div>
+                <div class="col-md-6">
+                    <label for="diffServerTime" class="form-label">diffServerTime</label>
+                    <input type="text" id="diffServerTime" name="diffServerTime" th:value="${institution.diffServerTime}" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-3">
+                    <label for="effectiveDays" class="form-label">effectiveDays</label>
+                    <input type="text" id="effectiveDays" name="effectiveDays" th:value="${institution.effectiveDays}" class="form-control" readonly />
+                </div>
+                <div class="col-md-3">
+                    <label for="startedDay" class="form-label">startedDay</label>
+                    <input type="text" id="startedDay" name="startedDay" th:value="${institution.startedDay}" class="form-control" readonly />
+                </div>
+                <div class="col-md-3">
+                    <label for="endDay" class="form-label">endDay</label>
+                    <input type="text" id="endDay" name="endDay" th:value="${institution.endDay}" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label for="endEarly" class="form-label">endEarly</label>
+                    <input type="text" id="endEarly" name="endEarly" th:value="${institution.endEarly}" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-3">
+                    <label for="endOfDay" class="form-label">endOfDay</label>
+                    <input type="text" id="endOfDay" name="endOfDay" th:value="${institution.endOfDay}" class="form-control" readonly />
+                </div>
+                <div class="col-md-3">
+                    <label for="provinceId" class="form-label">provinceId</label>
+                    <input type="text" id="provinceId" name="provinceId" th:value="${institution.provinceId}" class="form-control" readonly />
+                </div>
+                <div class="col-md-3">
+                    <label for="cityId" class="form-label">cityId</label>
+                    <input type="text" id="cityId" name="cityId" th:value="${institution.cityId}" class="form-control" readonly />
+                </div>
+                <div class="col-md-3">
+                    <label for="districtId" class="form-label">districtId</label>
+                    <input type="text" id="districtId" name="districtId" th:value="${institution.districtId}" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-3">
+                    <label for="subDistrictId" class="form-label">subDistrictId</label>
+                    <input type="text" id="subDistrictId" name="subDistrictId" th:value="${institution.subDistrictId}" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label for="address" class="form-label">address</label>
+                    <input type="text" id="address" name="address" th:value="${institution.address}" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label for="postalCode" class="form-label">postalCode</label>
+                    <input type="text" id="postalCode" name="postalCode" th:value="${institution.postalCode}" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label for="phoneNumber" class="form-label">phoneNumber</label>
+                    <input type="text" id="phoneNumber" name="phoneNumber" th:value="${institution.phoneNumber}" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="faxNumber" class="form-label">faxNumber</label>
+                    <input type="text" id="faxNumber" name="faxNumber" th:value="${institution.faxNumber}" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label for="website" class="form-label">website</label>
+                    <input type="text" id="website" name="website" th:value="${institution.website}" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="email" class="form-label">email</label>
+                    <input type="text" id="email" name="email" th:value="${institution.email}" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label for="letterHead" class="form-label">letterHead</label>
+                    <input type="text" id="letterHead" name="letterHead" th:value="${institution.letterHead}" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="headOfSignature" class="form-label">headOfSignature</label>
+                    <input type="text" id="headOfSignature" name="headOfSignature" th:value="${institution.headOfSignature}" class="form-control" readonly />
+                </div>
+                <div class="col-md-6">
+                    <label for="serviceLogo" class="form-label">serviceLogo</label>
+                    <input type="text" id="serviceLogo" name="serviceLogo" th:value="${institution.serviceLogo}" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="institutionLogo" class="form-label">institutionLogo</label>
+                    <input type="text" id="institutionLogo" name="institutionLogo" th:value="${institution.institutionLogo}" class="form-control" readonly />
+                </div>
+                <div class="col-md-6">
+                    <label for="stamp" class="form-label">stamp</label>
+                    <input type="text" id="stamp" name="stamp" th:value="${institution.stamp}" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+    <div class="modal-footer input-group">
+        <button type="submit" class="btn btn-warning">
+            <i class="ti ti-check"></i>
+            Delete
+        </button>
+        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+            Close
+        </button>
+    </div>
+</form>

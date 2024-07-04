@@ -405,6 +405,18 @@ $(document).ready(function () {
         showModal(url, 'extra-large');
     });
 
+    // edit data
+    $("#table-institution").on('click', '.btn-edit', function (){
+        var url = $(this).attr('href');
+        showModal(url, 'extra-large');
+    });
+
+    //delete data
+    $("#table-institution").on('click','.btn-delete', function (){
+        var url = $(this).attr('href');
+        showModal(url, 'extra-large');
+    })
+
     // form submit
     $('#main-modal').on('submit', '#form-institution', function (e) {
         e.preventDefault();
