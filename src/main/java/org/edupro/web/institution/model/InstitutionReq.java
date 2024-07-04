@@ -51,11 +51,11 @@ public class InstitutionReq {
 
     @NotNull
     private int maxExamUser;
-    @NotNull(message = "must not be null")
+    @NotNull
     private int maxLmsUser;
-    @NotNull(message = "must not be null")
+    @NotNull
     private int diffServerTime;
-    @NotNull(message = "must not be null")
+    @NotNull
     private int effectiveDays;
 
     @NotEmpty(message = "startedDay wajib di isi")
