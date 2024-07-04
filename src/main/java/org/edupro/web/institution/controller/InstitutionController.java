@@ -96,7 +96,7 @@ public class InstitutionController extends BaseController<InstitutionRes> {
 
         Optional<InstitutionRes> res;
         try {
-            res = service.save(request);
+            res = service.update(request, request.getId());
         }catch (EduProWebException e){
             addError("institution", result,(List<FieldError>) e.getErrors());
             return view;
@@ -126,7 +126,7 @@ public class InstitutionController extends BaseController<InstitutionRes> {
 
         Optional<InstitutionRes> res;
         try {
-            res = service.save(request);
+            res = service.delete(request.getId());
         }catch (EduProWebException e){
             addError("institution", result,(List<FieldError>) e.getErrors());
             return view;
