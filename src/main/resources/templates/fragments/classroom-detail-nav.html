@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <ul class="nav nav-pills flex-column flex-sm-row mb-4">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{~/classroom/pages/stream}"><i class="ti-xs ti ti-user-check me-1"></i> Steam</a>
+                <a class="nav-link" th:href="@{~/classroom/{id}/stream(id=${courseId})}"><i class="ti-xs ti ti-user-check me-1"></i> Steam</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="btn-page-course"  th:href="@{~/classroom/{id}/work(id=${courseId})}"><i class="ti-xs ti ti-layout-grid me-1"></i> Classwork</a>
@@ -17,7 +17,7 @@
             <li class="nav-item">
                 <!-- Button New -->
                 <div class="btn-group" id="dropdown-icon">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="ti ti-plus"></i> &nbsp; Create
                     </button>
                     <ul class="dropdown-menu">

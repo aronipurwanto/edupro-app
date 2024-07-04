@@ -72,12 +72,26 @@ function ajaxSubmit(url, data, dataTable = null){
 }
 
 function getActiveMenu(){
-    var currentUrl = window.location.pathname;
+    const currentUrl = window.location.pathname;
 
     $('.menu-item .menu-link').each(function (){
-        var href = $(this).attr('href');
+        const href = $(this).attr('href');
         if (currentUrl.includes(href)) {
             $(this).closest('.menu-item').addClass('active');
+            $(this).closest('.menu-sub').parent().addClass('active open');
+        }
+    });
+
+    console.log("Active menu Call");
+}
+
+function getClassroomMenu(){
+    const currentUrl = window.location.pathname;
+
+    $('.nav-pills .nav-item .nav-link').each(function (){
+        const href = $(this).attr('href');
+        if (currentUrl.includes(href)) {
+            $(this).addClass('active');
         }
     });
 }

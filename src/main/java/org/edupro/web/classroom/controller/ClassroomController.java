@@ -78,6 +78,7 @@ public class ClassroomController extends BaseController {
             sections = Collections.emptyList();
         }
         view.addObject("sections", sections);
+        view.addObject("courseId", id);
         view.addObject("noUrutComparator", Comparator.comparing(CourseSectionRes::getNoUrut));
         return view;
     }
