@@ -2,6 +2,7 @@ package org.edupro.web.classroom.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.edupro.web.base.service.BaseService;
+import org.edupro.web.constant.BaseApiUrl;
 import org.edupro.web.course.model.CourseSectionReq;
 import org.edupro.web.course.model.CourseSectionRes;
 import org.edupro.web.exception.EduProWebException;
@@ -14,7 +15,7 @@ import java.util.Optional;
 @Service
 public class CourseSectionServiceImpl extends BaseService<CourseSectionRes, CourseSectionReq> implements CourseSectionService {
     public CourseSectionServiceImpl(String backEndUrl, RestTemplate restTemplate, ObjectMapper objectMapper) {
-        super(backEndUrl, restTemplate, objectMapper);
+        super(backEndUrl+ BaseApiUrl.SECTION_URL, restTemplate, objectMapper);
     }
 
     @Override
@@ -25,7 +26,7 @@ public class CourseSectionServiceImpl extends BaseService<CourseSectionRes, Cour
 
     @Override
     public List<CourseSectionRes> getSectionByCourseId(String courseId) throws EduProWebException {
-        String url = "/"+courseId+"/section";
+        String url = "/"+courseId;
         return super.getByCustomUrl(url, CourseSectionRes.class);
     }
 
