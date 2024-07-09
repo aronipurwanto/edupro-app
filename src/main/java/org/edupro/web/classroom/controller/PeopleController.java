@@ -6,10 +6,8 @@ import org.edupro.web.base.controller.BaseController;
 import org.edupro.web.base.model.Response;
 import org.edupro.web.classroom.service.CoursePeopleService;
 import org.edupro.web.classroom.service.CourseStudentService;
-import org.edupro.web.course.model.CoursePeopleRes;
-import org.edupro.web.course.model.CoursePersonReq;
-import org.edupro.web.course.model.CourseStudentReq;
-import org.edupro.web.course.model.CourseStudentRes;
+import org.edupro.web.course.model.*;
+import org.edupro.web.course.service.CourseService;
 import org.edupro.web.exception.EduProWebException;
 import org.edupro.web.person.model.PersonRes;
 import org.edupro.web.student.model.StudentRes;
@@ -27,6 +25,7 @@ import java.util.List;
 @RequestMapping("/classroom")
 @RequiredArgsConstructor
 public class PeopleController extends BaseController {
+    private final CourseService courseService;
     private final CoursePeopleService peopleService;
     private final CourseStudentService studentService;
 
@@ -61,6 +60,7 @@ public class PeopleController extends BaseController {
         ModelAndView view = new ModelAndView("pages/classroom/people");
         CoursePeopleRes people = peopleService.getPeople(id).orElse(null);
         view.addObject("people", people);
+        view.addObject("courseId", id);
         return view;
     }
 

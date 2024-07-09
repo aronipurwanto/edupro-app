@@ -1,0 +1,61 @@
+<!-- Navbar pills -->
+<div class="row" xmlns:th="http://www.thymeleaf.org" th:fragment="classroomDetailNav">
+    <div class="col-md-12">
+        <ul class="nav nav-pills flex-column flex-sm-row mb-4">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{~/classroom/{id}/stream(id=${courseId})}"><i class="ti-xs ti ti-user-check me-1"></i> Steam</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="btn-page-course"  th:href="@{~/classroom/{id}/work(id=${courseId})}"><i class="ti-xs ti ti-layout-grid me-1"></i> Classwork</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="btn-people"  th:href="@{~/classroom/{id}/people(id=${courseId})}"><i class="ti-xs ti ti-users me-1"></i> People</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="btn-page-grade" th:href="@{~/classroom/{id}/grade(id=${courseId})}"><i class="ti-xs ti ti-link me-1"></i> Grades</a>
+            </li>
+            <li class="nav-item">
+                <!-- Button New -->
+                <div class="btn-group" id="dropdown-icon">
+                    <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="ti ti-plus"></i> &nbsp; Create
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a th:href="@{~/classroom/add/assignment}" class="dropdown-item d-flex align-content-lg-between">
+                                <i class="fa-regular fa-clipboard"></i> &nbsp; Assignment
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{~/classroom/add/quiz/assignment}" class="dropdown-item d-flex align-items-center">
+                                <i class="fa-solid fa-clipboard"></i> &nbsp; Quiz Assignment
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{~/classroom/add/quiz}" class="dropdown-item d-flex align-items-center">
+                                <i class="fa-solid fa-clipboard-question"></i> &nbsp; Quiz
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{~/classroom/add/material}" id="btn-add-material" class="dropdown-item d-flex align-items-center">
+                                <i class="fa-solid fa-book-bookmark"></i> &nbsp; Material
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-item d-flex align-items-center">
+                                <i class="fa-solid fa-repeat"></i> &nbsp; Reuse Post
+                            </a>
+                        </li>
+                        <li>
+                            <a id="btn-topic-add" th:href="@{~/classroom/{id}/topic/add(id=${courseId})}" class="dropdown-item d-flex align-items-center">
+                                <i class="fa-solid fa-table-list"></i> &nbsp; Topic
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/ Button New -->
+            </li>
+        </ul>
+    </div>
+</div>
+<!--/ Navbar pills -->

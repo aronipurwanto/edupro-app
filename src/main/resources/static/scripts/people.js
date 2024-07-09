@@ -245,4 +245,6 @@ $(document).ready(function (){
     });
 
     getActiveMenu();
+
+    getClassroomMenu();
 });

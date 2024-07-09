@@ -1,0 +1,317 @@
+<form xmlns:th="http://www.thymeleaf.org" th:id="form-institution" th:action="@{~/master/institution/update}"
+      th:method="post" th:object="${institution}">
+    <input type="hidden" name="id" th:value="${institution.id}">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel4">Edit Institution</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name" th:value="${institution.name}"
+                           th:class="${#fields.hasErrors('name')}? 'form-control is-invalid': 'form-control'" placeholder="name" />
+                    <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                        <span th:errors="*{name}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="shortName" class="form-label">Short Name</label>
+                    <input type="text" id="shortName" name="shortName" th:value="${institution.shortName}"
+                           th:class="${#fields.hasErrors('shortName')}? 'form-control is-invalid': 'form-control'" placeholder="shortName" />
+                    <div th:if="${#fields.hasErrors('shortName')}" class="invalid-feedback">
+                        <span th:errors="*{shortName}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="regNumber" class="form-label">Reg Number</label>
+                    <input type="text" id="regNumber" name="regNumber" th:value="${institution.regNumber}"
+                           th:class="${#fields.hasErrors('regNumber')}? 'form-control is-invalid': 'form-control'" placeholder="regNumber" />
+                    <div th:if="${#fields.hasErrors('regNumber')}" class="invalid-feedback">
+                        <span th:errors="*{regNumber}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row d-flex">
+                        <div class="col-md-6">
+                            <label for="code" class="form-label">Code</label>
+                            <input type="text" id="code" name="code" th:value="${institution.code}"
+                                   th:class="${#fields.hasErrors('code')}? 'form-control is-invalid': 'form-control'" placeholder="code" />
+                            <div th:if="${#fields.hasErrors('code')}" class="invalid-feedback">
+                                <span th:errors="*{code}"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="expiredDate" class="form-label">expiredDate</label>
+                            <input type="date" id="expiredDate" name="expiredDate" th:value="${institution.expiredDate}"
+                                   th:class="${#fields.hasErrors('expiredDate')}? 'form-control is-invalid': 'form-control'" placeholder="expiredDate" />
+                            <div th:if="${#fields.hasErrors('expiredDate')}" class="invalid-feedback">
+                                <span th:errors="*{expiredDate}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="levelCategory" class="form-label">Level Category</label>
+                    <input type="text" id="levelCategory" name="levelCategory" th:value="${institution.levelCategory}"
+                           th:class="${#fields.hasErrors('levelCategory')}? 'form-control is-invalid': 'form-control'" placeholder="levelCategory" />
+                    <div th:if="${#fields.hasErrors('levelCategory')}" class="invalid-feedback">
+                        <span th:errors="*{levelCategory}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row d-flex">
+                        <div class="col-md-6">
+                            <label for="headmaster" class="form-label">headmaster</label>
+                            <input type="text" id="headmaster" name="headmaster" th:value="${institution.headmaster}"
+                                   th:class="${#fields.hasErrors('headmaster')}? 'form-control is-invalid': 'form-control'" placeholder="headmaster" />
+                            <div th:if="${#fields.hasErrors('headmaster')}" class="invalid-feedback">
+                                <span th:errors="*{headmaster}"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="uniqueNumber" class="form-label">uniqueNumber</label>
+                            <input type="text" id="uniqueNumber" name="uniqueNumber" th:value="${institution.uniqueNumber}"
+                                   th:class="${#fields.hasErrors('uniqueNumber')}? 'form-control is-invalid': 'form-control'" placeholder="uniqueNumber" />
+                            <div th:if="${#fields.hasErrors('uniqueNumber')}" class="invalid-feedback">
+                                <span th:errors="*{uniqueNumber}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="adminName" class="form-label">Admin Name</label>
+                    <input type="text" id="adminName" name="adminName" th:value="${institution.adminName}"
+                           th:class="${#fields.hasErrors('adminName')}? 'form-control is-invalid': 'form-control'" placeholder="adminName" />
+                    <div th:if="${#fields.hasErrors('adminName')}" class="invalid-feedback">
+                        <span th:errors="*{adminName}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="maxExamUser" class="form-label">maxExamUser</label>
+                    <input type="text" id="maxExamUser" name="maxExamUser" th:value="${institution.maxExamUser}"
+                           th:class="${#fields.hasErrors('maxExamUser')}? 'form-control is-invalid': 'form-control'" placeholder="maxExamUser" />
+                    <div th:if="${#fields.hasErrors('maxExamUser')}" class="invalid-feedback">
+                        <span th:errors="*{maxExamUser}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex mb-2">
+                <div class="col-md-6">
+                    <label for="maxLmsUser" class="form-label">maxLmsUser</label>
+                    <input type="text" id="maxLmsUser" name="maxLmsUser" th:value="${institution.maxLmsUser}"
+                           th:class="${#fields.hasErrors('maxLmsUser')}? 'form-control is-invalid': 'form-control'" placeholder="maxLmsUser" />
+                    <div th:if="${#fields.hasErrors('maxLmsUser')}" class="invalid-feedback">
+                        <span th:errors="*{maxLmsUser}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="diffServerTime" class="form-label">diffServerTime</label>
+                    <input type="text" id="diffServerTime" name="diffServerTime" th:value="${institution.diffServerTime}"
+                           th:class="${#fields.hasErrors('diffServerTime')}? 'form-control is-invalid': 'form-control'" placeholder="diffServerTime" />
+                    <div th:if="${#fields.hasErrors('diffServerTime')}" class="invalid-feedback">
+                        <span th:errors="*{diffServerTime}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-3">
+                    <label for="effectiveDays" class="form-label">effectiveDays</label>
+                    <input type="text" id="effectiveDays" name="effectiveDays" th:value="${institution.effectiveDays}"
+                           th:class="${#fields.hasErrors('effectiveDays')}? 'form-control is-invalid': 'form-control'" placeholder="effectiveDays" />
+                    <div th:if="${#fields.hasErrors('effectiveDays')}" class="invalid-feedback">
+                        <span th:errors="*{effectiveDays}"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="startedDay" class="form-label">startedDay</label>
+                    <input type="text" id="startedDay" name="startedDay" th:value="${institution.startedDay}"
+                           th:class="${#fields.hasErrors('startedDay')}? 'form-control is-invalid': 'form-control'" placeholder="startedDay" />
+                    <div th:if="${#fields.hasErrors('startedDay')}" class="invalid-feedback">
+                        <span th:errors="*{startedDay}"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="endDay" class="form-label">endDay</label>
+                    <input type="text" id="endDay" name="endDay" th:value="${institution.endDay}"
+                           th:class="${#fields.hasErrors('endDay')}? 'form-control is-invalid': 'form-control'" placeholder="endDay" />
+                    <div th:if="${#fields.hasErrors('endDay')}" class="invalid-feedback">
+                        <span th:errors="*{endDay}"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="endEarly" class="form-label">endEarly</label>
+                    <input type="text" id="endEarly" name="endEarly" th:value="${institution.endEarly}"
+                           th:class="${#fields.hasErrors('endEarly')}? 'form-control is-invalid': 'form-control'" placeholder="endEarly" />
+                    <div th:if="${#fields.hasErrors('endEarly')}" class="invalid-feedback">
+                        <span th:errors="*{endEarly}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-3">
+                    <label for="endOfDay" class="form-label">endOfDay</label>
+                    <input type="text" id="endOfDay" name="endOfDay" th:value="${institution.endOfDay}"
+                           th:class="${#fields.hasErrors('endOfDay')}? 'form-control is-invalid': 'form-control'" placeholder="endOfDay" />
+                    <div th:if="${#fields.hasErrors('endOfDay')}" class="invalid-feedback">
+                        <span th:errors="*{endOfDay}"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="provinceId" class="form-label">provinceId</label>
+                    <input type="text" id="provinceId" name="provinceId" th:value="${institution.provinceId}"
+                           th:class="${#fields.hasErrors('provinceId')}? 'form-control is-invalid': 'form-control'" placeholder="provinceId" />
+                    <div th:if="${#fields.hasErrors('provinceId')}" class="invalid-feedback">
+                        <span th:errors="*{provinceId}"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="cityId" class="form-label">cityId</label>
+                    <input type="text" id="cityId" name="cityId" th:value="${institution.cityId}"
+                           th:class="${#fields.hasErrors('cityId')}? 'form-control is-invalid': 'form-control'" placeholder="cityId" />
+                    <div th:if="${#fields.hasErrors('cityId')}" class="invalid-feedback">
+                        <span th:errors="*{cityId}"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="districtId" class="form-label">districtId</label>
+                    <input type="text" id="districtId" name="districtId" th:value="${institution.districtId}"
+                           th:class="${#fields.hasErrors('districtId')}? 'form-control is-invalid': 'form-control'" placeholder="districtId" />
+                    <div th:if="${#fields.hasErrors('districtId')}" class="invalid-feedback">
+                        <span th:errors="*{districtId}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-3">
+                    <label for="subDistrictId" class="form-label">subDistrictId</label>
+                    <input type="text" id="subDistrictId" name="subDistrictId" th:value="${institution.subDistrictId}"
+                           th:class="${#fields.hasErrors('subDistrictId')}? 'form-control is-invalid': 'form-control'" placeholder="subDistrictId" />
+                    <div th:if="${#fields.hasErrors('subDistrictId')}" class="invalid-feedback">
+                        <span th:errors="*{subDistrictId}"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="address" class="form-label">address</label>
+                    <input type="text" id="address" name="address" th:value="${institution.address}"
+                           th:class="${#fields.hasErrors('address')}? 'form-control is-invalid': 'form-control'" placeholder="address" />
+                    <div th:if="${#fields.hasErrors('address')}" class="invalid-feedback">
+                        <span th:errors="*{address}"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="postalCode" class="form-label">postalCode</label>
+                    <input type="text" id="postalCode" name="postalCode" th:value="${institution.postalCode}"
+                           th:class="${#fields.hasErrors('postalCode')}? 'form-control is-invalid': 'form-control'" placeholder="postalCode" />
+                    <div th:if="${#fields.hasErrors('postalCode')}" class="invalid-feedback">
+                        <span th:errors="*{postalCode}"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="phoneNumber" class="form-label">phoneNumber</label>
+                    <input type="text" id="phoneNumber" name="phoneNumber" th:value="${institution.phoneNumber}"
+                           th:class="${#fields.hasErrors('phoneNumber')}? 'form-control is-invalid': 'form-control'" placeholder="phoneNumber" />
+                    <div th:if="${#fields.hasErrors('phoneNumber')}" class="invalid-feedback">
+                        <span th:errors="*{phoneNumber}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="faxNumber" class="form-label">faxNumber</label>
+                    <input type="text" id="faxNumber" name="faxNumber" th:value="${institution.faxNumber}"
+                           th:class="${#fields.hasErrors('faxNumber')}? 'form-control is-invalid': 'form-control'" placeholder="faxNumber" />
+                    <div th:if="${#fields.hasErrors('faxNumber')}" class="invalid-feedback">
+                        <span th:errors="*{faxNumber}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="website" class="form-label">website</label>
+                    <input type="text" id="website" name="website" th:value="${institution.website}"
+                           th:class="${#fields.hasErrors('website')}? 'form-control is-invalid': 'form-control'" placeholder="website" />
+                    <div th:if="${#fields.hasErrors('website')}" class="invalid-feedback">
+                        <span th:errors="*{website}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="email" class="form-label">email</label>
+                    <input type="text" id="email" name="email" th:value="${institution.email}"
+                           th:class="${#fields.hasErrors('email')}? 'form-control is-invalid': 'form-control'" placeholder="email" />
+                    <div th:if="${#fields.hasErrors('email')}" class="invalid-feedback">
+                        <span th:errors="*{email}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="letterHead" class="form-label">letterHead</label>
+                    <input type="text" id="letterHead" name="letterHead" th:value="${institution.letterHead}"
+                           th:class="${#fields.hasErrors('letterHead')}? 'form-control is-invalid': 'form-control'" placeholder="letterHead" />
+                    <div th:if="${#fields.hasErrors('letterHead')}" class="invalid-feedback">
+                        <span th:errors="*{letterHead}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="headOfSignature" class="form-label">headOfSignature</label>
+                    <input type="text" id="headOfSignature" name="headOfSignature" th:value="${institution.headOfSignature}"
+                           th:class="${#fields.hasErrors('headOfSignature')}? 'form-control is-invalid': 'form-control'" placeholder="headOfSignature" />
+                    <div th:if="${#fields.hasErrors('headOfSignature')}" class="invalid-feedback">
+                        <span th:errors="*{headOfSignature}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="serviceLogo" class="form-label">serviceLogo</label>
+                    <input type="text" id="serviceLogo" name="serviceLogo" th:value="${institution.serviceLogo}"
+                           th:class="${#fields.hasErrors('serviceLogo')}? 'form-control is-invalid': 'form-control'" placeholder="serviceLogo" />
+                    <div th:if="${#fields.hasErrors('serviceLogo')}" class="invalid-feedback">
+                        <span th:errors="*{serviceLogo}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex mb-3">
+                <div class="col-md-6">
+                    <label for="institutionLogo" class="form-label">institutionLogo</label>
+                    <input type="text" id="institutionLogo" name="institutionLogo" th:value="${institution.institutionLogo}"
+                           th:class="${#fields.hasErrors('institutionLogo')}? 'form-control is-invalid': 'form-control'" placeholder="institutionLogo" />
+                    <div th:if="${#fields.hasErrors('institutionLogo')}" class="invalid-feedback">
+                        <span th:errors="*{institutionLogo}"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="stamp" class="form-label">stamp</label>
+                    <input type="text" id="stamp" name="stamp" th:value="${institution.stamp}"
+                           th:class="${#fields.hasErrors('stamp')}? 'form-control is-invalid': 'form-control'" placeholder="stamp" />
+                    <div th:if="${#fields.hasErrors('stamp')}" class="invalid-feedback">
+                        <span th:errors="*{stamp}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="modal-footer input-group">
+        <button type="submit" class="btn btn-warning">
+            <i class="ti ti-check"></i>
+            Save Changes
+        </button>
+        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+            Close
+        </button>
+    </div>
+</form>
